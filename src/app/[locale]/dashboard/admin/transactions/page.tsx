@@ -111,8 +111,8 @@ export default function AdminTransactionsPage() {
         supabase.from('transactions').select('commission_amount').eq('status', 'completed').like('created_at', `${currentMonth}%`)
       ])
 
-      const totalRevenue = totalRevenueResult.data?.reduce((sum, t) => sum + t.commission_amount, 0) || 0
-      const thisMonthRevenue = thisMonthRevenueResult.data?.reduce((sum, t) => sum + t.commission_amount, 0) || 0
+      const totalRevenue = (totalRevenueResult.data as any[])?.reduce((sum, t) => sum + t.commission_amount, 0) || 0
+      const thisMonthRevenue = (thisMonthRevenueResult.data as any[])?.reduce((sum, t) => sum + t.commission_amount, 0) || 0
 
       setStats({
         totalRevenue,
@@ -157,7 +157,7 @@ export default function AdminTransactionsPage() {
 
   const handleUpdateStatus = async (transactionId: string, newStatus: string) => {
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('transactions')
         .update({ status: newStatus })
         .eq('id', transactionId)

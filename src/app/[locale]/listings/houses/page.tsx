@@ -128,7 +128,7 @@ export default function HousesListingsPage() {
         
         return {
           ...listing,
-          seller: seller ? { full_name: seller.full_name, email: seller.email } : null,
+          seller: seller ? { full_name: (seller as any).full_name, email: (seller as any).email } : null,
           media: media.map((m: any) => ({
             url: m.url,
             media_type: m.media_type,
@@ -136,10 +136,10 @@ export default function HousesListingsPage() {
             order_index: m.order_index
           })),
           house_details: houseDetail ? {
-            bedrooms: houseDetail.bedrooms,
-            bathrooms: houseDetail.bathrooms,
-            total_area: houseDetail.total_area,
-            furnished: houseDetail.furnished
+            bedrooms: (houseDetail as any).bedrooms,
+            bathrooms: (houseDetail as any).bathrooms,
+            total_area: (houseDetail as any).total_area,
+            furnished: (houseDetail as any).furnished
           } : undefined,
           promoted: hasActivePromotion || listing.promoted
         }

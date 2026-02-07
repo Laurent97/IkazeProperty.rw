@@ -4,7 +4,7 @@ import { supabase } from '@/lib/supabase';
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     // Verify user authentication
@@ -16,7 +16,7 @@ export async function POST(
       );
     }
 
-    const notificationId = params.id;
+    const { id: notificationId } = await params;
     const success = await NotificationService.markAsRead(notificationId, user.id);
 
     if (success) {

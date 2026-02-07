@@ -118,7 +118,7 @@ export default function AdminInquiriesPage() {
 
   const handleUpdateStatus = async (inquiryId: string, newStatus: string) => {
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('inquiries')
         .update({ status: newStatus })
         .eq('id', inquiryId)

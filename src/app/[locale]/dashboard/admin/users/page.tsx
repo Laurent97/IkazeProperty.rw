@@ -115,7 +115,7 @@ export default function AdminUsersPage() {
     if (!confirm(`Are you sure you want to ${action} this user?`)) return
 
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('users')
         .update({ status: newStatus })
         .eq('id', userId)

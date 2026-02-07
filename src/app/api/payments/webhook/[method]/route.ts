@@ -4,13 +4,14 @@ import { PaymentMethod } from '@/types/payment';
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { method: string } }
+  { params }: { params: Promise<{ method: string }> }
 ) {
   try {
-    const method = params.method as PaymentMethod;
+    const { method } = await params;
+    const paymentMethod = method as PaymentMethod;
     
     // Validate payment method
-    if (!PaymentProcessorFactory.getSupportedMethods().includes(method)) {
+    if (!PaymentProcessorFactory.getSupportedMethods().includes(paymentMethod)) {
       return NextResponse.json(
         { error: 'Invalid payment method' },
         { status: 400 }
@@ -20,7 +21,7 @@ export async function POST(
     const body = await request.json();
     
     // Process webhook
-    await PaymentProcessorFactory.processWebhook(method, body);
+    await PaymentProcessorFactory.processWebhook(paymentMethod, body);
 
     return NextResponse.json({ success: true });
   } catch (error: any) {

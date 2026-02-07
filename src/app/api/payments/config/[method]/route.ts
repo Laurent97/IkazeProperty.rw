@@ -18,17 +18,18 @@ const pick = (source: Record<string, any>, keys: string[]) =>
     return acc;
   }, {} as Record<string, any>);
 
-export async function GET(request: NextRequest, context: { params: { method: string } }) {
+export async function GET(request: NextRequest, context: { params: Promise<{ method: string }> }) {
   try {
-    const method = context.params.method as PaymentMethod;
-    if (!SUPPORTED_METHODS.includes(method)) {
+    const { method } = await context.params;
+    const paymentMethod = method as PaymentMethod;
+    if (!SUPPORTED_METHODS.includes(paymentMethod)) {
       return NextResponse.json({ error: 'Unsupported payment method' }, { status: 400 });
     }
 
     const { data, error } = await supabaseAdmin
       .from('payment_configurations')
       .select('payment_method, is_active, config_data')
-      .eq('payment_method', method)
+      .eq('payment_method', paymentMethod)
       .single();
 
     if (error || !data) {
@@ -38,7 +39,7 @@ export async function GET(request: NextRequest, context: { params: { method: str
     const config = data.config_data || {};
     let publicConfig: Record<string, any> = {};
 
-    switch (method) {
+    switch (paymentMethod) {
       case 'mtn_momo':
         publicConfig = pick(config, [
           'merchant_name',
@@ -91,7 +92,7 @@ export async function GET(request: NextRequest, context: { params: { method: str
     }
 
     return NextResponse.json({
-      payment_method: method,
+      payment_method: paymentMethod,
       is_active: data.is_active,
       config: publicConfig
     });

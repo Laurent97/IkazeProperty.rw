@@ -4,7 +4,7 @@ import { supabase } from '@/lib/supabase';
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { jobName: string } }
+  { params }: { params: Promise<{ jobName: string }> }
 ) {
   try {
     // Verify API key for security (in production, use proper authentication)
@@ -16,7 +16,7 @@ export async function POST(
       );
     }
 
-    const jobName = params.jobName;
+    const { jobName } = await params;
     const result = await triggerCronJob(jobName);
 
     return NextResponse.json({
@@ -26,7 +26,8 @@ export async function POST(
       timestamp: new Date().toISOString()
     });
   } catch (error: any) {
-    console.error(`Cron job ${params.jobName} error:`, error);
+    const { jobName } = await params;
+    console.error(`Cron job ${jobName} error:`, error);
     return NextResponse.json(
       { error: error.message },
       { status: 500 }

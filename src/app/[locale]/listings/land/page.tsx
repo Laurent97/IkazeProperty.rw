@@ -98,7 +98,7 @@ export default function LandListingsPage() {
       }
 
       // Get listing IDs for fetching related data
-      const listingIds = listingsData.map(listing => listing.id)
+      const listingIds = (listingsData as any[]).map(listing => listing.id)
       
       // Fetch related data in parallel
       const [
@@ -109,7 +109,7 @@ export default function LandListingsPage() {
         supabaseClient
           .from('users')
           .select('id, full_name, email, avatar_url, phone_number, verified')
-          .in('id', listingsData.map(l => l.seller_id)),
+          .in('id', (listingsData as any[]).map(l => l.seller_id)),
         
         supabaseClient
           .from('listing_media')
@@ -121,7 +121,7 @@ export default function LandListingsPage() {
           .from('land_details')
           .select('*')
           .in('listing_id', listingIds)
-      ])
+      ]) as any
 
       // Log any errors but continue processing
       if (sellersError) console.error('Error fetching sellers:', sellersError)
@@ -139,23 +139,23 @@ export default function LandListingsPage() {
       // Combine all data
       const combinedListings = listingsData.map(listing => {
         // Find seller
-        const seller = sellersData?.find(s => s.id === listing.seller_id)
+        const seller = (sellersData as any[])?.find(s => s.id === (listing as any).seller_id)
         
         // Find media for this listing
-        const media = mediaData?.filter(m => m.listing_id === listing.id) || []
+        const media = (mediaData as any[])?.filter(m => m.listing_id === (listing as any).id) || []
         
         // Find land details for this listing
-        const landDetail = landDetailsData?.find(d => d.listing_id === listing.id)
+        const landDetail = (landDetailsData as any[])?.find(d => d.listing_id === (listing as any).id)
         
         // Check if listing has active promotion
-        const hasActivePromotion = promotionsData?.some(p => p.listing_id === listing.id)
+        const hasActivePromotion = (promotionsData as any[])?.some(p => p.listing_id === (listing as any).id)
         
         return {
-          ...listing,
+          ...(listing as any),
           seller: seller || null,
           media: media || [],
           land_details: landDetail || undefined,
-          promoted: hasActivePromotion || listing.promoted
+          promoted: hasActivePromotion || (listing as any).promoted
         }
       }) as LandListing[]
 

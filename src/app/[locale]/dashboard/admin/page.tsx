@@ -58,7 +58,7 @@ export default function AdminDashboard() {
         supabase.from('transactions').select('commission_amount').eq('status', 'completed')
       ])
 
-      const totalRevenue = revenueData.data?.reduce((sum, t) => sum + t.commission_amount, 0) || 0
+      const totalRevenue = (revenueData.data as any[])?.reduce((sum, t) => sum + t.commission_amount, 0) || 0
 
       setStats({
         totalUsers: usersCount.count || 0,
@@ -117,7 +117,7 @@ export default function AdminDashboard() {
 
   const handleInquiryAction = async (inquiryId: string, action: 'approved' | 'rejected') => {
     try {
-      await supabase
+      await (supabase as any)
         .from('inquiries')
         .update({ 
           status: action,

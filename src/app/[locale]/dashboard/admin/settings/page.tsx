@@ -119,7 +119,7 @@ export default function AdminSettingsPage() {
     try {
       setSaving(true)
       
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('settings')
         .upsert({
           id: 1,
@@ -172,7 +172,7 @@ export default function AdminSettingsPage() {
         mobile_money_details: {
           ...prev.mobile_money_details,
           [provider]: {
-            ...prev.mobile_money_details[provider],
+            ...(prev.mobile_money_details as any)[provider],
             [field]: value
           }
         }
@@ -771,7 +771,7 @@ export default function AdminSettingsPage() {
         {/* Save Button */}
         <div className="flex justify-end">
           <Button
-            onClick={handleSaveSettings}
+            onClick={() => handleSaveSettings()}
             disabled={saving}
             className="bg-green-600 hover:bg-green-700"
           >

@@ -162,19 +162,19 @@ function MTNMobileMoneyConfig({ config, isActive, onSave, loading }: {
   loading: boolean;
 }) {
   const [localConfig, setLocalConfig] = useState<MTNMobileMoneyConfigType>({
-    is_active: false,
-    merchant_name: '',
-    merchant_code: '',
-    api_key: '',
-    api_secret: '',
-    phone_number: '',
-    environment: 'sandbox',
-    callback_url: '',
-    transaction_fee_percent: 2.5,
-    fixed_fee: 100,
-    min_amount: 100,
-    max_amount: 500000,
-    ...config
+    ...config,
+    merchant_name: config.merchant_name || '',
+    merchant_code: config.merchant_code || '',
+    api_key: config.api_key || '',
+    api_secret: config.api_secret || '',
+    phone_number: config.phone_number || '',
+    environment: config.environment || 'sandbox',
+    callback_url: config.callback_url || '',
+    transaction_fee_percent: config.transaction_fee_percent ?? 2.5,
+    fixed_fee: config.fixed_fee ?? 100,
+    min_amount: config.min_amount ?? 100,
+    max_amount: config.max_amount ?? 500000,
+    is_active: config.is_active ?? false
   });
 
   const updateConfig = (updates: Partial<MTNMobileMoneyConfigType>) => {
@@ -254,7 +254,7 @@ function MTNMobileMoneyConfig({ config, isActive, onSave, loading }: {
             <Label htmlFor="mtn_environment">Environment</Label>
             <Select
               value={localConfig.environment}
-              onValueChange={(value: 'sandbox' | 'production') => updateConfig({ environment: value })}
+              onValueChange={(value) => updateConfig({ environment: value as 'sandbox' | 'production' })}
             >
               <SelectTrigger>
                 <SelectValue />
@@ -341,18 +341,18 @@ function AirtelMoneyConfig({ config, isActive, onSave, loading }: {
   loading: boolean;
 }) {
   const [localConfig, setLocalConfig] = useState<AirtelMoneyConfigType>({
-    is_active: false,
-    client_id: '',
-    client_secret: '',
-    merchant_msisdn: '',
-    country: 'RW',
-    currency: 'RWF',
-    pin: '',
-    transaction_fee_percent: 2.5,
-    fixed_fee: 100,
-    min_amount: 100,
-    max_amount: 500000,
-    ...config
+    ...config,
+    is_active: config.is_active ?? false,
+    client_id: config.client_id || '',
+    client_secret: config.client_secret || '',
+    merchant_msisdn: config.merchant_msisdn || '',
+    country: config.country || 'RW',
+    currency: config.currency || 'RWF',
+    pin: config.pin || '',
+    transaction_fee_percent: config.transaction_fee_percent ?? 2.5,
+    fixed_fee: config.fixed_fee ?? 100,
+    min_amount: config.min_amount ?? 100,
+    max_amount: config.max_amount ?? 500000
   });
 
   const updateConfig = (updates: Partial<AirtelMoneyConfigType>) => {
@@ -500,18 +500,18 @@ function EquityBankConfig({ config, isActive, onSave, loading }: {
   loading: boolean;
 }) {
   const [localConfig, setLocalConfig] = useState<EquityBankConfigType>({
-    is_active: false,
-    api_endpoint: '',
-    merchant_id: '',
-    terminal_id: '',
-    encryption_key: '',
-    account_number: '',
-    account_name: '',
-    transaction_fee_percent: 1.5,
-    fixed_fee: 500,
-    min_amount: 100,
-    max_amount: 2000000,
-    ...config
+    ...config,
+    is_active: config.is_active ?? false,
+    api_endpoint: config.api_endpoint || '',
+    merchant_id: config.merchant_id || '',
+    terminal_id: config.terminal_id || '',
+    encryption_key: config.encryption_key || '',
+    account_number: config.account_number || '',
+    account_name: config.account_name || '',
+    transaction_fee_percent: config.transaction_fee_percent ?? 1.5,
+    fixed_fee: config.fixed_fee ?? 500,
+    min_amount: config.min_amount ?? 100,
+    max_amount: config.max_amount ?? 2000000
   });
 
   const updateConfig = (updates: Partial<EquityBankConfigType>) => {
@@ -658,27 +658,27 @@ function CryptoConfig({ config, isActive, onSave, loading }: {
   loading: boolean;
 }) {
   const [localConfig, setLocalConfig] = useState<CryptoConfigType>({
-    is_active: false,
+    ...config,
+    is_active: config.is_active ?? false,
     bitcoin: {
-      enabled: false,
-      network_fee: 0,
-      confirmation_required: 2,
-      wallet_address: ''
+      enabled: config.bitcoin?.enabled ?? false,
+      network_fee: config.bitcoin?.network_fee ?? 0,
+      confirmation_required: config.bitcoin?.confirmation_required ?? 2,
+      wallet_address: config.bitcoin?.wallet_address || ''
     },
     ethereum: {
-      enabled: false,
-      network_fee: 0,
-      confirmation_required: 10,
-      wallet_address: ''
+      enabled: config.ethereum?.enabled ?? false,
+      network_fee: config.ethereum?.network_fee ?? 0,
+      confirmation_required: config.ethereum?.confirmation_required ?? 10,
+      wallet_address: config.ethereum?.wallet_address || ''
     },
     usdt: {
-      enabled: false,
-      network: 'TRC20',
-      wallet_address: ''
+      enabled: config.usdt?.enabled ?? false,
+      network: config.usdt?.network ?? 'TRC20',
+      wallet_address: config.usdt?.wallet_address || ''
     },
-    exchange_rate_provider: 'manual',
-    manual_exchange_rate: 1200,
-    ...config
+    exchange_rate_provider: config.exchange_rate_provider ?? 'manual',
+    manual_exchange_rate: config.manual_exchange_rate ?? 1200
   });
 
   const updateConfig = (updates: Partial<CryptoConfigType>) => {
@@ -767,8 +767,8 @@ function CryptoConfig({ config, isActive, onSave, loading }: {
               <Label className="text-sm">Network</Label>
               <Select
                 value={localConfig.usdt.network}
-                onValueChange={(value: 'ERC20' | 'TRC20') => updateConfig({
-                  usdt: { ...localConfig.usdt, network: value }
+                onValueChange={(value) => updateConfig({
+                  usdt: { ...localConfig.usdt, network: value as 'ERC20' | 'TRC20' }
                 })}
               >
                 <SelectTrigger>
@@ -797,7 +797,7 @@ function CryptoConfig({ config, isActive, onSave, loading }: {
             <Label>Exchange Rate Provider</Label>
             <Select
               value={localConfig.exchange_rate_provider}
-              onValueChange={(value: 'coinbase' | 'binance' | 'manual') => updateConfig({ exchange_rate_provider: value })}
+              onValueChange={(value) => updateConfig({ exchange_rate_provider: value as 'coinbase' | 'binance' | 'manual' })}
             >
               <SelectTrigger>
                 <SelectValue />

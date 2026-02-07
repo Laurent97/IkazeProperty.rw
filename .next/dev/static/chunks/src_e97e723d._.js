@@ -1377,6 +1377,7 @@ function ListingDetailPage() {
                                         value: visitMethod,
                                         onChange: (e)=>setVisitMethod(e.target.value),
                                         className: "w-full px-3 py-2 border border-gray-300 rounded-lg",
+                                        title: "Payment Method Selection",
                                         children: availableMethods.map((method)=>{
                                             const methodNames = {
                                                 mtn_momo: 'MTN Mobile Money',
@@ -1390,7 +1391,7 @@ function ListingDetailPage() {
                                                 children: methodNames[method] || method
                                             }, method, false, {
                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                lineNumber: 652,
+                                                lineNumber: 653,
                                                 columnNumber: 23
                                             }, this);
                                         })
@@ -1406,7 +1407,7 @@ function ListingDetailPage() {
                                                 children: "Phone Number"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                lineNumber: 661,
+                                                lineNumber: 662,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1417,13 +1418,13 @@ function ListingDetailPage() {
                                                 className: "w-full px-3 py-2 border border-gray-300 rounded-lg"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                lineNumber: 662,
+                                                lineNumber: 663,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                        lineNumber: 660,
+                                        lineNumber: 661,
                                         columnNumber: 19
                                     }, this),
                                     visitMethod === 'crypto' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1433,20 +1434,21 @@ function ListingDetailPage() {
                                                 children: "Cryptocurrency"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                lineNumber: 674,
+                                                lineNumber: 675,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                                 value: visitCrypto,
                                                 onChange: (e)=>setVisitCrypto(e.target.value),
                                                 className: "w-full px-3 py-2 border border-gray-300 rounded-lg",
+                                                title: "Cryptocurrency Selection",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         value: "bitcoin",
                                                         children: "Bitcoin"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                        lineNumber: 680,
+                                                        lineNumber: 682,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1454,7 +1456,7 @@ function ListingDetailPage() {
                                                         children: "Ethereum"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                        lineNumber: 681,
+                                                        lineNumber: 683,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1462,19 +1464,19 @@ function ListingDetailPage() {
                                                         children: "USDT"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                        lineNumber: 682,
+                                                        lineNumber: 684,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                lineNumber: 675,
+                                                lineNumber: 676,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                        lineNumber: 673,
+                                        lineNumber: 674,
                                         columnNumber: 19
                                     }, this)
                                 ]
@@ -1493,7 +1495,7 @@ function ListingDetailPage() {
                                         children: "Cancel"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                        lineNumber: 689,
+                                        lineNumber: 691,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -1503,13 +1505,13 @@ function ListingDetailPage() {
                                         children: visitSubmitting ? 'Submitting...' : 'Pay Visit Fee'
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                        lineNumber: 696,
+                                        lineNumber: 698,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                lineNumber: 688,
+                                lineNumber: 690,
                                 columnNumber: 15
                             }, this)
                         ]

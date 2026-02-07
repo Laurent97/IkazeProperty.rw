@@ -116,7 +116,7 @@ export default function AdminListingDetailPage() {
 
   const handleUpdateListing = async () => {
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('listings')
         .update(formData)
         .eq('id', listingId)
@@ -152,7 +152,7 @@ export default function AdminListingDetailPage() {
 
   const handleStatusChange = async (newStatus: string) => {
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('listings')
         .update({ status: newStatus })
         .eq('id', listingId)

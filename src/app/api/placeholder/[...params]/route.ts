@@ -2,10 +2,11 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { params: string[] } }
+  { params }: { params: Promise<{ params: string[] }> }
 ) {
   try {
-    const dimensions = params.params.join('/')
+    const { params: dimensionsArray } = await params
+    const dimensions = dimensionsArray.join('/')
     
     // Parse dimensions from the URL path
     const [width, height] = dimensions.split('x').map(Number)

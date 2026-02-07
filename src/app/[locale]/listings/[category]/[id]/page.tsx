@@ -115,7 +115,7 @@ export default function ListingDetailPage() {
           return
         }
 
-        if (data.category !== category) {
+        if ((data as any).category !== category) {
           if (isActive) {
             setError('Listing not found')
             setLoading(false)
@@ -196,10 +196,10 @@ export default function ListingDetailPage() {
                     <Card key={similarListing.id} className="hover:shadow-lg transition-shadow cursor-pointer touch-target">
                       <CardContent className="p-3 sm:p-4">
                         <div className="relative">
-                          {similarListing.media && similarListing.media.length > 0 ? (
+                          {(similarListing as any).media && (similarListing as any).media.length > 0 ? (
                             <img
-                              src={similarListing.media[0].url}
-                              alt={similarListing.title}
+                              src={(similarListing as any).media[0].url}
+                              alt={(similarListing as any).title}
                               className="w-full h-24 sm:h-28 md:h-32 object-cover rounded-lg"
                             />
                           ) : (
@@ -639,6 +639,7 @@ export default function ListingDetailPage() {
                   value={visitMethod}
                   onChange={(e) => setVisitMethod(e.target.value as PaymentMethod)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                  title="Payment Method Selection"
                 >
                   {availableMethods.map((method) => {
                     const methodNames: Record<PaymentMethod, string> = {
@@ -676,6 +677,7 @@ export default function ListingDetailPage() {
                       value={visitCrypto}
                       onChange={(e) => setVisitCrypto(e.target.value as CryptoType)}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                      title="Cryptocurrency Selection"
                     >
                       <option value="bitcoin">Bitcoin</option>
                       <option value="ethereum">Ethereum</option>

@@ -303,7 +303,7 @@ export default function CreateListingPage() {
         category: formData.category,
         transaction_type: formData.transactionType,
         location: formData.location,
-        seller_id: user.id, // Make sure this is correct
+        seller_id: user?.id || '', // Make sure this is correct
         commission_rate: 0.30,
         commission_agreed: formData.commissionAgreed,
         featured: formData.promotionType === 'featured',
@@ -543,7 +543,7 @@ export default function CreateListingPage() {
                 </label>
                 <select
                   value={formData.priceType}
-                  onChange={(e) => setFormData({...formData, priceType: e.target.value})}
+                  onChange={(e) => setFormData({...formData, priceType: e.target.value as 'fixed'})}
                   className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
                   aria-label="Price type"
                 >
@@ -558,7 +558,7 @@ export default function CreateListingPage() {
                 </label>
                 <select
                   value={formData.transactionType}
-                  onChange={(e) => setFormData({...formData, transactionType: e.target.value})}
+                  onChange={(e) => setFormData({...formData, transactionType: e.target.value as 'sale'})}
                   className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
                   aria-label="Transaction type"
                 >
