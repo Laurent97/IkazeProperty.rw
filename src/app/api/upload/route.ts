@@ -66,29 +66,29 @@ export async function POST(request: NextRequest) {
     })
 
     console.log('✅ Cloudinary upload successful:', {
-      url: result.secure_url || result.url,
-      public_id: result.public_id,
-      width: result.width,
-      height: result.height
+      url: (result as any).secure_url || (result as any).url,
+      public_id: (result as any).public_id,
+      width: (result as any).width,
+      height: (result as any).height
     })
 
     return NextResponse.json({
       success: true,
       data: {
-        url: result.secure_url || result.url,
-        public_id: result.public_id,
+        url: (result as any).secure_url || (result as any).url,
+        public_id: (result as any).public_id,
         size: file.size,
         type: fileType,
-        duration: result.duration || null, // Video duration if available
-        format: result.format || null // Video format if available
+        duration: (result as any).duration || null, // Video duration if available
+        format: (result as any).format || null // Video format if available
       }
     })
-  } catch (error) {
+  } catch (error: any) {
     console.error('❌ Upload error:', error)
-    return NextResponse.json(
-      { error: error.message || 'Failed to upload file' },
-      { status: 500 }
-    )
+    return NextResponse.json({
+      success: false,
+      error: (error as any).message || 'Failed to upload file'
+    }, { status: 500 })
   }
 }
 
