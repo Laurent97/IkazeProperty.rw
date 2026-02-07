@@ -415,7 +415,7 @@ export default function PaymentSelection({
                 {method.requiresCryptoSelection && selectedMethod === method.id && (
                   <div className="mt-4 space-y-4">
                     <Label htmlFor="crypto_type">Select Cryptocurrency</Label>
-                    <Select value={selectedCrypto} onValueChange={(value: CryptoType) => setSelectedCrypto(value)}>
+                    <Select value={selectedCrypto} onValueChange={(value) => setSelectedCrypto(value as CryptoType)}>
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
