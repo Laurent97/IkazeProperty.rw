@@ -1,7 +1,0 @@
-{
-  "/[locale]/listings/[category]/[id]/page": "app/[locale]/listings/[category]/[id]/page.js",
-  "/[locale]/page": "app/[locale]/page.js",
-  "/api/ads/analytics/route": "app/api/ads/analytics/route.js",
-  "/api/ads/route": "app/api/ads/route.js",
-  "/api/listings/route": "app/api/listings/route.js"
-}

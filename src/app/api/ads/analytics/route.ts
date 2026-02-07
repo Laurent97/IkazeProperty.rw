@@ -56,7 +56,7 @@ export async function POST(request: Request) {
       .single()
     
     if (currentCampaign) {
-      const currentValue = currentCampaign[updateField] || 0
+      const currentValue = (currentCampaign as any)[updateField] || 0
       const { error: updateError } = await supabaseAdmin
         .from('ad_campaigns')
         .update({

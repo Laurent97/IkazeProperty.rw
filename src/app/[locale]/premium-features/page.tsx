@@ -325,6 +325,7 @@ export default function PremiumFeaturesPage() {
               <CardContent>
                 <div className="space-y-4 mb-6">
                   {getSelectedFeaturesDetails().map((feature, index) => {
+                    if (!feature || !feature.icon) return null
                     const Icon = feature.icon
                     return (
                       <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">

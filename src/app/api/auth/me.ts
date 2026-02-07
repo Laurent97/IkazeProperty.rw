@@ -4,10 +4,20 @@ import { Database } from '@/types/database'
 
 export async function GET(request: NextRequest) {
   try {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+
+    if (!supabaseUrl || !supabaseAnonKey || !supabaseServiceKey) {
+      return NextResponse.json(
+        { error: 'Missing environment variables' },
+        { status: 500 }
+      )
+    }
+
     const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-      process.env.SUPABASE_SERVICE_ROLE_KEY
+      supabaseUrl,
+      supabaseServiceKey
     )
 
     // Get the user from the JWT token in Authorization header
@@ -31,8 +41,8 @@ export async function GET(request: NextRequest) {
       user: {
         id: user.id,
         email: user.email || '',
-        full_name: user.full_name || '',
-        role: user.role || 'user'
+        full_name: user.user_metadata?.full_name || '',
+        role: user.user_metadata?.role || 'user'
       }
     })
   } catch (error) {

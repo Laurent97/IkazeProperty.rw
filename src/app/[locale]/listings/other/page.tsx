@@ -76,7 +76,7 @@ export default function OtherItemsListingsPage() {
       media: [
         { url: '/api/placeholder/600/400', public_id: 'mock_public_id', media_type: 'image', is_primary: true, order_index: 0 }
       ],
-      seller: { full_name: 'Admin Agent', email: 'support@ikazeproperty.rw' },
+      seller: { id: 'mock-seller', full_name: 'Admin Agent', email: 'support@ikazeproperty.rw', avatar_url: null },
       other_details: {
         subcategory: 'electronics',
         brand: 'Apple',
@@ -116,7 +116,7 @@ export default function OtherItemsListingsPage() {
       media: [
         { url: '/api/placeholder/600/400', public_id: 'mock_public_id', media_type: 'image', is_primary: true, order_index: 0 }
       ],
-      seller: { full_name: 'Admin Agent', email: 'support@ikazeproperty.rw' },
+      seller: { id: 'mock-seller', full_name: 'Admin Agent', email: 'support@ikazeproperty.rw', avatar_url: null },
       other_details: {
         subcategory: 'electronics',
         brand: 'Apple',
@@ -156,7 +156,7 @@ export default function OtherItemsListingsPage() {
       media: [
         { url: '/api/placeholder/600/400', public_id: 'mock_public_id', media_type: 'image', is_primary: true, order_index: 0 }
       ],
-      seller: { full_name: 'Admin Agent', email: 'support@ikazeproperty.rw' },
+      seller: { id: 'mock-seller', full_name: 'Admin Agent', email: 'support@ikazeproperty.rw', avatar_url: null },
       other_details: {
         subcategory: 'furniture',
         brand: 'Modern Living',
@@ -196,7 +196,7 @@ export default function OtherItemsListingsPage() {
       media: [
         { url: '/api/placeholder/600/400', public_id: 'mock_public_id', media_type: 'image', is_primary: true, order_index: 0 }
       ],
-      seller: { full_name: 'Admin Agent', email: 'support@ikazeproperty.rw' },
+      seller: { id: 'mock-seller', full_name: 'Admin Agent', email: 'support@ikazeproperty.rw', avatar_url: null },
       other_details: {
         subcategory: 'electronics',
         brand: 'Samsung',
@@ -236,7 +236,7 @@ export default function OtherItemsListingsPage() {
       media: [
         { url: '/api/placeholder/600/400', public_id: 'mock_public_id', media_type: 'image', is_primary: true, order_index: 0 }
       ],
-      seller: { full_name: 'Admin Agent', email: 'support@ikazeproperty.rw' },
+      seller: { id: 'mock-seller', full_name: 'Admin Agent', email: 'support@ikazeproperty.rw', avatar_url: null },
       other_details: {
         subcategory: 'furniture',
         brand: 'Classic Wood',
@@ -276,7 +276,7 @@ export default function OtherItemsListingsPage() {
       media: [
         { url: '/api/placeholder/600/400', public_id: 'mock_public_id', media_type: 'image', is_primary: true, order_index: 0 }
       ],
-      seller: { full_name: 'Admin Agent', email: 'support@ikazeproperty.rw' },
+      seller: { id: 'mock-seller', full_name: 'Admin Agent', email: 'support@ikazeproperty.rw', avatar_url: null },
       other_details: {
         subcategory: 'electronics',
         brand: 'Sony',
@@ -316,7 +316,7 @@ export default function OtherItemsListingsPage() {
       media: [
         { url: '/api/placeholder/600/400', public_id: 'mock_public_id', media_type: 'image', is_primary: true, order_index: 0 }
       ],
-      seller: { full_name: 'Admin Agent', email: 'support@ikazeproperty.rw' },
+      seller: { id: 'mock-seller', full_name: 'Admin Agent', email: 'support@ikazeproperty.rw', avatar_url: null },
       other_details: {
         subcategory: 'furniture',
         brand: 'ComfortSeating',
@@ -356,7 +356,7 @@ export default function OtherItemsListingsPage() {
       media: [
         { url: '/api/placeholder/600/400', public_id: 'mock_public_id', media_type: 'image', is_primary: true, order_index: 0 }
       ],
-      seller: { full_name: 'Admin Agent', email: 'support@ikazeproperty.rw' },
+      seller: { id: 'mock-seller', full_name: 'Admin Agent', email: 'support@ikazeproperty.rw', avatar_url: null },
       other_details: {
         subcategory: 'electronics',
         brand: 'Apple',
@@ -396,7 +396,7 @@ export default function OtherItemsListingsPage() {
       media: [
         { url: '/api/placeholder/600/400', public_id: 'mock_public_id', media_type: 'image', is_primary: true, order_index: 0 }
       ],
-      seller: { full_name: 'Admin Agent', email: 'support@ikazeproperty.rw' },
+      seller: { id: 'mock-seller', full_name: 'Admin Agent', email: 'support@ikazeproperty.rw', avatar_url: null },
       other_details: {
         subcategory: 'furniture',
         brand: 'SleepWell',
@@ -436,7 +436,7 @@ export default function OtherItemsListingsPage() {
       media: [
         { url: '/api/placeholder/600/400', public_id: 'mock_public_id', media_type: 'image', is_primary: true, order_index: 0 }
       ],
-      seller: { full_name: 'Admin Agent', email: 'support@ikazeproperty.rw' },
+      seller: { id: 'mock-seller', full_name: 'Admin Agent', email: 'support@ikazeproperty.rw', avatar_url: null },
       other_details: {
         subcategory: 'electronics',
         brand: 'Canon',

@@ -1,16 +1,37 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabase } from '@/lib/auth'
-import { getCurrentUser } from '@/lib/auth'
+import { createClient } from '@supabase/supabase-js'
+import type { Database } from '@/types/database'
+
+async function getCurrentUser(request: NextRequest) {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  )
+  
+  const authHeader = request.headers.get('authorization')
+  if (!authHeader) return null
+  
+  const token = authHeader.replace('Bearer ', '')
+  const { data: { user }, error } = await supabase.auth.getUser(token)
+  
+  if (error || !user) return null
+  return user
+}
 
 export async function POST(request: NextRequest) {
   try {
-    const currentUser = await getCurrentUser()
+    const currentUser = await getCurrentUser(request)
     if (!currentUser) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
       )
     }
+
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    )
 
     const { listing_id, message } = await request.json()
 
@@ -26,7 +47,7 @@ export async function POST(request: NextRequest) {
       .from('listings')
       .select('seller_id, title')
       .eq('id', listing_id)
-      .single()
+      .single() as { data: { seller_id: string; title: string } | null, error: any }
 
     if (listingError || !listing) {
       return NextResponse.json(
@@ -68,7 +89,7 @@ export async function POST(request: NextRequest) {
         seller_id: listing.seller_id,
         message,
         status: 'pending'
-      })
+      } as any)
       .select()
       .single()
 
