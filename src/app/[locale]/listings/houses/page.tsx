@@ -90,7 +90,7 @@ export default function HousesListingsPage() {
         
         supabase
           .from('listing_media')
-          .select('id, listing_id, url, media_type, order_index, is_primary')
+          .select('id, listing_id, url, public_id, media_type, order_index, is_primary')
           .in('listing_id', listingIds)
           .order('order_index'),
         

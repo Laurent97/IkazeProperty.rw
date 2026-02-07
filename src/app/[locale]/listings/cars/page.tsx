@@ -43,6 +43,7 @@ interface CarListing {
     id: string
     listing_id: string
     url: string
+    public_id: string
     media_type: string
     order_index: number
     is_primary: boolean
@@ -134,7 +135,7 @@ export default function CarsListingsPage() {
         
         supabaseClient
           .from('listing_media')
-          .select('id, listing_id, url, media_type, order_index, is_primary')
+          .select('id, listing_id, url, public_id, media_type, order_index, is_primary')
           .in('listing_id', listingIds)
           .order('order_index'),
         

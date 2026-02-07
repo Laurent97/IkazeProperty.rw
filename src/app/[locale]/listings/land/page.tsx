@@ -31,7 +31,15 @@ interface LandListing {
   visit_fee_enabled: boolean
   visit_fee_amount: number
   visit_fee_payment_methods: any
-  media: any[]
+  media: {
+    id: string
+    listing_id: string
+    url: string
+    public_id: string
+    media_type: 'image' | 'video'
+    order_index: number
+    is_primary: boolean
+  }[]
   seller: any
   land_details?: {
     id: string
@@ -113,7 +121,7 @@ export default function LandListingsPage() {
         
         supabaseClient
           .from('listing_media')
-          .select('id, listing_id, url, media_type, order_index, is_primary')
+          .select('id, listing_id, url, public_id, media_type, order_index, is_primary')
           .in('listing_id', listingIds)
           .order('order_index'),
         
