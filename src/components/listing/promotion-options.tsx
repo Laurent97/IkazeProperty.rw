@@ -174,12 +174,12 @@ export default function PromotionOptions({
               <div className="space-y-2">
                 <p className="text-sm font-medium">What you get:</p>
                 <ul className="text-sm space-y-1">
-                  {pkg.features?.split(',').filter(Boolean).map((feature: string, index: number) => (
+                  {pkg.features?.filter(Boolean).map((feature: string, index: number) => (
                     <li key={index} className="flex items-center space-x-2">
                       <span className="text-green-500">✓</span>
                       <span>{feature}</span>
                     </li>
-                  )}
+                  ))}
                 </ul>
               </div>
 
