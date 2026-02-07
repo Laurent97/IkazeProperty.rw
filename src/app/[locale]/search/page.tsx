@@ -21,7 +21,10 @@ type Listing = Database['public']['Tables']['listings']['Row'] & {
   } | null
   media: {
     url: string
+    public_id: string
     media_type: 'image' | 'video'
+    is_primary: boolean
+    order_index: number
   }[]
 }
 
@@ -67,7 +70,10 @@ export default function SearchPage() {
           ),
           media:listing_media(
             url,
-            media_type
+            public_id,
+            media_type,
+            is_primary,
+            order_index
           )
         `, { count: 'exact' })
         .eq('status', 'available')

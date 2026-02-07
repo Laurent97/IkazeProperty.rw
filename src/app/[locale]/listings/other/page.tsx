@@ -74,7 +74,7 @@ export default function OtherItemsListingsPage() {
       visit_fee_amount: 2000,
       visit_fee_payment_methods: {},
       media: [
-        { url: '/api/placeholder/600/400', media_type: 'image', is_primary: true, order_index: 0 }
+        { url: '/api/placeholder/600/400', public_id: 'mock_public_id', media_type: 'image', is_primary: true, order_index: 0 }
       ],
       seller: { full_name: 'Admin Agent', email: 'support@ikazeproperty.rw' },
       other_details: {
@@ -114,7 +114,7 @@ export default function OtherItemsListingsPage() {
       visit_fee_amount: 2000,
       visit_fee_payment_methods: {},
       media: [
-        { url: '/api/placeholder/600/400', media_type: 'image', is_primary: true, order_index: 0 }
+        { url: '/api/placeholder/600/400', public_id: 'mock_public_id', media_type: 'image', is_primary: true, order_index: 0 }
       ],
       seller: { full_name: 'Admin Agent', email: 'support@ikazeproperty.rw' },
       other_details: {
@@ -154,7 +154,7 @@ export default function OtherItemsListingsPage() {
       visit_fee_amount: 2000,
       visit_fee_payment_methods: {},
       media: [
-        { url: '/api/placeholder/600/400', media_type: 'image', is_primary: true, order_index: 0 }
+        { url: '/api/placeholder/600/400', public_id: 'mock_public_id', media_type: 'image', is_primary: true, order_index: 0 }
       ],
       seller: { full_name: 'Admin Agent', email: 'support@ikazeproperty.rw' },
       other_details: {
@@ -194,7 +194,7 @@ export default function OtherItemsListingsPage() {
       visit_fee_amount: 2000,
       visit_fee_payment_methods: {},
       media: [
-        { url: '/api/placeholder/600/400', media_type: 'image', is_primary: true, order_index: 0 }
+        { url: '/api/placeholder/600/400', public_id: 'mock_public_id', media_type: 'image', is_primary: true, order_index: 0 }
       ],
       seller: { full_name: 'Admin Agent', email: 'support@ikazeproperty.rw' },
       other_details: {
@@ -234,7 +234,7 @@ export default function OtherItemsListingsPage() {
       visit_fee_amount: 2000,
       visit_fee_payment_methods: {},
       media: [
-        { url: '/api/placeholder/600/400', media_type: 'image', is_primary: true, order_index: 0 }
+        { url: '/api/placeholder/600/400', public_id: 'mock_public_id', media_type: 'image', is_primary: true, order_index: 0 }
       ],
       seller: { full_name: 'Admin Agent', email: 'support@ikazeproperty.rw' },
       other_details: {
@@ -274,7 +274,7 @@ export default function OtherItemsListingsPage() {
       visit_fee_amount: 2000,
       visit_fee_payment_methods: {},
       media: [
-        { url: '/api/placeholder/600/400', media_type: 'image', is_primary: true, order_index: 0 }
+        { url: '/api/placeholder/600/400', public_id: 'mock_public_id', media_type: 'image', is_primary: true, order_index: 0 }
       ],
       seller: { full_name: 'Admin Agent', email: 'support@ikazeproperty.rw' },
       other_details: {
@@ -314,7 +314,7 @@ export default function OtherItemsListingsPage() {
       visit_fee_amount: 2000,
       visit_fee_payment_methods: {},
       media: [
-        { url: '/api/placeholder/600/400', media_type: 'image', is_primary: true, order_index: 0 }
+        { url: '/api/placeholder/600/400', public_id: 'mock_public_id', media_type: 'image', is_primary: true, order_index: 0 }
       ],
       seller: { full_name: 'Admin Agent', email: 'support@ikazeproperty.rw' },
       other_details: {
@@ -354,7 +354,7 @@ export default function OtherItemsListingsPage() {
       visit_fee_amount: 2000,
       visit_fee_payment_methods: {},
       media: [
-        { url: '/api/placeholder/600/400', media_type: 'image', is_primary: true, order_index: 0 }
+        { url: '/api/placeholder/600/400', public_id: 'mock_public_id', media_type: 'image', is_primary: true, order_index: 0 }
       ],
       seller: { full_name: 'Admin Agent', email: 'support@ikazeproperty.rw' },
       other_details: {
@@ -394,7 +394,7 @@ export default function OtherItemsListingsPage() {
       visit_fee_amount: 2000,
       visit_fee_payment_methods: {},
       media: [
-        { url: '/api/placeholder/600/400', media_type: 'image', is_primary: true, order_index: 0 }
+        { url: '/api/placeholder/600/400', public_id: 'mock_public_id', media_type: 'image', is_primary: true, order_index: 0 }
       ],
       seller: { full_name: 'Admin Agent', email: 'support@ikazeproperty.rw' },
       other_details: {
@@ -434,7 +434,7 @@ export default function OtherItemsListingsPage() {
       visit_fee_amount: 2000,
       visit_fee_payment_methods: {},
       media: [
-        { url: '/api/placeholder/600/400', media_type: 'image', is_primary: true, order_index: 0 }
+        { url: '/api/placeholder/600/400', public_id: 'mock_public_id', media_type: 'image', is_primary: true, order_index: 0 }
       ],
       seller: { full_name: 'Admin Agent', email: 'support@ikazeproperty.rw' },
       other_details: {
