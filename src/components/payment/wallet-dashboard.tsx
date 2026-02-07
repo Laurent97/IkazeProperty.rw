@@ -346,7 +346,7 @@ export default function WalletDashboard() {
 
               <div>
                 <Label htmlFor="payment_method">Payment Method</Label>
-                <Select value={selectedPaymentMethod} onValueChange={(value: PaymentMethod) => setSelectedPaymentMethod(value)}>
+                <Select value={selectedPaymentMethod} onValueChange={(value) => setSelectedPaymentMethod(value as PaymentMethod)}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>

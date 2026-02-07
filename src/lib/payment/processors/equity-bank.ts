@@ -16,6 +16,9 @@ export class EquityBankProcessor extends BasePaymentProcessor {
     if (!this.config) {
       this.config = await this.getPaymentConfig('equity_bank');
     }
+    if (!this.config) {
+      throw new Error('Equity Bank configuration not found');
+    }
     return this.config;
   }
 

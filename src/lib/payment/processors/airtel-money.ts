@@ -16,6 +16,9 @@ export class AirtelMoneyProcessor extends BasePaymentProcessor {
     if (!this.config) {
       this.config = await this.getPaymentConfig('airtel_money');
     }
+    if (!this.config) {
+      throw new Error('Airtel Money configuration not found');
+    }
     return this.config;
   }
 

@@ -14,11 +14,17 @@ export const supabase = supabaseClient
 
 export const supabaseAdmin = createClient<Database>(
   supabaseUrl,
-  supabaseServiceKey || supabaseAnonKey
+  supabaseServiceKey!
+)
+
+// Create a client without strict typing for auth operations
+export const supabaseAuth = createClient(
+  supabaseUrl,
+  supabaseServiceKey!
 )
 
 export const signUp = async (email: string, password: string, fullName: string) => {
-  const { data, error } = await supabase.auth.signUp({
+  const { data, error } = await supabaseAuth.auth.signUp({
     email,
     password,
     options: {
@@ -32,7 +38,7 @@ export const signUp = async (email: string, password: string, fullName: string) 
 
   // Create user profile
   if (data.user) {
-    const { error: profileError } = await supabase
+    const { error: profileError } = await supabaseAuth
       .from('users')
       .insert({
         id: data.user.id,
@@ -82,7 +88,7 @@ export const getUserProfile = async (userId: string) => {
 }
 
 export const updateUserProfile = async (userId: string, updates: any) => {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAuth
     .from('users')
     .update(updates)
     .eq('id', userId)

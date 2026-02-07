@@ -18,6 +18,9 @@ export class CryptoPaymentProcessor extends BasePaymentProcessor {
     if (!this.config) {
       this.config = await this.getPaymentConfig('crypto');
     }
+    if (!this.config) {
+      throw new Error('Crypto configuration not found');
+    }
     return this.config;
   }
 
@@ -124,8 +127,8 @@ export class CryptoPaymentProcessor extends BasePaymentProcessor {
         success: true,
         reference: transaction.our_reference,
         wallet_address: walletAddress,
-        amount: cryptoAmount,
-        currency: request.crypto_type.toUpperCase(),
+        crypto_amount: cryptoAmount,
+        crypto_currency: request.crypto_type.toUpperCase(),
         qr_code_url: qrCodeUrl,
         exchange_rate: await this.getExchangeRate(request.crypto_type.toUpperCase(), 'RWF'),
         instructions: `Please send ${cryptoAmount} ${request.crypto_type.toUpperCase()} to the provided address`,

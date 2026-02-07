@@ -104,7 +104,7 @@ export async function fetchListingsWithDetails(filters: {
     }
 
     // Fetch additional data in parallel
-    const listingIds = listings.map(l => l.id)
+    const listingIds = (listings as any[]).map(l => l.id)
     
     const [mediaResult, detailsResult] = await Promise.all([
       supabaseClient
@@ -119,13 +119,13 @@ export async function fetchListingsWithDetails(filters: {
     ])
 
     // Process the data
-    const listingsWithDetails = listings.map(listing => {
-      const listingMedia = mediaResult.data?.filter((m: Database['public']['Tables']['listing_media']['Row']) => m.listing_id === listing.id) || []
-      const listingDetails = detailsResult.data?.find((d: Database['public']['Tables']['other_item_details']['Row']) => d.listing_id === listing.id)
+    const listingsWithDetails = (listings as any[]).map(listing => {
+      const listingMedia = mediaResult.data?.filter((m: any) => m.listing_id === listing.id) || []
+      const listingDetails = detailsResult.data?.find((d: any) => d.listing_id === listing.id)
 
       return {
         ...listing,
-        media: listingMedia.map((media: Database['public']['Tables']['listing_media']['Row']) => ({
+        media: listingMedia.map((media: any) => ({
           url: media.url,
           public_id: media.public_id,
           media_type: media.media_type,
@@ -133,15 +133,15 @@ export async function fetchListingsWithDetails(filters: {
           order_index: media.order_index
         })),
         other_details: listingDetails ? {
-          subcategory: listingDetails.subcategory,
-          brand: listingDetails.brand,
-          model: listingDetails.model,
-          condition: listingDetails.condition,
-          warranty_available: listingDetails.warranty_available,
-          warranty_period: listingDetails.warranty_period,
-          reason_for_selling: listingDetails.reason_for_selling,
-          original_purchase_date: listingDetails.original_purchase_date,
-          age_of_item: listingDetails.age_of_item
+          subcategory: (listingDetails as any).subcategory,
+          brand: (listingDetails as any).brand,
+          model: (listingDetails as any).model,
+          condition: (listingDetails as any).condition,
+          warranty_available: (listingDetails as any).warranty_available,
+          warranty_period: (listingDetails as any).warranty_period,
+          reason_for_selling: (listingDetails as any).reason_for_selling,
+          original_purchase_date: (listingDetails as any).original_purchase_date,
+          age_of_item: (listingDetails as any).age_of_item
         } : undefined
       }
     })

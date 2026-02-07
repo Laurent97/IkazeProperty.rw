@@ -22,6 +22,9 @@ export class MTNMobileMoneyProcessor extends BasePaymentProcessor {
     if (!this.config) {
       this.config = await this.getPaymentConfig('mtn_momo');
     }
+    if (!this.config) {
+      throw new Error('MTN Mobile Money configuration not found');
+    }
     return this.config;
   }
 

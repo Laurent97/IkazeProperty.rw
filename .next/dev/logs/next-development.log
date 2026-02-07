@@ -1,2 +1,16 @@
 [01:49:12.129] Browser LOG     🔄 Auth state changed: SIGNED_IN kizzolaurent@gmail.com
 [01:49:12.129] Browser LOG     🔄 Auth state changed: SIGNED_IN kizzolaurent@gmail.com
+[01:00:48.264] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:00:48.286] Server  LOG     ✓ Compiled in 28ms
+[01:00:48.410] Server  ERROR   ⨯ Error: ENOENT: no such file or directory, open 'D:\Apps\IkazeProperty.rw\.next\dev\server\app\[locale]\page\build-manifest.json'
+[01:00:51.413] Server  LOG     ○ Compiling /_error ...
+[01:00:52.132] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:00:52.197] Server  ERROR   ⨯ Error: ENOENT: no such file or directory, open 'D:\Apps\IkazeProperty.rw\.next\dev\server\app\[locale]\page\build-manifest.json'
+[01:01:04.804] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:01:04.886] Server  ERROR   ⨯ Error: ENOENT: no such file or directory, open 'D:\Apps\IkazeProperty.rw\.next\dev\server\app\[locale]\page\build-manifest.json'
+[01:02:04.405] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:02:04.467] Server  ERROR   ⨯ Error: ENOENT: no such file or directory, open 'D:\Apps\IkazeProperty.rw\.next\dev\server\app\[locale]\page\build-manifest.json'
+[01:02:08.478] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:02:08.562] Server  ERROR   ⨯ Error: ENOENT: no such file or directory, open 'D:\Apps\IkazeProperty.rw\.next\dev\server\app\[locale]\page\build-manifest.json'
+[01:02:13.471] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:02:13.540] Server  ERROR   ⨯ Error: ENOENT: no such file or directory, open 'D:\Apps\IkazeProperty.rw\.next\dev\server\app\[locale]\page\build-manifest.json'
