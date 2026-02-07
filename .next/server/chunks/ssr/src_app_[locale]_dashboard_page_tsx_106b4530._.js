@@ -1,3 +1,0 @@
-module.exports=[62370,a=>{"use strict";var b=a.i(87924),c=a.i(72131),d=a.i(50944),e=a.i(63672);function f(){let a=(0,d.useRouter)(),[f,g]=(0,c.useState)(!0);return((0,c.useEffect)(()=>{(async()=>{try{let b=await (0,e.getCurrentUser)();if(!b)return void a.push("/auth/login");try{let c=await (0,e.getUserProfile)(b.id);c?.role==="admin"?a.push("/dashboard/admin"):a.push("/dashboard/user")}catch(b){a.push("/dashboard/user")}}catch(b){a.push("/auth/login")}finally{g(!1)}})()},[a]),f)?(0,b.jsx)("div",{className:"min-h-screen flex items-center justify-center",children:(0,b.jsx)("div",{className:"animate-spin rounded-full h-32 w-32 border-b-2 border-red-600"})}):null}a.s(["default",()=>f])}];
-
-//# sourceMappingURL=src_app_%5Blocale%5D_dashboard_page_tsx_106b4530._.js.map

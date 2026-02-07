@@ -1,3 +1,0 @@
-{
-  "/api/cron/[jobName]/route": "app/api/cron/[jobName]/route.js"
-}
