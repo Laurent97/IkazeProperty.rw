@@ -2,29 +2,46 @@ import { createClient } from '@supabase/supabase-js'
 import { Database } from '@/types/database'
 import { supabaseClient } from './supabase-client'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+let _supabaseAdmin: ReturnType<typeof createClient<Database>> | null = null
+let _supabaseAuth: ReturnType<typeof createClient<Database>> | null = null
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables. Please check your .env.local file.')
+export const getSupabaseAdmin = () => {
+  if (!_supabaseAdmin) {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+
+    if (!supabaseUrl || !supabaseServiceKey) {
+      throw new Error('Missing Supabase environment variables. Please check your .env.local file.')
+    }
+
+    _supabaseAdmin = createClient<Database>(supabaseUrl, supabaseServiceKey)
+  }
+  return _supabaseAdmin
+}
+
+export const getSupabaseAuth = () => {
+  if (!_supabaseAuth) {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+
+    if (!supabaseUrl || !supabaseServiceKey) {
+      throw new Error('Missing Supabase environment variables. Please check your .env.local file.')
+    }
+
+    _supabaseAuth = createClient<Database>(supabaseUrl, supabaseServiceKey)
+  }
+  return _supabaseAuth
 }
 
 export const supabase = supabaseClient
 
-export const supabaseAdmin = createClient<Database>(
-  supabaseUrl,
-  supabaseServiceKey!
-)
-
-// Create a client without strict typing for auth operations
-export const supabaseAuth = createClient(
-  supabaseUrl,
-  supabaseServiceKey!
-)
+// For backward compatibility, export the getter functions with the same names
+export const supabaseAdmin = getSupabaseAdmin
+export const supabaseAuth = getSupabaseAuth
 
 export const signUp = async (email: string, password: string, fullName: string) => {
-  const { data, error } = await supabaseAuth.auth.signUp({
+  const authClient = supabaseAuth()
+  const { data, error } = await authClient.auth.signUp({
     email,
     password,
     options: {
@@ -38,7 +55,7 @@ export const signUp = async (email: string, password: string, fullName: string) 
 
   // Create user profile
   if (data.user) {
-    const { error: profileError } = await supabaseAuth
+    const { error: profileError } = await (authClient as any)
       .from('users')
       .insert({
         id: data.user.id,
@@ -88,7 +105,8 @@ export const getUserProfile = async (userId: string) => {
 }
 
 export const updateUserProfile = async (userId: string, updates: any) => {
-  const { data, error } = await supabaseAuth
+  const authClient = supabaseAuth()
+  const { data, error } = await (authClient as any)
     .from('users')
     .update(updates)
     .eq('id', userId)

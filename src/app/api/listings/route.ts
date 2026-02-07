@@ -4,10 +4,17 @@ import { createClient } from '@supabase/supabase-js'
 export async function GET(request: NextRequest) {
   try {
     // Create Supabase client with service role key for admin operations
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
-    )
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+    
+    if (!supabaseUrl || !supabaseServiceKey) {
+      return NextResponse.json(
+        { error: 'Missing environment variables' },
+        { status: 500 }
+      )
+    }
+    
+    const supabase = createClient(supabaseUrl, supabaseServiceKey)
 
     // Get query parameters
     const { searchParams } = new URL(request.url)
@@ -76,10 +83,17 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     // Create Supabase client with service role key for admin operations
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
-    )
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+    
+    if (!supabaseUrl || !supabaseServiceKey) {
+      return NextResponse.json(
+        { error: 'Missing environment variables' },
+        { status: 500 }
+      )
+    }
+    
+    const supabase = createClient(supabaseUrl, supabaseServiceKey)
 
     // Get JWT token from request headers
     const authorization = request.headers.get('authorization')
