@@ -2,6 +2,12 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import type { Database } from '@/types/database'
 
+// Create supabase client for database operations
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+)
+
 async function getCurrentUser(request: NextRequest) {
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -27,11 +33,6 @@ export async function POST(request: NextRequest) {
         { status: 401 }
       )
     }
-
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
-    )
 
     const { listing_id, message } = await request.json()
 
@@ -115,7 +116,7 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const currentUser = await getCurrentUser()
+    const currentUser = await getCurrentUser(request)
     if (!currentUser) {
       return NextResponse.json(
         { error: 'Authentication required' },
@@ -187,7 +188,7 @@ export async function GET(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
   try {
-    const currentUser = await getCurrentUser()
+    const currentUser = await getCurrentUser(request)
     if (!currentUser) {
       return NextResponse.json(
         { error: 'Authentication required' },

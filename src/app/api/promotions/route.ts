@@ -39,9 +39,9 @@ export async function POST(request: NextRequest) {
         paid: false
       })
 
-    if (error) {
+    if (error || !data) {
       return NextResponse.json(
-        { error: error.message },
+        { error: error?.message || 'Failed to create promotion' },
         { status: 500 }
       )
     }
@@ -49,8 +49,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       data: {
-        promotion_id: data.id,
-        payment_url: `/payment?promotion_id=${data.id}&amount=${price}`
+        promotion_id: (data as any).id,
+        payment_url: `/payment?promotion_id=${(data as any).id}&amount=${price}`
       }
     })
 

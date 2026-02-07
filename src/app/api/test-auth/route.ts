@@ -15,7 +15,7 @@ export async function GET() {
     try {
       const { data, error } = await supabase.from('users').select('count').limit(1)
       supabaseTest = error ? `Error: ${error.message}` : 'Connected successfully'
-    } catch (error) {
+    } catch (error: any) {
       supabaseTest = `Connection error: ${error.message}`
     }
 
@@ -24,7 +24,7 @@ export async function GET() {
     try {
       const { data: { session }, error } = await supabase.auth.getSession()
       authTest = error ? `Error: ${error.message}` : session ? `Session found for ${session.user?.email}` : 'No session'
-    } catch (error) {
+    } catch (error: any) {
       authTest = `Auth error: ${error.message}`
     }
 
@@ -34,7 +34,7 @@ export async function GET() {
       auth: authTest,
       timestamp: new Date().toISOString()
     })
-  } catch (error) {
+  } catch (error: any) {
     return NextResponse.json({
       error: error.message,
       timestamp: new Date().toISOString()

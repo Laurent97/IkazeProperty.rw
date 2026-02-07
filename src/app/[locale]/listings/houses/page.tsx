@@ -129,9 +129,15 @@ export default function HousesListingsPage() {
         
         return {
           ...listing,
-          seller: seller ? { full_name: (seller as any).full_name, email: (seller as any).email } : null,
+          seller: seller ? { 
+            id: (seller as any).id, 
+            full_name: (seller as any).full_name, 
+            email: (seller as any).email,
+            avatar_url: (seller as any).avatar_url
+          } : null,
           media: media.map((m: any) => ({
             url: m.url,
+            public_id: m.public_id,
             media_type: m.media_type,
             is_primary: m.is_primary,
             order_index: m.order_index
