@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 40, "column": 0}, "map": {"version":3,"sources":["file:///D:/Apps/IkazeProperty.rw/src/proxy.ts"],"sourcesContent":["import createProxy from 'next-intl/proxy';\n\nexport default createProxy({\n  // A list of all locales that are supported\n  locales: ['en', 'fr', 'rw'],\n\n  // Used when no locale matches\n  defaultLocale: 'en'\n});\n\nexport const config = {\n  // Match only internationalized pathnames\n  matcher: ['/', '/(fr|rw|en)/:path*']\n};\n"],"names":[],"mappings":";;;;;;;;;;;;uCAEe,YAAY;IACzB,2CAA2C;IAC3C,SAAS;QAAC;QAAM;QAAM;KAAK;IAE3B,8BAA8B;IAC9B,eAAe;AACjB;AAEO,MAAM,SAAS;IACpB,yCAAyC;IACzC,SAAS;QAAC;QAAK;KAAqB;AACtC"}}]
+}

@@ -1,26 +1,622 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+    --primary: 239 68% 67%; /* Orange-red like Alibaba */
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 239 68% 67%;
+    --radius: 0.5rem;
+    --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  .dark {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 3%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 3%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 239 68% 67%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 64%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 239 68% 67%;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: var(--font-inter);
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+}
+
+/* Alibaba-style design system */
+@layer components {
+  /* Search bar styling */
+  .search-bar {
+    position: relative;
+    background-color: white;
+    border: 1px solid hsl(var(--border));
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    transition: all 0.2s;
+  }
+  
+  .search-bar:focus-within {
+    border-color: hsl(var(--primary));
+    box-shadow: 0 0 0 2px hsl(239 68% 67% / 0.2);
+  }
+
+  /* Card styling */
+  .card-alibaba {
+    background-color: white;
+    border: 1px solid hsl(var(--border));
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    transition: all 0.2s;
+  }
+
+  .card-alibaba:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    border-color: hsl(var(--primary) / 0.3);
+  }
+
+  /* Button styling */
+  .btn-alibaba-primary {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    font-weight: 500;
+    padding: 0.625rem 1.5rem;
+    border-radius: 0.375rem;
+    transition: all 0.2s;
+    transform: scale(1);
+  }
+
+  .btn-alibaba-primary:hover {
+    background-color: hsl(var(--primary) / 0.9);
+    transform: scale(1.05);
+  }
+
+  .btn-alibaba-primary:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px hsl(var(--primary) / 0.5);
+  }
+
+  .btn-alibaba-secondary {
+    background-color: white;
+    border: 1px solid hsl(var(--border));
+    color: rgb(107 114 128);
+    font-weight: 500;
+    padding: 0.625rem 1.5rem;
+    border-radius: 0.375rem;
+    transition: all 0.2s;
+  }
+
+  .btn-alibaba-secondary:hover {
+    background-color: hsl(var(--muted));
+    border-color: hsl(var(--foreground) / 0.2);
+  }
+
+  /* Navigation styling */
+  .nav-alibaba {
+    background-color: white;
+    border-bottom: 1px solid hsl(var(--border));
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-link-alibaba {
+    color: rgb(107 114 128);
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-link-alibaba:hover {
+    color: hsl(var(--primary));
+  }
+
+  .nav-link-alibaba-active {
+    color: hsl(var(--primary));
+    font-weight: 500;
+  }
+
+  /* Category cards */
+  .category-card-alibaba {
+    background-color: white;
+    border: 1px solid hsl(var(--border));
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .category-card-alibaba:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border-color: hsl(var(--primary) / 0.3);
+  }
+
+  .category-icon-alibaba {
+    width: 3rem;
+    height: 3rem;
+    background-color: hsl(var(--primary) / 0.1);
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: hsl(var(--primary));
+    margin-bottom: 1rem;
+  }
+
+  /* Product grid */
+  .product-grid-alibaba {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .product-grid-alibaba {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .product-grid-alibaba {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .product-grid-alibaba {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .product-card-alibaba {
+    background-color: white;
+    border: 1px solid hsl(var(--border));
+    border-radius: 0.5rem;
+    overflow: hidden;
+    transition: all 0.2s;
+  }
+
+  .product-card-alibaba:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border-color: hsl(var(--primary) / 0.3);
+  }
+
+  .product-image-alibaba {
+    width: 100%;
+    height: 12rem;
+    background-color: hsl(var(--muted));
+    object-fit: cover;
+  }
+
+  .product-title-alibaba {
+    font-weight: 600;
+    color: hsl(var(--foreground));
+    margin-bottom: 0.5rem;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .product-price-alibaba {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: hsl(var(--primary));
+    margin-bottom: 0.5rem;
+  }
+
+  .product-location-alibaba {
+    font-size: 0.875rem;
+    color: rgb(107 114 128);
+    display: flex;
+    align-items: center;
+  }
+
+  /* Hero section */
+  .hero-alibaba {
+    background: linear-gradient(to right, hsl(var(--primary) / 0.05), hsl(var(--primary) / 0.1));
+    padding: 4rem 0;
+  }
+
+  .hero-title-alibaba {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: hsl(var(--foreground));
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  @media (min-width: 768px) {
+    .hero-title-alibaba {
+      font-size: 3rem;
+    }
+  }
+
+  .hero-subtitle-alibaba {
+    font-size: 1.25rem;
+    color: rgb(107 114 128);
+    margin-bottom: 2rem;
+    max-width: 32rem;
+    line-height: 1.6;
+  }
+
+  /* Stats section */
+  .stats-alibaba {
+    background-color: white;
+    padding: 4rem 0;
+  }
+
+  .stat-card-alibaba {
+    text-align: center;
+    padding: 1.5rem;
+  }
+
+  .stat-number-alibaba {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: hsl(var(--primary));
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label-alibaba {
+    color: rgb(107 114 128);
+    font-weight: 500;
+  }
+
+  /* Footer */
+  .footer-alibaba {
+    background-color: rgb(17 24 39);
+    color: white;
+    padding: 3rem 0;
+  }
+
+  .footer-link-alibaba {
+    color: rgb(209 213 219);
+    transition: color 0.2s;
+  }
+
+  .footer-link-alibaba:hover {
+    color: white;
+  }
+
+  /* Form styling */
+  .input-alibaba {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid hsl(var(--border));
+    border-radius: 0.5rem;
+    background-color: white;
+    transition: all 0.2s;
+  }
+
+  .input-alibaba:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px hsl(var(--primary) / 0.5);
+    border-color: transparent;
+  }
+
+  .input-alibaba-error {
+    border-color: hsl(var(--destructive));
+    box-shadow: 0 0 0 2px hsl(var(--destructive) / 0.5);
+  }
+
+  /* Badge styling */
+  .badge-alibaba {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .badge-orange-alibaba {
+    background-color: hsl(var(--primary) / 0.1);
+    color: hsl(var(--primary));
+  }
+
+  .badge-green-alibaba {
+    background-color: rgb(34 197 94);
+    color: white;
+  }
+
+  .badge-gray-alibaba {
+    background-color: hsl(var(--muted));
+    color: hsl(var(--foreground));
+  }
+
+  /* Loading states */
+  .loading-alibaba {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    background-color: hsl(var(--muted));
+  }
+
+  .spinner-alibaba {
+    animation: spin 1s linear infinite;
+    height: 1.25rem;
+    width: 1.25rem;
+    border: 2px solid hsl(var(--border));
+    border-top-color: hsl(var(--primary));
+    border-radius: 50%;
+  }
+
+  /* Responsive utilities */
+  .container-alibaba {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .container-alibaba {
+      padding: 0 1.5rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .container-alibaba {
+      padding: 0 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-alibaba {
+      padding: 0 2.5rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .container-alibaba {
+      padding: 0 3rem;
+    }
+  }
+
+  .section-alibaba {
+    padding: 3rem 0;
+  }
+
+  @media (min-width: 768px) {
+    .section-alibaba {
+      padding: 4rem 0;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section-alibaba {
+      padding: 5rem 0;
+    }
+  }
+
+  /* Shadow utilities */
+  .shadow-sm-alibaba {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  }
+
+  .shadow-md-alibaba {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .shadow-lg-alibaba {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Animation utilities */
+  .fade-in-alibaba {
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  .slide-up-alibaba {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Mobile-first responsive grid */
+  .responsive-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .responsive-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .responsive-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .responsive-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .responsive-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  /* Mobile navigation improvements */
+  .mobile-menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 40;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .mobile-menu-panel {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 400px;
+    height: 100vh;
+    background: white;
+    z-index: 50;
+    transition: right 0.3s ease;
+    overflow-y: auto;
+  }
+
+  .mobile-menu-panel.active {
+    right: 0;
+  }
+
+  /* Touch-friendly tap targets */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Safe area insets for modern phones */
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Improved mobile text sizing */
+  .mobile-text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  .mobile-text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  .mobile-text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+
+  @media (min-width: 768px) {
+    .mobile-text-sm {
+      font-size: 0.875rem;
+    }
+    .mobile-text-base {
+      font-size: 1rem;
+    }
+    .mobile-text-lg {
+      font-size: 1.125rem;
+    }
+  }
+
+  /* Horizontal scroll prevention */
+  .no-overflow-x {
+    overflow-x: hidden;
+  }
+
+  /* Sticky mobile headers */
+  .mobile-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+  }
+}
+
+/* Ad minimize animations */
+.ad-minimize-enter {
+  animation: adMinimizeEnter 0.3s ease-out;
+}
+
+.ad-minimize-exit {
+  animation: adMinimizeExit 0.3s ease-out;
+}
+
+@keyframes adMinimizeEnter {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes adMinimizeExit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* Minimized ad bar styles */
+.minimized-ad-bar {
+  transition: all 0.3s ease;
+}
+
+.minimized-ad-bar:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }

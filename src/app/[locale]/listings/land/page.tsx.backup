@@ -1,0 +1,684 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import { Search, Filter, MapPin, Trees, Ruler, Heart, Eye } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import AdminContactInfo from '@/components/listing/admin-contact'
+
+interface LandListing {
+  id: string
+  title: string
+  description: string
+  price: number
+  currency: string
+  price_type: string
+  category: string
+  transaction_type: string
+  status: string
+  location: any
+  seller_id: string
+  commission_rate: number
+  commission_agreed: boolean
+  featured: boolean
+  promoted: boolean
+  views: number
+  likes: number
+  created_at: string
+  updated_at: string
+  expires_at: string | null
+  visit_fee_enabled: boolean
+  visit_fee_amount: number
+  visit_fee_payment_methods: any
+  media: any[]
+  seller: any
+  land_details: {
+    plot_type: string
+    size: number
+    size_unit: string
+    road_access: string
+    fenced: boolean
+    surveyed: boolean
+  }
+}
+
+export default function LandListingsPage() {
+  const [searchQuery, setSearchQuery] = useState('')
+  const [priceRange, setPriceRange] = useState({ min: '', max: '' })
+  const [sizeRange, setSizeRange] = useState({ min: '', max: '' })
+  const [plotType, setPlotType] = useState('')
+  const [roadAccess, setRoadAccess] = useState('')
+  const [listings, setListings] = useState<LandListing[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+
+  const fetchListings = async () => {
+    try {
+      setLoading(true)
+      const { supabaseClient } = await import('@/lib/supabase-client')
+      
+      const { data, error } = await supabaseClient
+        .from('listings')
+        .select(`
+          *,
+          seller:users!listings_seller_id_fkey(
+            id,
+            full_name,
+            email,
+            avatar_url
+          ),
+          media:listing_media(
+            url,
+            media_type
+          ).order('is_primary', { ascending: false }).limit(1)
+        `)
+        .eq('category', 'land')
+        .eq('status', 'available')
+        .order('created_at', { ascending: false })
+
+      if (error) {
+        console.error('Error fetching land listings:', error)
+        setError('Failed to load listings')
+      } else {
+        setListings(data as LandListing[])
+      }
+    } catch (err) {
+      console.error('Error:', err)
+      setError('Failed to load listings')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchListings()
+  }, [])
+
+  const filteredListings = listings.filter(listing => {
+    const matchesSearch = listing.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         (listing.location as any)?.district?.toLowerCase().includes(searchQuery.toLowerCase())
+    const matchesPrice = (!priceRange.min || listing.price >= parseInt(priceRange.min)) &&
+                        (!priceRange.max || listing.price <= parseInt(priceRange.max))
+    const matchesSize = (!sizeRange.min || listing.land_details?.size >= parseInt(sizeRange.min)) &&
+                      (!sizeRange.max || listing.land_details?.size <= parseInt(sizeRange.max))
+    const matchesPlotType = !plotType || listing.land_details?.plot_type === plotType
+    const matchesRoadAccess = !roadAccess || listing.land_details?.road_access === roadAccess
+    
+    return matchesSearch && matchesPrice && matchesSize && matchesPlotType && matchesRoadAccess
+  })
+
+  const formatSize = (size: number, unit: string) => {
+    return `${size.toLocaleString()} ${unit}`
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading land listings...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-red-600 text-6xl mb-4">⚠️</div>
+          <p className="text-gray-600">{error}</p>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <h1 className="text-2xl font-bold text-gray-900 flex items-center">
+              <Trees className="h-8 w-8 mr-3 text-green-600" />
+              Land Listings
+            </h1>
+            <div className="text-sm text-gray-600">
+              {filteredListings.length} {filteredListings.length === 1 ? 'listing' : 'listings'} found
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Filters */}
+        <div className="bg-white rounded-lg shadow-sm border p-6 mb-8">
+          <div className="flex items-center mb-4">
+            <Filter className="h-5 w-5 mr-2 text-gray-600" />
+            <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+            {/* Search */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Search</label>
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search listings..."
+                  className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                />
+              </div>
+            </div>
+
+            {/* Price Range */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Price Range</label>
+              <div className="flex gap-2">
+                <input
+                  type="number"
+                  value={priceRange.min}
+                  onChange={(e) => setPriceRange({ ...priceRange, min: e.target.value })}
+                  placeholder="Min"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                />
+                <input
+                  type="number"
+                  value={priceRange.max}
+                  onChange={(e) => setPriceRange({ ...priceRange, max: e.target.value })}
+                  placeholder="Max"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                />
+              </div>
+            </div>
+
+            {/* Size Range */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Size Range (m²)</label>
+              <div className="flex gap-2">
+                <input
+                  type="number"
+                  value={sizeRange.min}
+                  onChange={(e) => setSizeRange({ ...sizeRange, min: e.target.value })}
+                  placeholder="Min"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                />
+                <input
+                  type="number"
+                  value={sizeRange.max}
+                  onChange={(e) => setSizeRange({ ...sizeRange, max: e.target.value })}
+                  placeholder="Max"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                />
+              </div>
+            </div>
+
+            {/* Plot Type */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Plot Type</label>
+              <select
+                value={plotType}
+                onChange={(e) => setPlotType(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+              >
+                <option value="">All Types</option>
+                <option value="residential">Residential</option>
+                <option value="commercial">Commercial</option>
+                <option value="agricultural">Agricultural</option>
+                <option value="industrial">Industrial</option>
+              </select>
+            </div>
+
+            {/* Road Access */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Road Access</label>
+              <select
+                value={roadAccess}
+                onChange={(e) => setRoadAccess(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+              >
+                <option value="">All Access</option>
+                <option value="tarmac">Tarmac</option>
+                <option value="murram">Murram</option>
+                <option value="dirt">Dirt</option>
+                <option value="none">None</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Listings */}
+        {filteredListings.length === 0 ? (
+          <div className="text-center py-12">
+            <div className="text-gray-400 text-6xl mb-4">🏞️</div>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">No land listings found</h3>
+            <p className="text-gray-600">Try adjusting your filters or search terms</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredListings.map((listing) => (
+              <Card key={listing.id} className="hover:shadow-lg transition-shadow cursor-pointer">
+                <CardContent className="p-0">
+                  {/* Image */}
+                  <div className="relative">
+                    {listing.media && listing.media.length > 0 ? (
+                      <img
+                        src={listing.media[0].url}
+                        alt={listing.title}
+                        className="w-full h-48 object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-48 bg-gray-200 flex items-center justify-center">
+                        <div className="text-center">
+                          <div className="text-gray-400 text-4xl mb-2">🏞️</div>
+                          <p className="text-gray-500 text-sm">No image</p>
+                        </div>
+                      </div>
+                    )}
+                    {listing.featured && (
+                      <div className="absolute top-2 left-2 bg-red-600 text-white text-xs px-2 py-1 rounded">
+                        Featured
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-4">
+                    <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">
+                      {listing.title}
+                    </h3>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-2xl font-bold text-red-600">
+                        {listing.currency} {listing.price.toLocaleString()}
+                      </span>
+                    </div>
+                      <p className="text-gray-600 text-sm mb-3 flex items-center">
+                        <MapPin className="h-4 w-4 mr-1" />
+                        {(() => {
+                          const locationData = listing.location as any
+                          if (!locationData) return 'Location not specified'
+                          
+                          if (typeof locationData === 'string') {
+                            return locationData
+                          }
+                          
+                          if (typeof locationData === 'object' && locationData !== null) {
+                            return locationData?.district || 
+                                   locationData?.sector || 
+                                   locationData?.province || 
+                                   'Location not specified'
+                          }
+                          
+                          return 'Location not specified'
+                        })()}
+                      </p>
+                      <AdminContactInfo className="mb-4" />
+                      
+                      {/* Land Features */}
+                    <div className="flex items-center space-x-4 text-sm text-gray-600 mb-4">
+                      <div className="flex items-center">
+                        <Ruler className="h-4 w-4 mr-1" />
+                        {formatSize(listing.land_details?.size || 0, listing.land_details?.size_unit || 'm²')}
+                      </div>
+                      {listing.land_details?.road_access && (
+                        <div className="flex items-center">
+                          <span className="capitalize">{listing.land_details.road_access}</span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Status badges */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {listing.land_details?.fenced && (
+                        <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">
+                          Fenced
+                        </span>
+                      )}
+                      {listing.land_details?.surveyed && (
+                        <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">
+                          Surveyed
+                        </span>
+                      )}
+                      <span className="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded capitalize">
+                        {listing.land_details?.plot_type || 'land'}
+                      </span>
+                    </div>
+
+                    {/* Stats and Actions */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3 text-sm text-gray-500">
+                        <span className="flex items-center gap-1">
+                          <Eye className="h-4 w-4" />
+                          {listing.views}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Heart className="h-4 w-4" />
+                          {listing.likes}
+                        </span>
+                      </div>
+                      <Link href={`/listings/land/${listing.id}`}>
+                        <Button className="bg-red-600 hover:bg-red-700 text-sm">
+                          View Details
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+  const formatSize = (size: number, unit: string) => {
+    if (unit === 'm²' && size >= 10000) {
+      return `${(size / 10000).toFixed(1)} hectares`
+    }
+    return `${size.toLocaleString()} ${unit}`
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 flex items-center">
+                <Trees className="h-8 w-8 mr-3 text-red-600" />
+                Land & Plots
+              </h1>
+              <p className="text-gray-600 mt-2">
+                Find the perfect plot from {mockListings.length} listings
+              </p>
+            </div>
+            <Link href="/create-listing?category=land">
+              <Button className="bg-red-600 hover:bg-red-700">
+                List Land
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Filters Sidebar */}
+          <div className="lg:w-80">
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <div className="flex items-center mb-4">
+                <Filter className="h-5 w-5 mr-2 text-gray-600" />
+                <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
+              </div>
+
+              {/* Search */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Search
+                </label>
+                <div className="relative">
+                  <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search by title or location..."
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                  />
+                </div>
+              </div>
+
+              {/* Plot Type */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Plot Type
+                </label>
+                <select
+                  value={plotType}
+                  onChange={(e) => setPlotType(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                  aria-label="Plot type"
+                >
+                  <option value="">All Types</option>
+                  <option value="residential">Residential</option>
+                  <option value="commercial">Commercial</option>
+                  <option value="agricultural">Agricultural</option>
+                  <option value="industrial">Industrial</option>
+                </select>
+              </div>
+
+              {/* Price Range */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Price Range (RWF)
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    type="number"
+                    value={priceRange.min}
+                    onChange={(e) => setPriceRange({...priceRange, min: e.target.value})}
+                    placeholder="Min"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                  />
+                  <input
+                    type="number"
+                    value={priceRange.max}
+                    onChange={(e) => setPriceRange({...priceRange, max: e.target.value})}
+                    placeholder="Max"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                  />
+                </div>
+              </div>
+
+              {/* Size Range */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Size Range (m²)
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    type="number"
+                    value={sizeRange.min}
+                    onChange={(e) => setSizeRange({...sizeRange, min: e.target.value})}
+                    placeholder="Min"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                  />
+                  <input
+                    type="number"
+                    value={sizeRange.max}
+                    onChange={(e) => setSizeRange({...sizeRange, max: e.target.value})}
+                    placeholder="Max"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                  />
+                </div>
+              </div>
+
+              {/* Road Access */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Road Access
+                </label>
+                <select
+                  value={roadAccess}
+                  onChange={(e) => setRoadAccess(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                  aria-label="Road access type"
+                >
+                  <option value="">Any Access</option>
+                  <option value="tarmac">Tarmac</option>
+                  <option value="gravel">Gravel</option>
+                  <option value="footpath">Footpath</option>
+                </select>
+              </div>
+
+              <Button 
+                variant="outline" 
+                className="w-full border-red-600 text-red-600 hover:bg-red-50"
+                onClick={() => {
+                  setSearchQuery('')
+                  setPriceRange({ min: '', max: '' })
+                  setSizeRange({ min: '', max: '' })
+                  setPlotType('')
+                  setRoadAccess('')
+                }}
+              >
+                Clear Filters
+              </Button>
+            </div>
+          </div>
+
+          {/* Listings Grid */}
+          <div className="flex-1">
+            {/* Results Header */}
+            <div className="flex justify-between items-center mb-6">
+              <p className="text-gray-600">
+                Showing {filteredListings.length} of {mockListings.length} plots
+              </p>
+              <select 
+                className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                aria-label="Sort options"
+              >
+                <option>Sort by: Featured</option>
+                <option>Price: Low to High</option>
+                <option>Price: High to Low</option>
+                <option>Size: Small to Large</option>
+                <option>Size: Large to Small</option>
+                <option>Most Viewed</option>
+              </select>
+            </div>
+
+            {/* Listings */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {filteredListings.map((listing) => (
+                <Card key={listing.id} className="hover:shadow-lg transition-shadow group">
+                  <div className="relative">
+                    <div className="w-full h-48 bg-gray-200 rounded-t-lg flex items-center justify-center">
+                      <span className="text-gray-500">Land Image</span>
+                    </div>
+                    {listing.featured && (
+                      <div className="absolute top-2 left-2 bg-red-600 text-white px-2 py-1 rounded text-xs font-semibold">
+                        FEATURED
+                      </div>
+                    )}
+                    <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <Heart className="h-4 w-4 text-gray-600 hover:text-red-600 cursor-pointer" />
+                    </div>
+                    <div className="absolute bottom-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-xs font-semibold capitalize">
+                      {listing.plotType}
+                    </div>
+                  </div>
+                  <CardContent className="p-4">
+                    <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">
+                      {listing.title}
+                    </h3>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-2xl font-bold text-red-600">
+                        {listing.currency} {listing.price.toLocaleString()}
+                      </span>
+                    </div>
+                      <p className="text-gray-600 text-sm mb-3 flex items-center">
+                        <MapPin className="h-4 w-4 mr-1" />
+                        {(() => {
+                          const locationData = listing.location as any
+                          if (!locationData) return 'Location not specified'
+                          
+                          if (typeof locationData === 'string') {
+                            return locationData
+                          }
+                          
+                          if (typeof locationData === 'object' && locationData !== null) {
+                            return locationData?.district || 
+                                   locationData?.sector || 
+                                   locationData?.province || 
+                                   'Location not specified'
+                          }
+                          
+                          return 'Location not specified'
+                        })()}
+                      </p>
+                      <AdminContactInfo className="mb-4" />
+                      
+                      {/* Land Features */}
+                    <div className="flex items-center space-x-4 text-sm text-gray-600 mb-4">
+                      <div className="flex items-center">
+                        <Ruler className="h-4 w-4 mr-1" />
+                        {formatSize(listing.size, listing.sizeUnit)}
+                      </div>
+                      <div className="flex items-center">
+                        <span className={`w-2 h-2 rounded-full mr-1 ${
+                          listing.roadAccess === 'tarmac' ? 'bg-green-500' :
+                          listing.roadAccess === 'gravel' ? 'bg-yellow-500' : 'bg-gray-500'
+                        }`}></span>
+                        {listing.roadAccess}
+                      </div>
+                      {listing.fenced && (
+                        <div className="flex items-center">
+                          <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Fenced</span>
+                        </div>
+                      )}
+                      {listing.surveyed && (
+                        <div className="flex items-center">
+                          <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">Surveyed</span>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3 text-sm text-gray-500">
+                        <span className="flex items-center">
+                          <Eye className="h-4 w-4 mr-1" />
+                          {listing.views}
+                        </span>
+                        <span className="flex items-center">
+                          <Heart className="h-4 w-4 mr-1" />
+                          {listing.likes}
+                        </span>
+                      </div>
+                      <Link href={`/listings/land/${listing.id}`}>
+                        <Button size="sm" className="bg-red-600 hover:bg-red-700">
+                          View Details
+                        </Button>
+                      </Link>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {/* No Results */}
+            {filteredListings.length === 0 && (
+              <div className="text-center py-12">
+                <Trees className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  No plots found
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Try adjusting your filters or search criteria
+                </p>
+                <Button 
+                  variant="outline" 
+                  className="border-red-600 text-red-600 hover:bg-red-50"
+                  onClick={() => {
+                    setSearchQuery('')
+                    setPriceRange({ min: '', max: '' })
+                    setSizeRange({ min: '', max: '' })
+                    setPlotType('')
+                    setRoadAccess('')
+                  }}
+                >
+                  Clear All Filters
+                </Button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
