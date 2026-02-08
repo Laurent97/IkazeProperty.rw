@@ -223,7 +223,17 @@ export default function MyInquiriesPage() {
           </Card>
         ) : (
           <div className="space-y-4">
-            {filteredInquiries.map((inquiry: any) => (
+            {filteredInquiries.map((inquiry: any) => {
+              // Debug logging for inquiry data
+              console.log('🔍 Inquiry data:', {
+                inquiryId: inquiry.id,
+                listingId: inquiry.listings?.id,
+                listingCategory: inquiry.listings?.category,
+                listingTitle: inquiry.listings?.title,
+                fullListing: inquiry.listings
+              })
+
+              return (
               <Card key={inquiry.id} className="hover:shadow-md transition-shadow">
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between">
@@ -272,15 +282,7 @@ export default function MyInquiriesPage() {
                     </div>
                   </div>
 
-                  console.log('🔍 Inquiry data:', {
-        inquiryId: inquiry.id,
-        listingId: inquiry.listings?.id,
-        listingCategory: inquiry.listings?.category,
-        listingTitle: inquiry.listings?.title,
-        fullListing: inquiry.listings
-      })
-
-      <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2">
                     {inquiry.listings?.id && inquiry.listings?.category ? (
                       <Link href={`/${params.locale || 'en'}/listings/${inquiry.listings.category}/${inquiry.listings.id}`}>
                         <Button size="sm" variant="outline">
@@ -331,7 +333,8 @@ export default function MyInquiriesPage() {
                   </div>
                 </CardContent>
               </Card>
-            ))}
+              )
+            })}
           </div>
         )}
       </div>
