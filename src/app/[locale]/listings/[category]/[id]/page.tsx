@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { ArrowLeft, MapPin, User } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -28,6 +29,22 @@ export default function ListingDetailPage() {
   const router = useRouter()
   const params = useParams() as { locale: string; category: string; id: string }
   const { category, id } = params
+  
+  // Add check for undefined ID
+  if (!id) {
+    console.error('❌ Listing ID is undefined:', params)
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Listing Not Found</h1>
+          <p className="text-gray-600 mb-4">The listing ID is missing or invalid.</p>
+          <Link href={`/${params.locale || 'en'}/listings`}>
+            <Button>Browse Listings</Button>
+          </Link>
+        </div>
+      </div>
+    )
+  }
   
   const { paymentSettings } = usePaymentContext()
   
