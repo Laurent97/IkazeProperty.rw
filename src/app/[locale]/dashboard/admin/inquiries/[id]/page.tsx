@@ -185,12 +185,12 @@ export default function InquiryDetailPage() {
     switch (status) {
       case 'pending':
         return <Badge className="bg-yellow-100 text-yellow-800">Pending</Badge>
-      case 'accepted':
-        return <Badge className="bg-green-100 text-green-800">Accepted</Badge>
+      case 'approved':
+        return <Badge className="bg-green-100 text-green-800">Approved</Badge>
       case 'rejected':
         return <Badge className="bg-red-100 text-red-800">Rejected</Badge>
-      case 'completed':
-        return <Badge className="bg-blue-100 text-blue-800">Completed</Badge>
+      case 'connected':
+        return <Badge className="bg-blue-100 text-blue-800">Connected</Badge>
       default:
         return <Badge className="bg-gray-100 text-gray-800">Unknown</Badge>
     }
@@ -199,9 +199,9 @@ export default function InquiryDetailPage() {
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'pending': return <Clock className="h-4 w-4" />
-      case 'accepted': return <CheckCircle className="h-4 w-4" />
+      case 'approved': return <CheckCircle className="h-4 w-4" />
       case 'rejected': return <XCircle className="h-4 w-4" />
-      case 'completed': return <CheckCircle className="h-4 w-4" />
+      case 'connected': return <CheckCircle className="h-4 w-4" />
       default: return <Clock className="h-4 w-4" />
     }
   }
@@ -394,12 +394,12 @@ export default function InquiryDetailPage() {
                   {inquiry.status === 'pending' && (
                     <div className="space-y-2">
                       <Button
-                        onClick={() => handleUpdateStatus('accepted')}
+                        onClick={() => handleUpdateStatus('approved')}
                         disabled={updating}
                         className="w-full bg-green-600 hover:bg-green-700"
                       >
                         <CheckCircle className="h-4 w-4 mr-2" />
-                        Accept Inquiry
+                        Approve Inquiry
                       </Button>
                       <Button
                         onClick={() => handleUpdateStatus('rejected')}

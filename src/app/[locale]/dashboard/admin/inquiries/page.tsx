@@ -125,12 +125,12 @@ export default function AdminInquiriesPage() {
     switch (status) {
       case 'pending':
         return <Badge className="bg-yellow-100 text-yellow-800">Pending</Badge>
-      case 'accepted':
-        return <Badge className="bg-green-100 text-green-800">Accepted</Badge>
+      case 'approved':
+        return <Badge className="bg-green-100 text-green-800">Approved</Badge>
       case 'rejected':
         return <Badge className="bg-red-100 text-red-800">Rejected</Badge>
-      case 'completed':
-        return <Badge className="bg-blue-100 text-blue-800">Completed</Badge>
+      case 'connected':
+        return <Badge className="bg-blue-100 text-blue-800">Connected</Badge>
       default:
         return <Badge className="bg-gray-100 text-gray-800">Unknown</Badge>
     }
@@ -224,9 +224,9 @@ export default function AdminInquiriesPage() {
               >
                 <option value="all">All Status</option>
                 <option value="pending">Pending</option>
-                <option value="accepted">Accepted</option>
+                <option value="approved">Approved</option>
                 <option value="rejected">Rejected</option>
-                <option value="completed">Completed</option>
+                <option value="connected">Connected</option>
               </select>
             </div>
 
@@ -333,7 +333,7 @@ export default function AdminInquiriesPage() {
                               <Button
                                 size="sm"
                                 variant="outline"
-                                onClick={() => handleUpdateStatus(inquiry.id, 'accepted')}
+                                onClick={() => handleUpdateStatus(inquiry.id, 'approved')}
                                 className="text-green-600 hover:text-green-700"
                               >
                                 <CheckCircle className="h-4 w-4" />
