@@ -231,7 +231,10 @@ export default function MyInquiriesPage() {
                 listingCategory: inquiry.listings?.category,
                 listingTitle: inquiry.listings?.title,
                 fullListing: inquiry.listings,
-                hasListingData: !!inquiry.listings
+                hasListingData: !!inquiry.listings,
+                // Also check the raw inquiry.listing_id
+                rawListingId: inquiry.listing_id,
+                rawListingIdType: typeof inquiry.listing_id
               })
 
               // Validate listing data before rendering
@@ -298,6 +301,9 @@ export default function MyInquiriesPage() {
                       <Button size="sm" variant="outline" disabled>
                         <Eye className="h-4 w-4 mr-1" />
                         Listing Unavailable
+                        <span className="text-xs text-gray-500 ml-2">
+                          (ID: {inquiry.listing_id?.slice(0, 8)}...)
+                        </span>
                       </Button>
                     )}
                     
