@@ -225,14 +225,18 @@ export default function MyInquiriesPage() {
           <div className="space-y-4">
             {filteredInquiries.map((inquiry: any) => {
               // Debug logging for inquiry data
-              console.log('🔍 Inquiry data:', {
+              console.log('🔍 Frontend inquiry data:', {
                 inquiryId: inquiry.id,
                 listingId: inquiry.listings?.id,
                 listingCategory: inquiry.listings?.category,
                 listingTitle: inquiry.listings?.title,
-                fullListing: inquiry.listings
+                fullListing: inquiry.listings,
+                hasListingData: !!inquiry.listings
               })
 
+              // Validate listing data before rendering
+              const hasValidListing = inquiry.listings?.id && inquiry.listings?.category
+              
               return (
               <Card key={inquiry.id} className="hover:shadow-md transition-shadow">
                 <CardContent className="p-6">
@@ -283,7 +287,7 @@ export default function MyInquiriesPage() {
                   </div>
 
                   <div className="flex flex-wrap gap-2">
-                    {inquiry.listings?.id && inquiry.listings?.category ? (
+                    {hasValidListing ? (
                       <Link href={`/${params.locale || 'en'}/listings/${inquiry.listings.category}/${inquiry.listings.id}`}>
                         <Button size="sm" variant="outline">
                           <Eye className="h-4 w-4 mr-1" />

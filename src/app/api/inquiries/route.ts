@@ -183,29 +183,47 @@ export async function GET(request: NextRequest) {
           listingIdType: typeof inquiry.listing_id
         })
         
-        if (inquiry.listing_id) {
+        if (!inquiry.listing_id) {
+          console.log('⚠️ No listing_id for inquiry:', inquiry.id)
+          return {
+            ...inquiry,
+            listings: null
+          }
+        }
+        
+        try {
           const { data: listing, error: listingError } = await supabase
             .from('listings')
             .select('id, title, category, price')
             .eq('id', inquiry.listing_id)
             .single()
           
-          console.log('📋 Listing fetch result:', {
+          if (listingError) {
+            console.error('❌ Error fetching listing:', {
+              listingId: inquiry.listing_id,
+              error: listingError
+            })
+            return {
+              ...inquiry,
+              listings: null
+            }
+          }
+          
+          console.log('✅ Successfully fetched listing:', {
             listingId: inquiry.listing_id,
-            listing,
-            error: listingError
+            listing
           })
           
           return {
             ...inquiry,
             listings: listing
           }
-        }
-        
-        console.log('⚠️ No listing_id for inquiry:', inquiry.id)
-        return {
-          ...inquiry,
-          listings: null
+        } catch (err) {
+          console.error('💥 Exception fetching listing:', err)
+          return {
+            ...inquiry,
+            listings: null
+          }
         }
       })
     )

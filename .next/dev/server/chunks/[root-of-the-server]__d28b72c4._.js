@@ -162,12 +162,7 @@ async function GET(request) {
         const status = searchParams.get('status');
         const role = searchParams.get('role') // 'buyer' or 'seller'
         ;
-        let query = supabase.from('inquiries').select(`
-        *,
-        listings(title, category, price),
-        buyer:users!inquiries_buyer_id_fkey(email, full_name),
-        seller:users!inquiries_seller_id_fkey(email, full_name)
-      `).order('created_at', {
+        let query = supabase.from('inquiries').select('*').order('created_at', {
             ascending: false
         });
         // Filter by user role
@@ -198,9 +193,34 @@ async function GET(request) {
                 status: 500
             });
         }
+        // Fetch listing data for each inquiry
+        const inquiriesWithListings = await Promise.all((inquiries || []).map(async (inquiry)=>{
+            console.log('🔍 Processing inquiry:', {
+                inquiryId: inquiry.id,
+                listingId: inquiry.listing_id,
+                listingIdType: typeof inquiry.listing_id
+            });
+            if (inquiry.listing_id) {
+                const { data: listing, error: listingError } = await supabase.from('listings').select('id, title, category, price').eq('id', inquiry.listing_id).single();
+                console.log('📋 Listing fetch result:', {
+                    listingId: inquiry.listing_id,
+                    listing,
+                    error: listingError
+                });
+                return {
+                    ...inquiry,
+                    listings: listing
+                };
+            }
+            console.log('⚠️ No listing_id for inquiry:', inquiry.id);
+            return {
+                ...inquiry,
+                listings: null
+            };
+        }));
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             success: true,
-            data: inquiries
+            data: inquiriesWithListings
         });
     } catch (error) {
         console.error('Inquiry fetch error:', error);
