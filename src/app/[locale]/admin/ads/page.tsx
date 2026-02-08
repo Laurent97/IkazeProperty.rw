@@ -51,6 +51,8 @@ export default function AdminAdManagementPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [showCreateModal, setShowCreateModal] = useState(false)
   const [showDetailsModal, setShowDetailsModal] = useState(false)
+  const [showEditModal, setShowEditModal] = useState(false)
+  const [editingCampaign, setEditingCampaign] = useState<AdCampaign | null>(null)
   const [uploadProgress, setUploadProgress] = useState(0)
   const [isUploading, setIsUploading] = useState(false)
   
@@ -217,8 +219,9 @@ export default function AdminAdManagementPage() {
           budget_total: newAd.budget_total,
           start_date: newAd.start_date,
           end_date: newAd.end_date,
-          description: `${newAd.ad_type} campaign created by admin`,
+          description: (newAd.ad_type as 'premium_listing' | 'banner' | 'sponsored') === 'sponsored' ? 'Sponsored campaign created by admin' : `${newAd.ad_type} campaign created by admin`,
           primary_image_url: newAd.creative_url,
+          media_urls: newAd.creative_url ? [newAd.creative_url] : [],
           cta_text: 'Learn More',
           cta_link: newAd.landing_page || '#',
           target_audience: newAd.target_audience ? { description: newAd.target_audience } : null
@@ -238,7 +241,7 @@ export default function AdminAdManagementPage() {
       setShowCreateModal(false)
       setNewAd({
         title: '',
-        ad_type: 'banner',
+        ad_type: 'banner' as const,
         budget_total: 0,
         start_date: '',
         end_date: '',
@@ -263,21 +266,34 @@ export default function AdminAdManagementPage() {
     setIsUploading(true)
     setUploadProgress(0)
     
-    // Simulate upload progress
-    const interval = setInterval(() => {
-      setUploadProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(interval)
-          setIsUploading(false)
-          setNewAd(prev => ({
-            ...prev,
-            creative_url: `https://example.com/ads/${file.name}`
-          }))
-          return 100
-        }
-        return prev + 10
+    try {
+      // Use existing upload API
+      const formData = new FormData()
+      formData.append('file', file)
+      formData.append('folder', 'ads') // Upload to ads folder
+      
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData
       })
-    }, 200)
+      
+      const result = await response.json()
+      
+      if (result.success && result.data?.url) {
+        setNewAd(prev => ({
+          ...prev,
+          creative_url: result.data.url
+        }))
+        setUploadProgress(100)
+      } else {
+        throw new Error(result.error || 'Upload failed')
+      }
+    } catch (error) {
+      console.error('Error uploading file:', error)
+      alert('Failed to upload image. Please try again.')
+    } finally {
+      setIsUploading(false)
+    }
   }
   
   const handleDelete = async (campaignId: string) => {
@@ -301,6 +317,47 @@ export default function AdminAdManagementPage() {
     }
   }
   
+  const handleEdit = (campaign: AdCampaign) => {
+    setEditingCampaign(campaign)
+    setShowEditModal(true)
+  }
+
+  const handleUpdateAd = async () => {
+    if (!editingCampaign) return
+    
+    try {
+      const { error } = await supabaseAdmin
+        .from('ad_campaigns')
+        .update({
+          title: editingCampaign.title,
+          ad_type: editingCampaign.ad_type,
+          budget_total: editingCampaign.budget_total,
+          start_date: editingCampaign.start_date,
+          end_date: editingCampaign.end_date,
+          description: editingCampaign.description,
+          primary_image_url: editingCampaign.primary_image_url,
+          media_urls: editingCampaign.media_urls,
+          cta_text: editingCampaign.cta_text,
+          cta_link: editingCampaign.cta_link,
+          target_audience: editingCampaign.target_audience
+        })
+        .eq('id', editingCampaign.id)
+      
+      if (error) {
+        console.error('Error updating campaign:', error)
+        alert('Failed to update campaign')
+      } else {
+        fetchCampaigns()
+        setShowEditModal(false)
+        setEditingCampaign(null)
+        alert('Campaign updated successfully!')
+      }
+    } catch (error) {
+      console.error('Error updating campaign:', error)
+      alert('Failed to update campaign')
+    }
+  }
+
   const handleViewDetails = (campaign: AdCampaign) => {
     setSelectedCampaign(campaign)
     setShowDetailsModal(true)
@@ -542,30 +599,19 @@ export default function AdminAdManagementPage() {
                             <BarChart3 className="h-3 w-3 sm:h-4 sm:w-4" />
                           </Button>
                           
-                          {campaign.status === 'pending' && (
-                            <>
-                              <Button 
-                                variant="ghost" 
-                                size="sm"
-                                onClick={() => handleApprove(campaign.id)}
-                                className="text-green-600 hover:text-green-700 touch-target p-1"
-                                aria-label="Approve campaign"
-                              >
-                                <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4" />
-                              </Button>
-                              <Button 
-                                variant="ghost" 
-                                size="sm"
-                                onClick={() => handleReject(campaign.id, 'Inappropriate content')}
-                                className="text-red-600 hover:text-red-700 touch-target p-1"
-                                aria-label="Reject campaign"
-                              >
-                                <XCircle className="h-3 w-3 sm:h-4 sm:w-4" />
-                              </Button>
-                            </>
-                          )}
+                          {/* Edit button - available for all statuses */}
+                          <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={() => handleEdit(campaign)}
+                            className="text-blue-600 hover:text-blue-700 touch-target p-1"
+                            aria-label="Edit campaign"
+                          >
+                            <Edit className="h-3 w-3 sm:h-4 sm:w-4" />
+                          </Button>
                           
-                          {campaign.status === 'active' && (
+                          {/* Status control buttons - available for all statuses */}
+                          {campaign.status === 'active' ? (
                             <Button 
                               variant="ghost" 
                               size="sm"
@@ -575,20 +621,19 @@ export default function AdminAdManagementPage() {
                             >
                               <Pause className="h-3 w-3 sm:h-4 sm:w-4" />
                             </Button>
-                          )}
-                          
-                          {campaign.status === 'paused' && (
+                          ) : (
                             <Button 
                               variant="ghost" 
                               size="sm"
                               onClick={() => handlePlay(campaign.id)}
-                              className="touch-target p-1"
-                              aria-label="Resume campaign"
+                              className="text-green-600 hover:text-green-700 touch-target p-1"
+                              aria-label="Activate campaign"
                             >
                               <Play className="h-3 w-3 sm:h-4 sm:w-4" />
                             </Button>
                           )}
                           
+                          {/* Delete button - available for all statuses */}
                           <Button 
                             variant="ghost" 
                             size="sm"
@@ -837,6 +882,149 @@ export default function AdminAdManagementPage() {
                       <div><strong>CTA Link:</strong> {selectedCampaign.cta_link || 'N/A'}</div>
                     </div>
                   </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
+      {/* Edit Ad Modal */}
+      {showEditModal && editingCampaign && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-3 sm:p-4 z-50">
+          <Card className="w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <CardContent className="p-4 sm:p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg sm:text-xl font-semibold">Edit Ad Campaign</h3>
+                <button
+                  onClick={() => {
+                    setShowEditModal(false)
+                    setEditingCampaign(null)
+                  }}
+                  className="text-gray-400 hover:text-gray-600 touch-target p-1"
+                  aria-label="Close modal"
+                >
+                  <X className="h-4 w-4 sm:h-5 sm:w-5" />
+                </button>
+              </div>
+
+              <div className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Campaign Title *</label>
+                    <input
+                      type="text"
+                      value={editingCampaign.title}
+                      onChange={(e) => setEditingCampaign(prev => prev ? {...prev, title: e.target.value} : null)}
+                      placeholder="Enter campaign title"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Ad Type *</label>
+                    <select
+                      value={editingCampaign.ad_type}
+                      onChange={(e) => setEditingCampaign(prev => prev ? {...prev, ad_type: e.target.value as any} : null)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500"
+                      aria-label="Select ad type"
+                    >
+                      <option value="banner">Banner Ad</option>
+                      <option value="sponsored">Sponsored Content</option>
+                      <option value="premium_listing">Premium Listing</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Budget (RWF) *</label>
+                    <input
+                      type="number"
+                      value={editingCampaign.budget_total}
+                      onChange={(e) => setEditingCampaign(prev => prev ? {...prev, budget_total: parseInt(e.target.value) || 0} : null)}
+                      placeholder="Enter budget amount"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                    <select
+                      value={editingCampaign.status}
+                      onChange={(e) => setEditingCampaign(prev => prev ? {...prev, status: e.target.value as any} : null)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500"
+                      aria-label="Select campaign status"
+                    >
+                      <option value="draft">Draft</option>
+                      <option value="active">Active</option>
+                      <option value="paused">Paused</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Start Date *</label>
+                    <input
+                      type="date"
+                      value={editingCampaign.start_date}
+                      onChange={(e) => setEditingCampaign(prev => prev ? {...prev, start_date: e.target.value} : null)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500"
+                      aria-label="Campaign start date"
+                      title="Select campaign start date"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">End Date *</label>
+                    <input
+                      type="date"
+                      value={editingCampaign.end_date}
+                      onChange={(e) => setEditingCampaign(prev => prev ? {...prev, end_date: e.target.value} : null)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500"
+                      aria-label="Campaign end date"
+                      title="Select campaign end date"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                  <textarea
+                    value={editingCampaign.description || ''}
+                    onChange={(e) => setEditingCampaign(prev => prev ? {...prev, description: e.target.value} : null)}
+                    placeholder="Enter campaign description"
+                    rows={3}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Landing Page URL</label>
+                  <input
+                    type="url"
+                    value={editingCampaign.cta_link || ''}
+                    onChange={(e) => setEditingCampaign(prev => prev ? {...prev, cta_link: e.target.value} : null)}
+                    placeholder="https://example.com/landing-page"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500"
+                  />
+                </div>
+
+                <div className="flex space-x-3 pt-4">
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      setShowEditModal(false)
+                      setEditingCampaign(null)
+                    }}
+                    className="flex-1"
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    onClick={handleUpdateAd}
+                    className="flex-1 bg-red-600 hover:bg-red-700"
+                  >
+                    Update Campaign
+                  </Button>
                 </div>
               </div>
             </CardContent>

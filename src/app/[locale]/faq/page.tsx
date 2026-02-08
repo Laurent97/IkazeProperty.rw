@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Search, ChevronDown, ChevronUp, HelpCircle, MessageCircle, Phone, Mail } from 'lucide-react'
+import { Phone, Mail, MessageCircle, ChevronDown, ChevronUp, HelpCircle, Search } from 'lucide-react'
+import AdminContactInfo from '@/components/listing/admin-contact'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 
@@ -277,12 +278,12 @@ export default function FAQPage() {
                 <div className="text-center">
                   <Phone className="h-8 w-8 mx-auto mb-2" />
                   <h3 className="font-semibold mb-1">Phone Support</h3>
-                  <p className="text-sm text-red-100">+250 788 123 456</p>
+                  <AdminContactInfo className="text-sm text-red-100" />
                 </div>
                 <div className="text-center">
                   <Mail className="h-8 w-8 mx-auto mb-2" />
                   <h3 className="font-semibold mb-1">Email Support</h3>
-                  <p className="text-sm text-red-100">support@ikazeproperty.rw</p>
+                  <AdminContactInfo className="text-sm text-red-100" />
                 </div>
                 <div className="text-center">
                   <MessageCircle className="h-8 w-8 mx-auto mb-2" />

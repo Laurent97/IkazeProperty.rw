@@ -14,10 +14,11 @@ export async function POST(request: NextRequest) {
     const supabase = getSupabaseAdmin()
     
     // Execute the migration using raw SQL
-    const statements = sql.split(';').filter((stmt: string) => stmt.trim()).filter(stmt => stmt.trim())
+    const statements = sql.split(';').filter((stmt: string) => stmt.trim()).filter((stmt: string) => stmt.trim())
     
     for (const statement of statements) {
-      const { error } = await supabase.from('raw').select('*').execute(statement)
+      // Use the Supabase client's direct SQL execution
+      const { error } = await (supabase as any).from('raw').select('*').execute(statement)
       
       if (error) {
         console.error('Migration error:', error)

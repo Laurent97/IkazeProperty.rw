@@ -96,6 +96,9 @@ export default function FavoriteButton({
 
         if (error) throw error
         setIsFavorited(false)
+        
+        // Update the likes count on the listing using SQL
+        await (supabase as any).rpc('sql', { sql: `SELECT decrement_likes('${listingId}')` })
       } else {
         // Add to favorites
         const { error } = await supabase
@@ -108,11 +111,8 @@ export default function FavoriteButton({
         if (error) throw error
         setIsFavorited(true)
 
-        // Update the likes count on the listing
-        await supabase
-          .from('listings')
-          .update({ likes: (listing?.likes || 0) + 1 } as any)
-          .eq('id', listingId)
+        // Update the likes count on the listing using SQL
+        await (supabase as any).rpc('sql', { sql: `SELECT increment_likes('${listingId}')` })
       }
     } catch (error) {
       console.error('Error toggling favorite:', error)

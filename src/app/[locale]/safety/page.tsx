@@ -1,5 +1,8 @@
-import { Shield, Lock, Eye, AlertTriangle, CheckCircle, Users, Phone, FileText } from 'lucide-react'
-import { Card, CardContent } from '@/components/ui/card'
+'use client'
+
+import { Phone, Mail, Shield, AlertTriangle, FileText, CheckCircle, Users, Eye, Lock } from 'lucide-react'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import AdminContactInfo from '@/components/listing/admin-contact'
 import { Button } from '@/components/ui/button'
 
 export default function SafetyPage() {
@@ -246,7 +249,7 @@ export default function SafetyPage() {
                       <Phone className="h-5 w-5 text-red-600 mr-3" />
                       <div>
                         <h4 className="font-semibold text-gray-900">Emergency Hotline</h4>
-                        <p className="text-gray-600">+250 788 123 456</p>
+                        <AdminContactInfo className="text-gray-600" />
                       </div>
                     </div>
                   </CardContent>
