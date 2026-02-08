@@ -35,5 +35,5 @@ CREATE POLICY "Admins can manage site settings" ON site_settings
 
 -- Seed default settings
 INSERT INTO site_settings (admin_phone, whatsapp_phone, support_email, office_address)
-VALUES ('+250 788 123 456', '+250737060025', 'support@ikazeproperty.rw', 'KN 123 St, Kiyovu')
+VALUES ('+250 XXX XXX XXX', '+250 XXX XXX XXX', 'contact@ikazeproperty.rw', 'KN 123 St, Kiyovu')
 ON CONFLICT DO NOTHING;

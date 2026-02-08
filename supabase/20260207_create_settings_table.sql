@@ -28,8 +28,8 @@ CREATE TABLE IF NOT EXISTS settings (
   
   -- Platform settings
   platform_name VARCHAR(255) DEFAULT 'IkazeProperty',
-  platform_email VARCHAR(255) DEFAULT 'support@ikazeproperty.rw',
-  platform_phone VARCHAR(50) DEFAULT '+250 788 123 456',
+  platform_email VARCHAR(255) DEFAULT 'contact@ikazeproperty.rw',
+  platform_phone VARCHAR(50) DEFAULT '+250 XXX XXX XXX',
   platform_address TEXT DEFAULT 'Kigali, Rwanda',
   
   -- Commission settings
@@ -84,7 +84,7 @@ INSERT INTO settings (
       "payment_instructions": ""
     }
   }'::jsonb,
-  'IkazeProperty', 'support@ikazeproperty.rw', '+250 788 123 456', 'Kigali, Rwanda',
+  'IkazeProperty', 'contact@ikazeproperty.rw', '+250 XXX XXX XXX', 'Kigali, Rwanda',
   1000, 100000,
   true, false, true,
   true, false, 10,
@@ -96,6 +96,11 @@ CREATE INDEX IF NOT EXISTS idx_settings_id ON settings(id);
 
 -- Add RLS (Row Level Security) policies
 ALTER TABLE settings ENABLE ROW LEVEL SECURITY;
+
+-- Drop existing policies if they exist
+DROP POLICY IF EXISTS "Allow authenticated read" ON settings;
+DROP POLICY IF EXISTS "Allow admin update" ON settings;
+DROP POLICY IF EXISTS "Allow admin insert" ON settings;
 
 -- Only allow authenticated users to read settings
 CREATE POLICY "Allow authenticated read" ON settings
@@ -133,6 +138,7 @@ END;
 $$ language 'plpgsql';
 
 -- Create trigger to automatically update updated_at
+DROP TRIGGER IF EXISTS update_settings_updated_at ON settings;
 CREATE TRIGGER update_settings_updated_at 
   BEFORE UPDATE ON settings 
   FOR EACH ROW 

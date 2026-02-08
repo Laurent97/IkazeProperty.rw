@@ -108,7 +108,7 @@ export default function SiteSettingsPage() {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setFormData({ ...formData, admin_phone: e.target.value })
               }
-              placeholder="+250 788 123 456"
+              placeholder={process.env.NEXT_PUBLIC_PLATFORM_PHONE || '+250 XXX XXX XXX'}
             />
           </div>
 
@@ -120,7 +120,7 @@ export default function SiteSettingsPage() {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setFormData({ ...formData, whatsapp_phone: e.target.value })
               }
-              placeholder="+250737060025"
+              placeholder={process.env.NEXT_PUBLIC_PLATFORM_WHATSAPP || '+250 XXX XXX XXX'}
             />
           </div>
 
@@ -132,7 +132,7 @@ export default function SiteSettingsPage() {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setFormData({ ...formData, support_email: e.target.value })
               }
-              placeholder="support@ikazeproperty.rw"
+              placeholder={process.env.NEXT_PUBLIC_PLATFORM_EMAIL || 'contact@ikazeproperty.rw'}
             />
           </div>
 

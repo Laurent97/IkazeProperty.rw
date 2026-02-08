@@ -64,10 +64,10 @@ export default function AdminSettingsPage() {
     
     // Platform Settings
     platform_name: 'IkazeProperty',
-    platform_email: 'support@ikazeproperty.rw',
-    platform_phone: '+250 788 123 456',
-    platform_whatsapp: '+250737060025',
-    platform_address: 'Kigali, Rwanda',
+    platform_email: process.env.NEXT_PUBLIC_PLATFORM_EMAIL || 'contact@ikazeproperty.rw',
+    platform_phone: process.env.NEXT_PUBLIC_PLATFORM_PHONE || '+250 XXX XXX XXX',
+    platform_whatsapp: process.env.NEXT_PUBLIC_PLATFORM_WHATSAPP || '+250 XXX XXX XXX',
+    platform_address: process.env.NEXT_PUBLIC_PLATFORM_ADDRESS || 'Kigali, Rwanda',
     
     // Commission Settings
     min_commission: 1000,
@@ -97,9 +97,9 @@ export default function AdminSettingsPage() {
     try {
       setLoading(true)
       
-      // Fetch settings from database or use defaults
+      // Fetch settings from site_settings table or use defaults
       const { data, error } = await supabase
-        .from('settings')
+        .from('site_settings')
         .select('*')
         .single()
 
@@ -122,7 +122,7 @@ export default function AdminSettingsPage() {
       setSaving(true)
       
       const { error } = await (supabase as any)
-        .from('settings')
+        .from('site_settings')
         .upsert({
           id: 1,
           ...settings,
@@ -413,7 +413,7 @@ export default function AdminSettingsPage() {
                         <Input
                           value={settings.mobile_money_details.mtn.phone_number}
                           onChange={(e) => handleInputChange('mobile_money_mtn', 'phone_number', e.target.value)}
-                          placeholder="+250 788 123 456"
+                          placeholder={process.env.NEXT_PUBLIC_PLATFORM_PHONE || '+250 XXX XXX XXX'}
                         />
                       </div>
                       <div>

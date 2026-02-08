@@ -36,7 +36,7 @@ export default function AdminChatCenter({}: AdminChatCenterProps) {
       userId: 'user1',
       userName: 'John Mukiza',
       userEmail: 'john@example.com',
-      userPhone: '+250 788 123 456',
+      userPhone: '+250 XXX XXX XXX',
       lastMessage: 'I need help with my property listing',
       lastMessageTime: new Date('2024-02-07T16:35:00'),
       status: 'active',
