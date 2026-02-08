@@ -1000,9 +1000,10 @@ const defaultPaymentSettings = {
         }
     },
     platform_name: 'IkazeProperty',
-    platform_email: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_PLATFORM_EMAIL || 'contact@ikazeproperty.rw',
-    platform_phone: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_PLATFORM_PHONE || '+250 XXX XXX XXX',
-    platform_address: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_PLATFORM_ADDRESS || 'Kigali, Rwanda'
+    platform_email: 'contact@ikazeproperty.rw',
+    platform_phone: '+250 XXX XXX XXX',
+    platform_whatsapp: '+250 XXX XXX XXX',
+    platform_address: 'Kigali, Rwanda'
 };
 const PaymentContext = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createContext"])(undefined);
 function PaymentProvider({ children }) {
@@ -1014,33 +1015,33 @@ function PaymentProvider({ children }) {
         try {
             setLoading(true);
             setError(null);
-            // Fetch from site_settings table
-            const { data, error: fetchError } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$auth$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabase"].from('site_settings').select('*').single();
+            // Fetch from settings table
+            const { data, error: fetchError } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$auth$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabase"].from('settings').select('*').single();
             if (fetchError && fetchError.code !== 'PGRST116') {
                 throw fetchError;
             }
             if (data) {
-                // Type the data properly
-                const siteData = data;
+                // Type the data properly - settings table has all fields
+                const settingsData = data;
                 // Map settings to PaymentSettings format
                 setPaymentSettings({
-                    commission_rate: 5,
-                    payment_methods: [
+                    commission_rate: settingsData.commission_rate || 5,
+                    payment_methods: settingsData.payment_methods || [
                         'mobile_money',
                         'bank_transfer',
                         'cash'
                     ],
-                    mobile_money_providers: [
+                    mobile_money_providers: settingsData.mobile_money_providers || [
                         'mtn',
                         'airtel'
                     ],
-                    bank_details: siteData.bank_details || {
+                    bank_details: settingsData.bank_details || {
                         bank_name: '',
                         account_name: '',
                         account_number: '',
                         branch_code: ''
                     },
-                    mobile_money_details: siteData.mobile_money_details || {
+                    mobile_money_details: settingsData.mobile_money_details || {
                         mtn: {
                             provider_name: 'MTN Mobile Money',
                             phone_number: '',
@@ -1056,10 +1057,11 @@ function PaymentProvider({ children }) {
                             payment_instructions: ''
                         }
                     },
-                    platform_name: siteData.platform_name || 'IkazeProperty',
-                    platform_email: siteData.platform_email || __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_PLATFORM_EMAIL || 'contact@ikazeproperty.rw',
-                    platform_phone: siteData.platform_phone || __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_PLATFORM_PHONE || '+250 XXX XXX XXX',
-                    platform_address: siteData.platform_address || __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_PLATFORM_ADDRESS || 'Kigali, Rwanda'
+                    platform_name: settingsData.platform_name || 'IkazeProperty',
+                    platform_email: settingsData.platform_email || 'contact@ikazeproperty.rw',
+                    platform_phone: settingsData.platform_phone || '+250 XXX XXX XXX',
+                    platform_address: settingsData.platform_address || 'Kigali, Rwanda',
+                    platform_whatsapp: settingsData.platform_phone || '+250 XXX XXX XXX' // Use phone for WhatsApp
                 });
             } else {
                 // Use default settings if none exist
@@ -1091,7 +1093,7 @@ function PaymentProvider({ children }) {
         children: children
     }, void 0, false, {
         fileName: "[project]/src/contexts/PaymentContext.tsx",
-        lineNumber: 184,
+        lineNumber: 200,
         columnNumber: 5
     }, this);
 }
@@ -1116,9 +1118,10 @@ function usePaymentContext() {
         ...context,
         getPlatformInfo: ()=>({
                 name: context.paymentSettings?.platform_name || 'IkazeProperty',
-                email: context.paymentSettings?.platform_email || __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_PLATFORM_EMAIL || 'contact@ikazeproperty.rw',
-                phone: context.paymentSettings?.platform_phone || __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_PLATFORM_PHONE || '+250 XXX XXX XXX',
-                address: context.paymentSettings?.platform_address || __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_PLATFORM_ADDRESS || 'Kigali, Rwanda'
+                email: context.paymentSettings?.platform_email || 'contact@ikazeproperty.rw',
+                phone: context.paymentSettings?.platform_phone || '+250 XXX XXX XXX',
+                whatsapp: context.paymentSettings?.platform_whatsapp || '+250 XXX XXX XXX',
+                address: context.paymentSettings?.platform_address || 'Kigali, Rwanda'
             })
     };
 }
@@ -2427,10 +2430,31 @@ function WhatsAppIntegration({ phoneNumber: propPhoneNumber, businessName = 'Ika
     }["WhatsAppIntegration.useEffect"], []);
     const loadSiteSettings = async ()=>{
         try {
-            const response = await fetch('/api/site-settings');
-            const data = await response.json();
-            if (response.ok && data?.settings) {
-                setSiteSettings(data.settings);
+            // Try multiple possible URLs to handle different development environments
+            const possibleUrls = [
+                '/api/site-settings',
+                'http://localhost:3000/api/site-settings',
+                `${window.location.origin}/api/site-settings`
+            ];
+            let data = null;
+            let success = false;
+            for (const url of possibleUrls){
+                try {
+                    const response = await fetch(url);
+                    if (response.ok) {
+                        data = await response.json();
+                        if (data?.settings) {
+                            setSiteSettings(data.settings);
+                            success = true;
+                            break;
+                        }
+                    }
+                } catch (err) {
+                    continue;
+                }
+            }
+            if (!success) {
+                console.warn('Could not load site settings from any endpoint, using defaults');
             }
         } catch (err) {
             console.error('Failed to load site settings:', err);
@@ -2452,7 +2476,7 @@ function WhatsAppIntegration({ phoneNumber: propPhoneNumber, businessName = 'Ika
                     className: "w-3 h-3 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"
                 }, void 0, false, {
                     fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                    lineNumber: 83,
+                    lineNumber: 108,
                     columnNumber: 16
                 }, this);
             case 'sent':
@@ -2460,7 +2484,7 @@ function WhatsAppIntegration({ phoneNumber: propPhoneNumber, businessName = 'Ika
                     className: "h-3 w-3 text-gray-400"
                 }, void 0, false, {
                     fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                    lineNumber: 85,
+                    lineNumber: 110,
                     columnNumber: 16
                 }, this);
             case 'delivered':
@@ -2468,7 +2492,7 @@ function WhatsAppIntegration({ phoneNumber: propPhoneNumber, businessName = 'Ika
                     className: "h-3 w-3 text-gray-400"
                 }, void 0, false, {
                     fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                    lineNumber: 87,
+                    lineNumber: 112,
                     columnNumber: 16
                 }, this);
             case 'read':
@@ -2476,7 +2500,7 @@ function WhatsAppIntegration({ phoneNumber: propPhoneNumber, businessName = 'Ika
                     className: "h-3 w-3 text-blue-500"
                 }, void 0, false, {
                     fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                    lineNumber: 89,
+                    lineNumber: 114,
                     columnNumber: 16
                 }, this);
             default:
@@ -2594,12 +2618,12 @@ function WhatsAppIntegration({ phoneNumber: propPhoneNumber, businessName = 'Ika
                             className: "h-6 w-6"
                         }, void 0, false, {
                             fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                            lineNumber: 221,
+                            lineNumber: 246,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                        lineNumber: 216,
+                        lineNumber: 241,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -2610,23 +2634,23 @@ function WhatsAppIntegration({ phoneNumber: propPhoneNumber, businessName = 'Ika
                             className: "h-5 w-5"
                         }, void 0, false, {
                             fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                            lineNumber: 228,
+                            lineNumber: 253,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                        lineNumber: 223,
+                        lineNumber: 248,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                lineNumber: 215,
+                lineNumber: 240,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-            lineNumber: 214,
+            lineNumber: 239,
             columnNumber: 7
         }, this);
     }
@@ -2647,12 +2671,12 @@ function WhatsAppIntegration({ phoneNumber: propPhoneNumber, businessName = 'Ika
                                         className: "h-6 w-6 text-green-600"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                                        lineNumber: 242,
+                                        lineNumber: 267,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                                    lineNumber: 241,
+                                    lineNumber: 266,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2662,7 +2686,7 @@ function WhatsAppIntegration({ phoneNumber: propPhoneNumber, businessName = 'Ika
                                             children: businessName
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                                            lineNumber: 245,
+                                            lineNumber: 270,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2670,19 +2694,19 @@ function WhatsAppIntegration({ phoneNumber: propPhoneNumber, businessName = 'Ika
                                             children: "Typically replies instantly"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                                            lineNumber: 246,
+                                            lineNumber: 271,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                                    lineNumber: 244,
+                                    lineNumber: 269,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                            lineNumber: 240,
+                            lineNumber: 265,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2698,12 +2722,12 @@ function WhatsAppIntegration({ phoneNumber: propPhoneNumber, businessName = 'Ika
                                         className: "h-4 w-4"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                                        lineNumber: 257,
+                                        lineNumber: 282,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                                    lineNumber: 250,
+                                    lineNumber: 275,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -2715,24 +2739,24 @@ function WhatsAppIntegration({ phoneNumber: propPhoneNumber, businessName = 'Ika
                                         className: "h-4 w-4"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                                        lineNumber: 265,
+                                        lineNumber: 290,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                                    lineNumber: 259,
+                                    lineNumber: 284,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                            lineNumber: 249,
+                            lineNumber: 274,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                    lineNumber: 239,
+                    lineNumber: 264,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -2752,12 +2776,12 @@ function WhatsAppIntegration({ phoneNumber: propPhoneNumber, businessName = 'Ika
                                                     children: message.text
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                                                    lineNumber: 286,
+                                                    lineNumber: 311,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                                                lineNumber: 281,
+                                                lineNumber: 306,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2768,25 +2792,25 @@ function WhatsAppIntegration({ phoneNumber: propPhoneNumber, businessName = 'Ika
                                                         children: formatTime(message.timestamp)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                                                        lineNumber: 291,
+                                                        lineNumber: 316,
                                                         columnNumber: 21
                                                     }, this),
                                                     message.sender === 'user' && getStatusIcon(message.status)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                                                lineNumber: 288,
+                                                lineNumber: 313,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                                        lineNumber: 278,
+                                        lineNumber: 303,
                                         columnNumber: 17
                                     }, this)
                                 }, message.id, false, {
                                     fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                                    lineNumber: 274,
+                                    lineNumber: 299,
                                     columnNumber: 15
                                 }, this)),
                             isTyping && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2800,7 +2824,7 @@ function WhatsAppIntegration({ phoneNumber: propPhoneNumber, businessName = 'Ika
                                                 className: "w-2 h-2 bg-gray-400 rounded-full animate-bounce"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                                                lineNumber: 302,
+                                                lineNumber: 327,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2810,7 +2834,7 @@ function WhatsAppIntegration({ phoneNumber: propPhoneNumber, businessName = 'Ika
                                                 }
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                                                lineNumber: 303,
+                                                lineNumber: 328,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2820,34 +2844,34 @@ function WhatsAppIntegration({ phoneNumber: propPhoneNumber, businessName = 'Ika
                                                 }
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                                                lineNumber: 304,
+                                                lineNumber: 329,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                                        lineNumber: 301,
+                                        lineNumber: 326,
                                         columnNumber: 19
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                                    lineNumber: 300,
+                                    lineNumber: 325,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                                lineNumber: 299,
+                                lineNumber: 324,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                        lineNumber: 272,
+                        lineNumber: 297,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                    lineNumber: 271,
+                    lineNumber: 296,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2865,7 +2889,7 @@ function WhatsAppIntegration({ phoneNumber: propPhoneNumber, businessName = 'Ika
                                     className: "flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                                    lineNumber: 315,
+                                    lineNumber: 340,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -2876,18 +2900,18 @@ function WhatsAppIntegration({ phoneNumber: propPhoneNumber, businessName = 'Ika
                                         className: "h-4 w-4"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                                        lineNumber: 328,
+                                        lineNumber: 353,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                                    lineNumber: 323,
+                                    lineNumber: 348,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                            lineNumber: 314,
+                            lineNumber: 339,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2902,36 +2926,36 @@ function WhatsAppIntegration({ phoneNumber: propPhoneNumber, businessName = 'Ika
                                         className: "h-4 w-4 mr-2"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                                        lineNumber: 338,
+                                        lineNumber: 363,
                                         columnNumber: 15
                                     }, this),
                                     "Continue in WhatsApp"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                                lineNumber: 332,
+                                lineNumber: 357,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                            lineNumber: 331,
+                            lineNumber: 356,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-                    lineNumber: 313,
+                    lineNumber: 338,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-            lineNumber: 237,
+            lineNumber: 262,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/chat/WhatsAppIntegration.tsx",
-        lineNumber: 236,
+        lineNumber: 261,
         columnNumber: 5
     }, this);
 }

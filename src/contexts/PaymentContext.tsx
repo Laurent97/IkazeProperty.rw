@@ -4,35 +4,35 @@ import { createContext, useContext, useEffect, useState, ReactNode } from 'react
 import { supabase } from '@/lib/auth'
 
 interface PaymentSettings {
-  commission_rate: number
-  payment_methods: string[]
-  mobile_money_providers: string[]
-  bank_details: {
+  commission_rate?: number
+  payment_methods?: string[]
+  mobile_money_providers?: string[]
+  bank_details?: {
     bank_name: string
     account_name: string
     account_number: string
     branch_code: string
   }
-  mobile_money_details: {
-    mtn: {
-      provider_name: string
-      phone_number: string
-      account_name: string
-      merchant_id: string
-      payment_instructions: string
-    }
-    airtel: {
-      provider_name: string
-      phone_number: string
-      account_name: string
-      merchant_id: string
-      payment_instructions: string
-    }
+  mobile_money_details?: {
+    mtn?: any
+    airtel?: any
   }
-  platform_name: string
-  platform_email: string
-  platform_phone: string
-  platform_address: string
+  platform_name?: string
+  platform_email?: string
+  platform_phone?: string
+  platform_whatsapp?: string
+  platform_address?: string
+  min_commission?: number
+  max_commission?: number
+  email_notifications?: boolean
+  sms_notifications?: boolean
+  admin_alerts?: boolean
+  require_verification?: boolean
+  auto_approve_listings?: boolean
+  max_daily_listings?: number
+  terms_of_service?: string
+  privacy_policy?: string
+  refund_policy?: string
 }
 
 interface PaymentContextType {
@@ -69,9 +69,10 @@ const defaultPaymentSettings: PaymentSettings = {
     }
   },
   platform_name: 'IkazeProperty',
-  platform_email: process.env.NEXT_PUBLIC_PLATFORM_EMAIL || 'contact@ikazeproperty.rw',
-  platform_phone: process.env.NEXT_PUBLIC_PLATFORM_PHONE || '+250 XXX XXX XXX',
-  platform_address: process.env.NEXT_PUBLIC_PLATFORM_ADDRESS || 'Kigali, Rwanda'
+  platform_email: 'contact@ikazeproperty.rw',
+  platform_phone: '+250 XXX XXX XXX',
+  platform_whatsapp: '+250 XXX XXX XXX',
+  platform_address: 'Kigali, Rwanda'
 }
 
 const PaymentContext = createContext<PaymentContextType | undefined>(undefined)
@@ -86,9 +87,9 @@ export function PaymentProvider({ children }: { children: ReactNode }) {
       setLoading(true)
       setError(null)
 
-      // Fetch from site_settings table
+      // Fetch from settings table
       const { data, error: fetchError } = await supabase
-        .from('site_settings')
+        .from('settings')
         .select('*')
         .single()
 
@@ -97,48 +98,62 @@ export function PaymentProvider({ children }: { children: ReactNode }) {
       }
 
       if (data) {
-        // Type the data properly
-        const siteData = data as {
-          platform_name: string
-          platform_phone: string
-          platform_email: string
-          platform_address: string
-          mobile_money_details?: {
-            mtn: {
-              provider_name: string
-              phone_number: string
-              account_name: string
-              merchant_id: string
-              payment_instructions: string
-            }
-            airtel: {
-              provider_name: string
-              phone_number: string
-              account_name: string
-              merchant_id: string
-              payment_instructions: string
-            }
-          }
+        // Type the data properly - settings table has all fields
+        const settingsData = data as {
+          commission_rate?: number
+          payment_methods?: string[]
+          mobile_money_providers?: string[]
           bank_details?: {
             bank_name: string
             account_name: string
             account_number: string
             branch_code: string
           }
+          mobile_money_details?: {
+            mtn?: {
+              provider_name: string
+              phone_number: string
+              account_name: string
+              merchant_id: string
+              payment_instructions: string
+            }
+            airtel?: {
+              provider_name: string
+              phone_number: string
+              account_name: string
+              merchant_id: string
+              payment_instructions: string
+            }
+          }
+          platform_name?: string
+          platform_email?: string
+          platform_phone?: string
+          platform_address?: string
+          min_commission?: number
+          max_commission?: number
+          email_notifications?: boolean
+          sms_notifications?: boolean
+          admin_alerts?: boolean
+          require_verification?: boolean
+          auto_approve_listings?: boolean
+          max_daily_listings?: number
+          terms_of_service?: string
+          privacy_policy?: string
+          refund_policy?: string
         }
         
         // Map settings to PaymentSettings format
         setPaymentSettings({
-          commission_rate: 5, // Default commission rate
-          payment_methods: ['mobile_money', 'bank_transfer', 'cash'],
-          mobile_money_providers: ['mtn', 'airtel'],
-          bank_details: siteData.bank_details || {
+          commission_rate: settingsData.commission_rate || 5,
+          payment_methods: settingsData.payment_methods || ['mobile_money', 'bank_transfer', 'cash'],
+          mobile_money_providers: settingsData.mobile_money_providers || ['mtn', 'airtel'],
+          bank_details: settingsData.bank_details || {
             bank_name: '',
             account_name: '',
             account_number: '',
             branch_code: ''
           },
-          mobile_money_details: siteData.mobile_money_details || {
+          mobile_money_details: settingsData.mobile_money_details || {
             mtn: {
               provider_name: 'MTN Mobile Money',
               phone_number: '',
@@ -154,10 +169,11 @@ export function PaymentProvider({ children }: { children: ReactNode }) {
               payment_instructions: ''
             }
           },
-          platform_name: siteData.platform_name || 'IkazeProperty',
-          platform_email: siteData.platform_email || process.env.NEXT_PUBLIC_PLATFORM_EMAIL || 'contact@ikazeproperty.rw',
-          platform_phone: siteData.platform_phone || process.env.NEXT_PUBLIC_PLATFORM_PHONE || '+250 XXX XXX XXX',
-          platform_address: siteData.platform_address || process.env.NEXT_PUBLIC_PLATFORM_ADDRESS || 'Kigali, Rwanda'
+          platform_name: settingsData.platform_name || 'IkazeProperty',
+          platform_email: settingsData.platform_email || 'contact@ikazeproperty.rw',
+          platform_phone: settingsData.platform_phone || '+250 XXX XXX XXX',
+          platform_address: settingsData.platform_address || 'Kigali, Rwanda',
+          platform_whatsapp: settingsData.platform_phone || '+250 XXX XXX XXX' // Use phone for WhatsApp
         })
       } else {
         // Use default settings if none exist
@@ -209,9 +225,10 @@ export function usePaymentContext() {
     ...context,
     getPlatformInfo: () => ({
       name: context.paymentSettings?.platform_name || 'IkazeProperty',
-      email: context.paymentSettings?.platform_email || process.env.NEXT_PUBLIC_PLATFORM_EMAIL || 'contact@ikazeproperty.rw',
-      phone: context.paymentSettings?.platform_phone || process.env.NEXT_PUBLIC_PLATFORM_PHONE || '+250 XXX XXX XXX',
-      address: context.paymentSettings?.platform_address || process.env.NEXT_PUBLIC_PLATFORM_ADDRESS || 'Kigali, Rwanda'
+      email: context.paymentSettings?.platform_email || 'contact@ikazeproperty.rw',
+      phone: context.paymentSettings?.platform_phone || '+250 XXX XXX XXX',
+      whatsapp: context.paymentSettings?.platform_whatsapp || '+250 XXX XXX XXX',
+      address: context.paymentSettings?.platform_address || 'Kigali, Rwanda'
     })
   }
 }

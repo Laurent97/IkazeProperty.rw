@@ -71,6 +71,7 @@ __turbopack_context__.s([
     "default",
     ()=>AdminSettingsPage
 ]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$settings$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Settings$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/settings.js [app-client] (ecmascript) <export default as Settings>");
@@ -146,10 +147,10 @@ function AdminSettingsPage() {
         },
         // Platform Settings
         platform_name: 'IkazeProperty',
-        platform_email: 'support@ikazeproperty.rw',
-        platform_phone: '+250 788 123 456',
-        platform_whatsapp: '+250737060025',
-        platform_address: 'Kigali, Rwanda',
+        platform_email: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_PLATFORM_EMAIL || 'contact@ikazeproperty.rw',
+        platform_phone: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_PLATFORM_PHONE || '+250 XXX XXX XXX',
+        platform_whatsapp: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_PLATFORM_WHATSAPP || '+250 XXX XXX XXX',
+        platform_address: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_PLATFORM_ADDRESS || 'Kigali, Rwanda',
         // Commission Settings
         min_commission: 1000,
         max_commission: 100000,
@@ -174,7 +175,7 @@ function AdminSettingsPage() {
     const fetchSettings = async ()=>{
         try {
             setLoading(true);
-            // Fetch settings from database or use defaults
+            // Fetch settings from settings table or use defaults
             const { data, error } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$auth$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabase"].from('settings').select('*').single();
             if (error && error.code !== 'PGRST116') {
                 throw error;
@@ -834,7 +835,7 @@ function AdminSettingsPage() {
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
                                                                         value: settings.mobile_money_details.mtn.phone_number,
                                                                         onChange: (e)=>handleInputChange('mobile_money_mtn', 'phone_number', e.target.value),
-                                                                        placeholder: "+250 788 123 456"
+                                                                        placeholder: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_PLATFORM_PHONE || '+250 XXX XXX XXX'
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/[locale]/dashboard/admin/settings/page.tsx",
                                                                         lineNumber: 413,
@@ -2054,7 +2055,7 @@ function AdminSettingsPage() {
         columnNumber: 5
     }, this);
 }
-_s(AdminSettingsPage, "C5x7C4Vx4BNpzvjU78qURXcmcRc=", false, function() {
+_s(AdminSettingsPage, "ZFEo4VXMdV4MHqcaU1j4m1znq+Y=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$contexts$2f$PaymentContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePayment"]
     ];

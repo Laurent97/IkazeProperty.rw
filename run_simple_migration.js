@@ -6,8 +6,8 @@ async function runMigration() {
   try {
     console.log('Running simple migration...');
     
-    const { error } = await supabase.rpc('sql', {
-      sql: require('fs').readFileSync('./supabase/20260208_add_payment_instructions_simple.sql', 'utf8')
+    const { error } = await supabase.rpc('sql_query', {
+      query: require('fs').readFileSync('./supabase/fix_rls_recursion.sql', 'utf8')
     });
     
     if (error) {

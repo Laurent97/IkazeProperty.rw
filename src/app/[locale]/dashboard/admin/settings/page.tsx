@@ -35,7 +35,7 @@ export default function AdminSettingsPage() {
   const [saving, setSaving] = useState(false)
   const [editingSection, setEditingSection] = useState<string | null>(null)
   const [settings, setSettings] = useState({
-    // Payment Settings
+    // Payment Settings - will be loaded from database
     commission_rate: 5,
     payment_methods: ['mobile_money', 'bank_transfer', 'cash'],
     mobile_money_providers: ['mtn', 'airtel'],
@@ -62,28 +62,28 @@ export default function AdminSettingsPage() {
       }
     },
     
-    // Platform Settings
+    // Platform Settings - will be loaded from database
     platform_name: 'IkazeProperty',
-    platform_email: process.env.NEXT_PUBLIC_PLATFORM_EMAIL || 'contact@ikazeproperty.rw',
-    platform_phone: process.env.NEXT_PUBLIC_PLATFORM_PHONE || '+250 XXX XXX XXX',
-    platform_whatsapp: process.env.NEXT_PUBLIC_PLATFORM_WHATSAPP || '+250 XXX XXX XXX',
-    platform_address: process.env.NEXT_PUBLIC_PLATFORM_ADDRESS || 'Kigali, Rwanda',
+    platform_email: 'contact@ikazeproperty.rw',
+    platform_phone: '+250 XXX XXX XXX',
+    platform_whatsapp: '+250 XXX XXX XXX',
+    platform_address: 'Kigali, Rwanda',
     
-    // Commission Settings
+    // Commission Settings - will be loaded from database
     min_commission: 1000,
     max_commission: 100000,
     
-    // Notification Settings
+    // Notification Settings - will be loaded from database
     email_notifications: true,
     sms_notifications: false,
     admin_alerts: true,
     
-    // Security Settings
+    // Security Settings - will be loaded from database
     require_verification: true,
     auto_approve_listings: false,
     max_daily_listings: 10,
     
-    // Legal Settings
+    // Legal Settings - will be loaded from database
     terms_of_service: '',
     privacy_policy: '',
     refund_policy: ''
@@ -413,7 +413,7 @@ export default function AdminSettingsPage() {
                         <Input
                           value={settings.mobile_money_details.mtn.phone_number}
                           onChange={(e) => handleInputChange('mobile_money_mtn', 'phone_number', e.target.value)}
-                          placeholder={process.env.NEXT_PUBLIC_PLATFORM_PHONE || '+250 XXX XXX XXX'}
+                          placeholder="+250 XXX XXX XXX"
                         />
                       </div>
                       <div>

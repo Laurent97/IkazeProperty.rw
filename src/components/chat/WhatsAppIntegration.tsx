@@ -59,10 +59,35 @@ export default function WhatsAppIntegration({
 
   const loadSiteSettings = async () => {
     try {
-      const response = await fetch('/api/site-settings')
-      const data = await response.json()
-      if (response.ok && data?.settings) {
-        setSiteSettings(data.settings)
+      // Try multiple possible URLs to handle different development environments
+      const possibleUrls = [
+        '/api/site-settings',
+        'http://localhost:3000/api/site-settings',
+        `${window.location.origin}/api/site-settings`
+      ]
+      
+      let data = null
+      let success = false
+      
+      for (const url of possibleUrls) {
+        try {
+          const response = await fetch(url)
+          if (response.ok) {
+            data = await response.json()
+            if (data?.settings) {
+              setSiteSettings(data.settings)
+              success = true
+              break
+            }
+          }
+        } catch (err) {
+          // Continue to next URL
+          continue
+        }
+      }
+      
+      if (!success) {
+        console.warn('Could not load site settings from any endpoint, using defaults')
       }
     } catch (err) {
       console.error('Failed to load site settings:', err)

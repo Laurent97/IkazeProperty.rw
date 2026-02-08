@@ -130,10 +130,10 @@ function AdminSettingsPage() {
         },
         // Platform Settings
         platform_name: 'IkazeProperty',
-        platform_email: 'support@ikazeproperty.rw',
-        platform_phone: '+250 788 123 456',
-        platform_whatsapp: '+250737060025',
-        platform_address: 'Kigali, Rwanda',
+        platform_email: process.env.NEXT_PUBLIC_PLATFORM_EMAIL || 'contact@ikazeproperty.rw',
+        platform_phone: process.env.NEXT_PUBLIC_PLATFORM_PHONE || '+250 XXX XXX XXX',
+        platform_whatsapp: process.env.NEXT_PUBLIC_PLATFORM_WHATSAPP || '+250 XXX XXX XXX',
+        platform_address: process.env.NEXT_PUBLIC_PLATFORM_ADDRESS || 'Kigali, Rwanda',
         // Commission Settings
         min_commission: 1000,
         max_commission: 100000,
@@ -156,7 +156,7 @@ function AdminSettingsPage() {
     const fetchSettings = async ()=>{
         try {
             setLoading(true);
-            // Fetch settings from database or use defaults
+            // Fetch settings from settings table or use defaults
             const { data, error } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$auth$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["supabase"].from('settings').select('*').single();
             if (error && error.code !== 'PGRST116') {
                 throw error;
@@ -816,7 +816,7 @@ function AdminSettingsPage() {
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
                                                                         value: settings.mobile_money_details.mtn.phone_number,
                                                                         onChange: (e)=>handleInputChange('mobile_money_mtn', 'phone_number', e.target.value),
-                                                                        placeholder: "+250 788 123 456"
+                                                                        placeholder: process.env.NEXT_PUBLIC_PLATFORM_PHONE || '+250 XXX XXX XXX'
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/[locale]/dashboard/admin/settings/page.tsx",
                                                                         lineNumber: 413,
