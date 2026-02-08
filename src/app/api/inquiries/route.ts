@@ -197,7 +197,7 @@ export async function PUT(request: NextRequest) {
     const currentUser = await getCurrentUser(request)
     if (!currentUser) {
       return NextResponse.json(
-        { error: 'Authentication required' },
+        { error: 'Authentication required. Please log in and try again.' },
         { status: 401 }
       )
     }
@@ -211,12 +211,14 @@ export async function PUT(request: NextRequest) {
 
     if (userProfile?.role !== 'admin') {
       return NextResponse.json(
-        { error: 'Insufficient permissions' },
+        { error: 'Insufficient permissions. Admin access required.' },
         { status: 403 }
       )
     }
 
     const { inquiry_id, status, admin_notes } = await request.json()
+
+    console.log('PUT request data:', { inquiry_id, status, admin_notes })
 
     if (!inquiry_id || !status) {
       return NextResponse.json(
@@ -233,9 +235,12 @@ export async function PUT(request: NextRequest) {
       .select()
       .single()
 
+    console.log('Database update result:', { inquiry, error })
+
     if (error) {
+      console.error('Database update error:', error)
       return NextResponse.json(
-        { error: 'Failed to update inquiry' },
+        { error: `Failed to update inquiry: ${error.message}` },
         { status: 500 }
       )
     }
@@ -272,7 +277,7 @@ export async function PUT(request: NextRequest) {
   } catch (error) {
     console.error('Inquiry update error:', error)
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: `Internal server error: ${error instanceof Error ? error.message : 'Unknown error'}` },
       { status: 500 }
     )
   }
