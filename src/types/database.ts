@@ -707,6 +707,35 @@ export interface Database {
           created_at?: string
         }
       }
+      inquiry_chats: {
+        Row: {
+          id: string
+          inquiry_id: string
+          sender_id: string
+          sender_type: 'admin' | 'customer'
+          message: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          inquiry_id: string
+          sender_id: string
+          sender_type: 'admin' | 'customer'
+          message: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          inquiry_id?: string
+          sender_id?: string
+          sender_type?: 'admin' | 'customer'
+          message?: string
+          created_at?: string
+          updated_at?: string
+        }
+      }
     }
     Views: {
       [_ in never]: never

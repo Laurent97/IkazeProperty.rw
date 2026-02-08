@@ -12,7 +12,7 @@ interface Message {
   id: string
   text: string
   sender: 'admin' | 'customer'
-  timestamp: Date
+  timestamp: Date | string | null | undefined
   senderName?: string
 }
 
@@ -23,6 +23,7 @@ interface InquiryChatProps {
   customerEmail: string
   isOpen?: boolean
   onToggle?: () => void
+  userType?: 'admin' | 'customer'
 }
 
 export default function InquiryChat({ 
@@ -31,7 +32,8 @@ export default function InquiryChat({
   customerName, 
   customerEmail, 
   isOpen: controlledIsOpen, 
-  onToggle 
+  onToggle,
+  userType = 'customer'
 }: InquiryChatProps) {
   const { user } = useAuth()
   const [isInternalOpen, setIsInternalOpen] = useState(false)
@@ -68,6 +70,7 @@ export default function InquiryChat({
       const { data: { session } } = await supabaseClient.auth.getSession()
       
       if (!session?.access_token) {
+        console.error('No session token found')
         return
       }
 
@@ -80,7 +83,21 @@ export default function InquiryChat({
 
       if (response.ok) {
         const result = await response.json()
-        setMessages(result.data || [])
+        // Map database fields to component interface
+        const mappedMessages = (result.data || []).map((msg: any) => ({
+          ...msg,
+          sender: msg.sender_type, // Map sender_type to sender
+          text: msg.message, // Map message field to text
+          timestamp: msg.created_at // Map created_at to timestamp
+        }))
+        setMessages(mappedMessages)
+      } else {
+        const errorData = await response.json()
+        console.error('Chat API error:', errorData)
+        // Show user-friendly error message
+        if (response.status === 503) {
+          console.error('Chat table not set up. Please contact administrator.')
+        }
       }
     } catch (error) {
       console.error('Error loading messages:', error)
@@ -92,10 +109,13 @@ export default function InquiryChat({
   const sendMessage = async () => {
     if (!inputText.trim() || !user) return
 
+    // Use the userType prop to determine sender type
+    const senderType = userType
+
     const newMessage: Message = {
       id: Date.now().toString(),
       text: inputText.trim(),
-      sender: 'admin',
+      sender: senderType,
       timestamp: new Date(),
       senderName: user.email
     }
@@ -121,19 +141,31 @@ export default function InquiryChat({
         },
         body: JSON.stringify({
           message: newMessage.text,
-          sender: 'admin'
+          sender: senderType
         })
       })
 
       if (response.ok) {
-        setMessages(prev => [...prev, newMessage])
+        const result = await response.json()
+        // Use the server response with proper field mapping
+        const serverMessage = {
+          ...result.data,
+          sender: result.data.sender_type, // Map sender_type to sender
+          text: result.data.message, // Map message field to text
+          timestamp: result.data.created_at // Map created_at to timestamp
+        }
+        setMessages(prev => [...prev, serverMessage])
       } else {
-        throw new Error('Failed to send message')
+        const errorData = await response.json()
+        console.error('Send message API error:', errorData)
+        throw new Error(errorData.error || 'Failed to send message')
       }
     } catch (error) {
       console.error('Error sending message:', error)
       // Revert the input if sending failed
       setInputText(newMessage.text)
+      // Show error message to user
+      alert('Failed to send message. Please try again.')
     } finally {
       setIsTyping(false)
     }
@@ -146,37 +178,88 @@ export default function InquiryChat({
     }
   }
 
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+  const formatTime = (date: Date | string | null | undefined) => {
+    try {
+      // Handle null, undefined, or empty values
+      if (!date) {
+        return 'Unknown time'
+      }
+      
+      const dateObj = typeof date === 'string' ? new Date(date) : date
+      
+      // Check if the date is valid
+      if (isNaN(dateObj.getTime())) {
+        return 'Invalid time'
+      }
+      
+      return dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    } catch (error) {
+      console.error('Error formatting time:', error, 'Input:', date)
+      return 'Invalid time'
+    }
   }
 
-  const formatDate = (date: Date) => {
-    const today = new Date()
-    const messageDate = new Date(date)
-    
-    if (messageDate.toDateString() === today.toDateString()) {
-      return 'Today'
+  const formatDate = (date: Date | string | null | undefined) => {
+    try {
+      // Handle null, undefined, or empty values
+      if (!date) {
+        return 'Unknown date'
+      }
+      
+      const today = new Date()
+      const messageDate = typeof date === 'string' ? new Date(date) : date
+      
+      // Check if the date is valid
+      if (isNaN(messageDate.getTime())) {
+        return 'Invalid date'
+      }
+      
+      if (messageDate.toDateString() === today.toDateString()) {
+        return 'Today'
+      }
+      
+      const yesterday = new Date(today)
+      yesterday.setDate(yesterday.getDate() - 1)
+      
+      if (messageDate.toDateString() === yesterday.toDateString()) {
+        return 'Yesterday'
+      }
+      
+      return messageDate.toLocaleDateString()
+    } catch (error) {
+      console.error('Error formatting date:', error, 'Input:', date)
+      return 'Invalid date'
     }
-    
-    const yesterday = new Date(today)
-    yesterday.setDate(yesterday.getDate() - 1)
-    
-    if (messageDate.toDateString() === yesterday.toDateString()) {
-      return 'Yesterday'
-    }
-    
-    return messageDate.toLocaleDateString()
   }
 
   const groupMessagesByDate = (messages: Message[]) => {
     const groups: { [date: string]: Message[] } = {}
     
     messages.forEach(message => {
-      const date = new Date(message.timestamp).toDateString()
-      if (!groups[date]) {
-        groups[date] = []
+      try {
+        // Skip messages with invalid timestamps
+        if (!message.timestamp) {
+          if (!groups['Unknown Date']) {
+            groups['Unknown Date'] = []
+          }
+          groups['Unknown Date'].push(message)
+          return
+        }
+        
+        // Handle both string and Date timestamps
+        const date = new Date(message.timestamp).toDateString()
+        if (!groups[date]) {
+          groups[date] = []
+        }
+        groups[date].push(message)
+      } catch (error) {
+        console.error('Error grouping message by date:', error, message)
+        // Put invalid dates in a separate group
+        if (!groups['Invalid Date']) {
+          groups['Invalid Date'] = []
+        }
+        groups['Invalid Date'].push(message)
       }
-      groups[date].push(message)
     })
     
     return groups
@@ -243,14 +326,14 @@ export default function InquiryChat({
                       <div className={`max-w-[70%] ${message.sender === 'admin' ? 'order-2' : 'order-1'}`}>
                         <div className="flex items-center space-x-2 mb-1">
                           {message.sender === 'admin' ? (
-                            <div className="flex items-center space-x-1 text-xs text-gray-500">
+                            <div className="flex items-center space-x-1 text-xs text-blue-600 font-medium">
                               <Shield className="h-3 w-3" />
                               <span>Admin</span>
                             </div>
                           ) : (
-                            <div className="flex items-center space-x-1 text-xs text-gray-500">
+                            <div className="flex items-center space-x-1 text-xs text-green-600 font-medium">
                               <User className="h-3 w-3" />
-                              <span>{customerName}</span>
+                              <span>{message.senderName || 'Customer'}</span>
                             </div>
                           )}
                           <span className="text-xs text-gray-400">
@@ -260,8 +343,8 @@ export default function InquiryChat({
                         <div
                           className={`rounded-lg px-4 py-2 ${
                             message.sender === 'admin'
-                              ? 'bg-blue-600 text-white'
-                              : 'bg-gray-100 text-gray-900'
+                              ? 'bg-blue-600 text-white border border-blue-700'
+                              : 'bg-gray-100 text-gray-900 border border-gray-300'
                           }`}
                         >
                           <p className="text-sm whitespace-pre-wrap">{message.text}</p>

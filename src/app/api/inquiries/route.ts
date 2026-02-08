@@ -174,7 +174,7 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    // Fetch listing data for each inquiry
+    // Fetch listing data and user data for each inquiry
     const inquiriesWithListings = await Promise.all(
       (inquiries || []).map(async (inquiry) => {
         console.log('🔍 Processing inquiry:', {
@@ -187,11 +187,14 @@ export async function GET(request: NextRequest) {
           console.log('⚠️ No listing_id for inquiry:', inquiry.id)
           return {
             ...inquiry,
-            listings: null
+            listings: null,
+            buyer: null,
+            seller: null
           }
         }
         
         try {
+          // Fetch listing data
           const { data: listing, error: listingError } = await supabase
             .from('listings')
             .select('id, title, category, price')
@@ -203,26 +206,56 @@ export async function GET(request: NextRequest) {
               listingId: inquiry.listing_id,
               error: listingError
             })
-            return {
-              ...inquiry,
-              listings: null
-            }
           }
           
-          console.log('✅ Successfully fetched listing:', {
+          // Fetch buyer data
+          const { data: buyer, error: buyerError } = await supabase
+            .from('users')
+            .select('id, full_name, email')
+            .eq('id', inquiry.buyer_id)
+            .single()
+          
+          if (buyerError) {
+            console.error('❌ Error fetching buyer:', {
+              buyerId: inquiry.buyer_id,
+              error: buyerError
+            })
+          }
+          
+          // Fetch seller data
+          const { data: seller, error: sellerError } = await supabase
+            .from('users')
+            .select('id, full_name, email')
+            .eq('id', inquiry.seller_id)
+            .single()
+          
+          if (sellerError) {
+            console.error('❌ Error fetching seller:', {
+              sellerId: inquiry.seller_id,
+              error: sellerError
+            })
+          }
+          
+          console.log('✅ Successfully fetched data:', {
             listingId: inquiry.listing_id,
-            listing
+            listing,
+            buyer,
+            seller
           })
           
           return {
             ...inquiry,
-            listings: listing
+            listings: listing || null,
+            buyer: buyer || null,
+            seller: seller || null
           }
         } catch (err) {
-          console.error('💥 Exception fetching listing:', err)
+          console.error('💥 Exception fetching data:', err)
           return {
             ...inquiry,
-            listings: null
+            listings: null,
+            buyer: null,
+            seller: null
           }
         }
       })

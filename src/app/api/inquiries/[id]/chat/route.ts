@@ -53,8 +53,10 @@ async function ensureChatsTable() {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const resolvedParams = await params
+  
   try {
     const currentUser = await getCurrentUser(request)
     if (!currentUser) {
@@ -64,7 +66,7 @@ export async function GET(
       )
     }
 
-    const inquiryId = params.id
+    const inquiryId = resolvedParams.id
 
     // Check if user is admin or the customer who sent the inquiry
     const { data: inquiry, error: inquiryError } = await supabase
@@ -137,8 +139,10 @@ export async function GET(
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const resolvedParams = await params
+  
   try {
     const currentUser = await getCurrentUser(request)
     if (!currentUser) {
@@ -148,7 +152,7 @@ export async function POST(
       )
     }
 
-    const inquiryId = params.id
+    const inquiryId = resolvedParams.id
     const { message, sender } = await request.json()
 
     if (!message || !sender) {

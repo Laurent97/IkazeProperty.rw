@@ -21,6 +21,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { supabase } from '@/lib/auth'
 import { getCurrentUser } from '@/lib/auth'
+import InquiryChat from '@/components/chat/InquiryChat'
 
 export default function UserDashboard() {
   const [user, setUser] = useState<any>(null)
@@ -35,6 +36,7 @@ export default function UserDashboard() {
   const [myListings, setMyListings] = useState([])
   const [myInquiries, setMyInquiries] = useState([])
   const [loading, setLoading] = useState(true)
+  const [chatStates, setChatStates] = useState<{ [key: string]: boolean }>({})
 
   useEffect(() => {
     fetchUserData()
@@ -89,7 +91,7 @@ export default function UserDashboard() {
           .from('inquiries')
           .select(`
             *,
-            listings(title, category, price),
+            listings(id, title, category, price),
             seller:users!inquiries_seller_id_fkey(email, full_name)
           `)
           .eq('buyer_id', currentUser.id)
@@ -153,6 +155,13 @@ export default function UserDashboard() {
       case 'connected': return 'bg-blue-100 text-blue-800'
       default: return 'bg-gray-100 text-gray-800'
     }
+  }
+
+  const toggleChat = (inquiryId: string) => {
+    setChatStates(prev => ({
+      ...prev,
+      [inquiryId]: !prev[inquiryId]
+    }))
   }
 
   if (loading) {
@@ -419,14 +428,25 @@ export default function UserDashboard() {
                         </div>
                       </div>
                       <div className="flex space-x-2 mt-3">
-                        <Link href={`/listings/${inquiry.listings.category}/${inquiry.listings.id}`}>
-                          <Button size="sm" variant="outline">
+                        {inquiry.listings && inquiry.listings.id ? (
+                          <Link href={`/listings/${inquiry.listings.category}/${inquiry.listings.id}`}>
+                            <Button size="sm" variant="outline">
+                              <Eye className="h-4 w-4 mr-1" />
+                              View Listing
+                            </Button>
+                          </Link>
+                        ) : (
+                          <Button size="sm" variant="outline" disabled>
                             <Eye className="h-4 w-4 mr-1" />
                             View Listing
                           </Button>
-                        </Link>
+                        )}
                         {inquiry.status === 'approved' && (
-                          <Button size="sm" className="bg-green-600 hover:bg-green-700">
+                          <Button 
+                            size="sm" 
+                            className="bg-green-600 hover:bg-green-700"
+                            onClick={() => toggleChat(inquiry.id)}
+                          >
                             <MessageSquare className="h-4 w-4 mr-1" />
                             Contact Seller
                           </Button>
@@ -439,6 +459,20 @@ export default function UserDashboard() {
             </CardContent>
           </Card>
         </div>
+        
+        {/* Chat Components */}
+        {myInquiries.map((inquiry: any) => (
+          <InquiryChat
+            key={inquiry.id}
+            inquiryId={inquiry.id}
+            customerId={inquiry.buyer_id}
+            customerName={user?.full_name || 'User'}
+            customerEmail={user?.email || ''}
+            isOpen={chatStates[inquiry.id] || false}
+            onToggle={() => toggleChat(inquiry.id)}
+            userType="customer"
+          />
+        ))}
     </div>
   )
 }

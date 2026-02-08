@@ -539,6 +539,7 @@ export default function InquiryDetailPage() {
           customerEmail={inquiry.buyer?.email || ''}
           isOpen={isChatOpen}
           onToggle={() => setIsChatOpen(!isChatOpen)}
+          userType="admin"
         />
       )}
     </div>
