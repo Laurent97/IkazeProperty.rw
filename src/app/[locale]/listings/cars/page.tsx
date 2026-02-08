@@ -6,6 +6,7 @@ import { Search, Filter, MapPin, Calendar, Fuel, Settings, Heart, Eye, Car } fro
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import AdminContactInfo from '@/components/listing/admin-contact'
+import FavoriteButton from '@/components/listing/favorite-button'
 
 interface CarListing {
   id: string
@@ -558,11 +559,18 @@ export default function CarsListingsPage() {
                             })}
                           </span>
                         </div>
-                        <Link href={`/listings/cars/${listing.id}`}>
-                          <Button size="sm" className="bg-red-600 hover:bg-red-700 touch-target">
-                            View Details
-                          </Button>
-                        </Link>
+                        <div className="flex items-center gap-2">
+                          <FavoriteButton 
+                            listingId={listing.id} 
+                            size="sm"
+                            className="flex-shrink-0"
+                          />
+                          <Link href={`/listings/cars/${listing.id}`}>
+                            <Button size="sm" className="bg-red-600 hover:bg-red-700 touch-target">
+                              View Details
+                            </Button>
+                          </Link>
+                        </div>
                       </div>
                     </CardContent>
                   </Card>

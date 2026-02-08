@@ -6,6 +6,7 @@ import { Search, Filter, MapPin, Bed, Bath, Square, Heart, Eye, Home } from 'luc
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import AdminContactInfo from '@/components/listing/admin-contact'
+import FavoriteButton from '@/components/listing/favorite-button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { supabaseClient as supabase } from '@/lib/supabase-client'
@@ -527,11 +528,18 @@ export default function HousesListingsPage() {
                               })}
                             </span>
                           </div>
-                          <Button asChild size="sm" className="touch-target">
-                            <Link href={`/listings/houses/${listing.id}`}>
-                              View Details
-                            </Link>
-                          </Button>
+                          <div className="flex items-center gap-2">
+                            <FavoriteButton 
+                              listingId={listing.id} 
+                              size="sm"
+                              className="flex-shrink-0"
+                            />
+                            <Button asChild size="sm" className="touch-target">
+                              <Link href={`/listings/houses/${listing.id}`}>
+                                View Details
+                              </Link>
+                            </Button>
+                          </div>
                         </div>
                       </div>
                     </CardContent>

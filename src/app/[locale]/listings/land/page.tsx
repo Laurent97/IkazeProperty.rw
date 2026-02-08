@@ -6,6 +6,7 @@ import { Search, Filter, MapPin, Trees, Ruler, Heart, Eye } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import AdminContactInfo from '@/components/listing/admin-contact'
+import FavoriteButton from '@/components/listing/favorite-button'
 
 interface LandListing {
   id: string
@@ -586,11 +587,18 @@ export default function LandListingsPage() {
                               })}
                             </span>
                           </div>
-                          <Link href={`/listings/land/${listing.id}`}>
-                            <Button size="sm" className="bg-red-600 hover:bg-red-700">
-                              View Details
-                            </Button>
-                          </Link>
+                          <div className="flex items-center gap-2">
+                            <FavoriteButton 
+                              listingId={listing.id} 
+                              size="sm"
+                              className="flex-shrink-0"
+                            />
+                            <Link href={`/listings/land/${listing.id}`}>
+                              <Button size="sm" className="bg-red-600 hover:bg-red-700">
+                                View Details
+                              </Button>
+                            </Link>
+                          </div>
                         </div>
                       </CardContent>
                     </Card>

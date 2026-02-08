@@ -6,6 +6,7 @@ import { Search, Filter, MapPin, Package, Heart, Eye, Smartphone, Laptop, Sofa }
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import AdminContactInfo from '@/components/listing/admin-contact'
+import FavoriteButton from '@/components/listing/favorite-button'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Badge } from '@/components/ui/badge'
@@ -799,11 +800,18 @@ export default function OtherItemsListingsPage() {
                           {listing.likes}
                         </span>
                       </div>
-                      <Link href={`/listings/${listing.category}/${listing.id}`}>
-                        <Button size="sm" className="bg-red-600 hover:bg-red-700">
-                          View Details
-                        </Button>
-                      </Link>
+                      <div className="flex items-center gap-2">
+                        <FavoriteButton 
+                          listingId={listing.id} 
+                          size="sm"
+                          className="flex-shrink-0"
+                        />
+                        <Link href={`/listings/${listing.category}/${listing.id}`}>
+                          <Button size="sm" className="bg-red-600 hover:bg-red-700">
+                            View Details
+                          </Button>
+                        </Link>
+                      </div>
                     </div>
 
                     {/* Seller Info */}

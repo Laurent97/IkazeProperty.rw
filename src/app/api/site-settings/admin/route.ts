@@ -31,11 +31,11 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { admin_phone, support_email, office_address } = body || {};
+    const { admin_phone, whatsapp_phone, support_email, office_address } = body || {};
 
-    if (!admin_phone || !support_email || !office_address) {
+    if (!admin_phone || !whatsapp_phone || !support_email || !office_address) {
       return NextResponse.json(
-        { error: 'Missing required fields: admin_phone, support_email, office_address' },
+        { error: 'Missing required fields: admin_phone, whatsapp_phone, support_email, office_address' },
         { status: 400 }
       );
     }
@@ -44,6 +44,7 @@ export async function POST(request: NextRequest) {
       .from('site_settings')
       .upsert({
         admin_phone,
+        whatsapp_phone,
         support_email,
         office_address,
         updated_by: user.id

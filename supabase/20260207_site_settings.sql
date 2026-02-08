@@ -2,6 +2,7 @@
 CREATE TABLE IF NOT EXISTS site_settings (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   admin_phone TEXT NOT NULL,
+  whatsapp_phone TEXT NOT NULL,
   support_email TEXT NOT NULL,
   office_address TEXT NOT NULL,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
@@ -33,6 +34,6 @@ CREATE POLICY "Admins can manage site settings" ON site_settings
   );
 
 -- Seed default settings
-INSERT INTO site_settings (admin_phone, support_email, office_address)
-VALUES ('+250 788 123 456', 'support@ikazeproperty.rw', 'KN 123 St, Kiyovu')
+INSERT INTO site_settings (admin_phone, whatsapp_phone, support_email, office_address)
+VALUES ('+250 788 123 456', '+250737060025', 'support@ikazeproperty.rw', 'KN 123 St, Kiyovu')
 ON CONFLICT DO NOTHING;

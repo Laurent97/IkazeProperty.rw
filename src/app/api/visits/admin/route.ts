@@ -30,16 +30,26 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Insufficient permissions' }, { status: 403 });
     }
 
+    // First, let's try a simple count query
+    const { count: totalCount, error: countError } = await supabaseAdmin
+      .from('visit_requests')
+      .select('*', { count: 'exact', head: true });
+
+    console.log('Visit requests total count:', { totalCount, countError });
+
+    // Now try the full query
     const { data, error } = await supabaseAdmin
       .from('visit_requests')
       .select(`
         *,
-        listings(title, category),
+        listings(title, category, visit_fee_payment_methods),
         buyer:users!visit_requests_buyer_id_fkey(full_name, email),
-        seller:users!visit_requests_seller_id_fkey(full_name, email)
+        seller:users!visit_requests_seller_id_fkey(full_name, email, phone)
       `)
       .order('created_at', { ascending: false })
       .limit(100);
+
+    console.log('Admin visit requests query result:', { data, error, count: data?.length });
 
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 500 });

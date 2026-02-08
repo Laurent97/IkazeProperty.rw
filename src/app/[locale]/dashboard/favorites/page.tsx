@@ -54,7 +54,14 @@ export default function FavoritesPage() {
               views,
               likes,
               featured,
-              created_at
+              created_at,
+              listing_media (
+                id,
+                url,
+                media_type,
+                is_primary,
+                order_index
+              )
             )
           `)
           .eq('user_id', currentUser.id)
@@ -94,7 +101,14 @@ export default function FavoritesPage() {
             views,
             likes,
             featured,
-            created_at
+            created_at,
+            listing_media (
+              id,
+              url,
+              media_type,
+              is_primary,
+              order_index
+            )
           )
         `)
         .eq('user_id', user.id)
@@ -221,17 +235,68 @@ export default function FavoritesPage() {
             {filteredFavorites.map((listing: any) => (
               <Card key={listing.id} className="hover:shadow-lg transition-shadow group">
                 <div className="relative">
-                  <div className="w-full h-48 bg-gray-200 rounded-t-lg flex items-center justify-center">
-                    <span className="text-gray-500">Image Placeholder</span>
-                  </div>
-                  {listing.featured && (
-                    <div className="absolute top-2 left-2 bg-red-600 text-white px-2 py-1 rounded text-xs font-semibold">
-                      FEATURED
-                    </div>
-                  )}
-                  <span className={`absolute top-2 right-2 px-2 py-1 text-xs rounded-full ${getStatusColor(listing.status)}`}>
-                    {listing.status}
-                  </span>
+                  {(() => {
+                    const sortedMedia = listing.listing_media 
+                      ? [...listing.listing_media].sort((a, b) => {
+                          if (a.is_primary && !b.is_primary) return -1;
+                          if (!a.is_primary && b.is_primary) return 1;
+                          return a.order_index - b.order_index;
+                        })
+                      : [];
+                    const primaryMedia = sortedMedia[0];
+                    
+                    return primaryMedia ? (
+                      <div className="relative">
+                        {primaryMedia.media_type === 'video' ? (
+                          <div className="relative">
+                            <video
+                              src={primaryMedia.url}
+                              className="w-full h-48 object-cover rounded-t-lg"
+                              muted
+                              playsInline
+                            />
+                            <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
+                              <div className="w-10 h-10 bg-white bg-opacity-90 rounded-full flex items-center justify-center">
+                                <svg className="w-4 h-4 text-gray-800 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                                  <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <img
+                            src={primaryMedia.url}
+                            alt={listing.title}
+                            className="w-full h-48 object-cover rounded-t-lg"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement
+                              target.src = `https://via.placeholder.com/400x300/cccccc/969696?text=${listing.category}+Image`
+                            }}
+                          />
+                        )}
+                        {primaryMedia.is_primary && (
+                          <div className="absolute top-2 left-2 bg-red-600 text-white px-2 py-1 rounded text-xs font-semibold">
+                            Primary
+                          </div>
+                        )}
+                        {listing.featured && (
+                          <div className="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 rounded text-xs font-semibold">
+                            FEATURED
+                          </div>
+                        )}
+                        <span className={`absolute bottom-2 right-2 px-2 py-1 text-xs rounded-full ${getStatusColor(listing.status)}`}>
+                          {listing.status}
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="w-full h-48 bg-gray-200 rounded-t-lg flex items-center justify-center">
+                        <div className="text-center">
+                          <div className="text-gray-400 text-3xl mb-2">📷</div>
+                          <p className="text-gray-500 text-sm">No media available</p>
+                        </div>
+                      </div>
+                    );
+                  })()}
                   <button
                     onClick={() => removeFavorite(listing.id)}
                     className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-50"

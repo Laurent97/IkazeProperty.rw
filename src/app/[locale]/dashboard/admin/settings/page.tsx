@@ -18,7 +18,8 @@ import {
   Palette,
   Database,
   CheckCircle,
-  AlertTriangle
+  AlertTriangle,
+  MessageCircle
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -65,6 +66,7 @@ export default function AdminSettingsPage() {
     platform_name: 'IkazeProperty',
     platform_email: 'support@ikazeproperty.rw',
     platform_phone: '+250 788 123 456',
+    platform_whatsapp: '+250737060025',
     platform_address: 'Kigali, Rwanda',
     
     // Commission Settings
@@ -578,6 +580,19 @@ export default function AdminSettingsPage() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <MessageCircle className="h-4 w-4 inline mr-1 text-green-600" />
+                  WhatsApp Number
+                </label>
+                <Input
+                  value={settings.platform_whatsapp}
+                  onChange={(e) => handleInputChange('', 'platform_whatsapp', e.target.value)}
+                  disabled={editingSection !== 'platform'}
+                  className={editingSection !== 'platform' ? 'bg-gray-50' : ''}
+                  placeholder="+250737060025"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
                   <Building className="h-4 w-4 inline mr-1" />
                   Address
                 </label>
@@ -587,6 +602,25 @@ export default function AdminSettingsPage() {
                   disabled={editingSection !== 'platform'}
                   className={editingSection !== 'platform' ? 'bg-gray-50' : ''}
                 />
+              </div>
+            </div>
+            
+            {/* WhatsApp Test Button */}
+            <div className="border-t pt-4 mt-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h4 className="font-medium text-gray-800">Test WhatsApp Connection</h4>
+                  <p className="text-sm text-gray-600">Click to test the WhatsApp customer service connection</p>
+                </div>
+                <Button
+                  onClick={() => window.open(`https://wa.me/${settings.platform_whatsapp?.replace(/[^\d]/g, '')}`, '_blank')}
+                  variant="outline"
+                  className="text-green-600 border-green-600 hover:bg-green-50"
+                  disabled={!settings.platform_whatsapp}
+                >
+                  <MessageCircle className="h-4 w-4 mr-2" />
+                  Test WhatsApp
+                </Button>
               </div>
             </div>
           </CardContent>

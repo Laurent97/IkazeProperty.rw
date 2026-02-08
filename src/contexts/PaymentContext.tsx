@@ -86,9 +86,9 @@ export function PaymentProvider({ children }: { children: ReactNode }) {
       setLoading(true)
       setError(null)
 
-      // Fetch from site_settings table
+      // Fetch from settings table
       const { data, error: fetchError } = await supabase
-        .from('site_settings')
+        .from('settings')
         .select('*')
         .single()
 
@@ -99,23 +99,46 @@ export function PaymentProvider({ children }: { children: ReactNode }) {
       if (data) {
         // Type the data properly
         const siteData = data as {
-          admin_phone: string
-          support_email: string
-          office_address: string
+          platform_name: string
+          platform_phone: string
+          platform_email: string
+          platform_address: string
+          mobile_money_details?: {
+            mtn: {
+              provider_name: string
+              phone_number: string
+              account_name: string
+              merchant_id: string
+              payment_instructions: string
+            }
+            airtel: {
+              provider_name: string
+              phone_number: string
+              account_name: string
+              merchant_id: string
+              payment_instructions: string
+            }
+          }
+          bank_details?: {
+            bank_name: string
+            account_name: string
+            account_number: string
+            branch_code: string
+          }
         }
         
-        // Map site_settings to PaymentSettings format
+        // Map settings to PaymentSettings format
         setPaymentSettings({
           commission_rate: 5, // Default commission rate
           payment_methods: ['mobile_money', 'bank_transfer', 'cash'],
           mobile_money_providers: ['mtn', 'airtel'],
-          bank_details: {
+          bank_details: siteData.bank_details || {
             bank_name: '',
             account_name: '',
             account_number: '',
             branch_code: ''
           },
-          mobile_money_details: {
+          mobile_money_details: siteData.mobile_money_details || {
             mtn: {
               provider_name: 'MTN Mobile Money',
               phone_number: '',
@@ -131,11 +154,10 @@ export function PaymentProvider({ children }: { children: ReactNode }) {
               payment_instructions: ''
             }
           },
-          // Add platform info from site_settings
-          platform_name: 'IkazeProperty',
-          platform_email: siteData.support_email || 'support@ikazeproperty.rw',
-          platform_phone: siteData.admin_phone || '+250 788 123 456',
-          platform_address: siteData.office_address || 'Kigali, Rwanda'
+          platform_name: siteData.platform_name || 'IkazeProperty',
+          platform_email: siteData.platform_email || 'support@ikazeproperty.rw',
+          platform_phone: siteData.platform_phone || '+250 788 123 456',
+          platform_address: siteData.platform_address || 'Kigali, Rwanda'
         })
       } else {
         // Use default settings if none exist

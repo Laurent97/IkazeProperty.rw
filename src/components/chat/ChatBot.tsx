@@ -1,9 +1,12 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { MessageCircle, Send, X, Minimize2, Maximize2, Bot, User } from 'lucide-react'
+import { MessageCircle, Send, X, Bot, User, Maximize2, Minimize2, BookOpen, HelpCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { usePaymentContext } from '@/contexts/PaymentContext'
 import { Card, CardContent } from '@/components/ui/card'
+import { customerGuidanceFlows, getGuidanceFlow, searchGuidanceFlows } from '@/lib/chat/customer-guidance'
 
 // Utility function to generate stable IDs
 const generateStableId = (() => {
@@ -29,7 +32,7 @@ export default function ChatBot({ isOpen: controlledIsOpen, onToggle }: ChatBotP
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: '👋 Hello! I\'m your AI assistant for IkazeProperty.rw. How can I help you today?',
+      text: '🤖 Welcome to IkazeProperty.rw! I\'m your comprehensive AI assistant. I can explain everything about our platform and guide you through any process. Ask me about listings, payments, promotions, safety, or anything else!',
       sender: 'bot',
       timestamp: new Date()
     }
@@ -37,6 +40,8 @@ export default function ChatBot({ isOpen: controlledIsOpen, onToggle }: ChatBotP
   const [inputText, setInputText] = useState('')
   const [isTyping, setIsTyping] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const { getPlatformInfo } = usePaymentContext()
+  const platformInfo = getPlatformInfo()
 
   const isControlled = controlledIsOpen !== undefined
   const isOpen = isControlled ? controlledIsOpen : isInternalOpen
@@ -53,43 +58,107 @@ export default function ChatBot({ isOpen: controlledIsOpen, onToggle }: ChatBotP
   const generateBotResponse = (userMessage: string): string => {
     const lowerMessage = userMessage.toLowerCase()
     
+    // Check for guidance flow requests
+    if (lowerMessage.includes('guide') || lowerMessage.includes('step by step') || lowerMessage.includes('walkthrough')) {
+      const flows = searchGuidanceFlows(lowerMessage)
+      if (flows.length > 0) {
+        const flow = flows[0]
+        return `📚 **${flow.title}**\n\n${flow.description}\n\n**Estimated time:** ${flow.estimatedTime}\n**Prerequisites:** ${flow.prerequisites.join(', ')}\n\n**Step 1: ${flow.steps[0].title}\n${flow.steps[0].description}\n\n${flow.steps[0].tips ? '💡 **Tips:** ' + flow.steps[0].tips.join(' • ') : ''}\n\nType "next" to continue or "help" for more guidance flows!`
+      }
+    }
+    
+    // Help command
+    if (lowerMessage.includes('help') || lowerMessage.includes('flows') || lowerMessage.includes('guides')) {
+      return '🤖 **Available Guidance Flows:**\n\n🏠 **First-Time Seller Guide** - Complete selling process\n🛒 **First-Time Buyer Guide** - Safe purchasing steps\n💳 **Payment Issues & Solutions** - Troubleshooting help\n🔒 **Safety & Security Guide** - Essential safety tips\n✅ **Account & Listing Verification** - Verification process\n\nType "guide [topic]" to start any flow (e.g., "guide seller" or "guide safety")'
+    }
+    
+    // Next step in guidance
+    if (lowerMessage === 'next' || lowerMessage.includes('continue')) {
+      return '📖 To continue with a guidance flow, please specify which flow you\'re in (e.g., "next seller" or "continue buyer"). Or type "help" to see all available flows and start fresh!'
+    }
+    
     // Greeting responses
     if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
-      return 'Hello! How can I assist you with your property needs today?'
+      return '👋 Welcome to IkazeProperty.rw! I\'m your AI assistant. I can help you with:\n• Property listings and searches\n• Buying and selling process\n• Account verification\n• Commission and payments\n• Safety guidelines\n• Technical support\n\nWhat would you like to know today?'
     }
     
     // Property listing questions
     if (lowerMessage.includes('list') || lowerMessage.includes('sell') || lowerMessage.includes('post')) {
-      return 'To list a property, you\'ll need to: 1) Create a verified account 2) Click "List Property" 3) Upload photos and details 4) Set your price 5) Submit for review. The process takes about 10 minutes!'
+      return '📝 **How to List a Property:**\n\n1️⃣ **Create Account**: Sign up and verify your identity\n2️⃣ **Click "List Item"**: Found in the header menu\n3️⃣ **Choose Category**: Houses, Cars, Land, or Other Items\n4️⃣ **Upload Details**: Add photos, description, price\n5️⃣ **Set Price**: Choose your asking price\n6️⃣ **Submit Review**: Our team reviews within 24 hours\n\n⏱️ *Process takes about 10 minutes*\n📸 *Add at least 3 clear photos for better visibility*'
+    }
+    
+    // Buying process
+    if (lowerMessage.includes('buy') || lowerMessage.includes('purchase') || lowerMessage.includes('interested')) {
+      return '🛒 **How to Buy on IkazeProperty.rw:**\n\n1️⃣ **Browse Listings**: Use search or categories\n2️⃣ **Click "Express Interest"**: On any listing you like\n3️⃣ **Admin Mediation**: Our team contacts both parties\n4️⃣ **Secure Payment**: Pay through our platform (30% commission)\n5️⃣ **Receive Item**: After successful transaction\n\n🔒 *All transactions are mediated for your safety*\n💳 *Payment only through our secure system*'
     }
     
     // Commission questions
     if (lowerMessage.includes('commission') || lowerMessage.includes('fee') || lowerMessage.includes('cost')) {
-      return 'We charge a 30% commission on successful transactions. This includes admin mediation, legal support, and dispute resolution services. No upfront costs!'
+      return '💰 **Commission & Fees:**\n\n• **30% Commission** on successful transactions\n• **No upfront costs** - you only pay when you sell\n• **Includes**: Admin mediation, legal support, dispute resolution\n• **Payment**: Deducted automatically from transaction\n\n📞 *Need help with pricing? Contact our support team!*'
     }
     
     // Safety questions
-    if (lowerMessage.includes('safe') || lowerMessage.includes('security') || lowerMessage.includes('fraud')) {
-      return 'Your safety is our priority! We verify all users, mediate all transactions, and have 24/7 support. Never share payment details outside our platform and always use our mediation service.'
+    if (lowerMessage.includes('safe') || lowerMessage.includes('security') || lowerMessage.includes('fraud') || lowerMessage.includes('scam')) {
+      return '🔒 Your safety is our #1 priority! We protect you with: • User identity verification • Admin-mediated all transactions • Encrypted payment processing • 24/7 monitoring • Dispute resolution support • NEVER share payment details outside platform • Always use our secure payment system • Report suspicious activity immediately. Your transactions are insured!'
     }
     
-    // Verification questions
-    if (lowerMessage.includes('verify') || lowerMessage.includes('verification')) {
-      return 'Account verification takes 1-2 business days. You\'ll need a valid ID and proof of address. Property listings require additional ownership documents.'
+    // Promotion packages
+    if (lowerMessage.includes('promote') || lowerMessage.includes('advertise') || lowerMessage.includes('featured')) {
+      return '🚀 Boost your listing visibility with our promotion packages: 🔴 **Urgent Badge** (5,000 RWF - 14 days) - Red badge + priority ranking ⭐ **Featured Placement** (15,000 RWF - 7 days) - Top placement + 30% more views 👑 **Premium Package** (25,000 RWF - 10 days) - All features + WhatsApp broadcast + social media mention + priority support!'
     }
     
-    // Transaction questions
+    // Verification process
+    if (lowerMessage.includes('verify') || lowerMessage.includes('verification') || lowerMessage.includes('approved')) {
+      return '✅ Account verification ensures trust and security: **Standard Verification** (1-2 business days): • Valid national ID • Proof of address (utility bill) **Property Listing Verification**: Additional ownership documents required • Title deed • Sale agreement • Tax clearance. Verification prevents fraud and builds buyer confidence!'
+    }
+    
+    // Transaction process
     if (lowerMessage.includes('buy') || lowerMessage.includes('purchase') || lowerMessage.includes('transaction')) {
-      return 'To make a purchase: 1) Browse listings 2) Click "Express Interest" 3) Our admin team will mediate 4) Complete payment through our secure system 5) Receive your item/service!'
+      return '🛒 Secure buying process: 1) Browse listings with advanced filters 2) Click "Express Interest" on desired item 3) Our admin team contacts seller 4) Payment through our secure system 5) Admin mediates transfer/inspection 6) You receive item/service! All transactions are protected and monitored. No direct payments to sellers!'
     }
     
-    // Contact questions
-    if (lowerMessage.includes('contact') || lowerMessage.includes('support') || lowerMessage.includes('help')) {
-      return 'You can reach our support team via: 📞 Phone: +250 788 123 456 📧 Email: support@ikazeproperty.rw 💬 Live chat on our website. We\'re here 24/7 for emergencies!'
+    // Technical support
+    if (lowerMessage.includes('error') || lowerMessage.includes('problem') || lowerMessage.includes('issue') || lowerMessage.includes('bug')) {
+      return '🔧 Technical support available! Common fixes: • Clear browser cache and cookies • Update browser to latest version • Check internet connection • Disable VPN/Proxy • Try different browser. If issues persist: 📞 Call support 📧 Email technical team 📱 Live chat here 24/7. Describe your issue with screenshots for faster resolution!'
     }
     
-    // Default response
-    return 'I can help you with: • Property listings • Transaction process • Safety information • Account verification • Commission details • Contact support. What would you like to know more about?'
+    // Categories explanation
+    if (lowerMessage.includes('categories') || lowerMessage.includes('types') || lowerMessage.includes('what can i')) {
+      return '📋 We offer 4 main categories: 🏠 **Houses** - Residential, commercial, rental properties 🚗 **Cars** - New/used vehicles, all makes/models 🏞️ **Land** - Residential, commercial, agricultural land 📦 **Other** - Electronics, furniture, services, more. Each category has specific listing requirements and target audiences!'
+    }
+    
+    // Mobile app
+    if (lowerMessage.includes('mobile') || lowerMessage.includes('app') || lowerMessage.includes('phone')) {
+      return '📱 Mobile app coming soon! Currently use our responsive website on any device. Features planned: • Push notifications • Location-based search • Instant messaging • Mobile payments • Offline mode. Sign up for our newsletter to get notified when the app launches!'
+    }
+    
+    // Contact and support
+    if (lowerMessage.includes('contact') || lowerMessage.includes('support') || lowerMessage.includes('help') || lowerMessage.includes('call')) {
+      return `📞 Multiple support channels available: • **24/7 AI Chat** (that's me!) • **Phone**: ${platformInfo.phone} • **Email**: ${platformInfo.email} • **Office**: ${platformInfo.address} • **WhatsApp**: Click the green WhatsApp button • **Emergency**: Available 24/7 for urgent issues. Response times: Chat - Instant, Email - 2-4 hours, Phone - Immediate during business hours!`
+    }
+    
+    // Account issues
+    if (lowerMessage.includes('account') || lowerMessage.includes('login') || lowerMessage.includes('password') || lowerMessage.includes('register')) {
+      return '👤 Account management: **Registration**: Email/phone verification required **Login**: Email + password or social login **Password Reset**: Click "Forgot Password" link **Account Types**: User (buyer/seller), Agent (professional), Admin (platform management). Keep your login details secure and enable 2FA when available!'
+    }
+    
+    // Search functionality
+    if (lowerMessage.includes('search') || lowerMessage.includes('find') || lowerMessage.includes('filter')) {
+      return '🔍 Advanced search capabilities: • **Location**: Province, district, sector • **Price range**: Min/max filters • **Category**: Houses, Cars, Land, Other • **Features**: Bedrooms, bathrooms, car specs • **Keywords**: Search titles and descriptions • **Sort**: Price, date, popularity • **Saved searches**: Get alerts for new listings. Use multiple filters for precise results!'
+    }
+    
+    // Notifications
+    if (lowerMessage.includes('notification') || lowerMessage.includes('alert') || lowerMessage.includes('updates')) {
+      return '🔔 Stay updated with multi-channel notifications: • **Email**: Detailed updates and summaries • **SMS**: Important alerts and confirmations • **Push**: In-app instant notifications • **In-App**: Real-time message center. Customize your preferences in account settings. Get notified for: New matching listings, price changes, inquiry responses, payment confirmations!'
+    }
+    
+    // Business hours
+    if (lowerMessage.includes('hours') || lowerMessage.includes('time') || lowerMessage.includes('when')) {
+      return '🕐 Business hours and availability: • **AI Chat** (me): 24/7 instant support • **Phone Support**: Mon-Fri 8AM-6PM, Sat 9AM-4PM • **Email Support**: 24/7 (2-4 hour response) • **Emergency Issues**: 24/7 hotline available • **Admin Mediation**: Business hours only. All automated systems (payments, listings) work 24/7!'
+    }
+    
+    // Default comprehensive response
+    return '🤖 I\'m your comprehensive IkazeProperty.rw assistant! I can help you with: 🏠 **Property/vehicle listings** - How to sell, requirements, process 💳 **Payments** - All 5 methods explained 🚀 **Promotions** - Boost your visibility 🔒 **Safety** - Secure transactions explained ✅ **Verification** - Account and listing verification 📞 **Support** - Contact options and hours 🔍 **Search** - Find exactly what you need 📱 **Account** - Management and troubleshooting. What specific topic would you like detailed help with?'
   }
 
   const handleSendMessage = async () => {
@@ -151,7 +220,7 @@ export default function ChatBot({ isOpen: controlledIsOpen, onToggle }: ChatBotP
       <Card className="shadow-2xl">
         {/* Header */}
         <div className="bg-red-600 text-white p-4 rounded-t-lg flex items-center justify-between">
-          <div className="flex items-center">
+          <div className="flex items-center space-x-3">
             <Bot className="h-5 w-5 mr-2" />
             <div>
               <h3 className="font-semibold">AI Assistant</h3>
@@ -166,6 +235,14 @@ export default function ChatBot({ isOpen: controlledIsOpen, onToggle }: ChatBotP
               className="text-white hover:bg-red-700 p-1"
             >
               {isMinimized ? <Maximize2 className="h-4 w-4" /> : <Minimize2 className="h-4 w-4" />}
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleChat}
+              className="text-white hover:bg-red-700 p-1"
+            >
+              <X className="h-4 w-4" />
             </Button>
           </div>
         </div>
@@ -232,6 +309,35 @@ export default function ChatBot({ isOpen: controlledIsOpen, onToggle }: ChatBotP
 
             {/* Input */}
             <div className="border-t p-4">
+              <div className="flex space-x-2 mb-3">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setInputText('help')}
+                  className="text-xs"
+                >
+                  <HelpCircle className="h-3 w-3 mr-1" />
+                  Help
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setInputText('guide seller')}
+                  className="text-xs"
+                >
+                  <BookOpen className="h-3 w-3 mr-1" />
+                  Seller Guide
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setInputText('guide buyer')}
+                  className="text-xs"
+                >
+                  <BookOpen className="h-3 w-3 mr-1" />
+                  Buyer Guide
+                </Button>
+              </div>
               <div className="flex space-x-2">
                 <input
                   type="text"

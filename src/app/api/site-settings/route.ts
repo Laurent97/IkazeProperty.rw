@@ -5,7 +5,7 @@ export async function GET() {
   try {
     const { data, error } = await supabaseAdmin
       .from('site_settings')
-      .select('admin_phone, support_email, office_address')
+      .select('admin_phone, whatsapp_phone, support_email, office_address')
       .order('updated_at', { ascending: false })
       .limit(1)
       .single();

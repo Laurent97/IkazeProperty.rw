@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { supabaseAdmin } from '@/lib/supabase';
-import { PaymentInitRequest, PaymentMethod, CryptoType } from '@/types/payment';
-import { PaymentProcessorFactory } from '@/lib/payment/factory';
+import { PaymentMethod, CryptoType } from '@/types/payment';
 
 export async function POST(request: NextRequest) {
   try {
@@ -26,13 +25,27 @@ export async function POST(request: NextRequest) {
     const {
       listing_id,
       payment_method,
+      visit_fee,
       phone_number,
-      crypto_type
+      account_name,
+      merchant_id,
+      bank_name,
+      account_number,
+      branch_code,
+      crypto_type,
+      wallet_address
     } = body as {
       listing_id: string;
       payment_method: PaymentMethod;
+      visit_fee?: number;
       phone_number?: string;
+      account_name?: string;
+      merchant_id?: string;
+      bank_name?: string;
+      account_number?: string;
+      branch_code?: string;
       crypto_type?: CryptoType;
+      wallet_address?: string;
     };
 
     if (!listing_id || !payment_method) {
@@ -60,28 +73,29 @@ export async function POST(request: NextRequest) {
     const platformFee = Math.round(visitFeeAmount * 0.3);
     const sellerPayout = visitFeeAmount - platformFee;
 
-    const paymentRequest: PaymentInitRequest = {
-      user_id: user.id,
-      payment_method,
-      amount: visitFeeAmount,
-      currency: 'RWF',
-      transaction_type: 'visit_fee',
-      listing_id: listing.id,
-      description: 'Visit fee payment',
-      phone_number,
-      crypto_type
-    };
-
-    const result = await PaymentProcessorFactory.initiatePayment(paymentRequest);
-    if (!result.success) {
-      return NextResponse.json({ error: result.error || 'Payment initiation failed' }, { status: 400 });
+    // For now, bypass the complex payment processor and create a simple reference
+    const reference = `VISIT${Date.now()}${Math.floor(Math.random() * 1000).toString().padStart(3, '0')}`;
+    
+    // Create a simple transaction record (optional for now)
+    try {
+      await supabaseAdmin
+        .from('payment_transactions')
+        .insert({
+          user_id: user.id,
+          listing_id: listing.id,
+          payment_method: payment_method,
+          amount: visitFeeAmount,
+          currency: 'RWF',
+          transaction_type: 'visit_fee',
+          status: 'pending',
+          our_reference: reference,
+          description: 'Visit fee payment',
+          expires_at: new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours expiry
+        });
+    } catch (transactionError) {
+      console.error('Failed to create transaction record:', transactionError);
+      // Continue even if transaction creation fails
     }
-
-    const { data: transaction } = await supabaseAdmin
-      .from('payment_transactions')
-      .select('id')
-      .eq('our_reference', result.reference)
-      .single();
 
     const { data: visitRequest, error: visitError } = await supabaseAdmin
       .from('visit_requests')
@@ -92,12 +106,14 @@ export async function POST(request: NextRequest) {
         visit_fee_amount: visitFeeAmount,
         platform_fee: platformFee,
         seller_payout: sellerPayout,
-        payment_transaction_id: transaction?.id || null,
-        payment_reference: result.reference,
+        payment_transaction_id: null,
+        payment_reference: reference,
         status: 'pending_payment'
       })
       .select()
       .single();
+
+    console.log('Visit request creation result:', { visitRequest, visitError, listingId: listing.id, buyerId: user.id, sellerId: listing.seller_id });
 
     if (visitError) {
       return NextResponse.json({ error: visitError.message || 'Failed to create visit request' }, { status: 500 });
@@ -106,7 +122,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       visit_request: visitRequest,
-      payment: result
+      payment: {
+        reference: reference,
+        instructions: 'Please complete the payment using the provided payment details and upload proof of payment.'
+      }
     });
   } catch (error: any) {
     console.error('Visit request error:', error);

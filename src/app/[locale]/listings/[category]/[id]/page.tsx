@@ -9,6 +9,9 @@ import { Badge } from '@/components/ui/badge'
 import type { Database } from '@/types/database'
 import type { PaymentMethod, CryptoType } from '@/types/payment'
 import AdminContactInfo from '@/components/listing/admin-contact'
+import FavoriteButton from '@/components/listing/favorite-button'
+import InquiryButton from '@/components/listing/inquiry-button'
+import { usePaymentContext } from '@/contexts/PaymentContext'
 
 type Listing = Database['public']['Tables']['listings']['Row'] & {
   seller?: {
@@ -25,7 +28,9 @@ export default function ListingDetailPage() {
   const router = useRouter()
   const params = useParams() as { locale: string; category: string; id: string }
   const { category, id } = params
-
+  
+  const { paymentSettings } = usePaymentContext()
+  
   const [listing, setListing] = useState<Listing | null>(null)
   const [media, setMedia] = useState<ListingMedia[]>([])
   const [loading, setLoading] = useState(true)
@@ -34,12 +39,14 @@ export default function ListingDetailPage() {
   const [error, setError] = useState('')
   const [showVisitModal, setShowVisitModal] = useState(false)
   const [visitMethod, setVisitMethod] = useState<PaymentMethod>('mtn_momo')
-  const [visitPhone, setVisitPhone] = useState('')
-  const [visitCrypto, setVisitCrypto] = useState<CryptoType>('bitcoin')
   const [visitSubmitting, setVisitSubmitting] = useState(false)
   const [visitError, setVisitError] = useState('')
   const [visitSuccess, setVisitSuccess] = useState('')
+  const [paymentScreenshot, setPaymentScreenshot] = useState<File | null>(null)
+  const [paymentProof, setPaymentProof] = useState<File | null>(null)
+  const [paymentStep, setPaymentStep] = useState<'details' | 'proof' | 'confirmation'>('details')
   const [availableMethods, setAvailableMethods] = useState<PaymentMethod[]>([])
+  const [visitFeeAmount] = useState(15000)
 
   const fetchSimilarListings = async (currentListing: Listing) => {
     try {
@@ -273,11 +280,17 @@ export default function ListingDetailPage() {
     }
     return ''
   }
-  const visitFeeAmount = listing.visit_fee_amount || 15000
+
+  // Helper function to mask phone numbers
+  const maskPhoneNumber = (phoneNumber: string) => {
+    if (!phoneNumber || phoneNumber.length < 4) return phoneNumber
+    return phoneNumber.slice(0, 3) + '*'.repeat(phoneNumber.length - 4) + phoneNumber.slice(-2)
+  }
   const visitPaymentInfo = (listing.visit_fee_payment_methods || {}) as {
     mtn_momo?: { phone_number?: string }
     airtel_money?: { phone_number?: string }
     equity_bank?: { account_name?: string; account_number?: string }
+    crypto?: { wallet_address?: string }
   }
 
   const loadPaymentMethods = async () => {
@@ -293,10 +306,6 @@ export default function ListingDetailPage() {
       }
     } catch (err) {
       console.error('Error loading payment methods:', err)
-      // Fallback to all methods if API fails
-      const fallbackMethods: PaymentMethod[] = ['mtn_momo', 'airtel_money', 'equity_bank', 'crypto', 'wallet']
-      setAvailableMethods(fallbackMethods)
-      setVisitMethod('mtn_momo') // Default to MTN Mobile Money
     }
   }
 
@@ -304,7 +313,7 @@ export default function ListingDetailPage() {
     setVisitSubmitting(true)
     setVisitError('')
     setVisitSuccess('')
-
+    
     try {
       const { supabaseClient } = await import('@/lib/supabase-client')
       const { data: { session } } = await supabaseClient.auth.getSession()
@@ -313,18 +322,53 @@ export default function ListingDetailPage() {
         return
       }
 
+      // Prepare request body with admin-configured payment details
+      const requestBody: any = {
+        listing_id: listing.id,
+        payment_method: visitMethod,
+        visit_fee: visitFeeAmount
+      }
+
+      // Add method-specific details from admin settings
+      if (visitMethod === 'mtn_momo') {
+        requestBody.phone_number = paymentSettings?.mobile_money_details?.mtn?.phone_number || ''
+        requestBody.account_name = paymentSettings?.mobile_money_details?.mtn?.account_name || ''
+        requestBody.merchant_id = paymentSettings?.mobile_money_details?.mtn?.merchant_id || ''
+      } else if (visitMethod === 'airtel_money') {
+        requestBody.phone_number = paymentSettings?.mobile_money_details?.airtel?.phone_number || ''
+        requestBody.account_name = paymentSettings?.mobile_money_details?.airtel?.account_name || ''
+        requestBody.merchant_id = paymentSettings?.mobile_money_details?.airtel?.merchant_id || ''
+      } else if (visitMethod === 'equity_bank') {
+        requestBody.bank_name = paymentSettings?.bank_details?.bank_name || ''
+        requestBody.account_name = paymentSettings?.bank_details?.account_name || ''
+        requestBody.account_number = paymentSettings?.bank_details?.account_number || ''
+        requestBody.branch_code = paymentSettings?.bank_details?.branch_code || ''
+      } else if (visitMethod === 'crypto') {
+        requestBody.crypto_type = 'bitcoin' // Default crypto type
+        requestBody.wallet_address = '' // Will be configured by admin
+      }
+
+      // Add payment screenshot if uploaded
+      if (paymentScreenshot) {
+        const formData = new FormData()
+        formData.append('screenshot', paymentScreenshot)
+        requestBody.screenshot = formData
+      }
+
+      // Add payment proof if uploaded
+      if (paymentProof) {
+        const formData = new FormData()
+        formData.append('proof', paymentProof)
+        requestBody.proof = formData
+      }
+
       const response = await fetch('/api/visits', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${session.access_token}`
         },
-        body: JSON.stringify({
-          listing_id: listing.id,
-          payment_method: visitMethod,
-          phone_number: visitPhone,
-          crypto_type: visitCrypto
-        })
+        body: JSON.stringify(requestBody)
       })
 
       const result = await response.json()
@@ -333,7 +377,11 @@ export default function ListingDetailPage() {
         return
       }
 
-      setVisitSuccess('Visit request submitted. Please complete the payment prompt.')
+      // Move to proof upload step after successful request
+      setPaymentStep('proof')
+      setVisitSuccess('Thank you for your payment. Please allow 10-20 minutes for payment confirmation. Once verified, you will receive a call to schedule your visit dates and provide you with the details of the assigned agent who will conduct the property tour.')
+      setShowVisitModal(false) // Close the modal after successful submission
+      
     } catch (err: any) {
       setVisitError(err.message || 'Failed to request visit')
     } finally {
@@ -542,22 +590,20 @@ export default function ListingDetailPage() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Seller</CardTitle>
+                <CardTitle>For any questions, ideas, or inquiries, reach out to us on this number</CardTitle>
               </CardHeader>
-              <CardContent className="flex items-center space-x-3">
-                <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
-                  <User className="h-5 w-5 text-gray-500" />
-                </div>
-                <div>
-                  <div className="text-sm font-medium text-gray-900">
-                    {listing.seller?.full_name || 'Unknown Seller'}
+              <CardContent className="space-y-4">
+                <div className="flex items-center space-x-3">
+                  <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
+                    <User className="h-5 w-5 text-gray-500" />
                   </div>
-                  <div className="text-xs text-gray-600">
-                    {listing.seller?.email || 'No email'}
+                  <div>
+                    <div className="text-sm font-medium text-gray-900">
+                      {listing.seller?.full_name || 'Unknown Seller'}
+                    </div>
                   </div>
                 </div>
-              </CardContent>
-              <CardContent className="pt-0">
+                
                 <AdminContactInfo />
               </CardContent>
             </Card>
@@ -568,7 +614,7 @@ export default function ListingDetailPage() {
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="text-sm text-gray-700">
-                  Visit fee: <strong>{visitFeeAmount.toLocaleString()} RWF</strong>
+                  Visit fee: <strong>{listing.visit_fee_amount?.toLocaleString() || visitFeeAmount.toLocaleString()} RWF</strong>
                 </div>
                 <div className="text-xs text-gray-600">
                   Seller receives 70%. Platform keeps 30%.
@@ -576,10 +622,10 @@ export default function ListingDetailPage() {
 
                 <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-xs text-gray-700 space-y-1">
                   {visitPaymentInfo.mtn_momo?.phone_number && (
-                    <div>MTN MoMo: {visitPaymentInfo.mtn_momo.phone_number}</div>
+                    <div>MTN MoMo: {maskPhoneNumber(visitPaymentInfo.mtn_momo.phone_number)}</div>
                   )}
                   {visitPaymentInfo.airtel_money?.phone_number && (
-                    <div>Airtel Money: {visitPaymentInfo.airtel_money.phone_number}</div>
+                    <div>Airtel Money: {maskPhoneNumber(visitPaymentInfo.airtel_money.phone_number)}</div>
                   )}
                   {visitPaymentInfo.equity_bank?.account_number && (
                     <div>
@@ -588,15 +634,30 @@ export default function ListingDetailPage() {
                   )}
                 </div>
 
-                <Button
-                  onClick={() => {
-                    loadPaymentMethods()
-                    setShowVisitModal(true)
-                  }}
-                  className="w-full bg-red-600 hover:bg-red-700"
-                >
-                  Request a Visit
-                </Button>
+                <div className="flex flex-col space-y-3">
+                  <InquiryButton 
+                    listingId={listing.id} 
+                    sellerId={listing.seller_id || ''} 
+                    title={listing.title}
+                    className="w-full"
+                  />
+                  <div className="flex space-x-3">
+                    <Button
+                      onClick={() => {
+                        loadPaymentMethods()
+                        setShowVisitModal(true)
+                      }}
+                      className="flex-1 bg-red-600 hover:bg-red-700"
+                    >
+                      Request a Visit
+                    </Button>
+                    <FavoriteButton 
+                      listingId={listing.id} 
+                      size="md"
+                      className="flex-shrink-0"
+                    />
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </div>
@@ -621,23 +682,44 @@ export default function ListingDetailPage() {
               <div className="text-sm text-gray-700">
                 Visit fee: <strong>{visitFeeAmount.toLocaleString()} RWF</strong>
               </div>
-
-              {visitError && (
-                <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-700">
-                  {visitError}
+              <div className="text-xs text-gray-600">
+                Seller receives 70%. Platform keeps 30%.
+              </div>
+              
+              {/* Payment proof upload */}
+              <div className="space-y-3">
+                <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-sm text-gray-700">
+                  <h4 className="font-medium mb-2">Upload payment proof</h4>
+                  <input
+                      id="payment-proof-upload"
+                      type="file"
+                      accept="image/*"
+                      onChange={(e: any) => setPaymentProof(e.target.files?.[0] || null)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                      aria-label="Upload payment confirmation"
+                      title="Upload screenshot or photo of payment confirmation"
+                    />
+                    {paymentProof && (
+                      <div className="mt-2 text-xs text-gray-500">
+                        Proof: {paymentProof.name}
+                        <button
+                          type="button"
+                          onClick={() => setPaymentProof(null)}
+                          className="ml-2 text-red-500 hover:text-red-700"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    )}
                 </div>
-              )}
-              {visitSuccess && (
-                <div className="bg-green-50 border border-green-200 rounded-lg p-3 text-sm text-green-700">
-                  {visitSuccess}
-                </div>
-              )}
+              </div>
 
               <div className="space-y-3">
-                <label className="block text-sm font-medium text-gray-700">Payment Method</label>
+                <label htmlFor="payment-method" className="block text-sm font-medium text-gray-700">Payment Method</label>
                 <select
+                  id="payment-method"
                   value={visitMethod}
-                  onChange={(e) => setVisitMethod(e.target.value as PaymentMethod)}
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setVisitMethod(e.target.value as PaymentMethod)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                   title="Payment Method Selection"
                 >
@@ -658,31 +740,115 @@ export default function ListingDetailPage() {
                 </select>
 
                 {(visitMethod === 'mtn_momo' || visitMethod === 'airtel_money') && (
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                    <input
-                      type="tel"
-                      value={visitPhone}
-                      onChange={(e) => setVisitPhone(e.target.value)}
-                      placeholder="078X XXX XXX"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                    />
+                  <div className="space-y-3">
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                      <h4 className="font-medium text-gray-900 mb-3">
+                        {visitMethod === 'mtn_momo' ? 'MTN Mobile Money' : 'Airtel Money'} Payment Details
+                      </h4>
+                      <p className="text-xs text-gray-600 mb-3">Send payment to the number below:</p>
+                      
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-gray-600">Phone Number:</span>
+                          <span className="text-sm font-medium text-gray-900">
+                            {visitMethod === 'mtn_momo' 
+                              ? paymentSettings?.mobile_money_details?.mtn?.phone_number || 'Not configured'
+                              : paymentSettings?.mobile_money_details?.airtel?.phone_number || 'Not configured'
+                            }
+                          </span>
+                        </div>
+                        
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-gray-600">Account Name:</span>
+                          <span className="text-sm font-medium text-gray-900">
+                            {visitMethod === 'mtn_momo' 
+                              ? paymentSettings?.mobile_money_details?.mtn?.account_name || 'Not configured'
+                              : paymentSettings?.mobile_money_details?.airtel?.account_name || 'Not configured'
+                            }
+                          </span>
+                        </div>
+                        
+                        {(visitMethod === 'mtn_momo' 
+                          ? paymentSettings?.mobile_money_details?.mtn?.merchant_id
+                          : paymentSettings?.mobile_money_details?.airtel?.merchant_id) && (
+                          <div className="flex justify-between items-center">
+                            <span className="text-sm text-gray-600">Merchant ID:</span>
+                            <span className="text-sm font-medium text-gray-900">
+                              {visitMethod === 'mtn_momo' 
+                                ? paymentSettings?.mobile_money_details?.mtn?.merchant_id
+                                : paymentSettings?.mobile_money_details?.airtel?.merchant_id
+                              }
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                      
+                      {(visitMethod === 'mtn_momo' 
+                        ? paymentSettings?.mobile_money_details?.mtn?.payment_instructions
+                        : paymentSettings?.mobile_money_details?.airtel?.payment_instructions) && (
+                        <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded">
+                          <p className="text-sm font-medium text-blue-800 mb-1">Payment Instructions:</p>
+                          <p className="text-sm text-blue-700">
+                            {visitMethod === 'mtn_momo' 
+                              ? paymentSettings?.mobile_money_details?.mtn?.payment_instructions
+                              : paymentSettings?.mobile_money_details?.airtel?.payment_instructions
+                            }
+                          </p>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 )}
-
+                
+                {visitMethod === 'equity_bank' && (
+                  <div className="space-y-3">
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                      <h4 className="font-medium text-gray-900 mb-3">Bank Transfer Details</h4>
+                      <p className="text-xs text-gray-600 mb-3">Send payment to the account below:</p>
+                      
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-gray-600">Bank Name:</span>
+                          <span className="text-sm font-medium text-gray-900">
+                            {paymentSettings?.bank_details?.bank_name || 'Not configured'}
+                          </span>
+                        </div>
+                        
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-gray-600">Account Name:</span>
+                          <span className="text-sm font-medium text-gray-900">
+                            {paymentSettings?.bank_details?.account_name || 'Not configured'}
+                          </span>
+                        </div>
+                        
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-gray-600">Account Number:</span>
+                          <span className="text-sm font-medium text-gray-900">
+                            {paymentSettings?.bank_details?.account_number || 'Not configured'}
+                          </span>
+                        </div>
+                        
+                        {paymentSettings?.bank_details?.branch_code && (
+                          <div className="flex justify-between items-center">
+                            <span className="text-sm text-gray-600">Branch Code:</span>
+                            <span className="text-sm font-medium text-gray-900">
+                              {paymentSettings?.bank_details?.branch_code}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
+                
                 {visitMethod === 'crypto' && (
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Cryptocurrency</label>
-                    <select
-                      value={visitCrypto}
-                      onChange={(e) => setVisitCrypto(e.target.value as CryptoType)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                      title="Cryptocurrency Selection"
-                    >
-                      <option value="bitcoin">Bitcoin</option>
-                      <option value="ethereum">Ethereum</option>
-                      <option value="usdt">USDT</option>
-                    </select>
+                  <div className="space-y-3">
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                      <h4 className="font-medium text-gray-900 mb-3">Cryptocurrency Payment</h4>
+                      <p className="text-sm text-gray-600">
+                        Cryptocurrency payment details will be displayed here once configured by administrator.
+                      </p>
+                    </div>
                   </div>
                 )}
               </div>
@@ -692,6 +858,7 @@ export default function ListingDetailPage() {
                   variant="outline"
                   onClick={() => setShowVisitModal(false)}
                   className="flex-1"
+                  aria-label="Cancel visit request"
                 >
                   Cancel
                 </Button>
@@ -699,6 +866,7 @@ export default function ListingDetailPage() {
                   onClick={submitVisitRequest}
                   disabled={visitSubmitting}
                   className="flex-1 bg-red-600 hover:bg-red-700"
+                  aria-label="Submit visit request"
                 >
                   {visitSubmitting ? 'Submitting...' : 'Pay Visit Fee'}
                 </Button>

@@ -24,7 +24,20 @@
     "contact": "Contact",
     "login": "Login",
     "register": "Register",
-    "logout": "Logout"
+    "logout": "Logout",
+    "categories": "Categories",
+    "support": "Support",
+    "legal": "Legal",
+    "howItWorks": "How It Works",
+    "favorites": "Favorites",
+    "menu": "Menu",
+    "customerService": "Customer Service",
+    "faq": "FAQ",
+    "safety": "Safety",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "commissionAgreement": "Commission Agreement",
+    "disputeResolution": "Dispute Resolution"
   },
   "listing": {
     "create": "Create Listing",
@@ -77,10 +90,84 @@
     "exactAddress": "Provide exact address or nearby landmarks"
   },
   "categories": {
-    "housesDescription": "List residential and commercial properties",
-    "carsDescription": "Sell or rent vehicles",
-    "landDescription": "Offer plots for development",
-    "otherDescription": "Everything else"
+    "housesDescription": "Residential and commercial properties",
+    "carsDescription": "New and used vehicles for sale",
+    "landDescription": "Land for development and agriculture",
+    "otherDescription": "Electronics, furniture, and more"
+  },
+  "homepage": {
+    "hero": {
+      "title": "Find Your Perfect Property in Rwanda",
+      "subtitle": "Secure transactions, admin-mediated connections, trusted marketplace",
+      "searchPlaceholder": "Search properties, cars, land..."
+    },
+    "categories": {
+      "title": "Browse Categories",
+      "subtitle": "Find exactly what you're looking for in our curated categories",
+      "housesDescription": "Residential and commercial properties",
+      "carsDescription": "New and used vehicles for sale",
+      "landDescription": "Land for development and agriculture",
+      "otherDescription": "Electronics, furniture, and more"
+    },
+    "listings": {
+      "title": "All Listings",
+      "showing": "Showing {count} of {total} listings",
+      "browseAll": "Browse all available listings",
+      "loading": "Loading listings...",
+      "noListings": "No listings found",
+      "tryAdjustingFilters": "Try adjusting your filters or search query",
+      "checkBackLater": "Check back later for new listings",
+      "featured": "Featured",
+      "promoted": "Promoted",
+      "primary": "Primary",
+      "noMedia": "No media available",
+      "locationNotSpecified": "Location not specified",
+      "listedBy": "Listed by",
+      "anonymous": "Anonymous",
+      "viewDetails": "View Details",
+      "loadingMore": "Loading more listings...",
+      "reachedEnd": "You've reached the end of {total} listings",
+      "noMoreListings": "No more listings to load"
+    },
+    "filters": {
+      "filterByCategory": "Filter by category",
+      "allCategories": "All Categories",
+      "sortListings": "Sort listings",
+      "newestFirst": "Newest First",
+      "priceLowToHigh": "Price: Low to High",
+      "mostViewed": "Most Viewed",
+      "mostLiked": "Most Liked"
+    },
+    "stats": {
+      "title": "Trusted by Thousands",
+      "subtitle": "Join Rwanda's most trusted marketplace platform",
+      "activeListings": "Active Listings",
+      "verifiedUsers": "Verified Users",
+      "successfulTransactions": "Successful Transactions",
+      "trustScore": "Trust Score"
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "subtitle": "Simple, secure, and transparent process",
+      "step1": {
+        "title": "Browse & Find",
+        "description": "Search through our curated listings to find your perfect property or item"
+      },
+      "step2": {
+        "title": "Express Interest",
+        "description": "Click \"Express Interest\" and our admin team will facilitate a secure connection"
+      },
+      "step3": {
+        "title": "Complete Transaction",
+        "description": "Complete your transaction with our 30% commission guarantee and support"
+      }
+    },
+    "cta": {
+      "title": "Ready to Get Started?",
+      "subtitle": "Join thousands of Rwandans buying and selling with confidence",
+      "startSelling": "Start Selling",
+      "browseListings": "Browse Listings"
+    }
   },
   "commission": {
     "rate": "30% Commission Rate",

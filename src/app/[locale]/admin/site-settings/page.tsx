@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { MessageCircle } from 'lucide-react'
 import { supabase } from '@/lib/auth'
 
 export default function SiteSettingsPage() {
@@ -14,6 +15,7 @@ export default function SiteSettingsPage() {
   const [success, setSuccess] = useState('')
   const [formData, setFormData] = useState({
     admin_phone: '',
+    whatsapp_phone: '',
     support_email: '',
     office_address: ''
   })
@@ -111,6 +113,18 @@ export default function SiteSettingsPage() {
           </div>
 
           <div>
+            <Label htmlFor="whatsapp_phone">WhatsApp Phone</Label>
+            <Input
+              id="whatsapp_phone"
+              value={formData.whatsapp_phone}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setFormData({ ...formData, whatsapp_phone: e.target.value })
+              }
+              placeholder="+250737060025"
+            />
+          </div>
+
+          <div>
             <Label htmlFor="support_email">Support Email</Label>
             <Input
               id="support_email"
@@ -134,13 +148,33 @@ export default function SiteSettingsPage() {
             />
           </div>
 
-          <div className="flex justify-end">
+          <div className="border-t pt-4 mt-6">
+            <h3 className="text-lg font-semibold mb-4 text-green-600">WhatsApp Customer Service</h3>
+            <p className="text-sm text-gray-600 mb-4">
+              Update your WhatsApp customer service number and test the connection
+            </p>
+            <div className="bg-gray-50 p-3 rounded-lg mb-4">
+              <p className="text-sm font-medium text-gray-700">Current WhatsApp Number:</p>
+              <p className="text-lg font-bold text-green-600">{formData.whatsapp_phone || 'Not set'}</p>
+            </div>
+          </div>
+
+          <div className="flex justify-between items-center">
             <Button
               onClick={handleSave}
               disabled={saving}
               className="bg-red-600 hover:bg-red-700"
             >
               {saving ? 'Saving...' : 'Save Settings'}
+            </Button>
+            <Button
+              onClick={() => window.open(`https://wa.me/${formData.whatsapp_phone?.replace(/[^\d]/g, '')}`, '_blank')}
+              variant="outline"
+              className="text-green-600 border-green-600 hover:bg-green-50"
+              disabled={!formData.whatsapp_phone}
+            >
+              <MessageCircle className="h-4 w-4 mr-2" />
+              Test WhatsApp Connection
             </Button>
           </div>
         </CardContent>

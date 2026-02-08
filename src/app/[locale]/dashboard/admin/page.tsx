@@ -36,6 +36,7 @@ export default function AdminDashboard() {
   const [recentListings, setRecentListings] = useState([])
   const [visitRequests, setVisitRequests] = useState([])
   const [loading, setLoading] = useState(true)
+  const [releasingPayout, setReleasingPayout] = useState<string | null>(null)
 
   useEffect(() => {
     fetchDashboardData()
@@ -98,14 +99,19 @@ export default function AdminDashboard() {
       // Fetch visit requests for payout
       const { data: { session } } = await supabase.auth.getSession()
       if (session?.access_token) {
+        console.log('Fetching visit requests with token:', session.access_token.substring(0, 20) + '...')
         const visitResponse = await fetch('/api/visits/admin', {
           headers: {
             'Authorization': `Bearer ${session.access_token}`
           }
         })
+        console.log('Visit response status:', visitResponse.status)
         const visitData = await visitResponse.json()
+        console.log('Visit response data:', visitData)
         if (visitResponse.ok) {
           setVisitRequests(visitData.visits || [])
+        } else {
+          console.error('Visit request error:', visitData.error)
         }
       }
     } catch (error) {
@@ -133,6 +139,7 @@ export default function AdminDashboard() {
 
   const handleReleaseVisitPayout = async (visitId: string) => {
     try {
+      setReleasingPayout(visitId)
       const { data: { session } } = await supabase.auth.getSession()
       if (!session?.access_token) return
 
@@ -153,6 +160,8 @@ export default function AdminDashboard() {
       fetchDashboardData()
     } catch (error) {
       console.error('Error releasing payout:', error)
+    } finally {
+      setReleasingPayout(null)
     }
   }
 
@@ -457,6 +466,31 @@ export default function AdminDashboard() {
                           <p className="text-sm text-gray-600 mb-1">
                             <strong>Seller:</strong> {visit.seller?.full_name || visit.seller?.email}
                           </p>
+                          {visit.seller?.phone_number && (
+                            <p className="text-sm text-gray-600 mb-1">
+                              <strong>Seller Phone:</strong> {visit.seller.phone_number}
+                            </p>
+                          )}
+                          {visit.listings?.visit_fee_payment_methods && (
+                            <div className="text-sm text-gray-600 mb-1">
+                              <strong>Payment Methods:</strong>
+                              <div className="ml-2 mt-1 space-y-1">
+                                {Object.entries(visit.listings.visit_fee_payment_methods as any).map(([method, details]: [string, any]) => (
+                                  <div key={method} className="text-xs">
+                                    {method === 'mtn_momo' && details?.phone_number && (
+                                      <span>MTN MoMo: {details.phone_number}</span>
+                                    )}
+                                    {method === 'airtel_money' && details?.phone_number && (
+                                      <span>Airtel Money: {details.phone_number}</span>
+                                    )}
+                                    {method === 'equity_bank' && details?.account_number && (
+                                      <span>Equity: {details.account_name || 'Account'} • {details.account_number}</span>
+                                    )}
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
                           <p className="text-sm text-gray-700">
                             Visit Fee: {Number(visit.visit_fee_amount || 0).toLocaleString()} RWF
                           </p>
@@ -469,10 +503,20 @@ export default function AdminDashboard() {
                         <Button
                           size="sm"
                           onClick={() => handleReleaseVisitPayout(visit.id)}
-                          disabled={visit.status !== 'paid' || visit.payout_status === 'released'}
-                          className="bg-green-600 hover:bg-green-700"
+                          disabled={visit.status !== 'paid' || visit.payout_status === 'released' || releasingPayout === visit.id}
+                          className="bg-green-600 hover:bg-green-700 disabled:bg-gray-400"
                         >
-                          Release to Seller (70%)
+                          {releasingPayout === visit.id ? (
+                            <>
+                              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-1"></div>
+                              Releasing...
+                            </>
+                          ) : (
+                            <>
+                              <DollarSign className="h-4 w-4 mr-1" />
+                              Release to Seller (70%)
+                            </>
+                          )}
                         </Button>
                       </div>
                     </div>

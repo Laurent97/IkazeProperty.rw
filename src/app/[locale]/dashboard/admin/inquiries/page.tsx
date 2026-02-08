@@ -23,7 +23,8 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
-import { supabase } from '@/lib/auth'
+import { supabaseAdmin } from '@/lib/auth'
+import { getCurrentUser } from '@/lib/auth'
 
 export default function AdminInquiriesPage() {
   const [inquiries, setInquiries] = useState([])
@@ -41,7 +42,25 @@ export default function AdminInquiriesPage() {
     try {
       setLoading(true)
       
-      let query = supabase
+      // Check if user is authenticated and is admin
+      const currentUser = await getCurrentUser()
+      if (!currentUser) {
+        console.error('User not authenticated')
+        return
+      }
+
+      const { data: userProfile } = await supabaseAdmin()
+        .from('users')
+        .select('role')
+        .eq('id', currentUser.id)
+        .single() as { data: { role: string } | null, error: any }
+
+      if (userProfile?.role !== 'admin') {
+        console.error('User is not admin')
+        return
+      }
+      
+      let query = supabaseAdmin()
         .from('inquiries')
         .select(`
           *,
@@ -118,7 +137,7 @@ export default function AdminInquiriesPage() {
 
   const handleUpdateStatus = async (inquiryId: string, newStatus: string) => {
     try {
-      const { error } = await (supabase as any)
+      const { error } = await (supabaseAdmin() as any)
         .from('inquiries')
         .update({ status: newStatus })
         .eq('id', inquiryId)

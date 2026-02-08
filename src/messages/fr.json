@@ -24,7 +24,20 @@
     "contact": "Contact",
     "login": "Connexion",
     "register": "S'inscrire",
-    "logout": "Déconnexion"
+    "logout": "Déconnexion",
+    "categories": "Catégories",
+    "support": "Support",
+    "legal": "Légal",
+    "howItWorks": "Comment ça marche",
+    "favorites": "Favoris",
+    "menu": "Menu",
+    "customerService": "Service client",
+    "faq": "FAQ",
+    "safety": "Sécurité",
+    "terms": "Conditions d'utilisation",
+    "privacy": "Politique de confidentialité",
+    "commissionAgreement": "Accord de commission",
+    "disputeResolution": "Résolution des litiges"
   },
   "listing": {
     "create": "Créer une annonce",
@@ -77,10 +90,84 @@
     "exactAddress": "Fournissez l'adresse exacte ou les points de repère à proximité"
   },
   "categories": {
-    "housesDescription": "Lister les propriétés résidentielles et commerciales",
-    "carsDescription": "Vendre ou louer des véhicules",
-    "landDescription": "Offrir des parcelles pour développement",
-    "otherDescription": "Tout le reste"
+    "housesDescription": "Propriétés résidentielles et commerciales",
+    "carsDescription": "Véhicules neufs et d'occasion à vendre",
+    "landDescription": "Terrains pour le développement et l'agriculture",
+    "otherDescription": "Électronique, meubles et plus"
+  },
+  "homepage": {
+    "hero": {
+      "title": "Trouvez Votre Propriété Parfaite au Rwanda",
+      "subtitle": "Transactions sécurisées, connexions administrées, marketplace de confiance",
+      "searchPlaceholder": "Rechercher des propriétés, voitures, terrains..."
+    },
+    "categories": {
+      "title": "Parcourir les Catégories",
+      "subtitle": "Trouvez exactement ce que vous cherchez dans nos catégories sélectionnées",
+      "housesDescription": "Propriétés résidentielles et commerciales",
+      "carsDescription": "Véhicules neufs et d'occasion à vendre",
+      "landDescription": "Terrains pour le développement et l'agriculture",
+      "otherDescription": "Électronique, meubles et plus"
+    },
+    "listings": {
+      "title": "Toutes les Annonces",
+      "showing": "Affichage de {count} sur {total} annonces",
+      "browseAll": "Parcourir toutes les annonces disponibles",
+      "loading": "Chargement des annonces...",
+      "noListings": "Aucune annonce trouvée",
+      "tryAdjustingFilters": "Essayez d'ajuster vos filtres ou votre recherche",
+      "checkBackLater": "Revenez plus tard pour de nouvelles annonces",
+      "featured": "En vedette",
+      "promoted": "Promu",
+      "primary": "Principal",
+      "noMedia": "Aucun média disponible",
+      "locationNotSpecified": "Lieu non spécifié",
+      "listedBy": "Publié par",
+      "anonymous": "Anonyme",
+      "viewDetails": "Voir les Détails",
+      "loadingMore": "Chargement de plus d'annonces...",
+      "reachedEnd": "Vous avez atteint la fin de {total} annonces",
+      "noMoreListings": "Plus d'annonces à charger"
+    },
+    "filters": {
+      "filterByCategory": "Filtrer par catégorie",
+      "allCategories": "Toutes les Catégories",
+      "sortListings": "Trier les annonces",
+      "newestFirst": "Plus Récent d'abord",
+      "priceLowToHigh": "Prix: Croissant",
+      "mostViewed": "Plus Vus",
+      "mostLiked": "Plus Aimés"
+    },
+    "stats": {
+      "title": "Approuvé par des Milliers",
+      "subtitle": "Rejoignez la plateforme marketplace la plus fiable du Rwanda",
+      "activeListings": "Annonces Actives",
+      "verifiedUsers": "Utilisateurs Vérifiés",
+      "successfulTransactions": "Transactions Réussies",
+      "trustScore": "Score de Confiance"
+    },
+    "howItWorks": {
+      "title": "Comment Ça Marche",
+      "subtitle": "Processus simple, sécurisé et transparent",
+      "step1": {
+        "title": "Parcourir & Trouver",
+        "description": "Recherchez dans nos annonces sélectionnées pour trouver votre propriété ou article parfait"
+      },
+      "step2": {
+        "title": "Exprimer l'Intérêt",
+        "description": "Cliquez sur \"Exprimer l'Intérêt\" et notre équipe administrative facilitera une connexion sécurisée"
+      },
+      "step3": {
+        "title": "Compléter la Transaction",
+        "description": "Complétez votre transaction avec notre garantie et support de commission de 30%"
+      }
+    },
+    "cta": {
+      "title": "Prêt à Commencer?",
+      "subtitle": "Rejoignez des milliers de Rwandais achetant et vendant en toute confiance",
+      "startSelling": "Commencer à Vendre",
+      "browseListings": "Parcourir les Annonces"
+    }
   },
   "commission": {
     "rate": "Taux de commission de 30%",

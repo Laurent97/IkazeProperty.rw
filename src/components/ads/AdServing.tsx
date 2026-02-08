@@ -261,9 +261,6 @@ export default function AdServing({
               )}
               <div className="p-3">
                 <h4 className="font-semibold text-sm text-gray-900 mb-1">{ad.title}</h4>
-                {ad.description && (
-                  <p className="text-xs text-gray-600 mb-2">{ad.description}</p>
-                )}
                 <div className="flex items-center justify-between">
                   {ad.isSponsored && (
                     <span className="text-xs text-gray-500">SPONSORED</span>

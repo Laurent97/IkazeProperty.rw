@@ -37,10 +37,20 @@ export default function InquiryButton({
         return
       }
 
+      // Get session token for authorization
+      const { supabaseClient } = await import('@/lib/supabase-client')
+      const { data: { session } } = await supabaseClient.auth.getSession()
+      
+      if (!session?.access_token) {
+        window.location.href = '/auth/login'
+        return
+      }
+
       const response = await fetch('/api/inquiries', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`
         },
         body: JSON.stringify({
           listing_id: listingId,
@@ -88,13 +98,6 @@ export default function InquiryButton({
               <p className="text-sm text-gray-600 mb-2">
                 Listing: <strong>{title}</strong>
               </p>
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                <p className="text-sm text-blue-800">
-                  <strong>Important:</strong> Your inquiry will be reviewed by our admin team. 
-                  Once approved, you'll be connected with the seller. This ensures secure and 
-                  trusted transactions.
-                </p>
-              </div>
             </div>
 
             {success ? (
@@ -126,16 +129,6 @@ export default function InquiryButton({
                     required
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                   />
-                </div>
-
-                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
-                  <h4 className="font-medium text-yellow-800 mb-1">What happens next?</h4>
-                  <ol className="text-sm text-yellow-700 space-y-1">
-                    <li>1. Admin reviews your inquiry</li>
-                    <li>2. If approved, we connect you with the seller</li>
-                    <li>3. You can then communicate and arrange the transaction</li>
-                    <li>4. 30% commission applies upon successful transaction</li>
-                  </ol>
                 </div>
 
                 <div className="flex space-x-3">

@@ -4,11 +4,22 @@ import { supabase } from '@/lib/supabase';
 
 export async function POST(request: NextRequest) {
   try {
-    // Verify user authentication
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    // Get auth token from request headers
+    const authHeader = request.headers.get('authorization');
+    const token = authHeader?.replace('Bearer ', '');
+    
+    if (!token) {
+      return NextResponse.json(
+        { error: 'No authorization token' },
+        { status: 401 }
+      );
+    }
+
+    // Verify user using the token
+    const { data: { user }, error: authError } = await supabase.auth.getUser(token);
     if (authError || !user) {
       return NextResponse.json(
-        { error: 'Unauthorized' },
+        { error: 'Invalid token' },
         { status: 401 }
       );
     }

@@ -24,7 +24,20 @@
     "contact": "Twandikire",
     "login": "Injira",
     "register": "Iyandikishe",
-    "logout": "Sohoka"
+    "logout": "Sohoka",
+    "categories": "Itsinda",
+    "support": "Gufasha",
+    "legal": "Amategeko",
+    "howItWorks": "Bikora Ikitegererezo",
+    "favorites": "Ibyakunda",
+    "menu": "Menyu",
+    "customerService": "Serivisi y'abakiriya",
+    "faq": "Ibibazo bijyanye n'ibyo buri wumva",
+    "safety": "Umutekano",
+    "terms": "Amabwiriza y'uko ukoresheje",
+    "privacy": "Politiki y'ibanga",
+    "commissionAgreement": "Amasezerano ya komisiyo",
+    "disputeResolution": "Gusubiza inyungu zibangamana"
   },
   "listing": {
     "create": "Tanga igice",
@@ -81,6 +94,80 @@
     "carsDescription": "Ugurisha cyangwa ukwa ibinyabiziga",
     "landDescription": "Tanga imirima yo gucurangiza",
     "otherDescription": "Ibindi bintu byose"
+  },
+  "homepage": {
+    "hero": {
+      "title": "Gushaka Imipanga Igihugu Mu Rwanda",
+      "subtitle": "Amashyirahamwe yo mu bwihangano, ubufasha bw'abayobozi, isoko ryizewe",
+      "searchPlaceholder": "Shakisha imipanga, motari, ibiti..."
+    },
+    "categories": {
+      "title": "Kureba Itsinda",
+      "subtitle": "Gushaka ibyo ushaka kuri itsinda dushyizemoho ibintu byiza",
+      "housesDescription": "Imipanga y'ibidukikije n'iby'ubucuruzi",
+      "carsDescription": "Motari n'ibinyabiziga bishya n'izamukira",
+      "landDescription": "Butaka ku guhanga no mu buhinzi",
+      "otherDescription": "Electronique, imyuka n'ibindi"
+    },
+    "listings": {
+      "title": "Ibiganiro Byose",
+      "showing": "Igaragaza {count} muri {total} biganiro",
+      "browseAll": "Kureba ibiganiro byose bihari",
+      "loading": "Irimo ibiganiro...",
+      "noListings": "Nta biganiro byabonetse",
+      "tryAdjustingFilters": "Gerageza guhindura imbonerahamwe y'urushaka",
+      "checkBackLater": "Subira nyuma y'ibiganiro bishya",
+      "featured": "Igaragazwe",
+      "promoted": "Kwamamaza",
+      "primary": "Aho mbere",
+      "noMedia": "Nta media ihari",
+      "locationNotSpecified": "Aho biherereje ntibivugwa",
+      "listedBy": "Byashyizwe na",
+      "anonymous": "Kitazwi",
+      "viewDetails": "Reba Aho Bivugwa",
+      "loadingMore": "Irimo ibiganiro byinshi...",
+      "reachedEnd": "Wageze ku mpera y'ibiganiro {total}",
+      "noMoreListings": "Nta biganiro byongera kugaragarwa"
+    },
+    "filters": {
+      "filterByCategory": "Kuringa itsinda",
+      "allCategories": "Itsinda Ryose",
+      "sortListings": "Kunga ibiganiro",
+      "newestFirst": "Bishya Mbere",
+      "priceLowToHigh": "Igiciro: Butoya Buhagaze",
+      "mostViewed": "Ireba Cyane",
+      "mostLiked": "Ikunda Cyane"
+    },
+    "stats": {
+      "title": "Byemewe n'Abinji",
+      "subtitle": "Injira mu isoko ryizewe cyane mu Rwanda",
+      "activeListings": "Ibiganiro Bikora",
+      "verifiedUsers": "Abakoresha Bemewe",
+      "successfulTransactions": "Amashyirahamwe Yagenwe Neza",
+      "trustScore": "Ugereranyo Gw'Ubwizane"
+    },
+    "howItWorks": {
+      "title": "Bikora Ikitegererezo",
+      "subtitle": "Inzira yoroshye, yizewe kandi ihagaze",
+      "step1": {
+        "title": "Kureba & Gushaka",
+        "description": "Shakisha muri ibiganiro dushyizemoho ibintu byiza kugira ngo wimpare imipanga cyangwa ikintu"
+      },
+      "step2": {
+        "title": "Kwerekana Iteka",
+        "description": "Kanda ku 'Kwerekana Iteka' kandi itsinda ry'abayobozi rizafasha guhuza neza"
+      },
+      "step3": {
+        "title": "Kuzamura Amashyirahamwe",
+        "description": "Uzuza amashyirahamwe yawe n'ubufasha bwa komisiyo 30% na serivisi"
+      }
+    },
+    "cta": {
+      "title": "Ushobora Gutangira?",
+      "subtitle": "Injira muri Abanyarwanda binji bakora no kugurana n'ubwihangane",
+      "startSelling": "Tangira Igurisha",
+      "browseListings": "Kureba Ibiganiro"
+    }
   },
   "commission": {
     "rate": "Igiciro cya komisiyo 30%",

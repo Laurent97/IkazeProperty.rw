@@ -1,9 +1,11 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { MessageCircle, Phone, Send, X, Check, CheckCheck } from 'lucide-react'
+import { MessageCircle, Phone, Send, X, Check, CheckCheck, Bot } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { usePaymentContext } from '@/contexts/PaymentContext'
 
 // Utility function to generate stable IDs
 const generateStableId = (() => {
@@ -27,16 +29,17 @@ interface WhatsAppIntegrationProps {
 }
 
 export default function WhatsAppIntegration({ 
-  phoneNumber = '+250788123456', 
+  phoneNumber: propPhoneNumber, 
   businessName = 'IkazeProperty.rw',
   isOpen: controlledIsOpen,
   onToggle 
 }: WhatsAppIntegrationProps) {
   const [isInternalOpen, setIsInternalOpen] = useState(false)
+  const [siteSettings, setSiteSettings] = useState<any>(null)
   const [messages, setMessages] = useState<WhatsAppMessage[]>([
     {
       id: '1',
-      text: '👋 Welcome to IkazeProperty.rw! How can we help you today?',
+      text: '👋 Welcome to IkazeProperty.rw WhatsApp support! I can help you with listings, payments, verification, safety, and guide you through any process. How can I assist you today?',
       sender: 'business',
       timestamp: new Date(),
       status: 'delivered'
@@ -44,6 +47,27 @@ export default function WhatsAppIntegration({
   ])
   const [inputText, setInputText] = useState('')
   const [isTyping, setIsTyping] = useState(false)
+  const { getPlatformInfo } = usePaymentContext()
+  const platformInfo = getPlatformInfo()
+
+  // Use dynamic WhatsApp number from site settings or fall back to prop
+  const phoneNumber = siteSettings?.whatsapp_phone || propPhoneNumber || '+250737060025'
+
+  useEffect(() => {
+    loadSiteSettings()
+  }, [])
+
+  const loadSiteSettings = async () => {
+    try {
+      const response = await fetch('/api/site-settings')
+      const data = await response.json()
+      if (response.ok && data?.settings) {
+        setSiteSettings(data.settings)
+      }
+    } catch (err) {
+      console.error('Failed to load site settings:', err)
+    }
+  }
 
   const isControlled = controlledIsOpen !== undefined
   const isOpen = isControlled ? controlledIsOpen : isInternalOpen
@@ -120,23 +144,64 @@ export default function WhatsAppIntegration({
   const generateBusinessResponse = (userMessage: string): string => {
     const lowerMessage = userMessage.toLowerCase()
     
-    if (lowerMessage.includes('property') || lowerMessage.includes('house') || lowerMessage.includes('land')) {
-      return 'I can help you find the perfect property! Visit our website at ikazeproperty.rw to browse our listings, or tell me what type of property you\'re looking for and I\'ll assist you.'
+    // Platform overview
+    if (lowerMessage.includes('what is') || lowerMessage.includes('about') || lowerMessage.includes('platform')) {
+      return '🏠 Welcome! IkazeProperty.rw is Rwanda\'s trusted marketplace for properties and vehicles. We offer secure transactions, admin mediation, and multiple payment options. Visit ikazeproperty.rw to explore listings or create your account!'
+    }
+    
+    if (lowerMessage.includes('property') || lowerMessage.includes('house') || lowerMessage.includes('land') || lowerMessage.includes('car')) {
+      return '🚗 Find your perfect property/vehicle on our platform! We have 4 categories: Houses, Cars, Land, and Other items. Browse at ikazeproperty.rw or tell me what you\'re looking for and I\'ll guide you! All listings are verified and transactions are secure.'
+    }
+    
+    if (lowerMessage.includes('list') || lowerMessage.includes('sell') || lowerMessage.includes('post')) {
+      return '📝 Ready to sell? 1) Create verified account at ikazeproperty.rw 2) Upload photos and details 3) Set your price 4) Choose optional promotion 5) Submit for review. Process takes ~10 minutes. Need help? Call us!'
     }
     
     if (lowerMessage.includes('price') || lowerMessage.includes('cost') || lowerMessage.includes('commission')) {
-      return 'Our commission is 30% on successful transactions. This includes admin mediation, legal support, and dispute resolution. No upfront costs!'
+      return '💰 Transparent pricing: 30% commission only on successful sales. No upfront costs! Includes admin mediation, legal support, and secure payments. Example: RWF 1M sale = RWF 700K to you, RWF 300K commission. Fair and secure!'
     }
     
-    if (lowerMessage.includes('verify') || lowerMessage.includes('account')) {
-      return 'Account verification takes 1-2 business days. You\'ll need a valid ID and proof of address. Visit our website to start the verification process.'
+    if (lowerMessage.includes('payment') || lowerMessage.includes('pay') || lowerMessage.includes('money')) {
+      return '💳 5 secure payment methods: MTN Mobile Money, Airtel Money, Equity Bank transfers, Cryptocurrency (BTC/ETH/USDT), and Internal Wallet. All transactions are encrypted and monitored. Choose what works best for you!'
     }
     
-    if (lowerMessage.includes('contact') || lowerMessage.includes('phone') || lowerMessage.includes('office')) {
-      return 'You can reach us at: 📞 +250 788 123 456 📧 support@ikazeproperty.rw 📍 KN 123 St, Kiyovu, Kigali'
+    if (lowerMessage.includes('promote') || lowerMessage.includes('advertise') || lowerMessage.includes('featured')) {
+      return '🚀 Boost your listing visibility! 🔴 Urgent Badge (5K RWF - 14 days) ⭐ Featured (15K RWF - 7 days) 👑 Premium (25K RWF - 10 days). Premium includes WhatsApp broadcast and social media mention. Get 30% more views with featured!'
     }
     
-    return 'Thank you for your message! For detailed assistance, please visit our website at ikazeproperty.rw or call us at +250 788 123 456. Our team is ready to help you!'
+    if (lowerMessage.includes('safe') || lowerMessage.includes('security') || lowerMessage.includes('fraud') || lowerMessage.includes('scam')) {
+      return '🔒 Your safety is guaranteed! We verify all users, mediate every transaction, and provide 24/7 support. NEVER pay outside our platform. All transactions are insured and monitored. Report suspicious activity immediately!'
+    }
+    
+    if (lowerMessage.includes('verify') || lowerMessage.includes('account') || lowerMessage.includes('verification')) {
+      return '✅ Secure verification process: 1-2 business days for standard accounts. Need valid ID and proof of address. Property listings require additional ownership documents. This protects everyone and builds trust!'
+    }
+    
+    if (lowerMessage.includes('buy') || lowerMessage.includes('purchase') || lowerMessage.includes('interested')) {
+      return '🛒 Safe buying process: Browse listings → Click "Express Interest" → Our admin mediates → Secure payment → Receive item! No direct payments to sellers. Full protection and support included. Start browsing at ikazeproperty.rw!'
+    }
+    
+    if (lowerMessage.includes('contact') || lowerMessage.includes('phone') || lowerMessage.includes('office') || lowerMessage.includes('support')) {
+      return `📞 We're here to help! • Phone: ${platformInfo.phone} • Email: ${platformInfo.email} • Office: ${platformInfo.address} • Website: ikazeproperty.rw • WhatsApp: Continue here or click the WhatsApp button. Response times: Phone - Immediate, Email - 2-4 hours, WhatsApp - Instant!`
+    }
+    
+    if (lowerMessage.includes('emergency') || lowerMessage.includes('urgent') || lowerMessage.includes('problem')) {
+      return `🚨 Urgent support available! Call ${platformInfo.phone} for immediate assistance. For emergencies: Fraud reports, payment issues, security concerns. 24/7 emergency hotline available. Don\'t hesitate - we\'re here to help!`
+    }
+    
+    if (lowerMessage.includes('app') || lowerMessage.includes('mobile') || lowerMessage.includes('download')) {
+      return '📱 Mobile app coming soon! For now, use our responsive website on any device. Sign up at ikazeproperty.rw to get notified when the app launches. Future app will have push notifications, location search, and mobile payments!'
+    }
+    
+    if (lowerMessage.includes('search') || lowerMessage.includes('find') || lowerMessage.includes('looking for')) {
+      return '🔍 Advanced search available! Filter by location, price, category, features, and keywords. Save searches for alerts. Use multiple filters for precise results. Visit ikazeproperty.rw and start searching - your perfect property awaits!'
+    }
+    
+    if (lowerMessage.includes('hours') || lowerMessage.includes('time') || lowerMessage.includes('when')) {
+      return '🕐 Available when you need us! • Website/AI: 24/7 • Phone: Mon-Fri 8AM-6PM, Sat 9AM-4PM • Email: 24/7 response • Emergency: 24/7 hotline. Automated systems work 24/7 for your convenience!'
+    }
+    
+    return `💬 Thanks for reaching out! For detailed assistance: 🌐 Visit ikazeproperty.rw 📞 Call ${platformInfo.phone} 📧 Email ${platformInfo.email} 📱 Continue here on WhatsApp. I can help with listings, payments, verification, safety, and more. What do you need help with?`
   }
 
   const openWhatsAppWeb = () => {
@@ -146,21 +211,23 @@ export default function WhatsAppIntegration({
 
   if (!isOpen) {
     return (
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end space-y-2">
-        <Button
-          onClick={openWhatsAppWeb}
-          className="bg-green-600 hover:bg-green-700 text-white rounded-full p-4 shadow-lg"
-          size="lg"
-        >
-          <MessageCircle className="h-6 w-6" />
-        </Button>
-        <Button
-          onClick={toggleChat}
-          className="bg-green-500 hover:bg-green-600 text-white rounded-full p-3 shadow-lg"
-          size="lg"
-        >
-          <MessageCircle className="h-5 w-5" />
-        </Button>
+      <div className="fixed bottom-28 right-6 z-50">
+        <div className="flex flex-col items-center space-y-2">
+          <Button
+            onClick={openWhatsAppWeb}
+            className="bg-green-600 hover:bg-green-700 text-white rounded-full p-4 shadow-lg"
+            size="lg"
+          >
+            <MessageCircle className="h-6 w-6" />
+          </Button>
+          <Button
+            onClick={toggleChat}
+            className="bg-green-500 hover:bg-green-600 text-white rounded-full p-3 shadow-lg"
+            size="lg"
+          >
+            <MessageCircle className="h-5 w-5" />
+          </Button>
+        </div>
       </div>
     )
   }
