@@ -49,23 +49,32 @@ export default function SiteSettingsPage() {
         return
       }
 
+      console.log('Saving settings with data:', formData)
+
       const response = await fetch('/api/site-settings/admin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${session.access_token}`
+          'Authorization': `Bearer ${session.access_token}`,
+          'Accept': 'application/json'
         },
         body: JSON.stringify(formData)
       })
 
+      console.log('Response status:', response.status)
+      console.log('Response headers:', response.headers)
+
       const data = await response.json()
+      console.log('Response data:', data)
+
       if (!response.ok) {
-        setError(data.error || 'Failed to save settings')
+        setError(data.error || `Failed to save settings (Status: ${response.status})`)
         return
       }
 
       setSuccess('Settings saved successfully')
     } catch (err: any) {
+      console.error('Save error:', err)
       setError(err.message || 'Failed to save settings')
     } finally {
       setSaving(false)
