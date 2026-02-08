@@ -103,12 +103,20 @@ export default function ListingDetailPage() {
     let isActive = true
 
     const fetchListing = async () => {
-      if (!id) return
+      console.log('🔍 fetchListing called with id:', id, typeof id)
+      
+      if (!id) {
+        console.log('⚠️ No ID provided, returning early')
+        return
+      }
+      
       setLoading(true)
       setError('')
 
       try {
         const { supabaseClient } = await import('@/lib/supabase-client')
+        console.log('📋 Fetching listing with ID:', id)
+        
         const { data, error: listingError } = await supabaseClient
           .from('listings')
           .select(`
