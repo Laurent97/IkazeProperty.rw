@@ -136,12 +136,7 @@ export async function GET(request: NextRequest) {
 
     let query = supabase
       .from('inquiries')
-      .select(`
-        *,
-        listings(id, title, category, price),
-        buyer:users!inquiries_buyer_id_fkey(email, full_name),
-        seller:users!inquiries_seller_id_fkey(email, full_name)
-      `)
+      .select('*')
       .order('created_at', { ascending: false })
 
     // Filter by user role
@@ -179,9 +174,31 @@ export async function GET(request: NextRequest) {
       )
     }
 
+    // Fetch listing data for each inquiry
+    const inquiriesWithListings = await Promise.all(
+      (inquiries || []).map(async (inquiry) => {
+        if (inquiry.listing_id) {
+          const { data: listing } = await supabase
+            .from('listings')
+            .select('id, title, category, price')
+            .eq('id', inquiry.listing_id)
+            .single()
+          
+          return {
+            ...inquiry,
+            listings: listing
+          }
+        }
+        return {
+          ...inquiry,
+          listings: null
+        }
+      })
+    )
+
     return NextResponse.json({
       success: true,
-      data: inquiries
+      data: inquiriesWithListings
     })
   } catch (error) {
     console.error('Inquiry fetch error:', error)
