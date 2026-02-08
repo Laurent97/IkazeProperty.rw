@@ -110,6 +110,14 @@
       "namedRegex": "^/(?<nxtPlocale>[^/]+?)/admin/site\\-settings(?:/)?$"
     },
     {
+      "page": "/[locale]/admin/visit-requests",
+      "regex": "^/([^/]+?)/admin/visit\\-requests(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/admin/visit\\-requests(?:/)?$"
+    },
+    {
       "page": "/[locale]/auth/forgot-password",
       "regex": "^/([^/]+?)/auth/forgot\\-password(?:/)?$",
       "routeKeys": {
@@ -435,6 +443,12 @@
       "namedRegex": "^/api/ads/analytics(?:/)?$"
     },
     {
+      "page": "/api/favorites",
+      "regex": "^/api/favorites(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/favorites(?:/)?$"
+    },
+    {
       "page": "/api/inquiries",
       "regex": "^/api/inquiries(?:/)?$",
       "routeKeys": {},
@@ -495,6 +509,12 @@
       "namedRegex": "^/api/payments/refund(?:/)?$"
     },
     {
+      "page": "/api/payments/run-migration",
+      "regex": "^/api/payments/run\\-migration(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/payments/run\\-migration(?:/)?$"
+    },
+    {
       "page": "/api/payments/verify",
       "regex": "^/api/payments/verify(?:/)?$",
       "routeKeys": {},
@@ -537,6 +557,12 @@
       "namedRegex": "^/api/site\\-settings/admin(?:/)?$"
     },
     {
+      "page": "/api/test/visit-requests",
+      "regex": "^/api/test/visit\\-requests(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/test/visit\\-requests(?:/)?$"
+    },
+    {
       "page": "/api/test-auth",
       "regex": "^/api/test\\-auth(?:/)?$",
       "routeKeys": {},
@@ -559,6 +585,12 @@
       "regex": "^/api/visits/admin(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/api/visits/admin(?:/)?$"
+    },
+    {
+      "page": "/api/visits/management",
+      "regex": "^/api/visits/management(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/visits/management(?:/)?$"
     },
     {
       "page": "/api/visits/release",

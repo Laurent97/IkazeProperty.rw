@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 import { Database } from '@/types/database'
-import { supabaseClient } from './supabase-client'
+import { supabaseClient } from '@/lib/supabase-client'
 
 let _supabaseAdmin: ReturnType<typeof createClient<Database>> | null = null
 let _supabaseAuth: ReturnType<typeof createClient<Database>> | null = null
@@ -40,31 +40,22 @@ export const supabaseAdmin = getSupabaseAdmin
 export const supabaseAuth = getSupabaseAuth
 
 export const signUp = async (email: string, password: string, fullName: string) => {
-  const authClient = supabaseAuth()
-  const { data, error } = await authClient.auth.signUp({
-    email,
-    password,
-    options: {
-      data: {
-        full_name: fullName
-      }
-    }
+  const response = await fetch('/api/auth/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email,
+      password,
+      fullName
+    })
   })
 
-  if (error) throw error
+  const data = await response.json()
 
-  // Create user profile
-  if (data.user) {
-    const { error: profileError } = await (authClient as any)
-      .from('users')
-      .insert({
-        id: data.user.id,
-        email: data.user.email!,
-        full_name: fullName,
-        role: 'user'
-      })
-
-    if (profileError) throw profileError
+  if (!response.ok) {
+    throw new Error(data.error || 'Registration failed')
   }
 
   return data

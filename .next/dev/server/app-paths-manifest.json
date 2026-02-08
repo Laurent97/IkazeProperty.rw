@@ -1,0 +1,13 @@
+{
+  "/[locale]/auth/login/page": "app/[locale]/auth/login/page.js",
+  "/[locale]/auth/register/page": "app/[locale]/auth/register/page.js",
+  "/[locale]/dashboard/page": "app/[locale]/dashboard/page.js",
+  "/[locale]/dashboard/user/page": "app/[locale]/dashboard/user/page.js",
+  "/[locale]/page": "app/[locale]/page.js",
+  "/api/ads/analytics/route": "app/api/ads/analytics/route.js",
+  "/api/ads/route": "app/api/ads/route.js",
+  "/api/auth/create-profile/route": "app/api/auth/create-profile/route.js",
+  "/api/auth/register/route": "app/api/auth/register/route.js",
+  "/api/notifications/route": "app/api/notifications/route.js",
+  "/api/site-settings/route": "app/api/site-settings/route.js"
+}

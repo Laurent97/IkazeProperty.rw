@@ -1,16 +1,278 @@
-[01:49:12.129] Browser LOG     🔄 Auth state changed: SIGNED_IN kizzolaurent@gmail.com
-[01:49:12.129] Browser LOG     🔄 Auth state changed: SIGNED_IN kizzolaurent@gmail.com
-[01:00:48.264] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[01:00:48.286] Server  LOG     ✓ Compiled in 28ms
-[01:00:48.410] Server  ERROR   ⨯ Error: ENOENT: no such file or directory, open 'D:\Apps\IkazeProperty.rw\.next\dev\server\app\[locale]\page\build-manifest.json'
-[01:00:51.413] Server  LOG     ○ Compiling /_error ...
-[01:00:52.132] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[01:00:52.197] Server  ERROR   ⨯ Error: ENOENT: no such file or directory, open 'D:\Apps\IkazeProperty.rw\.next\dev\server\app\[locale]\page\build-manifest.json'
-[01:01:04.804] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[01:01:04.886] Server  ERROR   ⨯ Error: ENOENT: no such file or directory, open 'D:\Apps\IkazeProperty.rw\.next\dev\server\app\[locale]\page\build-manifest.json'
-[01:02:04.405] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[01:02:04.467] Server  ERROR   ⨯ Error: ENOENT: no such file or directory, open 'D:\Apps\IkazeProperty.rw\.next\dev\server\app\[locale]\page\build-manifest.json'
-[01:02:08.478] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[01:02:08.562] Server  ERROR   ⨯ Error: ENOENT: no such file or directory, open 'D:\Apps\IkazeProperty.rw\.next\dev\server\app\[locale]\page\build-manifest.json'
-[01:02:13.471] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[01:02:13.540] Server  ERROR   ⨯ Error: ENOENT: no such file or directory, open 'D:\Apps\IkazeProperty.rw\.next\dev\server\app\[locale]\page\build-manifest.json'
+[00:00:01.322] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:01.489] Server  LOG     ✓ Ready in 1088ms
+[00:00:01.953] Server  WARN    ⚠ Cross origin request detected from 127.0.0.1 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+[00:00:03.405] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:03.542] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:04.746] Browser LOG     🔍 Checking authentication state...
+[00:00:04.746] Browser LOG     🔴 No session found
+[00:00:04.746] Browser LOG     🔄 Auth state changed: INITIAL_SESSION undefined
+[00:00:04.747] Browser LOG     🔍 Checking authentication state...
+[00:00:04.747] Browser LOG     🔴 No session found
+[00:00:04.747] Browser LOG     🔄 Auth state changed: INITIAL_SESSION undefined
+[00:00:04.747] Browser ERROR   Error fetching payment settings: {"code":"","details":"TypeError: Failed to fetch\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25906:23\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25920:16\n    at async fetchPaymentSettings (http://localhost:3000/_next/static/chunks/src_6133bb9e._.js:1023:49)","hint":"","message":"TypeError: Failed to fetch"}
+[00:00:05.749] Browser LOG     🔍 Checking authentication state...
+[00:00:05.749] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
+[00:00:05.749] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
+[00:00:05.749] Browser ERROR   Error fetching payment settings: {"code":"","details":"TypeError: Failed to fetch\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25906:23\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25920:16\n    at async fetchPaymentSettings (http://localhost:3000/_next/static/chunks/src_6133bb9e._.js:1023:49)","hint":"","message":"TypeError: Failed to fetch"}
+[00:00:11.126] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:11.372] Browser LOG     🔍 Checking authentication state...
+[00:00:11.372] Browser LOG     🔴 No session found
+[00:00:11.372] Browser LOG     🔄 Auth state changed: INITIAL_SESSION undefined
+[00:01:06.507] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:01:06.508] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:01:06.509] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:01:06.521] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:01:06.534] Server  LOG     ✓ Compiled in 18ms
+[00:01:07.699] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:08.153] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:08.191] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:09.749] Browser LOG     🔍 Checking authentication state...
+[00:01:09.749] Browser LOG     🔴 No session found
+[00:01:09.749] Browser LOG     🔄 Auth state changed: INITIAL_SESSION undefined
+[00:01:09.749] Browser ERROR   Error fetching payment settings: {"code":"","details":"TypeError: Failed to fetch\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25906:23\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25920:16\n    at async fetchPaymentSettings (http://localhost:3000/_next/static/chunks/src_6133bb9e._.js:1023:49)","hint":"","message":"TypeError: Failed to fetch"}
+[00:01:09.749] Browser LOG     🔍 Checking authentication state...
+[00:01:09.749] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
+[00:01:09.749] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
+[00:01:09.749] Browser ERROR   Error fetching payment settings: {"code":"","details":"TypeError: Failed to fetch\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25906:23\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25920:16\n    at async fetchPaymentSettings (http://localhost:3000/_next/static/chunks/src_6133bb9e._.js:1023:49)","hint":"","message":"TypeError: Failed to fetch"}
+[00:01:09.749] Browser LOG     🔍 Checking authentication state...
+[00:01:09.749] Browser LOG     🔴 No session found
+[00:01:09.749] Browser LOG     🔄 Auth state changed: INITIAL_SESSION undefined
+[00:01:09.750] Browser LOG     🔍 Checking authentication state...
+[00:01:09.750] Browser LOG     🔴 No session found
+[00:01:09.750] Browser LOG     🔄 Auth state changed: INITIAL_SESSION undefined
+[00:02:26.955] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:02:26.955] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:02:26.955] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:02:26.955] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:02:26.962] Server  LOG     ✓ Compiled in 8ms
+[00:02:28.528] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:29.096] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:29.193] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:30.744] Browser LOG     🔍 Checking authentication state...
+[00:02:30.744] Browser LOG     🔴 No session found
+[00:02:30.744] Browser LOG     🔄 Auth state changed: INITIAL_SESSION undefined
+[00:02:30.744] Browser ERROR   Error fetching payment settings: {"code":"","details":"TypeError: Failed to fetch\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25906:23\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25920:16\n    at async fetchPaymentSettings (http://localhost:3000/_next/static/chunks/src_6133bb9e._.js:1017:49)","hint":"","message":"TypeError: Failed to fetch"}
+[00:02:30.744] Browser LOG     🔍 Checking authentication state...
+[00:02:30.744] Browser LOG     🔴 No session found
+[00:02:30.744] Browser LOG     🔄 Auth state changed: INITIAL_SESSION undefined
+[00:02:30.745] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <MenuProvider scope={{Menu:[...], ...}} open={false} onOpenChange={function useCallbackRef.useMemo} content={null} ...>
+      <MenuProvider scope={{Menu:[...], ...}} onClose={function Menu.useCallback} isUsingKeyboardRef={{current:false}} ...>
+        <DropdownMenuTrigger asChild={true}>
+          <MenuAnchor asChild={true} __scopeMenu={{Menu:[...], ...}}>
+            <PopperAnchor __scopePopper={{Menu:[...], ...}} asChild={true} ref={null}>
+              <Primitive.div asChild={true} ref={function}>
+                <Primitive.div.Slot ref={function}>
+                  <Primitive.div.SlotClone ref={function}>
+                    <Primitive.button type="button" id="radix-_R_3..." aria-haspopup="menu" aria-expanded={false} ...>
+                      <Primitive.button.Slot type="button" id="radix-_R_3..." aria-haspopup="menu" aria-expanded={false} ...>
+                        <Primitive.button.SlotClone type="button" id="radix-_R_3..." aria-haspopup="menu" ...>
+                          <_c variant="outline" size="sm" disabled={false} className="px-4 py-2" type="button" ...>
+                            <button
+                              className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium..."
+                              ref={function}
+                              disabled={false}
+                              type="button"
++                             id="radix-_R_32b5rlb_"
+-                             id="radix-_R_c9d5rlb_"
+                              aria-haspopup="menu"
+                              aria-expanded={false}
+                              aria-controls={undefined}
+                              data-state="closed"
+                              data-disabled={undefined}
+                              onPointerDown={function handleEvent}
+                              onKeyDown={function handleEvent}
+                            >
+        ...
+
+[00:02:30.745] Browser LOG     🔍 Checking authentication state...
+[00:02:30.745] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
+[00:02:30.745] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
+[00:02:30.745] Browser ERROR   Error fetching payment settings: {"code":"","details":"TypeError: Failed to fetch\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25906:23\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25920:16\n    at async fetchPaymentSettings (http://localhost:3000/_next/static/chunks/src_6133bb9e._.js:1017:49)","hint":"","message":"TypeError: Failed to fetch"}
+[00:02:30.748] Browser LOG     🔍 Checking authentication state...
+[00:02:30.748] Browser LOG     🔴 No session found
+[00:02:30.748] Browser LOG     🔄 Auth state changed: INITIAL_SESSION undefined
+[00:03:03.291] Server  ERROR   Auth error: AuthApiError: Database error creating new user
+[00:03:37.608] Server  ERROR   Auth error: AuthApiError: Database error saving new user
+[00:03:42.501] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:03:42.502] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:03:42.503] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:03:42.504] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:03:42.520] Server  LOG     ✓ Compiled in 7ms
+[00:03:43.591] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:03:43.849] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:03:44.470] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:03:45.744] Browser LOG     🔍 Checking authentication state...
+[00:03:45.744] Browser LOG     🔴 No session found
+[00:03:45.744] Browser LOG     🔄 Auth state changed: INITIAL_SESSION undefined
+[00:03:45.744] Browser ERROR   Error fetching payment settings: {"code":"","details":"TypeError: Failed to fetch\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25906:23\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25920:16\n    at async fetchPaymentSettings (http://localhost:3000/_next/static/chunks/src_6133bb9e._.js:1014:49)","hint":"","message":"TypeError: Failed to fetch"}
+[00:03:45.745] Browser LOG     🔍 Checking authentication state...
+[00:03:45.745] Browser LOG     🔴 No session found
+[00:03:45.745] Browser LOG     🔄 Auth state changed: INITIAL_SESSION undefined
+[00:03:45.749] Browser LOG     🔍 Checking authentication state...
+[00:03:45.749] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
+[00:03:45.749] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
+[00:03:45.749] Browser ERROR   Error fetching payment settings: {"code":"","details":"TypeError: Failed to fetch\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25906:23\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25920:16\n    at async fetchPaymentSettings (http://localhost:3000/_next/static/chunks/src_6133bb9e._.js:1014:49)","hint":"","message":"TypeError: Failed to fetch"}
+[00:03:46.744] Browser LOG     🔍 Checking authentication state...
+[00:03:46.744] Browser LOG     🔴 No session found
+[00:03:46.744] Browser LOG     🔄 Auth state changed: INITIAL_SESSION undefined
+[00:05:21.812] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:05:21.813] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:05:21.814] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:05:21.816] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:05:21.831] Server  LOG     ✓ Compiled in 17ms
+[00:05:23.148] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:05:23.921] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:05:24.420] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:05:24.796] Browser LOG     🔍 Checking authentication state...
+[00:05:24.796] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
+[00:05:24.796] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
+[00:05:24.796] Browser ERROR   Error fetching payment settings: {"code":"","details":"TypeError: Failed to fetch\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25906:23\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25920:16\n    at async fetchPaymentSettings (http://localhost:3000/_next/static/chunks/src_6133bb9e._.js:1049:49)","hint":"","message":"TypeError: Failed to fetch"}
+[00:05:25.745] Browser LOG     🔍 Checking authentication state...
+[00:05:25.745] Browser LOG     🔴 No session found
+[00:05:25.745] Browser LOG     🔄 Auth state changed: INITIAL_SESSION undefined
+[00:05:25.745] Browser ERROR   Error fetching payment settings: {"code":"","details":"TypeError: Failed to fetch\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25906:23\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25920:16\n    at async fetchPaymentSettings (http://localhost:3000/_next/static/chunks/src_6133bb9e._.js:1049:49)","hint":"","message":"TypeError: Failed to fetch"}
+[00:05:25.746] Browser LOG     🔍 Checking authentication state...
+[00:05:25.746] Browser LOG     🔴 No session found
+[00:05:25.746] Browser LOG     🔄 Auth state changed: INITIAL_SESSION undefined
+[00:05:25.750] Browser LOG     🔍 Checking authentication state...
+[00:05:25.750] Browser LOG     🔴 No session found
+[00:05:25.750] Browser LOG     🔄 Auth state changed: INITIAL_SESSION undefined
+[00:06:00.493] Server  ERROR   Profile creation error: {}
+[00:08:06.939] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:08:06.940] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:08:06.941] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:08:06.950] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:08:06.968] Server  LOG     ✓ Compiled in 8ms
+[00:08:08.333] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:08:08.596] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:08:08.893] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:08:09.747] Browser LOG     🔍 Checking authentication state...
+[00:08:09.747] Browser LOG     🔴 No session found
+[00:08:09.747] Browser LOG     🔄 Auth state changed: INITIAL_SESSION undefined
+[00:08:09.758] Browser LOG     🔍 Checking authentication state...
+[00:08:09.759] Browser LOG     🔴 No session found
+[00:08:09.759] Browser LOG     🔄 Auth state changed: INITIAL_SESSION undefined
+[00:08:09.759] Browser ERROR   Error fetching payment settings: {"code":"","details":"TypeError: Failed to fetch\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25906:23\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25920:16\n    at async fetchPaymentSettings (http://localhost:3000/_next/static/chunks/src_6133bb9e._.js:1015:49)","hint":"","message":"TypeError: Failed to fetch"}
+[00:08:10.744] Browser LOG     🔍 Checking authentication state...
+[00:08:10.744] Browser LOG     🔴 No session found
+[00:08:10.744] Browser LOG     🔄 Auth state changed: INITIAL_SESSION undefined
+[00:08:11.744] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <MenuProvider scope={{Menu:[...], ...}} open={false} onOpenChange={function useCallbackRef.useMemo} content={null} ...>
+      <MenuProvider scope={{Menu:[...], ...}} onClose={function Menu.useCallback} isUsingKeyboardRef={{current:false}} ...>
+        <DropdownMenuTrigger asChild={true}>
+          <MenuAnchor asChild={true} __scopeMenu={{Menu:[...], ...}}>
+            <PopperAnchor __scopePopper={{Menu:[...], ...}} asChild={true} ref={null}>
+              <Primitive.div asChild={true} ref={function}>
+                <Primitive.div.Slot ref={function}>
+                  <Primitive.div.SlotClone ref={function}>
+                    <Primitive.button type="button" id="radix-_R_3..." aria-haspopup="menu" aria-expanded={false} ...>
+                      <Primitive.button.Slot type="button" id="radix-_R_3..." aria-haspopup="menu" aria-expanded={false} ...>
+                        <Primitive.button.SlotClone type="button" id="radix-_R_3..." aria-haspopup="menu" ...>
+                          <_c variant="outline" size="sm" disabled={false} className="px-4 py-2" type="button" ...>
+                            <button
+                              className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium..."
+                              ref={function}
+                              disabled={false}
+                              type="button"
++                             id="radix-_R_32b5rlb_"
+-                             id="radix-_R_c9d5rlb_"
+                              aria-haspopup="menu"
+                              aria-expanded={false}
+                              aria-controls={undefined}
+                              data-state="closed"
+                              data-disabled={undefined}
+                              onPointerDown={function handleEvent}
+                              onKeyDown={function handleEvent}
+                            >
+        ...
+
+[00:08:11.744] Browser LOG     🔍 Checking authentication state...
+[00:08:11.744] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
+[00:08:11.744] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
+[00:08:11.744] Browser ERROR   Error fetching payment settings: {"code":"","details":"TypeError: Failed to fetch\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25906:23\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25920:16\n    at async fetchPaymentSettings (http://localhost:3000/_next/static/chunks/src_6133bb9e._.js:1015:49)","hint":"","message":"TypeError: Failed to fetch"}
+[00:08:37.738] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:08:37.738] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:08:37.739] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:08:37.742] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/lib/auth.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:08:37.748] Server  LOG     ✓ Compiled in 9ms
+[00:08:39.142] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:08:39.685] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:08:40.149] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:08:40.745] Browser LOG     🔍 Checking authentication state...
+[00:08:40.745] Browser LOG     🔴 No session found
+[00:08:40.745] Browser LOG     🔄 Auth state changed: INITIAL_SESSION undefined
+[00:08:40.745] Browser ERROR   Error fetching payment settings: {"code":"","details":"TypeError: Failed to fetch\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25906:23\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25920:16\n    at async fetchPaymentSettings (http://localhost:3000/_next/static/chunks/src_6133bb9e._.js:1017:49)","hint":"","message":"TypeError: Failed to fetch"}
+[00:08:40.746] Browser LOG     🔍 Checking authentication state...
+[00:08:40.746] Browser LOG     🔴 No session found
+[00:08:40.746] Browser LOG     🔄 Auth state changed: INITIAL_SESSION undefined
+[00:08:40.747] Browser LOG     🔍 Checking authentication state...
+[00:08:40.747] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
+[00:08:40.747] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
+[00:08:40.747] Browser ERROR   Error fetching payment settings: {"code":"","details":"TypeError: Failed to fetch\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25906:23\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25920:16\n    at async fetchPaymentSettings (http://localhost:3000/_next/static/chunks/src_6133bb9e._.js:1017:49)","hint":"","message":"TypeError: Failed to fetch"}
+[00:08:41.745] Browser LOG     🔍 Checking authentication state...
+[00:08:41.745] Browser LOG     🔴 No session found
+[00:08:41.745] Browser LOG     🔄 Auth state changed: INITIAL_SESSION undefined
+[00:09:22.660] Server  ERROR   Auth error: AuthApiError: Database error saving new user
+[00:09:40.196] Server  ERROR   Auth error: AuthApiError: Database error creating new user
+[00:11:18.767] Browser ERROR   Error fetching user data: {"__isAuthError":true,"name":"AuthSessionMissingError","status":400}
+[00:11:18.793] Browser ERROR   Error fetching user data: {"__isAuthError":true,"name":"AuthSessionMissingError","status":400}
+[00:11:19.527] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:11:20.003] Browser LOG     🔍 Checking authentication state...
+[00:11:20.003] Browser LOG     🔴 No session found
+[00:11:20.003] Browser LOG     🔄 Auth state changed: INITIAL_SESSION undefined
+[00:11:31.172] Browser LOG     🔄 Auth state changed: SIGNED_IN juliamadima12@gmail.com
+[00:11:31.745] Browser LOG     🔄 Auth state changed: SIGNED_IN juliamadima12@gmail.com
+[00:12:00.022] Browser LOG     🔄 Auth state changed: SIGNED_IN juliamadima12@gmail.com
+[00:12:00.744] Browser LOG     🔄 Auth state changed: SIGNED_IN juliamadima12@gmail.com
+[00:12:02.017] Browser LOG     🔄 Auth state changed: SIGNED_IN juliamadima12@gmail.com
+[00:12:02.743] Browser LOG     🔄 Auth state changed: SIGNED_IN juliamadima12@gmail.com
+[00:12:48.972] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/contexts/PaymentContext.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:12:48.973] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/contexts/PaymentContext.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:12:48.976] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/contexts/PaymentContext.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:12:48.977] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./src/contexts/PaymentContext.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:12:48.986] Server  LOG     ✓ Compiled in 61ms
+[00:12:50.468] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:12:50.577] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:12:50.792] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:12:51.748] Browser LOG     🔍 Checking authentication state...
+[00:12:51.748] Browser LOG     ✅ User session found: juliamadima12@gmail.com
+[00:12:51.748] Browser LOG     🔄 Auth state changed: INITIAL_SESSION juliamadima12@gmail.com
+[00:12:51.749] Browser LOG     🔍 Checking authentication state...
+[00:12:51.749] Browser LOG     ✅ User session found: juliamadima12@gmail.com
+[00:12:51.749] Browser LOG     🔄 Auth state changed: INITIAL_SESSION juliamadima12@gmail.com
+[00:12:51.749] Browser LOG     🔍 Checking authentication state...
+[00:12:51.749] Browser LOG     🔴 No session found
+[00:12:51.749] Browser LOG     🔄 Auth state changed: INITIAL_SESSION undefined
+[00:12:51.749] Browser ERROR   Error fetching payment settings: {"code":"","details":"TypeError: Failed to fetch\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25906:23\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25920:16\n    at async fetchPaymentSettings (http://localhost:3000/_next/static/chunks/src_6133bb9e._.js:1018:49)","hint":"","message":"TypeError: Failed to fetch"}
+[00:12:52.749] Browser LOG     🔍 Checking authentication state...
+[00:12:52.749] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
+[00:12:52.749] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
+[00:12:52.749] Browser ERROR   Error fetching payment settings: {"code":"","details":"TypeError: Failed to fetch\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25906:23\n    at http://localhost:3000/_next/static/chunks/node_modules_89313221._.js:25920:16\n    at async fetchPaymentSettings (http://localhost:3000/_next/static/chunks/src_6133bb9e._.js:1018:49)","hint":"","message":"TypeError: Failed to fetch"}
+[00:21:39.839] Browser LOG     🔄 Auth state changed: SIGNED_IN juliamadima12@gmail.com
+[00:21:40.744] Browser LOG     🔄 Auth state changed: SIGNED_IN juliamadima12@gmail.com
