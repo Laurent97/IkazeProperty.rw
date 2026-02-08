@@ -78,6 +78,14 @@ export default function InquiryButton({
     }
   }
 
+  const handleButtonClick = () => {
+    if (!user) {
+      window.location.href = '/auth/login'
+      return
+    }
+    setShowModal(true)
+  }
+
   if (showModal) {
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
@@ -159,12 +167,12 @@ export default function InquiryButton({
 
   return (
     <Button
-      onClick={() => setShowModal(true)}
+      onClick={handleButtonClick}
       disabled={isLoading}
       className={`bg-red-600 hover:bg-red-700 ${className}`}
     >
       <MessageSquare className="h-4 w-4 mr-2" />
-      {isLoading ? 'Loading...' : 'Express Interest'}
+      {isLoading ? 'Loading...' : (user ? 'Express Interest' : 'Login to Inquire')}
     </Button>
   )
 }
