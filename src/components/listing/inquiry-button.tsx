@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { MessageSquare, AlertCircle, CheckCircle, Clock } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { getCurrentUser } from '@/lib/auth'
+import { useAuth } from '@/contexts/AuthContext'
 
 interface InquiryButtonProps {
   listingId: string
@@ -19,6 +19,7 @@ export default function InquiryButton({
   title, 
   className = '' 
 }: InquiryButtonProps) {
+  const { user, isLoading } = useAuth()
   const [showModal, setShowModal] = useState(false)
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
@@ -31,7 +32,6 @@ export default function InquiryButton({
     setError('')
 
     try {
-      const user = await getCurrentUser()
       if (!user) {
         window.location.href = '/auth/login'
         return
@@ -42,6 +42,7 @@ export default function InquiryButton({
       const { data: { session } } = await supabaseClient.auth.getSession()
       
       if (!session?.access_token) {
+        setError('Authentication session expired. Please log in again.')
         window.location.href = '/auth/login'
         return
       }
@@ -159,10 +160,11 @@ export default function InquiryButton({
   return (
     <Button
       onClick={() => setShowModal(true)}
+      disabled={isLoading}
       className={`bg-red-600 hover:bg-red-700 ${className}`}
     >
       <MessageSquare className="h-4 w-4 mr-2" />
-      Express Interest
+      {isLoading ? 'Loading...' : 'Express Interest'}
     </Button>
   )
 }

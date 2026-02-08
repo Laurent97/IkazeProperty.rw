@@ -19,9 +19,14 @@ async function getCurrentUser(request: NextRequest) {
   if (!authHeader) return null
   
   const token = authHeader.replace('Bearer ', '')
+  
+  // Validate the JWT token using getUser with service role key
   const { data: { user }, error } = await userSupabase.auth.getUser(token)
   
-  if (error || !user) return null
+  if (error || !user) {
+    console.error('Auth validation error:', error?.message)
+    return null
+  }
   return user
 }
 
@@ -30,7 +35,7 @@ export async function POST(request: NextRequest) {
     const currentUser = await getCurrentUser(request)
     if (!currentUser) {
       return NextResponse.json(
-        { error: 'Authentication required' },
+        { error: 'Authentication required. Please log in and try again.' },
         { status: 401 }
       )
     }
