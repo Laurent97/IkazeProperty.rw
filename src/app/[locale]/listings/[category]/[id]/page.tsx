@@ -30,22 +30,6 @@ export default function ListingDetailPage() {
   const params = useParams() as { locale: string; category: string; id: string }
   const { category, id } = params
   
-  // Add check for undefined ID
-  if (!id) {
-    console.error('❌ Listing ID is undefined:', params)
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Listing Not Found</h1>
-          <p className="text-gray-600 mb-4">The listing ID is missing or invalid.</p>
-          <Link href={`/${params.locale || 'en'}/listings`}>
-            <Button>Browse Listings</Button>
-          </Link>
-        </div>
-      </div>
-    )
-  }
-  
   const { paymentSettings } = usePaymentContext()
   
   const [listing, setListing] = useState<Listing | null>(null)
@@ -107,6 +91,10 @@ export default function ListingDetailPage() {
       
       if (!id) {
         console.log('⚠️ No ID provided, returning early')
+        if (isActive) {
+          setLoading(false)
+          setError('Listing ID is missing')
+        }
         return
       }
       
@@ -200,9 +188,23 @@ export default function ListingDetailPage() {
     return () => {
       isActive = false
     }
-  }, [category, id])
+  }, [category, id]) // Only run when category or id changes
 
-  if (loading) {
+  // Don't run any fetching logic if id is undefined
+  if (!id) {
+    console.log('🚫 useEffect prevented due to undefined id')
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Listing Not Found</h1>
+          <p className="text-gray-600 mb-4">The listing ID is missing or invalid.</p>
+          <Link href={`/${params.locale || 'en'}/listings`}>
+            <Button>Browse Listings</Button>
+          </Link>
+        </div>
+      </div>
+    )
+  }
     return (
       <div className="min-h-screen bg-gray-50 no-overflow-x">
         <div className="max-w-5xl mx-auto px-3 sm:px-4 lg:px-6 lg:px-8 py-4 sm:py-8">
