@@ -18,42 +18,69 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { supabase } from '@/lib/auth'
-import { getCurrentUser } from '@/lib/auth'
+import { useAuth } from '@/contexts/AuthContext'
 
 export default function MyInquiriesPage() {
-  const [user, setUser] = useState<any>(null)
+  const { user, isLoading: authLoading } = useAuth()
   const [inquiries, setInquiries] = useState([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [filterStatus, setFilterStatus] = useState('all')
 
   useEffect(() => {
-    fetchInquiries()
-  }, [])
+    if (user && !authLoading) {
+      fetchInquiries()
+    }
+  }, [user, authLoading, filterStatus, searchTerm])
 
   const fetchInquiries = async () => {
     try {
-      const currentUser = await getCurrentUser()
-      if (!currentUser) {
-        window.location.href = '/auth/login'
+      setLoading(true)
+      
+      if (!user) {
         return
       }
 
-      setUser(currentUser)
+      // Get session token for API call
+      const { supabaseClient } = await import('@/lib/supabase-client')
+      const { data: { session } } = await supabaseClient.auth.getSession()
+      
+      if (!session?.access_token) {
+        return
+      }
 
-      const { data, error } = await supabase
-        .from('inquiries')
-        .select(`
-          *,
-          listings(title, category, price, status),
-          seller:users!inquiries_seller_id_fkey(email, full_name)
-        `)
-        .eq('buyer_id', currentUser.id)
-        .order('created_at', { ascending: false })
+      // Build API URL with query parameters
+      const params = new URLSearchParams({
+        role: 'buyer' // This will filter for buyer's inquiries
+      })
+      
+      if (filterStatus !== 'all') {
+        params.append('status', filterStatus)
+      }
 
-      if (error) throw error
-      setInquiries(data || [])
+      const response = await fetch(`/api/inquiries?${params.toString()}`, {
+        headers: {
+          'Authorization': `Bearer ${session.access_token}`
+        }
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch inquiries')
+      }
+
+      const result = await response.json()
+      let data = result.data || []
+
+      // Apply client-side search if needed
+      if (searchTerm) {
+        data = data.filter((inquiry: any) => 
+          inquiry.listings?.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          inquiry.seller?.full_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          inquiry.seller?.email?.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      }
+
+      setInquiries(data)
     } catch (error) {
       console.error('Error fetching inquiries:', error)
     } finally {
@@ -91,21 +118,27 @@ export default function MyInquiriesPage() {
     }
   }
 
-  const filteredInquiries = inquiries.filter((inquiry: any) => {
-    const matchesSearch = 
-      inquiry.listings?.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      inquiry.seller?.full_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      inquiry.seller?.email?.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesFilter = filterStatus === 'all' || inquiry.status === filterStatus
-    return matchesSearch && matchesFilter
-  })
+  const filteredInquiries = inquiries
 
-  if (loading) {
+  if (authLoading || loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading your inquiries...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-gray-600">You must be logged in to view your inquiries.</p>
+          <Link href="/auth/login">
+            <Button className="mt-4">Log In</Button>
+          </Link>
         </div>
       </div>
     )
