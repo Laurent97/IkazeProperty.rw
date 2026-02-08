@@ -461,6 +461,15 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../../src/app/setup-chat/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/setup-chat">> = Specific
+  const handler = {} as typeof import("../../../src/app/setup-chat/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../../src/app/api/ads/analytics/route.ts
 {
   type __IsExpected<Specific extends RouteHandlerConfig<"/api/ads/analytics">> = Specific
@@ -699,6 +708,15 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 {
   type __IsExpected<Specific extends RouteHandlerConfig<"/api/promotions">> = Specific
   const handler = {} as typeof import("../../../src/app/api/promotions/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../src/app/api/setup/chat-table/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/setup/chat-table">> = Specific
+  const handler = {} as typeof import("../../../src/app/api/setup/chat-table/route.js")
   type __Check = __IsExpected<typeof handler>
   // @ts-ignore
   type __Unused = __Check

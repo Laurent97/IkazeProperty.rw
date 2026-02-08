@@ -31,9 +31,23 @@ async function getCurrentUser(request: NextRequest) {
 
 // Create inquiry_chats table if it doesn't exist
 async function ensureChatsTable() {
-  const { error } = await supabase.rpc('create_inquiry_chats_table')
-  if (error && !error.message.includes('already exists')) {
-    console.error('Error creating chats table:', error)
+  try {
+    // Try to select from the table to see if it exists
+    const { error } = await supabase
+      .from('inquiry_chats')
+      .select('id')
+      .limit(1)
+    
+    if (error && error.code === 'PGRST116') {
+      // Table doesn't exist, return false to indicate it needs to be created
+      console.log('inquiry_chats table does not exist')
+      return false
+    }
+    
+    return true
+  } catch (error) {
+    console.error('Error checking chats table:', error)
+    return false
   }
 }
 
@@ -84,7 +98,14 @@ export async function GET(
     }
 
     // Ensure chats table exists
-    await ensureChatsTable()
+    const tableExists = await ensureChatsTable()
+    if (!tableExists) {
+      return NextResponse.json({
+        success: true,
+        data: [],
+        message: 'Chat table not set up. Please contact administrator.'
+      })
+    }
 
     // Fetch chat messages for this inquiry
     const { data: messages, error } = await supabase
@@ -185,7 +206,13 @@ export async function POST(
     }
 
     // Ensure chats table exists
-    await ensureChatsTable()
+    const tableExists = await ensureChatsTable()
+    if (!tableExists) {
+      return NextResponse.json(
+        { error: 'Chat table not set up. Please contact administrator.' },
+        { status: 503 }
+      )
+    }
 
     // Create the message
     const { data: chatMessage, error } = await supabase

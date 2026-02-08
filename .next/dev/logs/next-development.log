@@ -12,3 +12,101 @@
 [00:06:41.375] Browser LOG     📸 Media query result: {"listingId":"8df664fc-98c0-43ee-ade0-01cbadc5ee40","mediaCount":1,"mediaData":[{"created_at":"2026-02-08T15:04:03.301774+00:00","id":"f0fd4d6c-0454-4e2d-808d-9a6710051825","is_primary":true,"listing_id":"8df664fc-98c0-43ee-ade0-01cbadc5ee40","media_type":"image","order_index":0,"public_id":"ikazeproperty/house.jpeg","url":"https://res.cloudinary.com/dp7yzc36n/image/upload/v1770562987/ikazeproperty/house.jpeg.jpg"}],"mediaError":null}
 [00:06:41.375] Browser ERROR   Error checking favorite status: {"__isAuthError":true,"name":"AuthSessionMissingError","status":400}
 [00:06:41.375] Browser ERROR   Error checking favorite status: {"__isAuthError":true,"name":"AuthSessionMissingError","status":400}
+[00:21:32.798] Browser LOG     🔍 Checking authentication state...
+[00:21:32.798] Browser LOG     🔴 No session found
+[00:21:32.798] Browser LOG     🔄 Auth state changed: INITIAL_SESSION undefined
+[00:21:40.299] Browser LOG     🔄 Auth state changed: SIGNED_IN kizzolaurent@gmail.com
+[00:21:45.445] Browser LOG     Fetching visit requests with token: eyJhbGciOiJFUzI1NiIs...
+[00:21:45.777] Browser LOG     Fetching visit requests with token: eyJhbGciOiJFUzI1NiIs...
+[00:21:46.600] Server  LOG     Visit requests total count: {}
+[00:21:47.004] Server  LOG     Admin visit requests query result: {}
+[00:21:47.111] Browser LOG     Visit response status: 200
+[00:21:47.111] Browser LOG     Visit response data: {"visits":[{"buyer":{"email":"polinebae@icloud.com","full_name":"Marie Paul"},"buyer_id":"1dcb9bfe-1964-4c29-9011-69b12d9ff255","created_at":"2026-02-08T15:09:14.341504+00:00","id":"e02d92bb-2750-47ac-9aec-ea9d6dac09c7","listing_id":"8df664fc-98c0-43ee-ade0-01cbadc5ee40","listings":{"category":"houses","title":"apartment","visit_fee_payment_methods":{"airtel_money":"[Object]","equity_bank":"[Object]","mtn_momo":"[Object]"}},"payment_details":{},"payment_method":null,"payment_reference":"VISIT1770563354093228","payment_transaction_id":null,"payout_status":"pending","platform_fee":4500,"released_at":null,"released_by":null,"seller":{"email":"polinebae@icloud.com","full_name":"Marie Paul","phone":null},"seller_id":"1dcb9bfe-1964-4c29-9011-69b12d9ff255","seller_payout":10500,"status":"pending_payment","updated_at":"2026-02-08T15:09:14.341504+00:00","visit_fee_amount":15000},{"buyer":{"email":"kizzolaurent@gmail.com","full_name":"Jean Laurent KOTERUMUTIMA"},"buyer_id":"dc0f31c8-603b-4e00-b52c-6c88336a156c","created_at":"2026-02-08T10:39:39.456243+00:00","id":"2b3ce20a-a64d-410a-843e-4c88f0e8106b","listing_id":"77630ee3-6c0e-44d2-85e8-44c403f2f440","listings":{"category":"cars","title":"Toyota","visit_fee_payment_methods":{"airtel_money":"[Object]","equity_bank":"[Object]","mtn_momo":"[Object]"}},"payment_details":{},"payment_method":null,"payment_reference":"VISIT1770547178545020","payment_transaction_id":null,"payout_status":"pending","platform_fee":4500,"released_at":null,"released_by":null,"seller":{"email":"kizzolaurent@gmail.com","full_name":"Jean Laurent KOTERUMUTIMA","phone":null},"seller_id":"dc0f31c8-603b-4e00-b52c-6c88336a156c","seller_payout":10500,"status":"pending_payment","updated_at":"2026-02-08T10:39:39.456243+00:00","visit_fee_amount":15000},{"buyer":{"email":"kizzolaurent@gmail.com","full_name":"Jean Laurent KOTERUMUTIMA"},"buyer_id":"dc0f31c8-603b-4e00-b52c-6c88336a156c","created_at":"2026-02-08T10:32:45.631555+00:00","id":"81a690d6-55f8-4694-9d2e-95f4fde26259","listing_id":"77630ee3-6c0e-44d2-85e8-44c403f2f440","listings":{"category":"cars","title":"Toyota","visit_fee_payment_methods":{"airtel_money":"[Object]","equity_bank":"[Object]","mtn_momo":"[Object]"}},"payment_details":{},"payment_method":null,"payment_reference":"VISIT1770546764718361","payment_transaction_id":null,"payout_status":"pending","platform_fee":4500,"released_at":null,"released_by":null,"seller":{"email":"kizzolaurent@gmail.com","full_name":"Jean Laurent KOTERUMUTIMA","phone":null},"seller_id":"dc0f31c8-603b-4e00-b52c-6c88336a156c","seller_payout":10500,"status":"pending_payment","updated_at":"2026-02-08T10:32:45.631555+00:00","visit_fee_amount":15000},{"buyer":{"email":"kizzolaurent@gmail.com","full_name":"Jean Laurent KOTERUMUTIMA"},"buyer_id":"dc0f31c8-603b-4e00-b52c-6c88336a156c","created_at":"2026-02-08T10:02:57.963847+00:00","id":"fb38939d-5216-4b8f-affa-dd26c65a8e4b","listing_id":"77630ee3-6c0e-44d2-85e8-44c403f2f440","listings":{"category":"cars","title":"Toyota","visit_fee_payment_methods":{"airtel_money":"[Object]","equity_bank":"[Object]","mtn_momo":"[Object]"}},"payment_details":{},"payment_method":null,"payment_reference":"VISIT1770544977058320","payment_transaction_id":null,"payout_status":"pending","platform_fee":4500,"released_at":null,"released_by":null,"seller":{"email":"kizzolaurent@gmail.com","full_name":"Jean Laurent KOTERUMUTIMA","phone":null},"seller_id":"dc0f31c8-603b-4e00-b52c-6c88336a156c","seller_payout":10500,"status":"pending_payment","updated_at":"2026-02-08T10:02:57.963847+00:00","visit_fee_amount":15000},{"buyer":{"email":"kizzolaurent@gmail.com","full_name":"Jean Laurent KOTERUMUTIMA"},"buyer_id":"dc0f31c8-603b-4e00-b52c-6c88336a156c","created_at":"2026-02-08T10:02:36.783271+00:00","id":"5d5b8952-5f2f-41dd-ba84-fe86d8faadff","listing_id":"77630ee3-6c0e-44d2-85e8-44c403f2f440","listings":{"category":"cars","title":"Toyota","visit_fee_payment_methods":{"airtel_money":"[Object]","equity_bank":"[Object]","mtn_momo":"[Object]"}},"payment_details":{},"payment_method":null,"payment_reference":"VISIT1770544955856659","payment_transaction_id":null,"payout_status":"pending","platform_fee":4500,"released_at":null,"released_by":null,"seller":{"email":"kizzolaurent@gmail.com","full_name":"Jean Laurent KOTERUMUTIMA","phone":null},"seller_id":"dc0f31c8-603b-4e00-b52c-6c88336a156c","seller_payout":10500,"status":"pending_payment","updated_at":"2026-02-08T10:02:36.783271+00:00","visit_fee_amount":15000}]}
+[00:21:48.412] Server  LOG     Visit requests total count: {}
+[00:21:48.768] Server  LOG     Admin visit requests query result: {}
+[00:21:48.872] Browser LOG     Visit response status: 200
+[00:21:48.872] Browser LOG     Visit response data: {"visits":[{"buyer":{"email":"polinebae@icloud.com","full_name":"Marie Paul"},"buyer_id":"1dcb9bfe-1964-4c29-9011-69b12d9ff255","created_at":"2026-02-08T15:09:14.341504+00:00","id":"e02d92bb-2750-47ac-9aec-ea9d6dac09c7","listing_id":"8df664fc-98c0-43ee-ade0-01cbadc5ee40","listings":{"category":"houses","title":"apartment","visit_fee_payment_methods":{"airtel_money":"[Object]","equity_bank":"[Object]","mtn_momo":"[Object]"}},"payment_details":{},"payment_method":null,"payment_reference":"VISIT1770563354093228","payment_transaction_id":null,"payout_status":"pending","platform_fee":4500,"released_at":null,"released_by":null,"seller":{"email":"polinebae@icloud.com","full_name":"Marie Paul","phone":null},"seller_id":"1dcb9bfe-1964-4c29-9011-69b12d9ff255","seller_payout":10500,"status":"pending_payment","updated_at":"2026-02-08T15:09:14.341504+00:00","visit_fee_amount":15000},{"buyer":{"email":"kizzolaurent@gmail.com","full_name":"Jean Laurent KOTERUMUTIMA"},"buyer_id":"dc0f31c8-603b-4e00-b52c-6c88336a156c","created_at":"2026-02-08T10:39:39.456243+00:00","id":"2b3ce20a-a64d-410a-843e-4c88f0e8106b","listing_id":"77630ee3-6c0e-44d2-85e8-44c403f2f440","listings":{"category":"cars","title":"Toyota","visit_fee_payment_methods":{"airtel_money":"[Object]","equity_bank":"[Object]","mtn_momo":"[Object]"}},"payment_details":{},"payment_method":null,"payment_reference":"VISIT1770547178545020","payment_transaction_id":null,"payout_status":"pending","platform_fee":4500,"released_at":null,"released_by":null,"seller":{"email":"kizzolaurent@gmail.com","full_name":"Jean Laurent KOTERUMUTIMA","phone":null},"seller_id":"dc0f31c8-603b-4e00-b52c-6c88336a156c","seller_payout":10500,"status":"pending_payment","updated_at":"2026-02-08T10:39:39.456243+00:00","visit_fee_amount":15000},{"buyer":{"email":"kizzolaurent@gmail.com","full_name":"Jean Laurent KOTERUMUTIMA"},"buyer_id":"dc0f31c8-603b-4e00-b52c-6c88336a156c","created_at":"2026-02-08T10:32:45.631555+00:00","id":"81a690d6-55f8-4694-9d2e-95f4fde26259","listing_id":"77630ee3-6c0e-44d2-85e8-44c403f2f440","listings":{"category":"cars","title":"Toyota","visit_fee_payment_methods":{"airtel_money":"[Object]","equity_bank":"[Object]","mtn_momo":"[Object]"}},"payment_details":{},"payment_method":null,"payment_reference":"VISIT1770546764718361","payment_transaction_id":null,"payout_status":"pending","platform_fee":4500,"released_at":null,"released_by":null,"seller":{"email":"kizzolaurent@gmail.com","full_name":"Jean Laurent KOTERUMUTIMA","phone":null},"seller_id":"dc0f31c8-603b-4e00-b52c-6c88336a156c","seller_payout":10500,"status":"pending_payment","updated_at":"2026-02-08T10:32:45.631555+00:00","visit_fee_amount":15000},{"buyer":{"email":"kizzolaurent@gmail.com","full_name":"Jean Laurent KOTERUMUTIMA"},"buyer_id":"dc0f31c8-603b-4e00-b52c-6c88336a156c","created_at":"2026-02-08T10:02:57.963847+00:00","id":"fb38939d-5216-4b8f-affa-dd26c65a8e4b","listing_id":"77630ee3-6c0e-44d2-85e8-44c403f2f440","listings":{"category":"cars","title":"Toyota","visit_fee_payment_methods":{"airtel_money":"[Object]","equity_bank":"[Object]","mtn_momo":"[Object]"}},"payment_details":{},"payment_method":null,"payment_reference":"VISIT1770544977058320","payment_transaction_id":null,"payout_status":"pending","platform_fee":4500,"released_at":null,"released_by":null,"seller":{"email":"kizzolaurent@gmail.com","full_name":"Jean Laurent KOTERUMUTIMA","phone":null},"seller_id":"dc0f31c8-603b-4e00-b52c-6c88336a156c","seller_payout":10500,"status":"pending_payment","updated_at":"2026-02-08T10:02:57.963847+00:00","visit_fee_amount":15000},{"buyer":{"email":"kizzolaurent@gmail.com","full_name":"Jean Laurent KOTERUMUTIMA"},"buyer_id":"dc0f31c8-603b-4e00-b52c-6c88336a156c","created_at":"2026-02-08T10:02:36.783271+00:00","id":"5d5b8952-5f2f-41dd-ba84-fe86d8faadff","listing_id":"77630ee3-6c0e-44d2-85e8-44c403f2f440","listings":{"category":"cars","title":"Toyota","visit_fee_payment_methods":{"airtel_money":"[Object]","equity_bank":"[Object]","mtn_momo":"[Object]"}},"payment_details":{},"payment_method":null,"payment_reference":"VISIT1770544955856659","payment_transaction_id":null,"payout_status":"pending","platform_fee":4500,"released_at":null,"released_by":null,"seller":{"email":"kizzolaurent@gmail.com","full_name":"Jean Laurent KOTERUMUTIMA","phone":null},"seller_id":"dc0f31c8-603b-4e00-b52c-6c88336a156c","seller_payout":10500,"status":"pending_payment","updated_at":"2026-02-08T10:02:36.783271+00:00","visit_fee_amount":15000}]}
+[00:21:50.628] Server  LOG     PUT request data: {}
+[00:21:50.976] Server  LOG     Database update result: {}
+[00:21:50.977] Server  ERROR   Database update error: {}
+[00:21:52.313] Browser ERROR   Error updating inquiry status: {}
+[00:22:16.094] Browser LOG     🔍 Checking authentication state...
+[00:22:16.609] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
+[00:22:16.609] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
+[00:22:18.338] Browser LOG     🔍 Checking authentication state...
+[00:22:18.704] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
+[00:22:18.704] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
+[00:22:22.121] Server  LOG     ✓ Compiled in 46ms
+[00:22:22.635] Browser LOG     🔍 Checking authentication state...
+[00:22:23.023] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
+[00:22:23.023] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
+[00:22:27.394] Server  LOG     ✓ Compiled in 55ms
+[00:22:27.958] Browser LOG     🔍 Checking authentication state...
+[00:22:28.342] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
+[00:22:28.342] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
+[00:22:33.093] Server  LOG     ✓ Compiled in 78ms
+[00:22:33.936] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <MenuProvider scope={{Menu:[...], ...}} open={false} onOpenChange={function useCallbackRef.useMemo} content={null} ...>
+      <MenuProvider scope={{Menu:[...], ...}} onClose={function Menu.useCallback} isUsingKeyboardRef={{current:false}} ...>
+        <DropdownMenuTrigger asChild={true}>
+          <MenuAnchor asChild={true} __scopeMenu={{Menu:[...], ...}}>
+            <PopperAnchor __scopePopper={{Menu:[...], ...}} asChild={true} ref={null}>
+              <Primitive.div asChild={true} ref={function}>
+                <Primitive.div.Slot ref={function}>
+                  <Primitive.div.SlotClone ref={function}>
+                    <Primitive.button type="button" id="radix-_R_3..." aria-haspopup="menu" aria-expanded={false} ...>
+                      <Primitive.button.Slot type="button" id="radix-_R_3..." aria-haspopup="menu" aria-expanded={false} ...>
+                        <Primitive.button.SlotClone type="button" id="radix-_R_3..." aria-haspopup="menu" ...>
+                          <_c variant="outline" size="sm" disabled={false} className="px-4 py-2" type="button" ...>
+                            <button
+                              className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium..."
+                              ref={function}
+                              disabled={false}
+                              type="button"
++                             id="radix-_R_32b5rlb_"
+-                             id="radix-_R_c9d5rlb_"
+                              aria-haspopup="menu"
+                              aria-expanded={false}
+                              aria-controls={undefined}
+                              data-state="closed"
+                              data-disabled={undefined}
+                              onPointerDown={function handleEvent}
+                              onKeyDown={function handleEvent}
+                            >
+        ...
+
+[00:22:33.936] Browser LOG     🔍 Checking authentication state...
+[00:22:34.299] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
+[00:22:34.299] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
+[00:22:38.362] Server  LOG     ✓ Compiled in 52ms
+[00:22:39.197] Browser LOG     🔍 Checking authentication state...
+[00:22:39.562] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
+[00:22:39.562] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
+[00:22:43.835] Server  WARN    Error: Route "/api/inquiries/[id]/chat" used `params.id`. `params` is a Promise and must be unwrapped with `await` or `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:22:46.778] Server  LOG     ✓ Compiled in 49ms
+[00:22:47.687] Browser LOG     🔍 Checking authentication state...
+[00:22:48.064] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
+[00:22:48.064] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
+[00:23:05.275] Server  WARN    Error: Route "/api/inquiries/[id]/chat" used `params.id`. `params` is a Promise and must be unwrapped with `await` or `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:23:19.571] Server  WARN    Error: Route "/api/inquiries/[id]/chat" used `params.id`. `params` is a Promise and must be unwrapped with `await` or `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:23:20.012] Browser ERROR   Error sending message: {}
+[00:23:41.335] Server  WARN    Error: Route "/api/inquiries/[id]/chat" used `params.id`. `params` is a Promise and must be unwrapped with `await` or `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:23:41.795] Browser ERROR   Error sending message: {}
+[00:24:10.291] Server  ERROR   Inquiry update error: Error: aborted
+[00:24:12.252] Browser LOG     🔍 Checking authentication state...
+[00:24:12.800] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
+[00:24:12.800] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
+[00:24:25.933] Server  LOG     PUT request data: {}
+[00:24:26.444] Server  LOG     Database update result: {}
