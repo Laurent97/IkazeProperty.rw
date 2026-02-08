@@ -97,9 +97,9 @@ export default function AdminSettingsPage() {
     try {
       setLoading(true)
       
-      // Fetch settings from site_settings table or use defaults
+      // Fetch settings from settings table or use defaults
       const { data, error } = await supabase
-        .from('site_settings')
+        .from('settings')
         .select('*')
         .single()
 
@@ -122,7 +122,7 @@ export default function AdminSettingsPage() {
       setSaving(true)
       
       const { error } = await (supabase as any)
-        .from('site_settings')
+        .from('settings')
         .upsert({
           id: 1,
           ...settings,
