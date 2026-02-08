@@ -177,18 +177,32 @@ export async function GET(request: NextRequest) {
     // Fetch listing data for each inquiry
     const inquiriesWithListings = await Promise.all(
       (inquiries || []).map(async (inquiry) => {
+        console.log('🔍 Processing inquiry:', {
+          inquiryId: inquiry.id,
+          listingId: inquiry.listing_id,
+          listingIdType: typeof inquiry.listing_id
+        })
+        
         if (inquiry.listing_id) {
-          const { data: listing } = await supabase
+          const { data: listing, error: listingError } = await supabase
             .from('listings')
             .select('id, title, category, price')
             .eq('id', inquiry.listing_id)
             .single()
+          
+          console.log('📋 Listing fetch result:', {
+            listingId: inquiry.listing_id,
+            listing,
+            error: listingError
+          })
           
           return {
             ...inquiry,
             listings: listing
           }
         }
+        
+        console.log('⚠️ No listing_id for inquiry:', inquiry.id)
         return {
           ...inquiry,
           listings: null
