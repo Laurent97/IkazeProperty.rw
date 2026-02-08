@@ -78,13 +78,37 @@
         "x-next-revalidated-tags",
         "x-next-revalidate-tag-token"
       ]
+    },
+    "/setup-chat": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/setup-chat",
+      "dataRoute": "/setup-chat.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
     }
   },
   "dynamicRoutes": {},
   "notFoundRoutes": [],
   "preview": {
-    "previewModeId": "4814a921835c558f63f1add61dff7efa",
-    "previewModeSigningKey": "3b8dd19291bb8c4f27fc6cd0d2761bb0421e7e1daee668d4c32527bf5c81dba2",
-    "previewModeEncryptionKey": "a1daa5a0efe4df65dab4ca79fa362a2fc840589aa16742e1b227719b38bf200a"
+    "previewModeId": "4905456bf3cb841e1922250a784f6479",
+    "previewModeSigningKey": "421be3204c417eb255299bb548044580a9fd7386d02138ab433a7a1f22f4d7a9",
+    "previewModeEncryptionKey": "a33eebef0efec695c2699e316c120495d7a14b647832718ae9885bf576854b5b"
   }
 }

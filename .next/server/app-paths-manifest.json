@@ -12,6 +12,7 @@
   "/[locale]/create-listing/page": "app/[locale]/create-listing/page.js",
   "/[locale]/customer-service/page": "app/[locale]/customer-service/page.js",
   "/[locale]/dashboard/admin/ads/page": "app/[locale]/dashboard/admin/ads/page.js",
+  "/[locale]/dashboard/admin/inquiries/[id]/page": "app/[locale]/dashboard/admin/inquiries/[id]/page.js",
   "/[locale]/dashboard/admin/inquiries/page": "app/[locale]/dashboard/admin/inquiries/page.js",
   "/[locale]/dashboard/admin/listings/[id]/page": "app/[locale]/dashboard/admin/listings/[id]/page.js",
   "/[locale]/dashboard/admin/listings/page": "app/[locale]/dashboard/admin/listings/page.js",
@@ -52,6 +53,7 @@
   "/api/auth/register/route": "app/api/auth/register/route.js",
   "/api/cron/[jobName]/route": "app/api/cron/[jobName]/route.js",
   "/api/favorites/route": "app/api/favorites/route.js",
+  "/api/inquiries/[id]/chat/route": "app/api/inquiries/[id]/chat/route.js",
   "/api/inquiries/route": "app/api/inquiries/route.js",
   "/api/listings/route": "app/api/listings/route.js",
   "/api/media/route": "app/api/media/route.js",
@@ -72,6 +74,7 @@
   "/api/promotions/packages/route": "app/api/promotions/packages/route.js",
   "/api/promotions/purchase/route": "app/api/promotions/purchase/route.js",
   "/api/promotions/route": "app/api/promotions/route.js",
+  "/api/setup/chat-table/route": "app/api/setup/chat-table/route.js",
   "/api/site-settings/admin/route": "app/api/site-settings/admin/route.js",
   "/api/site-settings/route": "app/api/site-settings/route.js",
   "/api/test-auth/route": "app/api/test-auth/route.js",
@@ -81,5 +84,6 @@
   "/api/visits/management/route": "app/api/visits/management/route.js",
   "/api/visits/release/route": "app/api/visits/release/route.js",
   "/api/visits/route": "app/api/visits/route.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js"
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/setup-chat/page": "app/setup-chat/page.js"
 }

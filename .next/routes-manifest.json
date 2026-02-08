@@ -41,6 +41,14 @@
       "namedRegex": "^/api/cron/(?<nxtPjobName>[^/]+?)(?:/)?$"
     },
     {
+      "page": "/api/inquiries/[id]/chat",
+      "regex": "^/api/inquiries/([^/]+?)/chat(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/inquiries/(?<nxtPid>[^/]+?)/chat(?:/)?$"
+    },
+    {
       "page": "/api/notifications/[id]/read",
       "regex": "^/api/notifications/([^/]+?)/read(?:/)?$",
       "routeKeys": {
@@ -207,6 +215,15 @@
         "nxtPlocale": "nxtPlocale"
       },
       "namedRegex": "^/(?<nxtPlocale>[^/]+?)/dashboard/admin/inquiries(?:/)?$"
+    },
+    {
+      "page": "/[locale]/dashboard/admin/inquiries/[id]",
+      "regex": "^/([^/]+?)/dashboard/admin/inquiries/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale",
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/dashboard/admin/inquiries/(?<nxtPid>[^/]+?)(?:/)?$"
     },
     {
       "page": "/[locale]/dashboard/admin/listings",
@@ -576,6 +593,12 @@
       "namedRegex": "^/api/promotions/purchase(?:/)?$"
     },
     {
+      "page": "/api/setup/chat-table",
+      "regex": "^/api/setup/chat\\-table(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/setup/chat\\-table(?:/)?$"
+    },
+    {
       "page": "/api/site-settings",
       "regex": "^/api/site\\-settings(?:/)?$",
       "routeKeys": {},
@@ -634,6 +657,12 @@
       "regex": "^/favicon\\.ico(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/favicon\\.ico(?:/)?$"
+    },
+    {
+      "page": "/setup-chat",
+      "regex": "^/setup\\-chat(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/setup\\-chat(?:/)?$"
     }
   ],
   "dataRoutes": [],

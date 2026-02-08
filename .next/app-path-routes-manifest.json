@@ -12,6 +12,7 @@
   "/[locale]/create-listing/page": "/[locale]/create-listing",
   "/[locale]/customer-service/page": "/[locale]/customer-service",
   "/[locale]/dashboard/admin/ads/page": "/[locale]/dashboard/admin/ads",
+  "/[locale]/dashboard/admin/inquiries/[id]/page": "/[locale]/dashboard/admin/inquiries/[id]",
   "/[locale]/dashboard/admin/inquiries/page": "/[locale]/dashboard/admin/inquiries",
   "/[locale]/dashboard/admin/listings/[id]/page": "/[locale]/dashboard/admin/listings/[id]",
   "/[locale]/dashboard/admin/listings/page": "/[locale]/dashboard/admin/listings",
@@ -52,6 +53,7 @@
   "/api/auth/register/route": "/api/auth/register",
   "/api/cron/[jobName]/route": "/api/cron/[jobName]",
   "/api/favorites/route": "/api/favorites",
+  "/api/inquiries/[id]/chat/route": "/api/inquiries/[id]/chat",
   "/api/inquiries/route": "/api/inquiries",
   "/api/listings/route": "/api/listings",
   "/api/media/route": "/api/media",
@@ -72,6 +74,7 @@
   "/api/promotions/packages/route": "/api/promotions/packages",
   "/api/promotions/purchase/route": "/api/promotions/purchase",
   "/api/promotions/route": "/api/promotions",
+  "/api/setup/chat-table/route": "/api/setup/chat-table",
   "/api/site-settings/admin/route": "/api/site-settings/admin",
   "/api/site-settings/route": "/api/site-settings",
   "/api/test-auth/route": "/api/test-auth",
@@ -81,5 +84,6 @@
   "/api/visits/management/route": "/api/visits/management",
   "/api/visits/release/route": "/api/visits/release",
   "/api/visits/route": "/api/visits",
-  "/favicon.ico/route": "/favicon.ico"
+  "/favicon.ico/route": "/favicon.ico",
+  "/setup-chat/page": "/setup-chat"
 }
