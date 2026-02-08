@@ -23,10 +23,10 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
-import { supabaseAdmin } from '@/lib/auth'
-import { getCurrentUser } from '@/lib/auth'
+import { useAuth } from '@/contexts/AuthContext'
 
 export default function AdminInquiriesPage() {
+  const { user, isLoading: authLoading } = useAuth()
   const [inquiries, setInquiries] = useState([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
@@ -35,69 +35,70 @@ export default function AdminInquiriesPage() {
   const [totalPages, setTotalPages] = useState(1)
 
   useEffect(() => {
-    fetchInquiries()
-  }, [currentPage, statusFilter, searchTerm])
+    if (user && !authLoading) {
+      fetchInquiries()
+    }
+  }, [currentPage, statusFilter, searchTerm, user, authLoading])
 
   const fetchInquiries = async () => {
     try {
       setLoading(true)
       
-      // Check if user is authenticated and is admin
-      const currentUser = await getCurrentUser()
-      if (!currentUser) {
+      if (!user) {
         console.error('User not authenticated')
         return
       }
 
-      const { data: userProfile } = await supabaseAdmin()
-        .from('users')
-        .select('role')
-        .eq('id', currentUser.id)
-        .single() as { data: { role: string } | null, error: any }
-
-      if (userProfile?.role !== 'admin') {
-        console.error('User is not admin')
+      // Get session token for API call
+      const { supabaseClient } = await import('@/lib/supabase-client')
+      const { data: { session } } = await supabaseClient.auth.getSession()
+      
+      if (!session?.access_token) {
+        console.error('No session token')
         return
       }
-      
-      let query = supabaseAdmin()
-        .from('inquiries')
-        .select(`
-          *,
-          listings(title, category, price),
-          buyer:users!inquiries_buyer_id_fkey(email, full_name),
-          seller:users!inquiries_seller_id_fkey(email, full_name)
-        `, { count: 'exact' })
 
-      // Apply search filter
-      if (searchTerm) {
-        query = query.or(`
-          listings.title.ilike.%${searchTerm}%, 
-          buyer.email.ilike.%${searchTerm}%, 
-          buyer.full_name.ilike.%${searchTerm}%,
-          seller.email.ilike.%${searchTerm}%, 
-          seller.full_name.ilike.%${searchTerm}%
-        `)
+      // Build API URL with query parameters
+      const params = new URLSearchParams({
+        role: 'admin' // This will trigger admin access in the API
+      })
+      
+      if (statusFilter !== 'all') {
+        params.append('status', statusFilter)
       }
 
-      // Apply status filter
-      if (statusFilter !== 'all') {
-        query = query.eq('status', statusFilter)
+      const response = await fetch(`/api/inquiries?${params.toString()}`, {
+        headers: {
+          'Authorization': `Bearer ${session.access_token}`
+        }
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch inquiries')
+      }
+
+      const result = await response.json()
+      let data = result.data || []
+
+      // Apply client-side search if needed
+      if (searchTerm) {
+        data = data.filter((inquiry: any) => 
+          inquiry.listings?.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          inquiry.buyer?.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          inquiry.buyer?.full_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          inquiry.seller?.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          inquiry.seller?.full_name?.toLowerCase().includes(searchTerm.toLowerCase())
+        )
       }
 
       // Apply pagination
       const itemsPerPage = 10
-      const from = (currentPage - 1) * itemsPerPage
-      const to = from + itemsPerPage - 1
+      const startIndex = (currentPage - 1) * itemsPerPage
+      const endIndex = startIndex + itemsPerPage
+      const paginatedData = data.slice(startIndex, endIndex)
 
-      const { data, count, error } = await query
-        .order('created_at', { ascending: false })
-        .range(from, to)
-
-      if (error) throw error
-
-      setInquiries(data || [])
-      setTotalPages(Math.ceil((count || 0) / itemsPerPage))
+      setInquiries(paginatedData)
+      setTotalPages(Math.ceil(data.length / itemsPerPage))
     } catch (error) {
       console.error('Error fetching inquiries:', error)
     } finally {
@@ -137,12 +138,30 @@ export default function AdminInquiriesPage() {
 
   const handleUpdateStatus = async (inquiryId: string, newStatus: string) => {
     try {
-      const { error } = await (supabaseAdmin() as any)
-        .from('inquiries')
-        .update({ status: newStatus })
-        .eq('id', inquiryId)
+      // Get session token for API call
+      const { supabaseClient } = await import('@/lib/supabase-client')
+      const { data: { session } } = await supabaseClient.auth.getSession()
+      
+      if (!session?.access_token) {
+        throw new Error('No session token')
+      }
 
-      if (error) throw error
+      const response = await fetch('/api/inquiries', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`
+        },
+        body: JSON.stringify({
+          inquiry_id: inquiryId,
+          status: newStatus
+        })
+      })
+
+      if (!response.ok) {
+        const result = await response.json()
+        throw new Error(result.error || 'Failed to update inquiry status')
+      }
 
       // Refresh inquiries
       fetchInquiries()
@@ -159,6 +178,25 @@ export default function AdminInquiriesPage() {
         <p className="text-gray-600">View and manage all property inquiries on the platform</p>
       </div>
 
+      {authLoading ? (
+        <Card>
+          <CardContent className="p-8">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+              <p className="text-gray-600 mt-2">Checking authentication...</p>
+            </div>
+          </CardContent>
+        </Card>
+      ) : !user ? (
+        <Card>
+          <CardContent className="p-8">
+            <div className="text-center">
+              <p className="text-gray-600">You must be logged in to view this page.</p>
+            </div>
+          </CardContent>
+        </Card>
+      ) : (
+        <>
       {/* Filters */}
       <Card className="mb-6">
         <CardContent className="p-4">
@@ -347,6 +385,8 @@ export default function AdminInquiriesPage() {
           )}
         </CardContent>
       </Card>
+        </>
+      )}
     </div>
   )
 }
