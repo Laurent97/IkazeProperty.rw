@@ -1,9 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import { Phone, Mail, MessageCircle, Clock, MapPin, Send, CheckCircle } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Phone, Mail, MessageCircle, MapPin, Send, CheckCircle, Clock } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import AdminContactInfo from '@/components/listing/admin-contact'
 
 export default function CustomerServicePage() {
   const [formData, setFormData] = useState({
@@ -21,15 +24,15 @@ export default function CustomerServicePage() {
       icon: Phone,
       title: 'Phone Support',
       description: 'Speak directly with our support team',
-      contact: '+250 788 123 456',
+      component: <AdminContactInfo className="font-medium" />,
       hours: 'Mon-Fri: 8AM-6PM, Sat: 9AM-4PM',
       color: 'bg-blue-500'
     },
     {
       icon: Mail,
-      title: 'Email Support',
+      title: 'Email Support', 
       description: 'Send us detailed inquiries',
-      contact: 'support@ikazeproperty.rw',
+      component: <AdminContactInfo className="font-medium" />,
       hours: 'Response within 24 hours',
       color: 'bg-green-500'
     },
@@ -45,7 +48,7 @@ export default function CustomerServicePage() {
       icon: MapPin,
       title: 'Office Visit',
       description: 'Visit our headquarters in Kigali',
-      contact: 'KN 123 St, Kiyovu',
+      component: <AdminContactInfo className="font-medium" />,
       hours: 'Mon-Fri: 9AM-5PM',
       color: 'bg-red-500'
     }
@@ -156,7 +159,7 @@ export default function CustomerServicePage() {
                       {method.description}
                     </p>
                     <p className="font-semibold text-gray-900 mb-2">
-                      {method.contact}
+                      {method.component || method.contact}
                     </p>
                     <div className="flex items-center justify-center text-sm text-gray-500">
                       <Clock className="h-4 w-4 mr-1" />

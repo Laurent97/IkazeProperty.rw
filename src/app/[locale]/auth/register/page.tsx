@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Eye, EyeOff, Mail, Lock, User, AlertCircle, CheckCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -10,6 +10,7 @@ import { signUp } from '@/lib/auth'
 
 export default function RegisterPage() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -60,6 +61,12 @@ export default function RegisterPage() {
     try {
       await signUp(formData.email, formData.password, formData.fullName)
       setSuccess(true)
+      
+      // After successful registration, redirect to the intended page or dashboard
+      setTimeout(() => {
+        const redirectTo = searchParams.get('redirect') || '/dashboard'
+        router.push(redirectTo)
+      }, 2000) // Give user time to see success message
     } catch (err: any) {
       setError(err.message || 'Registration failed')
     } finally {
@@ -78,7 +85,7 @@ export default function RegisterPage() {
                 Registration Successful!
               </h2>
               <p className="text-gray-600 mb-6">
-                Please check your email to verify your account before signing in.
+                Please check your email to verify your account. You will be redirected automatically...
               </p>
               <Link href="/auth/login">
                 <Button className="w-full bg-red-600 hover:bg-red-700">

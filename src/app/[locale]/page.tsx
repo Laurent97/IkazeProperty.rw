@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import { Search, Home, Car, Trees, Package, Star, Shield, Users, TrendingUp, ArrowRight, Heart, Eye, MapPin, Calendar, Filter } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -26,6 +27,7 @@ type Listing = Database['public']['Tables']['listings']['Row'] & {
 }
 
 export default function HomePage() {
+  const t = useTranslations()
   const [searchQuery, setSearchQuery] = useState('')
   const [listings, setListings] = useState<Listing[]>([])
   const [loading, setLoading] = useState(true)
@@ -172,44 +174,44 @@ export default function HomePage() {
 
   const categories = [
     {
-      name: 'Houses & Apartments',
+      name: t('listing.houses'),
       href: '/listings/houses',
       icon: Home,
-      description: 'Find your dream home or apartment',
+      description: t('homepage.categories.housesDescription'),
       color: 'bg-blue-500',
       count: '1,234'
     },
     {
-      name: 'Cars & Vehicles',
+      name: t('listing.cars'),
       href: '/listings/cars',
       icon: Car,
-      description: 'Quality vehicles for sale and rent',
+      description: t('homepage.categories.carsDescription'),
       color: 'bg-green-500',
       count: '856'
     },
     {
-      name: 'Land & Plots',
+      name: t('listing.land'),
       href: '/listings/land',
       icon: Trees,
-      description: 'Perfect plots for development',
+      description: t('homepage.categories.landDescription'),
       color: 'bg-yellow-500',
       count: '432'
     },
     {
-      name: 'Other Items',
+      name: t('listing.other'),
       href: '/listings/other',
       icon: Package,
-      description: 'Electronics, furniture, and more',
+      description: t('homepage.categories.otherDescription'),
       color: 'bg-purple-500',
       count: '2,156'
     }
   ]
 
   const stats = [
-    { label: 'Active Listings', value: '4,678', icon: Package },
-    { label: 'Verified Users', value: '12,456', icon: Users },
-    { label: 'Successful Transactions', value: '3,234', icon: TrendingUp },
-    { label: 'Trust Score', value: '98.5%', icon: Shield }
+    { label: t('homepage.stats.activeListings'), value: '4,678', icon: Package },
+    { label: t('homepage.stats.verifiedUsers'), value: '12,456', icon: Users },
+    { label: t('homepage.stats.successfulTransactions'), value: '3,234', icon: TrendingUp },
+    { label: t('homepage.stats.trustScore'), value: '98.5%', icon: Shield }
   ]
 
   return (
@@ -219,10 +221,10 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Find Your Perfect Property in Rwanda
+              {t('homepage.hero.title')}
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-red-100">
-              Secure transactions, admin-mediated connections, trusted marketplace
+              {t('homepage.hero.subtitle')}
             </p>
             
             {/* Search Bar */}
@@ -234,12 +236,12 @@ export default function HomePage() {
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search properties, cars, land..."
+                    placeholder={t('homepage.hero.searchPlaceholder')}
                     className="w-full pl-10 pr-4 py-3 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white"
                   />
                 </div>
                 <Button type="submit" className="bg-white text-red-600 hover:bg-gray-100 px-8">
-                  Search
+                  {t('common.search')}
                 </Button>
               </div>
             </form>
@@ -259,10 +261,10 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Browse Categories
+              {t('homepage.categories.title')}
             </h2>
             <p className="text-lg text-gray-600">
-              Find exactly what you're looking for in our curated categories
+              {t('homepage.categories.subtitle')}
             </p>
           </div>
           
@@ -303,10 +305,10 @@ export default function HomePage() {
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-12 gap-6">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                All Listings
+                {t('homepage.listings.title')}
               </h2>
               <p className="text-lg text-gray-600">
-                {totalCount > 0 ? `Showing ${listings.length} of ${totalCount} listings` : 'Browse all available listings'}
+                {totalCount > 0 ? t('homepage.listings.showing', { count: listings.length, total: totalCount }) : t('homepage.listings.browseAll')}
               </p>
             </div>
             
@@ -319,14 +321,14 @@ export default function HomePage() {
                   setPage(0)
                 }}
                 className="flex h-10 w-full sm:w-48 rounded-md border border-input bg-background px-3 py-2 text-sm"
-                aria-label="Filter by category"
-                title="Filter by category"
+                aria-label={t('homepage.filters.filterByCategory')}
+                title={t('homepage.filters.filterByCategory')}
               >
-                <option value="all">All Categories</option>
-                <option value="houses">Houses & Apartments</option>
-                <option value="cars">Cars & Vehicles</option>
-                <option value="land">Land & Plots</option>
-                <option value="other">Other Items</option>
+                <option value="all">{t('homepage.filters.allCategories')}</option>
+                <option value="houses">{t('listing.houses')}</option>
+                <option value="cars">{t('listing.cars')}</option>
+                <option value="land">{t('listing.land')}</option>
+                <option value="other">{t('listing.other')}</option>
               </select>
 
               <select
@@ -336,13 +338,13 @@ export default function HomePage() {
                   setPage(0)
                 }}
                 className="flex h-10 w-full sm:w-48 rounded-md border border-input bg-background px-3 py-2 text-sm"
-                aria-label="Sort listings"
-                title="Sort listings"
+                aria-label={t('homepage.filters.sortListings')}
+                title={t('homepage.filters.sortListings')}
               >
-                <option value="created_at">Newest First</option>
-                <option value="price">Price: Low to High</option>
-                <option value="views">Most Viewed</option>
-                <option value="likes">Most Liked</option>
+                <option value="created_at">{t('homepage.filters.newestFirst')}</option>
+                <option value="price">{t('homepage.filters.priceLowToHigh')}</option>
+                <option value="views">{t('homepage.filters.mostViewed')}</option>
+                <option value="likes">{t('homepage.filters.mostLiked')}</option>
               </select>
             </div>
           </div>
@@ -351,16 +353,16 @@ export default function HomePage() {
           {loading && listings.length === 0 ? (
             <div className="text-center py-12">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto"></div>
-              <p className="mt-4 text-gray-600">Loading listings...</p>
+              <p className="mt-4 text-gray-600">{t('homepage.listings.loading')}</p>
             </div>
           ) : listings.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-gray-400 text-6xl mb-4">🔍</div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No listings found</h3>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">{t('homepage.listings.noListings')}</h3>
               <p className="text-gray-600">
                 {searchQuery || categoryFilter !== 'all' 
-                  ? 'Try adjusting your filters or search query'
-                  : 'Check back later for new listings'
+                  ? t('homepage.listings.tryAdjustingFilters')
+                  : t('homepage.listings.checkBackLater')
                 }
               </p>
             </div>
@@ -380,12 +382,12 @@ export default function HomePage() {
                       <div className="flex gap-1">
                         {listing.featured && (
                           <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
-                            ⭐ Featured
+                            ⭐ {t('homepage.listings.featured')}
                           </Badge>
                         )}
                         {listing.promoted && (
                           <Badge variant="secondary" className="bg-red-100 text-red-800">
-                            🚀 Promoted
+                            🚀 {t('homepage.listings.promoted')}
                           </Badge>
                         )}
                       </div>
@@ -424,7 +426,7 @@ export default function HomePage() {
                           )}
                           {listing.media[0].is_primary && (
                             <Badge className="absolute top-2 left-2 bg-red-600 text-white text-xs">
-                              Primary
+                              {t('homepage.listings.primary')}
                             </Badge>
                           )}
                         </div>
@@ -432,7 +434,7 @@ export default function HomePage() {
                         <div className="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center">
                           <div className="text-center">
                             <div className="text-gray-400 text-4xl mb-2">📷</div>
-                            <p className="text-gray-500 text-sm">No media available</p>
+                            <p className="text-gray-500 text-sm">{t('homepage.listings.noMedia')}</p>
                           </div>
                         </div>
                       )}
@@ -442,7 +444,7 @@ export default function HomePage() {
                     <div className="text-2xl font-bold text-red-600 mb-3">
                       {formatPrice(listing.price, listing.currency)}
                       {listing.price_type === 'negotiable' && (
-                        <span className="text-sm text-gray-500 ml-2">(Negotiable)</span>
+                        <span className="text-sm text-gray-500 ml-2">({t('listing.negotiable')})</span>
                       )}
                     </div>
 
@@ -455,7 +457,7 @@ export default function HomePage() {
                       {listing.location && typeof listing.location === 'object' && (
                         <div className="flex items-center text-gray-500 text-sm mb-3">
                           <MapPin className="h-4 w-4 mr-1" />
-                          {(listing.location as any)?.district || 'Location not specified'}
+                          {(listing.location as any)?.district || t('homepage.listings.locationNotSpecified')}
                         </div>
                       )}
 
@@ -482,14 +484,14 @@ export default function HomePage() {
                     {/* Seller Info */}
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-gray-500">Listed by</p>
+                        <p className="text-sm text-gray-500">{t('homepage.listings.listedBy')}</p>
                         <p className="font-medium text-gray-900">
-                          {listing.seller?.full_name || 'Anonymous'}
+                          {listing.seller?.full_name || t('homepage.listings.anonymous')}
                         </p>
                       </div>
                       <Button asChild>
                         <a href={`/listings/${listing.category}/${listing.id}`}>
-                          View Details
+                          {t('homepage.listings.viewDetails')}
                         </a>
                       </Button>
                     </div>
@@ -503,7 +505,7 @@ export default function HomePage() {
           {loadingMore && (
             <div className="text-center py-8">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600 mx-auto"></div>
-              <p className="mt-2 text-gray-600">Loading more listings...</p>
+              <p className="mt-2 text-gray-600">{t('homepage.listings.loadingMore')}</p>
             </div>
           )}
 
@@ -512,8 +514,8 @@ export default function HomePage() {
             <div className="text-center py-8">
               <p className="text-gray-600">
                 {listings.length === totalCount 
-                  ? `You've reached the end of ${totalCount} listings`
-                  : 'No more listings to load'
+                  ? t('homepage.listings.reachedEnd', { total: totalCount })
+                  : t('homepage.listings.noMoreListings')
                 }
               </p>
             </div>
@@ -533,10 +535,10 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Trusted by Thousands
+              {t('homepage.stats.title')}
             </h2>
             <p className="text-lg text-gray-600">
-              Join Rwanda's most trusted marketplace platform
+              {t('homepage.stats.subtitle')}
             </p>
           </div>
 
@@ -568,10 +570,10 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              How It Works
+              {t('homepage.howItWorks.title')}
             </h2>
             <p className="text-lg text-gray-600">
-              Simple, secure, and transparent process
+              {t('homepage.howItWorks.subtitle')}
             </p>
           </div>
 
@@ -581,10 +583,10 @@ export default function HomePage() {
                 <span className="text-white font-bold text-xl">1</span>
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                Browse & Find
+                {t('homepage.howItWorks.step1.title')}
               </h3>
               <p className="text-gray-600">
-                Search through our curated listings to find your perfect property or item
+                {t('homepage.howItWorks.step1.description')}
               </p>
             </div>
             <div className="text-center">
@@ -592,10 +594,10 @@ export default function HomePage() {
                 <span className="text-white font-bold text-xl">2</span>
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                Express Interest
+                {t('homepage.howItWorks.step2.title')}
               </h3>
               <p className="text-gray-600">
-                Click "Express Interest" and our admin team will facilitate a secure connection
+                {t('homepage.howItWorks.step2.description')}
               </p>
             </div>
             <div className="text-center">
@@ -603,10 +605,10 @@ export default function HomePage() {
                 <span className="text-white font-bold text-xl">3</span>
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                Complete Transaction
+                {t('homepage.howItWorks.step3.title')}
               </h3>
               <p className="text-gray-600">
-                Complete your transaction with our 30% commission guarantee and support
+                {t('homepage.howItWorks.step3.description')}
               </p>
             </div>
           </div>
@@ -617,20 +619,20 @@ export default function HomePage() {
       <section className="py-16 bg-red-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Ready to Get Started?
+            {t('homepage.cta.title')}
           </h2>
           <p className="text-xl mb-8 text-red-100">
-            Join thousands of Rwandans buying and selling with confidence
+            {t('homepage.cta.subtitle')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/create-listing">
-              <Button size="lg" className="bg-white text-red-600 hover:bg-gray-100">
-                Start Selling
+              <Button size="lg" className="bg-white text-red-600 hover:bg-gray-100" asChild={true}>
+                {t('homepage.cta.startSelling')}
               </Button>
             </Link>
             <Link href="/listings">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-red-600">
-                Browse Listings
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-red-600" asChild={true}>
+                {t('homepage.cta.browseListings')}
               </Button>
             </Link>
           </div>

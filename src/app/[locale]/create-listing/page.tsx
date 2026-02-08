@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
+import Link from 'next/link'
 import { ArrowLeft, ArrowRight, Upload, MapPin, Home, Car, Trees, Package, Star, CreditCard, Zap, Shield, Crown, Image } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -15,6 +16,27 @@ export default function CreateListingPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { user } = useAuth()
+  
+  // Redirect to login if user is not authenticated
+  useEffect(() => {
+    if (!user) {
+      router.push('/auth/register?redirect=/create-listing')
+      return
+    }
+  }, [user, router])
+
+  // Show loading state while checking authentication
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">You need to be logged in to create a listing. Redirecting to sign up...</p>
+        </div>
+      </div>
+    )
+  }
+
   const [currentStep, setCurrentStep] = useState(1)
   const [category, setCategory] = useState(searchParams.get('category') || '')
   const [loading, setLoading] = useState(false)

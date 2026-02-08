@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Eye, EyeOff, Mail, Lock, AlertCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -11,6 +11,7 @@ import { useAuth } from '@/contexts/AuthContext'
 
 export default function LoginPage() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const { setUser } = useAuth()
   const [formData, setFormData] = useState({
     email: '',
@@ -42,8 +43,11 @@ export default function LoginPage() {
           full_name: data.user.user_metadata?.full_name || '',
           role: data.user.user_metadata?.role || 'user'
         })
+        
+        // Get redirect parameter from URL, default to dashboard
+        const redirectTo = searchParams.get('redirect') || '/dashboard'
+        router.push(redirectTo)
       }
-      router.push('/dashboard')
     } catch (err: any) {
       setError(err.message || 'Invalid email or password')
     } finally {
