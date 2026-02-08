@@ -64,9 +64,9 @@ export default function AdminSettingsPage() {
     
     // Platform Settings - will be loaded from database
     platform_name: 'IkazeProperty',
-    platform_email: 'contact@ikazeproperty.rw',
-    platform_phone: '+250 XXX XXX XXX',
-    platform_whatsapp: '+250 XXX XXX XXX',
+    platform_email: 'support@ikazeproperty.org',
+    platform_phone: '+250737060025',
+    platform_whatsapp: '+250737060025',
     platform_address: 'Kigali, Rwanda',
     
     // Commission Settings - will be loaded from database

@@ -69,9 +69,9 @@ const defaultPaymentSettings: PaymentSettings = {
     }
   },
   platform_name: 'IkazeProperty',
-  platform_email: 'contact@ikazeproperty.rw',
-  platform_phone: '+250 XXX XXX XXX',
-  platform_whatsapp: '+250 XXX XXX XXX',
+  platform_email: 'support@ikazeproperty.org',
+  platform_phone: '+250737060025',
+  platform_whatsapp: '+250737060025',
   platform_address: 'Kigali, Rwanda'
 }
 
@@ -170,10 +170,10 @@ export function PaymentProvider({ children }: { children: ReactNode }) {
             }
           },
           platform_name: settingsData.platform_name || 'IkazeProperty',
-          platform_email: settingsData.platform_email || 'contact@ikazeproperty.rw',
-          platform_phone: settingsData.platform_phone || '+250 XXX XXX XXX',
+          platform_email: settingsData.platform_email || 'support@ikazeproperty.org',
+          platform_phone: settingsData.platform_phone || '+250737060025',
           platform_address: settingsData.platform_address || 'Kigali, Rwanda',
-          platform_whatsapp: settingsData.platform_phone || '+250 XXX XXX XXX' // Use phone for WhatsApp
+          platform_whatsapp: settingsData.platform_phone || '+250737060025' // Use phone for WhatsApp
         })
       } else {
         // Use default settings if none exist
@@ -225,9 +225,9 @@ export function usePaymentContext() {
     ...context,
     getPlatformInfo: () => ({
       name: context.paymentSettings?.platform_name || 'IkazeProperty',
-      email: context.paymentSettings?.platform_email || 'contact@ikazeproperty.rw',
-      phone: context.paymentSettings?.platform_phone || '+250 XXX XXX XXX',
-      whatsapp: context.paymentSettings?.platform_whatsapp || '+250 XXX XXX XXX',
+      email: context.paymentSettings?.platform_email || 'support@ikazeproperty.org',
+      phone: context.paymentSettings?.platform_phone || '+250737060025',
+      whatsapp: context.paymentSettings?.platform_whatsapp || '+250737060025',
       address: context.paymentSettings?.platform_address || 'Kigali, Rwanda'
     })
   }
@@ -247,8 +247,8 @@ export function usePaymentMethods() {
     isProviderAvailable: (provider: string) => paymentSettings?.mobile_money_providers?.includes(provider) || false,
     getPlatformInfo: () => ({
       name: paymentSettings?.platform_name || 'IkazeProperty',
-      email: paymentSettings?.platform_email || process.env.NEXT_PUBLIC_PLATFORM_EMAIL || 'contact@ikazeproperty.rw',
-      phone: paymentSettings?.platform_phone || process.env.NEXT_PUBLIC_PLATFORM_PHONE || '+250 XXX XXX XXX',
+      email: paymentSettings?.platform_email || process.env.NEXT_PUBLIC_PLATFORM_EMAIL || 'support@ikazeproperty.org',
+      phone: paymentSettings?.platform_phone || process.env.NEXT_PUBLIC_PLATFORM_PHONE || '+250737060025',
       address: paymentSettings?.platform_address || process.env.NEXT_PUBLIC_PLATFORM_ADDRESS || 'Kigali, Rwanda'
     })
   }
