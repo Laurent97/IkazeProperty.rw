@@ -130,6 +130,14 @@ export default function ListingDetailPage() {
           return
         }
 
+        if (!id) {
+          if (isActive) {
+            setError('Invalid listing ID')
+            setLoading(false)
+          }
+          return
+        }
+
         const { data: mediaData, error: mediaError } = await supabaseClient
           .from('listing_media')
           .select('*')
