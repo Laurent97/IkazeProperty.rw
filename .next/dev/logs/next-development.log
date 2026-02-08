@@ -110,3 +110,160 @@ It can also happen if the client has a browser extension installed which messes 
 [00:24:12.800] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
 [00:24:25.933] Server  LOG     PUT request data: {}
 [00:24:26.444] Server  LOG     Database update result: {}
+[00:27:32.449] Browser LOG     🔍 Checking authentication state...
+[00:27:32.449] Browser ERROR   Error fetching user data: {"__isAuthError":true,"name":"AuthSessionMissingError","status":400}
+[00:27:33.408] Browser LOG     🔍 Checking authentication state...
+[00:27:33.408] Browser LOG     🔴 No session found
+[00:27:33.408] Browser LOG     🔄 Auth state changed: INITIAL_SESSION undefined
+[00:27:53.927] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:28:13.842] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:28:23.851] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:28:40.692] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:29:09.081] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:29:23.880] Server  LOG     ✓ Compiled in 65ms
+[00:29:24.900] Browser LOG     🔍 Checking authentication state...
+[00:29:25.899] Browser LOG     ✅ User session found: laurentjean535@gmail.com
+[00:29:25.899] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
+[00:29:26.898] Browser ERROR   uncaughtError: ReferenceError: params is not defined
+[00:29:29.956] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:29:29.956] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:29:29.987] Server  LOG     ✓ Compiled in 57ms
+[00:29:30.899] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <MenuProvider scope={{Menu:[...], ...}} open={false} onOpenChange={function useCallbackRef.useMemo} content={null} ...>
+      <MenuProvider scope={{Menu:[...], ...}} onClose={function Menu.useCallback} isUsingKeyboardRef={{current:false}} ...>
+        <DropdownMenuTrigger asChild={true}>
+          <MenuAnchor asChild={true} __scopeMenu={{Menu:[...], ...}}>
+            <PopperAnchor __scopePopper={{Menu:[...], ...}} asChild={true} ref={null}>
+              <Primitive.div asChild={true} ref={function}>
+                <Primitive.div.Slot ref={function}>
+                  <Primitive.div.SlotClone ref={function}>
+                    <Primitive.button type="button" id="radix-_R_3..." aria-haspopup="menu" aria-expanded={false} ...>
+                      <Primitive.button.Slot type="button" id="radix-_R_3..." aria-haspopup="menu" aria-expanded={false} ...>
+                        <Primitive.button.SlotClone type="button" id="radix-_R_3..." aria-haspopup="menu" ...>
+                          <_c variant="outline" size="sm" disabled={false} className="px-4 py-2" type="button" ...>
+                            <button
+                              className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium..."
+                              ref={function}
+                              disabled={false}
+                              type="button"
++                             id="radix-_R_32b5rlb_"
+-                             id="radix-_R_c9d5rlb_"
+                              aria-haspopup="menu"
+                              aria-expanded={false}
+                              aria-controls={undefined}
+                              data-state="closed"
+                              data-disabled={undefined}
+                              onPointerDown={function handleEvent}
+                              onKeyDown={function handleEvent}
+                            >
+        ...
+
+[00:29:30.899] Browser LOG     🔍 Checking authentication state...
+[00:29:31.899] Browser LOG     ✅ User session found: laurentjean535@gmail.com
+[00:29:31.899] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
+[00:29:32.898] Browser ERROR   uncaughtError: ReferenceError: params is not defined
+[00:29:34.392] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:29:34.393] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:29:34.417] Server  LOG     ✓ Compiled in 87ms
+[00:29:35.899] Browser LOG     🔍 Checking authentication state...
+[00:29:35.899] Browser LOG     ✅ User session found: laurentjean535@gmail.com
+[00:29:35.899] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
+[00:29:41.711] Server  LOG     ✓ Compiled in 56ms
+[00:29:42.898] Browser LOG     🔍 Checking authentication state...
+[00:29:42.898] Browser LOG     ✅ User session found: laurentjean535@gmail.com
+[00:29:42.898] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
+[00:30:12.631] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:30:43.735] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:30:58.180] Server  LOG     ✓ Compiled in 55ms
+[00:30:58.898] Browser ERROR   ./src/app/[locale]/dashboard/my-inquiries/page.tsx:276:18
+Parsing ecmascript source code failed
+  274 |
+  275 |                   console.log('🔍 Inquiry data:', {
+> 276 |         inquiryId: inquiry.id,
+      |                  ^
+  277 |         listingId: inquiry.listings?.id,
+  278 |         listingCategory: inquiry.listings?.category,
+  279 |         listingTitle: inquiry.listings?.title,
+
+Expected '</', got ':'
+
+Import traces:
+  Client Component Browser:
+    ./src/app/[locale]/dashboard/my-inquiries/page.tsx [Client Component Browser]
+    ./src/app/[locale]/dashboard/my-inquiries/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/[locale]/dashboard/my-inquiries/page.tsx [Client Component SSR]
+    ./src/app/[locale]/dashboard/my-inquiries/page.tsx [Server Component]
+[00:30:58.898] Browser ERROR   ./src/app/[locale]/dashboard/my-inquiries/page.tsx:276:18
+Parsing ecmascript source code failed
+  274 |
+  275 |                   console.log('🔍 Inquiry data:', {
+> 276 |         inquiryId: inquiry.id,
+      |                  ^
+  277 |         listingId: inquiry.listings?.id,
+  278 |         listingCategory: inquiry.listings?.category,
+  279 |         listingTitle: inquiry.listings?.title,
+
+Expected '</', got ':'
+
+Import traces:
+  Client Component Browser:
+    ./src/app/[locale]/dashboard/my-inquiries/page.tsx [Client Component Browser]
+    ./src/app/[locale]/dashboard/my-inquiries/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/[locale]/dashboard/my-inquiries/page.tsx [Client Component SSR]
+    ./src/app/[locale]/dashboard/my-inquiries/page.tsx [Server Component]
+[00:31:03.898] Browser ERROR   ./src/app/[locale]/dashboard/my-inquiries/page.tsx:276:18
+Parsing ecmascript source code failed
+  274 |
+  275 |                   console.log('🔍 Inquiry data:', {
+> 276 |         inquiryId: inquiry.id,
+      |                  ^
+  277 |         listingId: inquiry.listings?.id,
+  278 |         listingCategory: inquiry.listings?.category,
+  279 |         listingTitle: inquiry.listings?.title,
+
+Expected '</', got ':'
+
+Import traces:
+  Client Component Browser:
+    ./src/app/[locale]/dashboard/my-inquiries/page.tsx [Client Component Browser]
+    ./src/app/[locale]/dashboard/my-inquiries/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/[locale]/dashboard/my-inquiries/page.tsx [Client Component SSR]
+    ./src/app/[locale]/dashboard/my-inquiries/page.tsx [Server Component]
+[00:31:03.898] Browser ERROR   ./src/app/[locale]/dashboard/my-inquiries/page.tsx:276:18
+Parsing ecmascript source code failed
+  274 |
+  275 |                   console.log('🔍 Inquiry data:', {
+> 276 |         inquiryId: inquiry.id,
+      |                  ^
+  277 |         listingId: inquiry.listings?.id,
+  278 |         listingCategory: inquiry.listings?.category,
+  279 |         listingTitle: inquiry.listings?.title,
+
+Expected '</', got ':'
+
+Import traces:
+  Client Component Browser:
+    ./src/app/[locale]/dashboard/my-inquiries/page.tsx [Client Component Browser]
+    ./src/app/[locale]/dashboard/my-inquiries/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/[locale]/dashboard/my-inquiries/page.tsx [Client Component SSR]
+    ./src/app/[locale]/dashboard/my-inquiries/page.tsx [Server Component]

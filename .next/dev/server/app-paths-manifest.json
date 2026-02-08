@@ -5,6 +5,7 @@
   "/[locale]/dashboard/admin/page": "app/[locale]/dashboard/admin/page.js",
   "/[locale]/dashboard/my-inquiries/page": "app/[locale]/dashboard/my-inquiries/page.js",
   "/[locale]/dashboard/page": "app/[locale]/dashboard/page.js",
+  "/[locale]/dashboard/user/page": "app/[locale]/dashboard/user/page.js",
   "/[locale]/listings/[category]/[id]/page": "app/[locale]/listings/[category]/[id]/page.js",
   "/[locale]/page": "app/[locale]/page.js",
   "/_not-found/page": "app/_not-found/page.js",

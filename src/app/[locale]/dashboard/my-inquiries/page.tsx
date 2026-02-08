@@ -272,13 +272,28 @@ export default function MyInquiriesPage() {
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap gap-2">
-                    <Link href={`/${params.locale || 'en'}/listings/${inquiry.listings?.category}/${inquiry.listings?.id}`}>
-                      <Button size="sm" variant="outline">
+                  console.log('🔍 Inquiry data:', {
+        inquiryId: inquiry.id,
+        listingId: inquiry.listings?.id,
+        listingCategory: inquiry.listings?.category,
+        listingTitle: inquiry.listings?.title,
+        fullListing: inquiry.listings
+      })
+
+      <div className="flex flex-wrap gap-2">
+                    {inquiry.listings?.id && inquiry.listings?.category ? (
+                      <Link href={`/${params.locale || 'en'}/listings/${inquiry.listings.category}/${inquiry.listings.id}`}>
+                        <Button size="sm" variant="outline">
+                          <Eye className="h-4 w-4 mr-1" />
+                          View Listing
+                        </Button>
+                      </Link>
+                    ) : (
+                      <Button size="sm" variant="outline" disabled>
                         <Eye className="h-4 w-4 mr-1" />
-                        View Listing
+                        Listing Unavailable
                       </Button>
-                    </Link>
+                    )}
                     
                     {inquiry.status === 'approved' && (
                       <Button 

@@ -138,7 +138,7 @@ export async function GET(request: NextRequest) {
       .from('inquiries')
       .select(`
         *,
-        listings(title, category, price),
+        listings(id, title, category, price),
         buyer:users!inquiries_buyer_id_fkey(email, full_name),
         seller:users!inquiries_seller_id_fkey(email, full_name)
       `)
