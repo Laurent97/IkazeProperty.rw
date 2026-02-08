@@ -24,6 +24,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Textarea } from '@/components/ui/textarea'
 import { Badge } from '@/components/ui/badge'
 import { useAuth } from '@/contexts/AuthContext'
+import InquiryChat from '@/components/chat/InquiryChat'
 
 export default function InquiryDetailPage() {
   const params = useParams()
@@ -34,6 +35,7 @@ export default function InquiryDetailPage() {
   const [updating, setUpdating] = useState(false)
   const [adminNotes, setAdminNotes] = useState('')
   const [isEditingNotes, setIsEditingNotes] = useState(false)
+  const [isChatOpen, setIsChatOpen] = useState(false)
 
   const inquiryId = params.id as string
 
@@ -473,6 +475,26 @@ export default function InquiryDetailPage() {
               </CardContent>
             </Card>
 
+            {/* Chat */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Live Chat</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Button
+                  onClick={() => setIsChatOpen(true)}
+                  className="w-full bg-blue-600 hover:bg-blue-700"
+                  disabled={!inquiry?.buyer}
+                >
+                  <MessageSquare className="h-4 w-4 mr-2" />
+                  Chat with Customer
+                </Button>
+                <p className="text-xs text-gray-600 mt-2">
+                  Start a real-time conversation with {inquiry?.buyer?.full_name || 'the customer'}
+                </p>
+              </CardContent>
+            </Card>
+
             {/* Timeline */}
             <Card>
               <CardHeader>
@@ -507,6 +529,18 @@ export default function InquiryDetailPage() {
           </div>
         </div>
       </div>
+
+      {/* Chat Component */}
+      {inquiry && (
+        <InquiryChat
+          inquiryId={inquiryId}
+          customerId={inquiry.buyer_id}
+          customerName={inquiry.buyer?.full_name || 'Customer'}
+          customerEmail={inquiry.buyer?.email || ''}
+          isOpen={isChatOpen}
+          onToggle={() => setIsChatOpen(!isChatOpen)}
+        />
+      )}
     </div>
   )
 }

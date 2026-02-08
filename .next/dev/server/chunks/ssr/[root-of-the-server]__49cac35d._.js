@@ -958,9 +958,9 @@ const defaultPaymentSettings = {
         }
     },
     platform_name: 'IkazeProperty',
-    platform_email: 'contact@ikazeproperty.rw',
-    platform_phone: '+250 XXX XXX XXX',
-    platform_whatsapp: '+250 XXX XXX XXX',
+    platform_email: 'support@ikazeproperty.org',
+    platform_phone: '+250737060025',
+    platform_whatsapp: '+250737060025',
     platform_address: 'Kigali, Rwanda'
 };
 const PaymentContext = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["createContext"])(undefined);
@@ -1015,10 +1015,10 @@ function PaymentProvider({ children }) {
                         }
                     },
                     platform_name: settingsData.platform_name || 'IkazeProperty',
-                    platform_email: settingsData.platform_email || 'contact@ikazeproperty.rw',
-                    platform_phone: settingsData.platform_phone || '+250 XXX XXX XXX',
+                    platform_email: settingsData.platform_email || 'support@ikazeproperty.org',
+                    platform_phone: settingsData.platform_phone || '+250737060025',
                     platform_address: settingsData.platform_address || 'Kigali, Rwanda',
-                    platform_whatsapp: settingsData.platform_phone || '+250 XXX XXX XXX' // Use phone for WhatsApp
+                    platform_whatsapp: settingsData.platform_phone || '+250737060025' // Use phone for WhatsApp
                 });
             } else {
                 // Use default settings if none exist
@@ -1068,9 +1068,9 @@ function usePaymentContext() {
         ...context,
         getPlatformInfo: ()=>({
                 name: context.paymentSettings?.platform_name || 'IkazeProperty',
-                email: context.paymentSettings?.platform_email || 'contact@ikazeproperty.rw',
-                phone: context.paymentSettings?.platform_phone || '+250 XXX XXX XXX',
-                whatsapp: context.paymentSettings?.platform_whatsapp || '+250 XXX XXX XXX',
+                email: context.paymentSettings?.platform_email || 'support@ikazeproperty.org',
+                phone: context.paymentSettings?.platform_phone || '+250737060025',
+                whatsapp: context.paymentSettings?.platform_whatsapp || '+250737060025',
                 address: context.paymentSettings?.platform_address || 'Kigali, Rwanda'
             })
     };
@@ -1087,8 +1087,8 @@ function usePaymentMethods() {
         isProviderAvailable: (provider)=>paymentSettings?.mobile_money_providers?.includes(provider) || false,
         getPlatformInfo: ()=>({
                 name: paymentSettings?.platform_name || 'IkazeProperty',
-                email: paymentSettings?.platform_email || process.env.NEXT_PUBLIC_PLATFORM_EMAIL || 'contact@ikazeproperty.rw',
-                phone: paymentSettings?.platform_phone || process.env.NEXT_PUBLIC_PLATFORM_PHONE || '+250 XXX XXX XXX',
+                email: paymentSettings?.platform_email || process.env.NEXT_PUBLIC_PLATFORM_EMAIL || 'support@ikazeproperty.org',
+                phone: paymentSettings?.platform_phone || process.env.NEXT_PUBLIC_PLATFORM_PHONE || '+250737060025',
                 address: paymentSettings?.platform_address || process.env.NEXT_PUBLIC_PLATFORM_ADDRESS || 'Kigali, Rwanda'
             })
     };
