@@ -55,7 +55,7 @@ export async function GET(
   request: NextRequest,
   context: { params: Promise<{ id: string }> }
 ) {
-  const resolvedParams = await context.params
+  const { id: inquiryId } = await context.params
   
   try {
     const currentUser = await getCurrentUser(request)
@@ -65,8 +65,6 @@ export async function GET(
         { status: 401 }
       )
     }
-
-    const inquiryId = resolvedParams.id
 
     // Check if user is admin or the customer who sent the inquiry
     const { data: inquiry, error: inquiryError } = await supabase
@@ -141,7 +139,7 @@ export async function POST(
   request: NextRequest,
   context: { params: Promise<{ id: string }> }
 ) {
-  const resolvedParams = await context.params
+  const { id: inquiryId } = await context.params
   
   try {
     const currentUser = await getCurrentUser(request)
@@ -152,8 +150,9 @@ export async function POST(
       )
     }
 
-    const inquiryId = resolvedParams.id
     const { message, sender } = await request.json()
+
+    console.log('📝 Message data:', { inquiryId, sender, messageLength: message?.length })
 
     if (!message || !sender) {
       return NextResponse.json(
