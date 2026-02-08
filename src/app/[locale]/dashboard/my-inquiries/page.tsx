@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useParams } from 'next/navigation'
 import { 
   MessageSquare, 
   Home, 
@@ -21,6 +22,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useAuth } from '@/contexts/AuthContext'
 
 export default function MyInquiriesPage() {
+  const params = useParams()
   const { user, isLoading: authLoading } = useAuth()
   const [inquiries, setInquiries] = useState([])
   const [loading, setLoading] = useState(true)
@@ -271,7 +273,7 @@ export default function MyInquiriesPage() {
                   </div>
 
                   <div className="flex flex-wrap gap-2">
-                    <Link href={`/listings/${inquiry.listings?.category}/${inquiry.listings?.id}`}>
+                    <Link href={`/${params.locale || 'en'}/listings/${inquiry.listings?.category}/${inquiry.listings?.id}`}>
                       <Button size="sm" variant="outline">
                         <Eye className="h-4 w-4 mr-1" />
                         View Listing
@@ -279,14 +281,34 @@ export default function MyInquiriesPage() {
                     </Link>
                     
                     {inquiry.status === 'approved' && (
-                      <Button size="sm" className="bg-green-600 hover:bg-green-700">
+                      <Button 
+                        size="sm" 
+                        className="bg-green-600 hover:bg-green-700"
+                        onClick={() => {
+                          if (inquiry.seller?.email) {
+                            window.location.href = `mailto:${inquiry.seller.email}?subject=Inquiry about: ${inquiry.listings?.title}&body=Hi ${inquiry.seller?.full_name},\n\nI'm interested in your listing: ${inquiry.listings?.title}.\n\n${inquiry.message}\n\nPlease let me know if it's still available.\n\nThank you!`
+                          } else {
+                            alert('Seller contact information not available')
+                          }
+                        }}
+                      >
                         <MessageSquare className="h-4 w-4 mr-1" />
                         Contact Seller
                       </Button>
                     )}
                     
                     {inquiry.status === 'connected' && (
-                      <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                      <Button 
+                        size="sm" 
+                        className="bg-blue-600 hover:bg-blue-700"
+                        onClick={() => {
+                          if (inquiry.seller?.email) {
+                            window.location.href = `mailto:${inquiry.seller.email}?subject=Follow-up about: ${inquiry.listings?.title}&body=Hi ${inquiry.seller?.full_name},\n\nFollowing up on my inquiry about: ${inquiry.listings?.title}.\n\n${inquiry.message}\n\nIs this listing still available?\n\nThank you!`
+                          } else {
+                            alert('Seller contact information not available')
+                          }
+                        }}
+                      >
                         <MessageSquare className="h-4 w-4 mr-1" />
                         Continue Conversation
                       </Button>
