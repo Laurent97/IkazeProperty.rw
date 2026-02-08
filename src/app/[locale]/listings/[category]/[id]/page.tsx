@@ -30,9 +30,13 @@ export default function ListingDetailPage() {
   const params = useParams() as { locale: string; category: string; id: string }
   const { category, id } = params
   
-  // Add check for undefined ID
-  if (!id) {
-    console.error('❌ Listing ID is undefined:', params)
+  // Debug: Log the actual ID value
+  console.log('🔍 Route params:', params)
+  console.log('Raw ID:', id, 'Type:', typeof id, 'Is string "undefined":', id === 'undefined')
+  
+  // Check for invalid ID (including string "undefined")
+  if (!id || id === 'undefined' || id === 'null') {
+    console.error('❌ Invalid ID provided:', id)
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
         <div className="text-center">
@@ -105,8 +109,13 @@ export default function ListingDetailPage() {
     const fetchListing = async () => {
       console.log('🔍 fetchListing called with id:', id, typeof id)
       
-      if (!id) {
-        console.log('⚠️ No ID provided, returning early')
+      // Check for invalid ID (including string "undefined")
+      if (!id || id === 'undefined' || id === 'null') {
+        console.log('⚠️ Invalid ID provided, returning early')
+        if (isActive) {
+          setLoading(false)
+          setError('Invalid listing ID')
+        }
         return
       }
       
@@ -150,14 +159,6 @@ export default function ListingDetailPage() {
         if ((data as any).category !== category) {
           if (isActive) {
             setError('Listing not found')
-            setLoading(false)
-          }
-          return
-        }
-
-        if (!id) {
-          if (isActive) {
-            setError('Invalid listing ID')
             setLoading(false)
           }
           return
