@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import { useParams, useRouter, notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, MapPin, User } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -37,17 +37,7 @@ export default function ListingDetailPage() {
   // Check for invalid ID (including string "undefined")
   if (!id || id === 'undefined' || id === 'null') {
     console.error('❌ Invalid ID provided:', id)
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Listing Not Found</h1>
-          <p className="text-gray-600 mb-4">The listing ID is missing or invalid.</p>
-          <Link href={`/${params.locale || 'en'}/listings`}>
-            <Button>Browse Listings</Button>
-          </Link>
-        </div>
-      </div>
-    )
+    notFound() // Shows Next.js 404 page
   }
   
   const { paymentSettings } = usePaymentContext()

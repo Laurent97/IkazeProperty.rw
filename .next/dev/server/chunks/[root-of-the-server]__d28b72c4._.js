@@ -200,23 +200,40 @@ async function GET(request) {
                 listingId: inquiry.listing_id,
                 listingIdType: typeof inquiry.listing_id
             });
-            if (inquiry.listing_id) {
+            if (!inquiry.listing_id) {
+                console.log('⚠️ No listing_id for inquiry:', inquiry.id);
+                return {
+                    ...inquiry,
+                    listings: null
+                };
+            }
+            try {
                 const { data: listing, error: listingError } = await supabase.from('listings').select('id, title, category, price').eq('id', inquiry.listing_id).single();
-                console.log('📋 Listing fetch result:', {
+                if (listingError) {
+                    console.error('❌ Error fetching listing:', {
+                        listingId: inquiry.listing_id,
+                        error: listingError
+                    });
+                    return {
+                        ...inquiry,
+                        listings: null
+                    };
+                }
+                console.log('✅ Successfully fetched listing:', {
                     listingId: inquiry.listing_id,
-                    listing,
-                    error: listingError
+                    listing
                 });
                 return {
                     ...inquiry,
                     listings: listing
                 };
+            } catch (err) {
+                console.error('💥 Exception fetching listing:', err);
+                return {
+                    ...inquiry,
+                    listings: null
+                };
             }
-            console.log('⚠️ No listing_id for inquiry:', inquiry.id);
-            return {
-                ...inquiry,
-                listings: null
-            };
         }));
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             success: true,

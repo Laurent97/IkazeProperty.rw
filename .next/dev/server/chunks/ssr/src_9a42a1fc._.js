@@ -550,7 +550,6 @@ __turbopack_context__.s([
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$left$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowLeft$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/arrow-left.js [app-ssr] (ecmascript) <export default as ArrowLeft>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$map$2d$pin$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MapPin$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/map-pin.js [app-ssr] (ecmascript) <export default as MapPin>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/user.js [app-ssr] (ecmascript) <export default as User>");
@@ -573,60 +572,17 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$contexts$2f$PaymentCo
 ;
 ;
 ;
-;
 function ListingDetailPage() {
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
     const params = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useParams"])();
     const { category, id } = params;
-    // Add check for undefined ID
-    if (!id) {
-        console.error('❌ Listing ID is undefined:', params);
-        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "min-h-screen bg-gray-50 flex items-center justify-center p-4",
-            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "text-center",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                        className: "text-2xl font-bold text-gray-900 mb-4",
-                        children: "Listing Not Found"
-                    }, void 0, false, {
-                        fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                        lineNumber: 39,
-                        columnNumber: 11
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                        className: "text-gray-600 mb-4",
-                        children: "The listing ID is missing or invalid."
-                    }, void 0, false, {
-                        fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                        lineNumber: 40,
-                        columnNumber: 11
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                        href: `/${params.locale || 'en'}/listings`,
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
-                            children: "Browse Listings"
-                        }, void 0, false, {
-                            fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                            lineNumber: 42,
-                            columnNumber: 13
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                        lineNumber: 41,
-                        columnNumber: 11
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                lineNumber: 38,
-                columnNumber: 9
-            }, this)
-        }, void 0, false, {
-            fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-            lineNumber: 37,
-            columnNumber: 7
-        }, this);
+    // Debug: Log the actual ID value
+    console.log('🔍 Route params:', params);
+    console.log('Raw ID:', id, 'Type:', typeof id, 'Is string "undefined":', id === 'undefined');
+    // Check for invalid ID (including string "undefined")
+    if (!id || id === 'undefined' || id === 'null') {
+        console.error('❌ Invalid ID provided:', id);
+        (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["notFound"])(); // Shows Next.js 404 page
     }
     const { paymentSettings } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$contexts$2f$PaymentContext$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["usePaymentContext"])();
     const [listing, setListing] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
@@ -676,8 +632,13 @@ function ListingDetailPage() {
         let isActive = true;
         const fetchListing = async ()=>{
             console.log('🔍 fetchListing called with id:', id, typeof id);
-            if (!id) {
-                console.log('⚠️ No ID provided, returning early');
+            // Check for invalid ID (including string "undefined")
+            if (!id || id === 'undefined' || id === 'null') {
+                console.log('⚠️ Invalid ID provided, returning early');
+                if (isActive) {
+                    setLoading(false);
+                    setError('Invalid listing ID');
+                }
                 return;
             }
             setLoading(true);
@@ -712,13 +673,6 @@ function ListingDetailPage() {
                 if (data.category !== category) {
                     if (isActive) {
                         setError('Listing not found');
-                        setLoading(false);
-                    }
-                    return;
-                }
-                if (!id) {
-                    if (isActive) {
-                        setError('Invalid listing ID');
                         setLoading(false);
                     }
                     return;
@@ -767,17 +721,17 @@ function ListingDetailPage() {
                     children: "Loading listing..."
                 }, void 0, false, {
                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                    lineNumber: 209,
+                    lineNumber: 200,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                lineNumber: 208,
+                lineNumber: 199,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-            lineNumber: 207,
+            lineNumber: 198,
             columnNumber: 7
         }, this);
     }
@@ -797,14 +751,14 @@ function ListingDetailPage() {
                                     className: "h-4 w-4 mr-2"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                    lineNumber: 220,
+                                    lineNumber: 211,
                                     columnNumber: 13
                                 }, this),
                                 "Back"
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                            lineNumber: 219,
+                            lineNumber: 210,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -812,13 +766,13 @@ function ListingDetailPage() {
                             children: error || 'Listing not found'
                         }, void 0, false, {
                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                            lineNumber: 223,
+                            lineNumber: 214,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                    lineNumber: 218,
+                    lineNumber: 209,
                     columnNumber: 9
                 }, this),
                 similarListings.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -830,12 +784,12 @@ function ListingDetailPage() {
                                     children: "Similar Items You Might Like"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                    lineNumber: 231,
+                                    lineNumber: 222,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                lineNumber: 230,
+                                lineNumber: 221,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -854,7 +808,7 @@ function ListingDetailPage() {
                                                             className: "w-full h-24 sm:h-28 md:h-32 object-cover rounded-lg"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                            lineNumber: 240,
+                                                            lineNumber: 231,
                                                             columnNumber: 29
                                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                             className: "w-full h-24 sm:h-28 md:h-32 bg-gray-200 rounded-lg flex items-center justify-center",
@@ -864,7 +818,7 @@ function ListingDetailPage() {
                                                                     children: "📷"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                    lineNumber: 247,
+                                                                    lineNumber: 238,
                                                                     columnNumber: 31
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -872,18 +826,18 @@ function ListingDetailPage() {
                                                                     children: "No media available"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                    lineNumber: 248,
+                                                                    lineNumber: 239,
                                                                     columnNumber: 31
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                            lineNumber: 246,
+                                                            lineNumber: 237,
                                                             columnNumber: 29
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                        lineNumber: 238,
+                                                        lineNumber: 229,
                                                         columnNumber: 25
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -894,7 +848,7 @@ function ListingDetailPage() {
                                                                 children: similarListing.title
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                lineNumber: 253,
+                                                                lineNumber: 244,
                                                                 columnNumber: 27
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -906,7 +860,7 @@ function ListingDetailPage() {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                lineNumber: 256,
+                                                                lineNumber: 247,
                                                                 columnNumber: 27
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -918,7 +872,7 @@ function ListingDetailPage() {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                lineNumber: 259,
+                                                                lineNumber: 250,
                                                                 columnNumber: 27
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -928,7 +882,7 @@ function ListingDetailPage() {
                                                                         className: "h-3 w-3 sm:h-4 sm:w-4 mr-1"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                        lineNumber: 263,
+                                                                        lineNumber: 254,
                                                                         columnNumber: 29
                                                                     }, this),
                                                                     (()=>{
@@ -946,51 +900,51 @@ function ListingDetailPage() {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                lineNumber: 262,
+                                                                lineNumber: 253,
                                                                 columnNumber: 27
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                        lineNumber: 252,
+                                                        lineNumber: 243,
                                                         columnNumber: 25
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                lineNumber: 237,
+                                                lineNumber: 228,
                                                 columnNumber: 23
                                             }, this)
                                         }, similarListing.id, false, {
                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                            lineNumber: 236,
+                                            lineNumber: 227,
                                             columnNumber: 21
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                    lineNumber: 234,
+                                    lineNumber: 225,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                lineNumber: 233,
+                                lineNumber: 224,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                        lineNumber: 229,
+                        lineNumber: 220,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                    lineNumber: 228,
+                    lineNumber: 219,
                     columnNumber: 11
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-            lineNumber: 217,
+            lineNumber: 208,
             columnNumber: 7
         }, this);
     }
@@ -1111,14 +1065,14 @@ function ListingDetailPage() {
                                 className: "h-4 w-4 mr-2"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                lineNumber: 429,
+                                lineNumber: 420,
                                 columnNumber: 11
                             }, this),
                             "Back"
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                        lineNumber: 428,
+                        lineNumber: 419,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1148,7 +1102,7 @@ function ListingDetailPage() {
                                                                             autoPlay: false
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                            lineNumber: 445,
+                                                                            lineNumber: 436,
                                                                             columnNumber: 29
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1163,28 +1117,28 @@ function ListingDetailPage() {
                                                                                         d: "M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                                        lineNumber: 454,
+                                                                                        lineNumber: 445,
                                                                                         columnNumber: 35
                                                                                     }, this)
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                                    lineNumber: 453,
+                                                                                    lineNumber: 444,
                                                                                     columnNumber: 33
                                                                                 }, this)
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                                lineNumber: 452,
+                                                                                lineNumber: 443,
                                                                                 columnNumber: 31
                                                                             }, this)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                            lineNumber: 451,
+                                                                            lineNumber: 442,
                                                                             columnNumber: 29
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                    lineNumber: 444,
+                                                                    lineNumber: 435,
                                                                     columnNumber: 27
                                                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                                                     src: media[selectedImageIndex]?.url,
@@ -1192,7 +1146,7 @@ function ListingDetailPage() {
                                                                     className: "w-full h-48 sm:h-64 md:h-80 lg:h-96 object-cover rounded-lg"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                    lineNumber: 460,
+                                                                    lineNumber: 451,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 media.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -1213,17 +1167,17 @@ function ListingDetailPage() {
                                                                                     d: "M15 19l-7-7 7-7"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                                    lineNumber: 477,
+                                                                                    lineNumber: 468,
                                                                                     columnNumber: 33
                                                                                 }, this)
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                                lineNumber: 476,
+                                                                                lineNumber: 467,
                                                                                 columnNumber: 31
                                                                             }, this)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                            lineNumber: 471,
+                                                                            lineNumber: 462,
                                                                             columnNumber: 29
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1242,17 +1196,17 @@ function ListingDetailPage() {
                                                                                     d: "M9 5l7 7-7 7"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                                    lineNumber: 488,
+                                                                                    lineNumber: 479,
                                                                                     columnNumber: 33
                                                                                 }, this)
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                                lineNumber: 487,
+                                                                                lineNumber: 478,
                                                                                 columnNumber: 31
                                                                             }, this)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                            lineNumber: 482,
+                                                                            lineNumber: 473,
                                                                             columnNumber: 29
                                                                         }, this)
                                                                     ]
@@ -1262,7 +1216,7 @@ function ListingDetailPage() {
                                                                     children: "Primary"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                    lineNumber: 496,
+                                                                    lineNumber: 487,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 media[selectedImageIndex]?.media_type === 'video' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Badge"], {
@@ -1270,13 +1224,13 @@ function ListingDetailPage() {
                                                                     children: "Video"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                    lineNumber: 503,
+                                                                    lineNumber: 494,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                            lineNumber: 442,
+                                                            lineNumber: 433,
                                                             columnNumber: 23
                                                         }, this),
                                                         media.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -1304,7 +1258,7 @@ function ListingDetailPage() {
                                                                                             }
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                                            lineNumber: 523,
+                                                                                            lineNumber: 514,
                                                                                             columnNumber: 37
                                                                                         }, this),
                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1317,23 +1271,23 @@ function ListingDetailPage() {
                                                                                                     d: "M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"
                                                                                                 }, void 0, false, {
                                                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                                                    lineNumber: 538,
+                                                                                                    lineNumber: 529,
                                                                                                     columnNumber: 41
                                                                                                 }, this)
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                                                lineNumber: 537,
+                                                                                                lineNumber: 528,
                                                                                                 columnNumber: 39
                                                                                             }, this)
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                                            lineNumber: 536,
+                                                                                            lineNumber: 527,
                                                                                             columnNumber: 37
                                                                                         }, this)
                                                                                     ]
                                                                                 }, void 0, true, {
                                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                                    lineNumber: 522,
+                                                                                    lineNumber: 513,
                                                                                     columnNumber: 35
                                                                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                                                                     src: item.url,
@@ -1341,25 +1295,25 @@ function ListingDetailPage() {
                                                                                     className: "w-full h-14 sm:h-16 md:h-20 object-cover rounded-lg"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                                    lineNumber: 543,
+                                                                                    lineNumber: 534,
                                                                                     columnNumber: 35
                                                                                 }, this),
                                                                                 item.is_primary && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                                     className: "absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                                    lineNumber: 550,
+                                                                                    lineNumber: 541,
                                                                                     columnNumber: 35
                                                                                 }, this)
                                                                             ]
                                                                         }, item.id, true, {
                                                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                            lineNumber: 514,
+                                                                            lineNumber: 505,
                                                                             columnNumber: 31
                                                                         }, this))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                    lineNumber: 512,
+                                                                    lineNumber: 503,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1370,12 +1324,12 @@ function ListingDetailPage() {
                                                                             "aria-label": `Go to image ${index + 1}`
                                                                         }, index, false, {
                                                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                            lineNumber: 559,
+                                                                            lineNumber: 550,
                                                                             columnNumber: 31
                                                                         }, this))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                    lineNumber: 557,
+                                                                    lineNumber: 548,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             ]
@@ -1383,7 +1337,7 @@ function ListingDetailPage() {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                    lineNumber: 440,
+                                                    lineNumber: 431,
                                                     columnNumber: 21
                                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     className: "w-full h-48 sm:h-64 md:h-80 lg:h-96 bg-gray-200 rounded-lg flex items-center justify-center",
@@ -1395,7 +1349,7 @@ function ListingDetailPage() {
                                                                 children: "📷"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                lineNumber: 577,
+                                                                lineNumber: 568,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1403,33 +1357,33 @@ function ListingDetailPage() {
                                                                 children: "No media available"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                lineNumber: 578,
+                                                                lineNumber: 569,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                        lineNumber: 576,
+                                                        lineNumber: 567,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                    lineNumber: 575,
+                                                    lineNumber: 566,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                lineNumber: 438,
+                                                lineNumber: 429,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                            lineNumber: 436,
+                                            lineNumber: 427,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                        lineNumber: 435,
+                                        lineNumber: 426,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Card"], {
@@ -1439,12 +1393,12 @@ function ListingDetailPage() {
                                                     children: "Description"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                    lineNumber: 588,
+                                                    lineNumber: 579,
                                                     columnNumber: 17
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                lineNumber: 587,
+                                                lineNumber: 578,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -1453,24 +1407,24 @@ function ListingDetailPage() {
                                                     children: listing.description
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                    lineNumber: 591,
+                                                    lineNumber: 582,
                                                     columnNumber: 17
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                lineNumber: 590,
+                                                lineNumber: 581,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                        lineNumber: 586,
+                                        lineNumber: 577,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                lineNumber: 434,
+                                lineNumber: 425,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1483,12 +1437,12 @@ function ListingDetailPage() {
                                                     children: listing.title
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                    lineNumber: 599,
+                                                    lineNumber: 590,
                                                     columnNumber: 17
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                lineNumber: 598,
+                                                lineNumber: 589,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -1503,7 +1457,7 @@ function ListingDetailPage() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                        lineNumber: 602,
+                                                        lineNumber: 593,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1515,7 +1469,7 @@ function ListingDetailPage() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                        lineNumber: 605,
+                                                        lineNumber: 596,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1525,7 +1479,7 @@ function ListingDetailPage() {
                                                                 className: "h-4 w-4 mr-2 mt-0.5 text-gray-500"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                lineNumber: 609,
+                                                                lineNumber: 600,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1537,25 +1491,25 @@ function ListingDetailPage() {
                                                                 ].filter(Boolean).join(', ') || 'Location not provided'
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                lineNumber: 610,
+                                                                lineNumber: 601,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                        lineNumber: 608,
+                                                        lineNumber: 599,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                lineNumber: 601,
+                                                lineNumber: 592,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                        lineNumber: 597,
+                                        lineNumber: 588,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Card"], {
@@ -1565,12 +1519,12 @@ function ListingDetailPage() {
                                                     children: "For any questions, ideas, or inquiries, reach out to us on this number"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                    lineNumber: 626,
+                                                    lineNumber: 617,
                                                     columnNumber: 17
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                lineNumber: 625,
+                                                lineNumber: 616,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -1585,12 +1539,12 @@ function ListingDetailPage() {
                                                                     className: "h-5 w-5 text-gray-500"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                    lineNumber: 631,
+                                                                    lineNumber: 622,
                                                                     columnNumber: 21
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                lineNumber: 630,
+                                                                lineNumber: 621,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1599,35 +1553,35 @@ function ListingDetailPage() {
                                                                     children: listing.seller?.full_name || 'Unknown Seller'
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                    lineNumber: 634,
+                                                                    lineNumber: 625,
                                                                     columnNumber: 21
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                lineNumber: 633,
+                                                                lineNumber: 624,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                        lineNumber: 629,
+                                                        lineNumber: 620,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$listing$2f$admin$2d$contact$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                        lineNumber: 640,
+                                                        lineNumber: 631,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                lineNumber: 628,
+                                                lineNumber: 619,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                        lineNumber: 624,
+                                        lineNumber: 615,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Card"], {
@@ -1637,12 +1591,12 @@ function ListingDetailPage() {
                                                     children: "Visit Fee"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                    lineNumber: 646,
+                                                    lineNumber: 637,
                                                     columnNumber: 17
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                lineNumber: 645,
+                                                lineNumber: 636,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -1659,13 +1613,13 @@ function ListingDetailPage() {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                lineNumber: 650,
+                                                                lineNumber: 641,
                                                                 columnNumber: 30
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                        lineNumber: 649,
+                                                        lineNumber: 640,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1673,7 +1627,7 @@ function ListingDetailPage() {
                                                         children: "Seller receives 70%. Platform keeps 30%."
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                        lineNumber: 652,
+                                                        lineNumber: 643,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1686,7 +1640,7 @@ function ListingDetailPage() {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                lineNumber: 658,
+                                                                lineNumber: 649,
                                                                 columnNumber: 21
                                                             }, this),
                                                             visitPaymentInfo.airtel_money?.phone_number && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1696,7 +1650,7 @@ function ListingDetailPage() {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                lineNumber: 661,
+                                                                lineNumber: 652,
                                                                 columnNumber: 21
                                                             }, this),
                                                             visitPaymentInfo.equity_bank?.account_number && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1708,13 +1662,13 @@ function ListingDetailPage() {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                lineNumber: 664,
+                                                                lineNumber: 655,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                        lineNumber: 656,
+                                                        lineNumber: 647,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1727,7 +1681,7 @@ function ListingDetailPage() {
                                                                 className: "w-full"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                lineNumber: 671,
+                                                                lineNumber: 662,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1742,7 +1696,7 @@ function ListingDetailPage() {
                                                                         children: "Request a Visit"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                        lineNumber: 678,
+                                                                        lineNumber: 669,
                                                                         columnNumber: 21
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$listing$2f$favorite$2d$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1751,49 +1705,49 @@ function ListingDetailPage() {
                                                                         className: "flex-shrink-0"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                        lineNumber: 687,
+                                                                        lineNumber: 678,
                                                                         columnNumber: 21
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                lineNumber: 677,
+                                                                lineNumber: 668,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                        lineNumber: 670,
+                                                        lineNumber: 661,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                lineNumber: 648,
+                                                lineNumber: 639,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                        lineNumber: 644,
+                                        lineNumber: 635,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                lineNumber: 596,
+                                lineNumber: 587,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                        lineNumber: 433,
+                        lineNumber: 424,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                lineNumber: 427,
+                lineNumber: 418,
                 columnNumber: 7
             }, this),
             showVisitModal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1811,7 +1765,7 @@ function ListingDetailPage() {
                                         children: "Request a Visit"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                        lineNumber: 705,
+                                        lineNumber: 696,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1821,13 +1775,13 @@ function ListingDetailPage() {
                                         children: "×"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                        lineNumber: 706,
+                                        lineNumber: 697,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                lineNumber: 704,
+                                lineNumber: 695,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1841,13 +1795,13 @@ function ListingDetailPage() {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                        lineNumber: 716,
+                                        lineNumber: 707,
                                         columnNumber: 28
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                lineNumber: 715,
+                                lineNumber: 706,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1855,7 +1809,7 @@ function ListingDetailPage() {
                                 children: "Seller receives 70%. Platform keeps 30%."
                             }, void 0, false, {
                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                lineNumber: 718,
+                                lineNumber: 709,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1868,7 +1822,7 @@ function ListingDetailPage() {
                                             children: "Upload payment proof"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                            lineNumber: 725,
+                                            lineNumber: 716,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1881,7 +1835,7 @@ function ListingDetailPage() {
                                             title: "Upload screenshot or photo of payment confirmation"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                            lineNumber: 726,
+                                            lineNumber: 717,
                                             columnNumber: 19
                                         }, this),
                                         paymentProof && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1896,24 +1850,24 @@ function ListingDetailPage() {
                                                     children: "Remove"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                    lineNumber: 738,
+                                                    lineNumber: 729,
                                                     columnNumber: 25
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                            lineNumber: 736,
+                                            lineNumber: 727,
                                             columnNumber: 23
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                    lineNumber: 724,
+                                    lineNumber: 715,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                lineNumber: 723,
+                                lineNumber: 714,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1925,7 +1879,7 @@ function ListingDetailPage() {
                                         children: "Payment Method"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                        lineNumber: 751,
+                                        lineNumber: 742,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -1947,13 +1901,13 @@ function ListingDetailPage() {
                                                 children: methodNames[method] || method
                                             }, method, false, {
                                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                lineNumber: 768,
+                                                lineNumber: 759,
                                                 columnNumber: 23
                                             }, this);
                                         })
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                        lineNumber: 752,
+                                        lineNumber: 743,
                                         columnNumber: 17
                                     }, this),
                                     (visitMethod === 'mtn_momo' || visitMethod === 'airtel_money') && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1969,7 +1923,7 @@ function ListingDetailPage() {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                    lineNumber: 778,
+                                                    lineNumber: 769,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1977,7 +1931,7 @@ function ListingDetailPage() {
                                                     children: "Send payment to the number below:"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                    lineNumber: 781,
+                                                    lineNumber: 772,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1991,7 +1945,7 @@ function ListingDetailPage() {
                                                                     children: "Phone Number:"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                    lineNumber: 785,
+                                                                    lineNumber: 776,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1999,13 +1953,13 @@ function ListingDetailPage() {
                                                                     children: visitMethod === 'mtn_momo' ? paymentSettings?.mobile_money_details?.mtn?.phone_number || 'Not configured' : paymentSettings?.mobile_money_details?.airtel?.phone_number || 'Not configured'
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                    lineNumber: 786,
+                                                                    lineNumber: 777,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                            lineNumber: 784,
+                                                            lineNumber: 775,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2016,7 +1970,7 @@ function ListingDetailPage() {
                                                                     children: "Account Name:"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                    lineNumber: 795,
+                                                                    lineNumber: 786,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2024,13 +1978,13 @@ function ListingDetailPage() {
                                                                     children: visitMethod === 'mtn_momo' ? paymentSettings?.mobile_money_details?.mtn?.account_name || 'Not configured' : paymentSettings?.mobile_money_details?.airtel?.account_name || 'Not configured'
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                    lineNumber: 796,
+                                                                    lineNumber: 787,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                            lineNumber: 794,
+                                                            lineNumber: 785,
                                                             columnNumber: 25
                                                         }, this),
                                                         (visitMethod === 'mtn_momo' ? paymentSettings?.mobile_money_details?.mtn?.merchant_id : paymentSettings?.mobile_money_details?.airtel?.merchant_id) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2041,7 +1995,7 @@ function ListingDetailPage() {
                                                                     children: "Merchant ID:"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                    lineNumber: 808,
+                                                                    lineNumber: 799,
                                                                     columnNumber: 29
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2049,19 +2003,19 @@ function ListingDetailPage() {
                                                                     children: visitMethod === 'mtn_momo' ? paymentSettings?.mobile_money_details?.mtn?.merchant_id : paymentSettings?.mobile_money_details?.airtel?.merchant_id
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                    lineNumber: 809,
+                                                                    lineNumber: 800,
                                                                     columnNumber: 29
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                            lineNumber: 807,
+                                                            lineNumber: 798,
                                                             columnNumber: 27
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                    lineNumber: 783,
+                                                    lineNumber: 774,
                                                     columnNumber: 23
                                                 }, this),
                                                 (visitMethod === 'mtn_momo' ? paymentSettings?.mobile_money_details?.mtn?.payment_instructions : paymentSettings?.mobile_money_details?.airtel?.payment_instructions) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2072,7 +2026,7 @@ function ListingDetailPage() {
                                                             children: "Payment Instructions:"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                            lineNumber: 823,
+                                                            lineNumber: 814,
                                                             columnNumber: 27
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2080,24 +2034,24 @@ function ListingDetailPage() {
                                                             children: visitMethod === 'mtn_momo' ? paymentSettings?.mobile_money_details?.mtn?.payment_instructions : paymentSettings?.mobile_money_details?.airtel?.payment_instructions
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                            lineNumber: 824,
+                                                            lineNumber: 815,
                                                             columnNumber: 27
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                    lineNumber: 822,
+                                                    lineNumber: 813,
                                                     columnNumber: 25
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                            lineNumber: 777,
+                                            lineNumber: 768,
                                             columnNumber: 21
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                        lineNumber: 776,
+                                        lineNumber: 767,
                                         columnNumber: 19
                                     }, this),
                                     visitMethod === 'equity_bank' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2110,7 +2064,7 @@ function ListingDetailPage() {
                                                     children: "Bank Transfer Details"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                    lineNumber: 839,
+                                                    lineNumber: 830,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2118,7 +2072,7 @@ function ListingDetailPage() {
                                                     children: "Send payment to the account below:"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                    lineNumber: 840,
+                                                    lineNumber: 831,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2132,7 +2086,7 @@ function ListingDetailPage() {
                                                                     children: "Bank Name:"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                    lineNumber: 844,
+                                                                    lineNumber: 835,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2140,13 +2094,13 @@ function ListingDetailPage() {
                                                                     children: paymentSettings?.bank_details?.bank_name || 'Not configured'
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                    lineNumber: 845,
+                                                                    lineNumber: 836,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                            lineNumber: 843,
+                                                            lineNumber: 834,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2157,7 +2111,7 @@ function ListingDetailPage() {
                                                                     children: "Account Name:"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                    lineNumber: 851,
+                                                                    lineNumber: 842,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2165,13 +2119,13 @@ function ListingDetailPage() {
                                                                     children: paymentSettings?.bank_details?.account_name || 'Not configured'
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                    lineNumber: 852,
+                                                                    lineNumber: 843,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                            lineNumber: 850,
+                                                            lineNumber: 841,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2182,7 +2136,7 @@ function ListingDetailPage() {
                                                                     children: "Account Number:"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                    lineNumber: 858,
+                                                                    lineNumber: 849,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2190,13 +2144,13 @@ function ListingDetailPage() {
                                                                     children: paymentSettings?.bank_details?.account_number || 'Not configured'
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                    lineNumber: 859,
+                                                                    lineNumber: 850,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                            lineNumber: 857,
+                                                            lineNumber: 848,
                                                             columnNumber: 25
                                                         }, this),
                                                         paymentSettings?.bank_details?.branch_code && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2207,7 +2161,7 @@ function ListingDetailPage() {
                                                                     children: "Branch Code:"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                    lineNumber: 866,
+                                                                    lineNumber: 857,
                                                                     columnNumber: 29
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2215,30 +2169,30 @@ function ListingDetailPage() {
                                                                     children: paymentSettings?.bank_details?.branch_code
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                                    lineNumber: 867,
+                                                                    lineNumber: 858,
                                                                     columnNumber: 29
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                            lineNumber: 865,
+                                                            lineNumber: 856,
                                                             columnNumber: 27
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                    lineNumber: 842,
+                                                    lineNumber: 833,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                            lineNumber: 838,
+                                            lineNumber: 829,
                                             columnNumber: 21
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                        lineNumber: 837,
+                                        lineNumber: 828,
                                         columnNumber: 19
                                     }, this),
                                     visitMethod === 'crypto' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2251,7 +2205,7 @@ function ListingDetailPage() {
                                                     children: "Cryptocurrency Payment"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                    lineNumber: 880,
+                                                    lineNumber: 871,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2259,24 +2213,24 @@ function ListingDetailPage() {
                                                     children: "Cryptocurrency payment details will be displayed here once configured by administrator."
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                                    lineNumber: 881,
+                                                    lineNumber: 872,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                            lineNumber: 879,
+                                            lineNumber: 870,
                                             columnNumber: 21
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                        lineNumber: 878,
+                                        lineNumber: 869,
                                         columnNumber: 19
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                lineNumber: 750,
+                                lineNumber: 741,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2290,7 +2244,7 @@ function ListingDetailPage() {
                                         children: "Cancel"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                        lineNumber: 890,
+                                        lineNumber: 881,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -2301,35 +2255,35 @@ function ListingDetailPage() {
                                         children: visitSubmitting ? 'Submitting...' : 'Pay Visit Fee'
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                        lineNumber: 898,
+                                        lineNumber: 889,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                                lineNumber: 889,
+                                lineNumber: 880,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                        lineNumber: 703,
+                        lineNumber: 694,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                    lineNumber: 702,
+                    lineNumber: 693,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-                lineNumber: 701,
+                lineNumber: 692,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/[locale]/listings/[category]/[id]/page.tsx",
-        lineNumber: 426,
+        lineNumber: 417,
         columnNumber: 5
     }, this);
 }

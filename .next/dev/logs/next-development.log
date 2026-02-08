@@ -73965,3 +73965,136 @@ Import traces:
 [00:40:29.385] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
 [00:41:30.832] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
 [00:41:34.731] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:43:59.068] Server  LOG     ✓ Compiled in 74ms
+[00:43:59.517] Server  LOG     🔍 Route params: {}
+[00:43:59.517] Server  LOG     Raw ID: "undefined" "Type:" "string" "Is string \"undefined\":" true
+[00:43:59.518] Server  ERROR   ❌ Invalid ID provided: "undefined"
+[00:44:00.900] Browser LOG     🔍 Route params: {"category":"houses","id":"undefined","locale":"en"}
+[00:44:00.900] Browser LOG     Raw ID: undefined Type: string Is string "undefined": true
+[00:44:00.900] Browser ERROR   ❌ Invalid ID provided: undefined
+[00:44:00.900] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"houses","id":"undefined","locale":"en"}
+[00:44:00.900] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: undefined Type: string Is string "undefined": true
+[00:44:00.900] Browser ERROR   ❌ Invalid ID provided: undefined
+[00:44:00.900] Browser LOG     🔍 Checking authentication state...
+[00:44:00.900] Browser LOG     ✅ User session found: laurentjean535@gmail.com
+[00:44:00.900] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
+[00:44:04.373] Server  LOG     ✓ Compiled in 75ms
+[00:44:04.663] Server  LOG     🔍 Route params: {}
+[00:44:04.664] Server  LOG     Raw ID: "undefined" "Type:" "string" "Is string \"undefined\":" true
+[00:44:04.664] Server  ERROR   ❌ Invalid ID provided: "undefined"
+[00:44:05.902] Browser LOG     🔍 Route params: {"category":"houses","id":"undefined","locale":"en"}
+[00:44:05.902] Browser LOG     Raw ID: undefined Type: string Is string "undefined": true
+[00:44:05.902] Browser ERROR   ❌ Invalid ID provided: undefined
+[00:44:05.902] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"houses","id":"undefined","locale":"en"}
+[00:44:05.902] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: undefined Type: string Is string "undefined": true
+[00:44:05.902] Browser ERROR   ❌ Invalid ID provided: undefined
+[00:44:05.902] Browser LOG     🔍 Checking authentication state...
+[00:44:05.902] Browser LOG     ✅ User session found: laurentjean535@gmail.com
+[00:44:05.902] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
+[00:44:08.935] Server  LOG     ✓ Compiled in 54ms
+[00:44:09.254] Server  LOG     🔍 Route params: {}
+[00:44:09.254] Server  LOG     Raw ID: "undefined" "Type:" "string" "Is string \"undefined\":" true
+[00:44:09.254] Server  ERROR   ❌ Invalid ID provided: "undefined"
+[00:44:10.898] Browser LOG     🔍 Route params: {"category":"houses","id":"undefined","locale":"en"}
+[00:44:10.898] Browser LOG     Raw ID: undefined Type: string Is string "undefined": true
+[00:44:10.898] Browser ERROR   ❌ Invalid ID provided: undefined
+[00:44:10.898] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"houses","id":"undefined","locale":"en"}
+[00:44:10.898] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: undefined Type: string Is string "undefined": true
+[00:44:10.898] Browser ERROR   ❌ Invalid ID provided: undefined
+[00:44:10.898] Browser LOG     🔍 Checking authentication state...
+[00:44:10.898] Browser LOG     ✅ User session found: laurentjean535@gmail.com
+[00:44:10.898] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
+[00:45:10.378] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:45:13.243] Server  LOG     🔍 Route params: {}
+[00:45:13.244] Server  LOG     Raw ID: "undefined" "Type:" "string" "Is string \"undefined\":" true
+[00:45:13.244] Server  ERROR   ❌ Invalid ID provided: "undefined"
+[00:45:14.107] Browser LOG     🔍 Route params: {"category":"houses","id":"undefined","locale":"en"}
+[00:45:14.107] Browser LOG     Raw ID: undefined Type: string Is string "undefined": true
+[00:45:14.107] Browser ERROR   ❌ Invalid ID provided: undefined
+[00:45:14.107] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"houses","id":"undefined","locale":"en"}
+[00:45:14.107] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: undefined Type: string Is string "undefined": true
+[00:45:14.107] Browser ERROR   ❌ Invalid ID provided: undefined
+[00:45:14.108] Browser LOG     🔍 Checking authentication state...
+[00:45:14.108] Browser LOG     ✅ User session found: laurentjean535@gmail.com
+[00:45:14.108] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
+[00:45:22.829] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:45:27.157] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:45:37.323] Browser LOG     🔍 Route params: {"category":"houses","id":"undefined","locale":"en"}
+[00:45:37.323] Browser LOG     Raw ID: undefined Type: string Is string "undefined": true
+[00:45:37.323] Browser ERROR   ❌ Invalid ID provided: undefined
+[00:45:37.323] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"houses","id":"undefined","locale":"en"}
+[00:45:37.323] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: undefined Type: string Is string "undefined": true
+[00:45:37.323] Browser ERROR   ❌ Invalid ID provided: undefined
+[00:45:46.112] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:45:50.855] Browser WARN    Image with src "https://res.cloudinary.com/dp7yzc36n/image/upload/v1770465611/ikazeproperty/hq720.jpg.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:45:51.011] Browser WARN    Image with src "https://res.cloudinary.com/dp7yzc36n/image/upload/v1770562987/ikazeproperty/house.jpeg.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:45:53.446] Browser LOG     🔍 Route params: {"category":"houses","id":"8df664fc-98c0-43ee-ade0-01cbadc5ee40","locale":"en"}
+[00:45:53.446] Browser LOG     Raw ID: 8df664fc-98c0-43ee-ade0-01cbadc5ee40 Type: string Is string "undefined": false
+[00:45:53.446] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"houses","id":"8df664fc-98c0-43ee-ade0-01cbadc5ee40","locale":"en"}
+[00:45:53.446] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: 8df664fc-98c0-43ee-ade0-01cbadc5ee40 Type: string Is string "undefined": false
+[00:45:53.446] Browser LOG     🔍 fetchListing called with id: 8df664fc-98c0-43ee-ade0-01cbadc5ee40 string
+[00:45:53.446] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 fetchListing called with id: 8df664fc-98c0-43ee-ade0-01cbadc5ee40 string
+[00:45:53.446] Browser LOG     📋 Fetching listing with ID: 8df664fc-98c0-43ee-ade0-01cbadc5ee40
+[00:45:53.446] Browser LOG     📋 Fetching listing with ID: 8df664fc-98c0-43ee-ade0-01cbadc5ee40
+[00:45:54.444] Browser LOG     📸 Media query result: {"listingId":"8df664fc-98c0-43ee-ade0-01cbadc5ee40","mediaCount":1,"mediaData":[{"created_at":"2026-02-08T15:04:03.301774+00:00","id":"f0fd4d6c-0454-4e2d-808d-9a6710051825","is_primary":true,"listing_id":"8df664fc-98c0-43ee-ade0-01cbadc5ee40","media_type":"image","order_index":0,"public_id":"ikazeproperty/house.jpeg","url":"https://res.cloudinary.com/dp7yzc36n/image/upload/v1770562987/ikazeproperty/house.jpeg.jpg"}],"mediaError":null}
+[00:45:54.757] Browser LOG     📸 Media query result: {"listingId":"8df664fc-98c0-43ee-ade0-01cbadc5ee40","mediaCount":1,"mediaData":[{"created_at":"2026-02-08T15:04:03.301774+00:00","id":"f0fd4d6c-0454-4e2d-808d-9a6710051825","is_primary":true,"listing_id":"8df664fc-98c0-43ee-ade0-01cbadc5ee40","media_type":"image","order_index":0,"public_id":"ikazeproperty/house.jpeg","url":"https://res.cloudinary.com/dp7yzc36n/image/upload/v1770562987/ikazeproperty/house.jpeg.jpg"}],"mediaError":null}
+[00:45:54.757] Browser LOG     🔍 Route params: {"category":"houses","id":"8df664fc-98c0-43ee-ade0-01cbadc5ee40","locale":"en"}
+[00:45:54.757] Browser LOG     Raw ID: 8df664fc-98c0-43ee-ade0-01cbadc5ee40 Type: string Is string "undefined": false
+[00:45:54.757] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"houses","id":"8df664fc-98c0-43ee-ade0-01cbadc5ee40","locale":"en"}
+[00:45:54.757] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: 8df664fc-98c0-43ee-ade0-01cbadc5ee40 Type: string Is string "undefined": false
+[00:45:54.930] Browser LOG     🔍 Route params: {"category":"houses","id":"8df664fc-98c0-43ee-ade0-01cbadc5ee40","locale":"en"}
+[00:45:54.930] Browser LOG     Raw ID: 8df664fc-98c0-43ee-ade0-01cbadc5ee40 Type: string Is string "undefined": false
+[00:45:54.930] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"houses","id":"8df664fc-98c0-43ee-ade0-01cbadc5ee40","locale":"en"}
+[00:45:54.930] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: 8df664fc-98c0-43ee-ade0-01cbadc5ee40 Type: string Is string "undefined": false
+[00:45:55.252] Browser LOG     🔍 Route params: {"category":"houses","id":"8df664fc-98c0-43ee-ade0-01cbadc5ee40","locale":"en"}
+[00:45:55.252] Browser LOG     Raw ID: 8df664fc-98c0-43ee-ade0-01cbadc5ee40 Type: string Is string "undefined": false
+[00:45:55.252] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"houses","id":"8df664fc-98c0-43ee-ade0-01cbadc5ee40","locale":"en"}
+[00:45:55.252] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: 8df664fc-98c0-43ee-ade0-01cbadc5ee40 Type: string Is string "undefined": false
+[00:46:35.131] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:46:42.657] Browser LOG     🔍 Route params: {"category":"houses","id":"undefined","locale":"en"}
+[00:46:42.657] Browser LOG     Raw ID: undefined Type: string Is string "undefined": true
+[00:46:42.657] Browser ERROR   ❌ Invalid ID provided: undefined
+[00:46:42.657] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"houses","id":"undefined","locale":"en"}
+[00:46:42.657] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: undefined Type: string Is string "undefined": true
+[00:46:42.657] Browser ERROR   ❌ Invalid ID provided: undefined
+[00:47:35.554] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:47:37.123] Server  LOG     🔍 Route params: {}
+[00:47:37.123] Server  LOG     Raw ID: "undefined" "Type:" "string" "Is string \"undefined\":" true
+[00:47:37.124] Server  ERROR   ❌ Invalid ID provided: "undefined"
+[00:47:38.175] Browser LOG     🔍 Route params: {"category":"houses","id":"undefined","locale":"en"}
+[00:47:38.175] Browser LOG     Raw ID: undefined Type: string Is string "undefined": true
+[00:47:38.175] Browser ERROR   ❌ Invalid ID provided: undefined
+[00:47:38.175] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"houses","id":"undefined","locale":"en"}
+[00:47:38.175] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: undefined Type: string Is string "undefined": true
+[00:47:38.175] Browser ERROR   ❌ Invalid ID provided: undefined
+[00:47:38.175] Browser LOG     🔍 Checking authentication state...
+[00:47:38.175] Browser LOG     ✅ User session found: laurentjean535@gmail.com
+[00:47:38.175] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
+[00:47:52.332] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:47:57.936] Browser LOG     🔍 Checking authentication state...
+[00:47:58.746] Browser LOG     ✅ User session found: laurentjean535@gmail.com
+[00:47:58.746] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
+[00:48:02.808] Browser LOG     🔍 Route params: {"category":"houses","id":"undefined","locale":"en"}
+[00:48:02.808] Browser LOG     Raw ID: undefined Type: string Is string "undefined": true
+[00:48:02.808] Browser ERROR   ❌ Invalid ID provided: undefined
+[00:48:02.808] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"houses","id":"undefined","locale":"en"}
+[00:48:02.808] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: undefined Type: string Is string "undefined": true
+[00:48:02.808] Browser ERROR   ❌ Invalid ID provided: undefined
+[00:48:19.038] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:49:01.794] Browser LOG     🔍 Checking authentication state...
+[00:49:02.516] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
+[00:49:02.516] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
+[00:49:04.171] Server  LOG     🔍 Processing inquiry: {}
+[00:49:04.525] Server  LOG     ✅ Successfully fetched listing: {}
+[00:49:05.523] Server  LOG     🔍 Processing inquiry: {}
+[00:49:05.847] Server  LOG     ✅ Successfully fetched listing: {}
+[00:50:15.339] Server  LOG     ✓ Compiled in 73ms
+[00:50:15.676] Server  LOG     🔍 Route params: {}
+[00:50:15.676] Server  LOG     Raw ID: "undefined" "Type:" "string" "Is string \"undefined\":" true
+[00:50:15.677] Server  ERROR   ❌ Invalid ID provided: "undefined"
+[00:50:16.901] Browser LOG     🔍 Route params: {"category":"houses","id":"undefined","locale":"en"}
+[00:50:16.901] Browser LOG     Raw ID: undefined Type: string Is string "undefined": true
+[00:50:16.901] Browser ERROR   ❌ Invalid ID provided: undefined
+[00:50:16.901] Browser LOG     🔍 Route params: {"category":"houses","id":"undefined","locale":"en"}
+[00:50:16.901] Browser LOG     Raw ID: undefined Type: string Is string "undefined": true
+[00:50:16.901] Browser ERROR   ❌ Invalid ID provided: undefined

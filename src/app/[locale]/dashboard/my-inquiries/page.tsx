@@ -37,9 +37,11 @@ export default function MyInquiriesPage() {
 
   const fetchInquiries = async () => {
     try {
+      console.log('🚀 Starting fetchInquiries for user:', user?.id)
       setLoading(true)
       
       if (!user) {
+        console.log('❌ No user found, returning')
         return
       }
 
@@ -48,8 +50,11 @@ export default function MyInquiriesPage() {
       const { data: { session } } = await supabaseClient.auth.getSession()
       
       if (!session?.access_token) {
+        console.log('❌ No session token found')
         return
       }
+
+      console.log('✅ Session token found, making API call')
 
       // Build API URL with query parameters
       const params = new URLSearchParams({
@@ -71,15 +76,19 @@ export default function MyInquiriesPage() {
       }
 
       const result = await response.json()
+      console.log('📋 API response received:', result)
       let data = result.data || []
+      console.log('📊 Raw inquiries data:', data.length, 'inquiries')
 
       // Apply client-side search if needed
       if (searchTerm) {
+        const beforeFilter = data.length
         data = data.filter((inquiry: any) => 
           inquiry.listings?.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
           inquiry.seller?.full_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
           inquiry.seller?.email?.toLowerCase().includes(searchTerm.toLowerCase())
         )
+        console.log('🔍 Search filter applied:', beforeFilter, '→', data.length)
       }
 
       setInquiries(data)
@@ -298,13 +307,22 @@ export default function MyInquiriesPage() {
                         </Button>
                       </Link>
                     ) : (
-                      <Button size="sm" variant="outline" disabled>
-                        <Eye className="h-4 w-4 mr-1" />
-                        Listing Unavailable
-                        <span className="text-xs text-gray-500 ml-2">
-                          (ID: {inquiry.listing_id?.slice(0, 8)}...)
-                        </span>
-                      </Button>
+                      <div className="flex items-center gap-2">
+                        <Button size="sm" variant="outline" disabled>
+                          <Eye className="h-4 w-4 mr-1" />
+                          Listing Unavailable
+                        </Button>
+                        {inquiry.listing_id && (
+                          <span className="text-xs text-gray-500">
+                            (ID: {inquiry.listing_id.slice(0, 8)}...)
+                          </span>
+                        )}
+                        {!inquiry.listing_id && (
+                          <span className="text-xs text-red-500">
+                            (No listing ID)
+                          </span>
+                        )}
+                      </div>
                     )}
                     
                     {inquiry.status === 'approved' && (
