@@ -21,6 +21,9 @@ type Listing = Database['public']['Tables']['listings']['Row'] & {
     email: string | null
     avatar_url: string | null
   }
+  house_details?: Database['public']['Tables']['house_details']['Row']
+  car_details?: Database['public']['Tables']['car_details']['Row']
+  land_details?: Database['public']['Tables']['land_details']['Row']
 }
 
 type ListingMedia = Database['public']['Tables']['listing_media']['Row']
@@ -133,7 +136,10 @@ export default function ListingDetailPage() {
               media_type,
               order_index,
               is_primary
-            )
+            ),
+            house_details(*),
+            car_details(*),
+            land_details(*)
           `)
           .eq('id', id)
           .single()
@@ -413,6 +419,177 @@ export default function ListingDetailPage() {
     }
   }
 
+  const renderCategoryDetails = () => {
+    if (!listing) return null
+
+    switch (listing.category) {
+      case 'houses':
+        if (!listing.house_details) return null
+        return (
+          <Card>
+            <CardHeader>
+              <CardTitle>Property Details</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <span className="text-sm text-gray-600">Property Type</span>
+                  <p className="font-medium capitalize">{listing.house_details.property_type || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Condition</span>
+                  <p className="font-medium capitalize">{listing.house_details.condition || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Bedrooms</span>
+                  <p className="font-medium">{listing.house_details.bedrooms || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Bathrooms</span>
+                  <p className="font-medium">{listing.house_details.bathrooms || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Total Area</span>
+                  <p className="font-medium">{listing.house_details.total_area || 'Not specified'} m²</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Year Built</span>
+                  <p className="font-medium">{listing.house_details.year_built || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Furnished</span>
+                  <p className="font-medium capitalize">{listing.house_details.furnished || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Parking</span>
+                  <p className="font-medium capitalize">{listing.house_details.parking || 'Not specified'}</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )
+
+      case 'cars':
+        if (!listing.car_details) return null
+        return (
+          <Card>
+            <CardHeader>
+              <CardTitle>Vehicle Details</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <span className="text-sm text-gray-600">Vehicle Type</span>
+                  <p className="font-medium capitalize">{listing.car_details.vehicle_type || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Condition</span>
+                  <p className="font-medium capitalize">{listing.car_details.condition || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Make</span>
+                  <p className="font-medium">{listing.car_details.make || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Model</span>
+                  <p className="font-medium">{listing.car_details.model || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Year Manufacture</span>
+                  <p className="font-medium">{listing.car_details.year_manufacture || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Mileage</span>
+                  <p className="font-medium">{listing.car_details.mileage || 'Not specified'} km</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Fuel Type</span>
+                  <p className="font-medium capitalize">{listing.car_details.fuel_type || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Transmission</span>
+                  <p className="font-medium capitalize">{listing.car_details.transmission || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Color</span>
+                  <p className="font-medium capitalize">{listing.car_details.color || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Doors</span>
+                  <p className="font-medium">{listing.car_details.doors || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Seats</span>
+                  <p className="font-medium">{listing.car_details.seats || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Engine Capacity</span>
+                  <p className="font-medium">{listing.car_details.engine_capacity || 'Not specified'} cc</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )
+
+      case 'land':
+        if (!listing.land_details) return null
+        return (
+          <Card>
+            <CardHeader>
+              <CardTitle>Land Details</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <span className="text-sm text-gray-600">Plot Type</span>
+                  <p className="font-medium capitalize">{listing.land_details.plot_type || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Shape</span>
+                  <p className="font-medium capitalize">{listing.land_details.shape || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Plot Size</span>
+                  <p className="font-medium">{listing.land_details.plot_size || 'Not specified'} {listing.land_details.size_unit}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Topography</span>
+                  <p className="font-medium capitalize">{listing.land_details.topography || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Road Access</span>
+                  <p className="font-medium capitalize">{listing.land_details.road_access || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Land Title Type</span>
+                  <p className="font-medium capitalize">{listing.land_details.land_title_type || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Fenced</span>
+                  <p className="font-medium">{listing.land_details.fenced ? 'Yes' : 'No'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Surveyed</span>
+                  <p className="font-medium">{listing.land_details.surveyed ? 'Yes' : 'No'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Soil Type</span>
+                  <p className="font-medium capitalize">{listing.land_details.soil_type || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Zoning Approval</span>
+                  <p className="font-medium">{listing.land_details.zoning_approval ? 'Yes' : 'No'}</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )
+
+      default:
+        return null
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-5xl mx-auto px-3 sm:px-4 lg:px-6 lg:px-8 py-4 sm:py-8">
@@ -582,6 +759,8 @@ export default function ListingDetailPage() {
                 <p className="text-gray-700 whitespace-pre-line">{listing.description}</p>
               </CardContent>
             </Card>
+
+            {renderCategoryDetails()}
           </div>
 
           <div className="space-y-4 sm:space-y-6">

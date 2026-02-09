@@ -23,6 +23,83 @@ export default function ListingsPage() {
     { id: 'other', name: 'Other Items', icon: Package, count: 0, color: 'bg-purple-500' }
   ]
 
+  const getListingDetails = (listing: any) => {
+    if (!listing) return null
+
+    switch (listing.category) {
+      case 'cars':
+        return listing.car_details ? {
+          'Vehicle Type': listing.car_details.vehicle_type || 'Not specified',
+          'Condition': listing.car_details.condition || 'Not specified',
+          'Make': listing.car_details.make || 'Not specified',
+          'Model': listing.car_details.model || 'Not specified',
+          'Year Manufacture': listing.car_details.year_manufacture || 'Not specified',
+          'Mileage': listing.car_details.mileage ? `${listing.car_details.mileage} km` : 'Not specified',
+          'Fuel Type': listing.car_details.fuel_type || 'Not specified',
+          'Transmission': listing.car_details.transmission || 'Not specified',
+          'Color': listing.car_details.color || 'Not specified',
+          'Doors': listing.car_details.doors || 'Not specified',
+          'Seats': listing.car_details.seats || 'Not specified',
+          'Engine Capacity': listing.car_details.engine_capacity ? `${listing.car_details.engine_capacity} cc` : 'Not specified'
+        } : null
+
+      case 'houses':
+        return listing.house_details ? {
+          'Property Type': listing.house_details.property_type || 'Not specified',
+          'Condition': listing.house_details.condition || 'Not specified',
+          'Bedrooms': listing.house_details.bedrooms || 'Not specified',
+          'Bathrooms': listing.house_details.bathrooms || 'Not specified',
+          'Total Area': listing.house_details.total_area ? `${listing.house_details.total_area} m²` : 'Not specified',
+          'Year Built': listing.house_details.year_built || 'Not specified',
+          'Furnished': listing.house_details.furnished || 'Not specified',
+          'Parking': listing.house_details.parking || 'Not specified'
+        } : null
+
+      case 'land':
+        return listing.land_details ? {
+          'Plot Type': listing.land_details.plot_type || 'Not specified',
+          'Shape': listing.land_details.shape || 'Not specified',
+          'Plot Size': listing.land_details.plot_size ? `${listing.land_details.plot_size} ${listing.land_details.size_unit || 'm²'}` : 'Not specified',
+          'Topography': listing.land_details.topography || 'Not specified',
+          'Road Access': listing.land_details.road_access || 'Not specified',
+          'Land Title Type': listing.land_details.land_title_type || 'Not specified',
+          'Fenced': listing.land_details.fenced ? 'Yes' : 'No',
+          'Surveyed': listing.land_details.surveyed ? 'Yes' : 'No'
+        } : null
+
+      case 'other':
+        return listing.other_details ? {
+          'Subcategory': listing.other_details.subcategory || 'Not specified',
+          'Brand': listing.other_details.brand || 'Not specified',
+          'Model': listing.other_details.model || 'Not specified',
+          'Condition': listing.other_details.condition || 'Not specified',
+          'Warranty Available': listing.other_details.warranty_available ? 'Yes' : 'No',
+          'Warranty Period': listing.other_details.warranty_period || 'Not specified',
+          'Reason for Selling': listing.other_details.reason_for_selling || 'Not specified',
+          'Age of Item': listing.other_details.age_of_item || 'Not specified'
+        } : null
+
+      default:
+        return null
+    }
+  }
+
+  const renderListingDetails = (listing: any) => {
+    const details = getListingDetails(listing)
+    if (!details) return null
+
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+        {Object.entries(details).map(([key, value]) => (
+          <div key={key}>
+            <span className="text-gray-600">{key}:</span>
+            <span className="font-medium text-gray-900">{value}</span>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
   useEffect(() => {
     fetchAllListings()
   }, [])
@@ -32,7 +109,7 @@ export default function ListingsPage() {
       setLoading(true)
       const allListings = []
       
-      // Fetch listings from all categories
+      // Fetch listings from all categories with their details
       for (const category of categories) {
         const { listings: categoryListings } = await fetchListingsWithDetails({
           category: category.id,
@@ -42,6 +119,20 @@ export default function ListingsPage() {
       }
       
       setListings(allListings)
+          promo.status === 'active' && new Date(promo.expires_at) > new Date()
+        )
+        const bHasActivePromotion = b.listing_promotions?.some((promo: any) => 
+          promo.status === 'active' && new Date(promo.expires_at) > new Date()
+        )
+        
+        if (aHasActivePromotion && !bHasActivePromotion) return -1
+        if (!aHasActivePromotion && bHasActivePromotion) return 1
+        
+        // Finally, sort by creation date (newest first)
+        return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      })
+      
+      setListings(sortedListings)
     } catch (error) {
       console.error('Error fetching listings:', error)
     } finally {
@@ -187,7 +278,19 @@ export default function ListingsPage() {
                           <Package className="h-12 w-12 text-gray-400" />
                         </div>
                       )}
-                      <div className="absolute top-2 right-2">
+                      <div className="absolute top-2 right-2 flex flex-col gap-2">
+                        {listing.listing_promotions?.some((promo: any) => 
+                          promo.status === 'active' && new Date(promo.expires_at) > new Date()
+                        ) && (
+                          <Badge className="bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold">
+                            🚀 Promoted
+                          </Badge>
+                        )}
+                        {listing.featured && (
+                          <Badge className="bg-yellow-500 text-white">
+                            ⭐ Featured
+                          </Badge>
+                        )}
                         <Badge className="bg-red-600 text-white">
                           {listing.category}
                         </Badge>
@@ -216,6 +319,13 @@ export default function ListingsPage() {
                         </div>
                       </div>
                     </CardContent>
+                    {/* Listing Details */}
+                    {renderListingDetails(listing) && (
+                      <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+                        <h4 className="font-semibold text-gray-900 mb-3">Listing Details</h4>
+                        {renderListingDetails(listing)}
+                      </div>
+                    )}
                   </Card>
                 </Link>
               ))}

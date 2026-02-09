@@ -35,6 +35,8 @@ export async function GET(request: NextRequest) {
         category,
         status,
         created_at,
+        promoted,
+        featured,
         seller_id:users(id, full_name, email),
         listing_media(
           id,
@@ -42,9 +44,18 @@ export async function GET(request: NextRequest) {
           media_type,
           order_index,
           is_primary
+        ),
+        listing_promotions(
+          id,
+          promotion_type,
+          status,
+          starts_at,
+          expires_at
         )
       `)
       .eq('status', 'available')
+      .order('promoted', { ascending: false })
+      .order('featured', { ascending: false })
       .order('created_at', { ascending: false })
       .range(offset, offset + limit - 1)
 
@@ -142,12 +153,23 @@ export async function POST(request: NextRequest) {
       promoted = false 
     } = body
 
+    // Set commission rate based on commission type (if provided)
+    let finalCommissionRate = 0.30 // Default for agent
+
+    if (body.commission_type === 'owner') {
+      finalCommissionRate = 0.02 // 2% for owners
+    } else if (body.commission_type === 'agent') {
+      finalCommissionRate = 0.30 // 30% for agents
+    }
+
     console.log('🔍 Validating fields:')
     console.log('- title:', title)
     console.log('- description:', description)
     console.log('- price:', price)
     console.log('- category:', category)
     console.log('- seller_id:', seller_id)
+    console.log('- commission_type:', body.commission_type)
+    console.log('- commission_rate:', finalCommissionRate)
 
     // Validate required fields with better error messages
     const requiredFields = [
@@ -222,7 +244,7 @@ export async function POST(request: NextRequest) {
         status: 'available',
         location,
         seller_id: user.id, // Use authenticated user's ID
-        commission_rate: commission_rate,
+        commission_rate: finalCommissionRate,
         commission_agreed,
         featured,
         promoted,
@@ -241,6 +263,92 @@ export async function POST(request: NextRequest) {
         { error: listingError.message },
         { status: 500 }
       )
+    }
+
+    // Create category-specific details if provided
+    if (body.category === 'cars' && body.car_details) {
+      try {
+        const { data: carDetailsData, error: carDetailsError } = await supabase
+          .from('car_details')
+          .insert({
+            listing_id: listing.id,
+            ...body.car_details
+          })
+          .select()
+          .single()
+
+        if (carDetailsError) {
+          console.error('Car details creation error:', carDetailsError)
+        } else {
+          console.log('✅ Car details created:', carDetailsData)
+        }
+      } catch (error) {
+        console.error('Error creating car details:', error)
+      }
+    }
+
+    // Similar for other categories can be added here
+    if (body.category === 'houses' && body.house_details) {
+      try {
+        const { data: houseDetailsData, error: houseDetailsError } = await supabase
+          .from('house_details')
+          .insert({
+            listing_id: listing.id,
+            ...body.house_details
+          })
+          .select()
+          .single()
+
+        if (houseDetailsError) {
+          console.error('House details creation error:', houseDetailsError)
+        } else {
+          console.log('✅ House details created:', houseDetailsData)
+        }
+      } catch (error) {
+        console.error('Error creating house details:', error)
+      }
+    }
+
+    if (body.category === 'land' && body.land_details) {
+      try {
+        const { data: landDetailsData, error: landDetailsError } = await supabase
+          .from('land_details')
+          .insert({
+            listing_id: listing.id,
+            ...body.land_details
+          })
+          .select()
+          .single()
+
+        if (landDetailsError) {
+          console.error('Land details creation error:', landDetailsError)
+        } else {
+          console.log('✅ Land details created:', landDetailsData)
+        }
+      } catch (error) {
+        console.error('Error creating land details:', error)
+      }
+    }
+
+    if (body.category === 'other' && body.other_details) {
+      try {
+        const { data: otherDetailsData, error: otherDetailsError } = await supabase
+          .from('other_item_details')
+          .insert({
+            listing_id: listing.id,
+            ...body.other_details
+          })
+          .select()
+          .single()
+
+        if (otherDetailsError) {
+          console.error('Other details creation error:', otherDetailsError)
+        } else {
+          console.log('✅ Other details created:', otherDetailsData)
+        }
+      } catch (error) {
+        console.error('Error creating other details:', error)
+      }
     }
 
     return NextResponse.json({

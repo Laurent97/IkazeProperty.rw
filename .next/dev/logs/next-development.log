@@ -1,12 +1,319 @@
-[00:31:33.886] Server  ERROR   ⨯ Error: ENOENT: no such file or directory, open 'D:\Apps\IkazeProperty.rw\.next\dev\server\app\api\notifications\[__metadata_id__]\route\app-paths-manifest.json'
-[00:31:33.933] Server  ERROR   ⨯ Error: ENOENT: no such file or directory, open 'D:\Apps\IkazeProperty.rw\.next\dev\server\app\api\notifications\[__metadata_id__]\route\app-paths-manifest.json'
-[00:31:33.942] Server  ERROR   ⨯ TurbopackInternalError: Failed to lookup task type: Looking up task type for TaskId 245567 from database failed
+[00:00:02.708] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:02.996] Server  LOG     ✓ Ready in 2.3s
+[00:16:38.790] Server  LOG     ○ Compiling /[locale] ...
+[00:16:41.641] Browser LOG     🔍 Checking authentication state...
+[00:16:41.985] Browser LOG     🔴 No session found
+[00:16:41.985] Browser LOG     🔄 Auth state changed: INITIAL_SESSION undefined
+[00:16:44.811] Browser WARN    Image with src "https://res.cloudinary.com/dp7yzc36n/image/upload/v1770622108/ads/1.jpeg.jpg.jpg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[00:16:44.811] Browser WARN    Image with src "https://res.cloudinary.com/dp7yzc36n/image/upload/v1770622108/ads/1.jpeg.jpg.jpg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:16:51.122] Browser LOG     🔍 Checking authentication state...
+[00:16:51.873] Browser LOG     🔄 Auth state changed: TOKEN_REFRESHED laurentjean535@gmail.com
+[00:16:51.874] Browser LOG     ✅ User session found: laurentjean535@gmail.com
+[00:16:51.874] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
+[00:16:53.001] Browser WARN    Image with src "https://res.cloudinary.com/dp7yzc36n/image/upload/v1770622108/ads/1.jpeg.jpg.jpg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:17:12.902] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:17:37.462] Server  LOG     🚀 Upload API called
+[00:17:37.464] Server  LOG     🔑 Environment variables check: {}
+[00:17:37.469] Server  LOG     🚀 Upload API called
+[00:17:37.469] Server  LOG     🔑 Environment variables check: {}
+[00:17:37.473] Server  LOG     📁 File details: {}
+[00:17:37.475] Server  LOG     📤 Starting Cloudinary upload...
+[00:17:37.485] Server  LOG     📁 File details: {}
+[00:17:37.486] Server  LOG     📤 Starting Cloudinary upload...
+[00:17:40.538] Server  LOG     ✅ Cloudinary upload successful: {}
+[00:17:40.642] Browser LOG     Upload response status for 057e349b9d3f912f4c86e42f457e9e08.jpg: 200
+[00:17:40.642] Browser LOG     Upload result for 057e349b9d3f912f4c86e42f457e9e08.jpg: {"data":{"duration":null,"format":"jpg","public_id":"ikazeproperty/057e349b9d3f912f4c86e42f457e9e08.jpg","size":217157,"type":"image","url":"https://res.cloudinary.com/dp7yzc36n/image/upload/v1770625838/ikazeproperty/057e349b9d3f912f4c86e42f457e9e08.jpg.jpg"},"success":true}
+[00:17:40.703] Server  LOG     ✅ Cloudinary upload successful: {}
+[00:17:40.808] Browser LOG     Upload response status for 3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg: 200
+[00:17:40.808] Browser LOG     Upload result for 3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg: {"data":{"duration":null,"format":"jpg","public_id":"ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg","size":286509,"type":"image","url":"https://res.cloudinary.com/dp7yzc36n/image/upload/v1770625838/ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg.jpg"},"success":true}
+[00:17:40.808] Browser LOG     🖼️ Displaying image 0: {"public_id":"ikazeproperty/057e349b9d3f912f4c86e42f457e9e08.jpg","type":"image","url":"https://res.cloudinary.com/dp7yzc36n/image/upload/v1770625838/ikazeproperty/057e349b9d3f912f4c86e42f457e9e08.jpg.jpg"}
+[00:17:40.808] Browser LOG     🖼️ Displaying image 1: {"public_id":"ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg","type":"image","url":"https://res.cloudinary.com/dp7yzc36n/image/upload/v1770625838/ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg.jpg"}
+[00:17:40.808] Browser LOG     [2;38;2;124;124;124m%s[0m 🖼️ Displaying image 0: {"public_id":"ikazeproperty/057e349b9d3f912f4c86e42f457e9e08.jpg","type":"image","url":"https://res.cloudinary.com/dp7yzc36n/image/upload/v1770625838/ikazeproperty/057e349b9d3f912f4c86e42f457e9e08.jpg.jpg"}
+[00:17:40.808] Browser LOG     [2;38;2;124;124;124m%s[0m 🖼️ Displaying image 1: {"public_id":"ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg","type":"image","url":"https://res.cloudinary.com/dp7yzc36n/image/upload/v1770625838/ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg.jpg"}
+[00:18:24.171] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:18:38.690] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:23:06.513] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:24:23.921] Server  LOG     ✓ Compiled in 147ms
+[00:24:25.434] Browser LOG     🔍 Checking authentication state...
+[00:24:25.435] Browser LOG     ✅ User session found: laurentjean535@gmail.com
+[00:24:25.435] Browser ERROR   React has detected a change in the order of Hooks called by %s. This will lead to bugs and errors if not fixed. For more information, read the Rules of Hooks: https://react.dev/link/rules-of-hooks
 
-Debug info:
-- Failed to lookup task type: Looking up task type for TaskId 245567 from database failed
-  
-  Caused by:
-      0: Unable to open static sorted file referenced from 00002055.meta
-      1: Unable to open static sorted file 00002052.sst
-      2: The system cannot find the path specified. (os error 3)
-[00:31:33.979] Server  ERROR   ⨯ Error: ENOENT: no such file or directory, open 'D:\Apps\IkazeProperty.rw\.next\dev\server\app\api\notifications\[__metadata_id__]\route\app-paths-manifest.json'
+   Previous render            Next render
+   ------------------------------------------------------
+%s   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ CreateListingPage 1. useContext                 useContext
+2. useContext                 useContext
+3. useMemo                    useMemo
+4. useContext                 useContext
+5. useEffect                  useEffect
+6. undefined                  useState
+
+[00:24:25.435] Browser ERROR   uncaughtError: Error: Rendered more hooks than during the previous render.
+[00:24:25.435] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
+[00:26:24.728] Browser LOG     🔍 Checking authentication state...
+[00:26:24.728] Browser LOG     ✅ User session found: laurentjean535@gmail.com
+[00:26:24.728] Browser ERROR   React has detected a change in the order of Hooks called by %s. This will lead to bugs and errors if not fixed. For more information, read the Rules of Hooks: https://react.dev/link/rules-of-hooks
+
+   Previous render            Next render
+   ------------------------------------------------------
+%s   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ CreateListingPage 1. useContext                 useContext
+2. useContext                 useContext
+3. useMemo                    useMemo
+4. useContext                 useContext
+5. useEffect                  useEffect
+6. undefined                  useState
+
+[00:26:24.728] Browser ERROR   uncaughtError: Error: Rendered more hooks than during the previous render.
+[00:26:24.728] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
+[00:27:53.787] Server  LOG     ✓ Compiled in 98ms
+[00:27:53.803] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:27:53.803] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:27:55.321] Browser LOG     🔍 Checking authentication state...
+[00:27:55.321] Browser LOG     ✅ User session found: laurentjean535@gmail.com
+[00:27:55.321] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
+[00:27:58.533] Server  LOG     ✓ Compiled in 102ms
+[00:28:00.320] Browser LOG     🔍 Checking authentication state...
+[00:28:00.320] Browser LOG     ✅ User session found: laurentjean535@gmail.com
+[00:28:00.320] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
+[00:28:01.223] Server  LOG     ✓ Compiled in 92ms
+[00:28:03.141] Server  LOG     ✓ Compiled in 92ms
+[00:28:03.156] Browser LOG     🔍 Checking authentication state...
+[00:28:03.156] Browser LOG     ✅ User session found: laurentjean535@gmail.com
+[00:28:03.156] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
+[00:28:04.322] Browser LOG     🔍 Checking authentication state...
+[00:28:04.322] Browser LOG     ✅ User session found: laurentjean535@gmail.com
+[00:28:04.322] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
+[00:29:06.240] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:29:18.970] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:30:51.588] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:31:05.348] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:32:09.772] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:32:43.876] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:33:07.527] Server  LOG     🚀 Upload API called
+[00:33:07.528] Server  LOG     🔑 Environment variables check: {}
+[00:33:07.533] Server  LOG     📁 File details: {}
+[00:33:07.534] Server  LOG     📤 Starting Cloudinary upload...
+[00:33:10.732] Server  LOG     ✅ Cloudinary upload successful: {}
+[00:33:10.839] Browser LOG     Upload response status for 3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg: 200
+[00:33:10.839] Browser LOG     Upload result for 3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg: {"data":{"duration":null,"format":"jpg","public_id":"ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg","size":286509,"type":"image","url":"https://res.cloudinary.com/dp7yzc36n/image/upload/v1770625838/ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg.jpg"},"success":true}
+[00:33:10.839] Browser LOG     🖼️ Displaying image 0: {"public_id":"ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg","type":"image","url":"https://res.cloudinary.com/dp7yzc36n/image/upload/v1770625838/ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg.jpg"}
+[00:33:10.839] Browser LOG     [2;38;2;124;124;124m%s[0m 🖼️ Displaying image 0: {"public_id":"ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg","type":"image","url":"https://res.cloudinary.com/dp7yzc36n/image/upload/v1770625838/ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg.jpg"}
+[00:34:01.546] Browser LOG     📤 Submitting listing with data: {"category":"cars","images":[{"index":0,"public_id":"ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg","type":"image","url":"https://res.cloudinary.com/dp7yzc36n/image/upload/v1770625838/ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg.jpg"}],"imagesCount":1,"price":"5000","title":"Nissan"}
+[00:34:01.546] Browser LOG     🔑 Using session token for user: laurentjean535@gmail.com
+[00:34:01.546] Browser LOG     📤 Sending request body: {"category":"cars","commission_agreed":true,"commission_rate":0.02,"commission_type":"owner","currency":"RWF","description":"anc","featured":false,"likes":0,"location":{"address":"","cell":"","district":"Gasabo","province":"Kigali","sector":"","village":""},"price":5000,"price_type":"fixed","promoted":false,"seller_id":"54e47ad8-42b5-4058-b0d0-b3fd6accb6df","title":"Nissan","transaction_type":"sale","views":0,"visit_fee_amount":15000,"visit_fee_enabled":true,"visit_fee_payment_methods":{"airtel_money":{"phone_number":""},"equity_bank":{"account_name":"","account_number":""},"mtn_momo":{"phone_number":""}}}
+[00:34:02.261] Server  LOG     ✅ Authenticated user: "laurentjean535@gmail.com"
+[00:34:02.263] Server  LOG     📝 Received body: {}
+[00:34:02.264] Server  LOG     🔍 Validating fields:
+[00:34:02.264] Server  LOG     - title: "Nissan"
+[00:34:02.264] Server  LOG     - description: "anc"
+[00:34:02.265] Server  LOG     - price: 5000
+[00:34:02.265] Server  LOG     - category: "cars"
+[00:34:02.265] Server  LOG     - seller_id: "54e47ad8-42b5-4058-b0d0-b3fd6accb6df"
+[00:34:02.265] Server  LOG     - commission_type: "owner"
+[00:34:02.265] Server  LOG     - commission_rate: 0.02
+[00:34:02.642] Server  LOG     ✅ User verified in users table: "54e47ad8-42b5-4058-b0d0-b3fd6accb6df"
+[00:34:03.197] Server  ERROR   Listing creation error: {}
+[00:34:03.300] Browser LOG     📥 Response status: 500
+[00:34:03.300] Browser LOG     📥 Response body: {"error":"Could not find the 'commission_type' column of 'listings' in the schema cache"}
+[00:34:03.300] Browser ERROR   Error creating listing: {}
+[00:34:43.552] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:34:55.227] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:35:16.988] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:35:21.755] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:35:46.040] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:35:47.938] Browser LOG     📤 Submitting listing with data: {"category":"cars","images":[{"index":0,"public_id":"ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg","type":"image","url":"https://res.cloudinary.com/dp7yzc36n/image/upload/v1770625838/ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg.jpg"}],"imagesCount":1,"price":"5000","title":"Nissan"}
+[00:35:47.938] Browser LOG     🔑 Using session token for user: laurentjean535@gmail.com
+[00:35:47.938] Browser LOG     📤 Sending request body: {"category":"cars","commission_agreed":true,"commission_rate":0.02,"commission_type":"owner","currency":"RWF","description":"anc","featured":false,"likes":0,"location":{"address":"","cell":"","district":"Gasabo","province":"Kigali","sector":"","village":""},"price":5000,"price_type":"fixed","promoted":false,"seller_id":"54e47ad8-42b5-4058-b0d0-b3fd6accb6df","title":"Nissan","transaction_type":"sale","views":0,"visit_fee_amount":15000,"visit_fee_enabled":true,"visit_fee_payment_methods":{"airtel_money":{"phone_number":""},"equity_bank":{"account_name":"","account_number":""},"mtn_momo":{"phone_number":""}}}
+[00:35:48.249] Server  LOG     ✅ Authenticated user: "laurentjean535@gmail.com"
+[00:35:48.250] Server  LOG     📝 Received body: {}
+[00:35:48.250] Server  LOG     🔍 Validating fields:
+[00:35:48.250] Server  LOG     - title: "Nissan"
+[00:35:48.251] Server  LOG     - description: "anc"
+[00:35:48.251] Server  LOG     - price: 5000
+[00:35:48.251] Server  LOG     - category: "cars"
+[00:35:48.251] Server  LOG     - seller_id: "54e47ad8-42b5-4058-b0d0-b3fd6accb6df"
+[00:35:48.251] Server  LOG     - commission_type: "owner"
+[00:35:48.252] Server  LOG     - commission_rate: 0.02
+[00:35:48.607] Server  LOG     ✅ User verified in users table: "54e47ad8-42b5-4058-b0d0-b3fd6accb6df"
+[00:35:49.922] Browser LOG     📥 Response status: 200
+[00:35:49.922] Browser LOG     📥 Response body: {"success":true,"data":{"id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","title":"Nissan","description":"anc","price":5000,"currency":"RWF","price_type":"fixed","category":"cars","transaction_type":"sale","status":"available","location":{"cell":"","sector":"","address":"","village":"","district":"Gasabo","province":"Kigali"},"seller_id":"54e47ad8-42b5-4058-b0d0-b3fd6accb6df","commission_rate":0.02,"commission_agreed":true,"featured":false,"promoted":false,"views":0,"likes":0,"created_at":"2026-02-09T09:09:16.722172+00:00","updated_at":"2026-02-09T09:09:16.722172+00:00","expires_at":null,"visit_fee_enabled":true,"visit_fee_amount":15000,"visit_fee_payment_methods":{"mtn_momo":{"phone_number":""},"equity_bank":{"account_name":"","account_number":""},"airtel_money":{"phone_number":""}}}}
+[00:35:49.922] Browser LOG     Uploading image 0: {"is_primary":true,"listing_id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","media_type":"image","order_index":0,"public_id":"ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg","url":"https://res.cloudinary.com/dp7yzc36n/image/upload/v1770625838/ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg.jpg"}
+[00:35:50.272] Server  LOG     ✅ Authenticated user in media: "laurentjean535@gmail.com"
+[00:35:50.775] Browser LOG     Media upload results: [{"data":null,"success":true}]
+[00:36:04.867] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:36:27.408] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:36:30.270] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:36:34.113] Browser LOG     🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:36:34.113] Browser LOG     Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:36:34.113] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:36:34.113] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:36:34.113] Browser LOG     🔍 fetchListing called with id: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 string
+[00:36:34.113] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 fetchListing called with id: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 string
+[00:36:34.113] Browser LOG     📋 Fetching listing with ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055
+[00:36:34.113] Browser LOG     📋 Fetching listing with ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055
+[00:36:35.405] Browser LOG     📸 Media query result: {"listingId":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","mediaCount":1,"mediaData":[{"created_at":"2026-02-09T09:09:18.135083+00:00","id":"59865288-0285-401b-9d0a-7e73e54772bb","is_primary":true,"listing_id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","media_type":"image","order_index":0,"public_id":"ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg","url":"https://res.cloudinary.com/dp7yzc36n/image/upload/v1770625838/ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg.jpg"}],"mediaError":null}
+[00:36:35.815] Browser LOG     📸 Media query result: {"listingId":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","mediaCount":1,"mediaData":[{"created_at":"2026-02-09T09:09:18.135083+00:00","id":"59865288-0285-401b-9d0a-7e73e54772bb","is_primary":true,"listing_id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","media_type":"image","order_index":0,"public_id":"ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg","url":"https://res.cloudinary.com/dp7yzc36n/image/upload/v1770625838/ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg.jpg"}],"mediaError":null}
+[00:36:35.815] Browser LOG     🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:36:35.815] Browser LOG     Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:36:35.815] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:36:35.815] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:36:35.949] Browser LOG     🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:36:35.949] Browser LOG     Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:36:35.949] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:36:35.949] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:36:36.354] Browser LOG     🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:36:36.354] Browser LOG     Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:36:36.354] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:36:36.354] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:36:41.548] Server  LOG     ✓ Compiled in 81ms
+[00:36:41.797] Server  LOG     🔍 Route params: {}
+[00:36:41.798] Server  LOG     Raw ID: "f9ffb41c-1f6d-41aa-8919-ff8b9ef14055" "Type:" "string" "Is string \"undefined\":" false
+[00:36:42.322] Browser LOG     🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:36:42.322] Browser LOG     Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:36:42.322] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:36:42.322] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:36:42.322] Browser LOG     🔍 fetchListing called with id: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 string
+[00:36:42.322] Browser LOG     🔍 Checking authentication state...
+[00:36:42.322] Browser LOG     📋 Fetching listing with ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055
+[00:36:42.322] Browser LOG     ✅ User session found: laurentjean535@gmail.com
+[00:36:42.322] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
+[00:36:42.715] Browser LOG     🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:36:42.715] Browser LOG     Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:36:42.715] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:36:42.715] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:36:43.052] Browser LOG     📸 Media query result: {"listingId":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","mediaCount":1,"mediaData":[{"created_at":"2026-02-09T09:09:18.135083+00:00","id":"59865288-0285-401b-9d0a-7e73e54772bb","is_primary":true,"listing_id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","media_type":"image","order_index":0,"public_id":"ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg","url":"https://res.cloudinary.com/dp7yzc36n/image/upload/v1770625838/ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg.jpg"}],"mediaError":null}
+[00:36:43.052] Browser LOG     🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:36:43.052] Browser LOG     Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:36:43.052] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:36:43.052] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:36:43.415] Browser LOG     🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:36:43.415] Browser LOG     Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:36:43.415] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:36:43.415] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:36:46.797] Browser WARN    Image with src "https://res.cloudinary.com/dp7yzc36n/image/upload/v1770622108/ads/1.jpeg.jpg.jpg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:36:58.798] Server  LOG     🔍 Route params: {}
+[00:36:58.798] Server  LOG     Raw ID: "f9ffb41c-1f6d-41aa-8919-ff8b9ef14055" "Type:" "string" "Is string \"undefined\":" false
+[00:36:59.116] Browser LOG     🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:36:59.116] Browser LOG     Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:36:59.116] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:36:59.116] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:36:59.116] Browser LOG     🔍 fetchListing called with id: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 string
+[00:36:59.116] Browser LOG     🔍 Checking authentication state...
+[00:36:59.116] Browser LOG     📋 Fetching listing with ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055
+[00:36:59.116] Browser LOG     ✅ User session found: laurentjean535@gmail.com
+[00:36:59.116] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
+[00:36:59.458] Browser LOG     🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:36:59.458] Browser LOG     Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:36:59.458] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:36:59.458] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:36:59.826] Browser LOG     📸 Media query result: {"listingId":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","mediaCount":1,"mediaData":[{"created_at":"2026-02-09T09:09:18.135083+00:00","id":"59865288-0285-401b-9d0a-7e73e54772bb","is_primary":true,"listing_id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","media_type":"image","order_index":0,"public_id":"ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg","url":"https://res.cloudinary.com/dp7yzc36n/image/upload/v1770625838/ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg.jpg"}],"mediaError":null}
+[00:36:59.826] Browser LOG     🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:36:59.826] Browser LOG     Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:36:59.826] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:36:59.826] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:37:00.195] Browser LOG     🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:37:00.195] Browser LOG     Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:37:00.195] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:37:00.195] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:37:07.521] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:37:17.054] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:37:32.788] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:37:46.537] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:37:52.379] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:37:56.649] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:38:01.181] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:38:03.984] Browser LOG     🔍 Checking authentication state...
+[00:38:03.984] Browser LOG     ✅ User session found: laurentjean535@gmail.com
+[00:38:03.984] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
+[00:38:24.740] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:38:31.501] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:38:45.634] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:39:27.445] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:39:31.128] Browser WARN    Image with src "https://res.cloudinary.com/dp7yzc36n/image/upload/v1770622108/ads/1.jpeg.jpg.jpg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:40:13.378] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:40:15.813] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:40:20.242] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:40:43.367] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:40:46.601] Browser LOG     🔍 Checking authentication state...
+[00:40:46.601] Browser LOG     ✅ User session found: laurentjean535@gmail.com
+[00:40:46.601] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
+[00:40:47.708] Browser WARN    Image with src "https://res.cloudinary.com/dp7yzc36n/image/upload/v1770622108/ads/1.jpeg.jpg.jpg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[00:40:47.708] Browser WARN    Image with src "https://res.cloudinary.com/dp7yzc36n/image/upload/v1770622108/ads/1.jpeg.jpg.jpg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:40:52.400] Server  LOG     🔍 Route params: {}
+[00:40:52.401] Server  LOG     Raw ID: "f9ffb41c-1f6d-41aa-8919-ff8b9ef14055" "Type:" "string" "Is string \"undefined\":" false
+[00:40:52.751] Browser LOG     🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:40:52.751] Browser LOG     Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:40:52.751] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:40:52.751] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:40:52.751] Browser LOG     🔍 fetchListing called with id: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 string
+[00:40:52.751] Browser LOG     🔍 Checking authentication state...
+[00:40:52.751] Browser LOG     📋 Fetching listing with ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055
+[00:40:52.751] Browser LOG     ✅ User session found: laurentjean535@gmail.com
+[00:40:52.751] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
+[00:40:53.142] Browser LOG     🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:40:53.142] Browser LOG     Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:40:53.142] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:40:53.142] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:40:53.521] Browser LOG     📸 Media query result: {"listingId":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","mediaCount":1,"mediaData":[{"created_at":"2026-02-09T09:09:18.135083+00:00","id":"59865288-0285-401b-9d0a-7e73e54772bb","is_primary":true,"listing_id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","media_type":"image","order_index":0,"public_id":"ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg","url":"https://res.cloudinary.com/dp7yzc36n/image/upload/v1770625838/ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg.jpg"}],"mediaError":null}
+[00:40:53.521] Browser LOG     🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:40:53.521] Browser LOG     Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:40:53.521] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:40:53.521] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:40:53.898] Browser LOG     🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:40:53.898] Browser LOG     Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:40:53.898] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:40:53.898] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:41:06.001] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:41:13.185] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:42:16.904] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:42:19.291] Server  LOG     🔍 Route params: {}
+[00:42:19.291] Server  LOG     Raw ID: "f9ffb41c-1f6d-41aa-8919-ff8b9ef14055" "Type:" "string" "Is string \"undefined\":" false
+[00:42:19.677] Browser LOG     🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:42:19.677] Browser LOG     Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:42:19.677] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:42:19.677] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:42:19.677] Browser LOG     🔍 fetchListing called with id: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 string
+[00:42:19.677] Browser LOG     🔍 Checking authentication state...
+[00:42:19.677] Browser LOG     📋 Fetching listing with ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055
+[00:42:19.677] Browser LOG     ✅ User session found: laurentjean535@gmail.com
+[00:42:19.677] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
+[00:42:20.203] Browser LOG     🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:42:20.203] Browser LOG     Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:42:20.203] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:42:20.203] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:42:20.777] Browser LOG     📸 Media query result: {"listingId":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","mediaCount":1,"mediaData":[{"created_at":"2026-02-09T09:09:18.135083+00:00","id":"59865288-0285-401b-9d0a-7e73e54772bb","is_primary":true,"listing_id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","media_type":"image","order_index":0,"public_id":"ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg","url":"https://res.cloudinary.com/dp7yzc36n/image/upload/v1770625838/ikazeproperty/3c9aef2ed64ed1ae7b3f4e3e1b51584d.jpg.jpg"}],"mediaError":null}
+[00:42:20.777] Browser LOG     🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:42:20.777] Browser LOG     Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:42:20.777] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:42:20.777] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:42:21.486] Browser LOG     🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:42:21.486] Browser LOG     Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:42:21.486] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:42:21.486] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:43:50.320] Browser LOG     🔄 Auth state changed: SIGNED_IN laurentjean535@gmail.com
+[00:43:52.560] Server  LOG     🔍 Route params: {}
+[00:43:52.561] Server  LOG     Raw ID: "f9ffb41c-1f6d-41aa-8919-ff8b9ef14055" "Type:" "string" "Is string \"undefined\":" false
+[00:43:53.060] Browser LOG     🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:43:53.060] Browser LOG     Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:43:53.060] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:43:53.060] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:43:53.060] Browser LOG     🔍 fetchListing called with id: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 string
+[00:43:53.060] Browser LOG     🔍 Checking authentication state...
+[00:43:53.060] Browser LOG     📋 Fetching listing with ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055
+[00:43:53.060] Browser LOG     ✅ User session found: laurentjean535@gmail.com
+[00:43:53.060] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
+[00:43:53.444] Browser LOG     🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:43:53.444] Browser LOG     Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:43:53.444] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:43:53.444] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:43:54.463] Browser LOG     🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:43:54.463] Browser LOG     Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:43:54.463] Browser LOG     [2;38;2;124;124;124m%s[0m 🔍 Route params: {"category":"cars","id":"f9ffb41c-1f6d-41aa-8919-ff8b9ef14055","locale":"en"}
+[00:43:54.463] Browser LOG     [2;38;2;124;124;124m%s[0m Raw ID: f9ffb41c-1f6d-41aa-8919-ff8b9ef14055 Type: string Is string "undefined": false
+[00:43:55.063] Browser LOG     🔍 Checking authentication state...
+[00:43:55.063] Browser LOG     ✅ User session found: laurentjean535@gmail.com
+[00:43:55.063] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
+[00:43:57.134] Browser WARN    Image with src "https://res.cloudinary.com/dp7yzc36n/image/upload/v1770622108/ads/1.jpeg.jpg.jpg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.

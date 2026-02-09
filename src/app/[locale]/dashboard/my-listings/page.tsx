@@ -45,7 +45,16 @@ export default function MyListingsPage() {
 
       const { data, error } = await supabase
         .from('listings')
-        .select('*')
+        .select(`
+          *,
+          listing_media (
+            id,
+            url,
+            media_type,
+            order_index,
+            is_primary
+          )
+        `)
         .eq('seller_id', currentUser.id)
         .order(sortBy, { ascending: false })
 
@@ -204,17 +213,30 @@ export default function MyListingsPage() {
             {filteredListings.map((listing: any) => (
               <Card key={listing.id} className="hover:shadow-lg transition-shadow">
                 <div className="relative">
-                  <div className="w-full h-48 bg-gray-200 rounded-t-lg flex items-center justify-center">
-                    <span className="text-gray-500">Image Placeholder</span>
-                  </div>
-                  {listing.featured && (
-                    <div className="absolute top-2 left-2 bg-red-600 text-white px-2 py-1 rounded text-xs font-semibold">
-                      FEATURED
+                  {listing.listing_media && listing.listing_media.length > 0 ? (
+                    <div className="w-full h-48 relative rounded-t-lg overflow-hidden">
+                      <img
+                        src={listing.listing_media.find((media: any) => media.is_primary)?.url || listing.listing_media[0]?.url}
+                        alt={listing.title}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.src = '/placeholder-image.jpg'
+                        }}
+                      />
+                      {listing.featured && (
+                        <div className="absolute top-2 left-2 bg-red-600 text-white px-2 py-1 rounded text-xs font-semibold">
+                          FEATURED
+                        </div>
+                      )}
+                      <span className={`absolute top-2 right-2 px-2 py-1 text-xs rounded-full ${getStatusColor(listing.status)}`}>
+                        {listing.status}
+                      </span>
+                    </div>
+                  ) : (
+                    <div className="w-full h-48 bg-gray-200 rounded-t-lg flex items-center justify-center">
+                      <span className="text-gray-500">Image Placeholder</span>
                     </div>
                   )}
-                  <span className={`absolute top-2 right-2 px-2 py-1 text-xs rounded-full ${getStatusColor(listing.status)}`}>
-                    {listing.status}
-                  </span>
                 </div>
                 <CardContent className="p-4">
                   <div className="flex items-center gap-2 mb-2">

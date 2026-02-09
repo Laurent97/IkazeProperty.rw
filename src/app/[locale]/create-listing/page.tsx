@@ -17,38 +17,14 @@ export default function CreateListingPage() {
   const searchParams = useSearchParams()
   const { user } = useAuth()
   
-  // Redirect to login if user is not authenticated
-  useEffect(() => {
-    if (!user) {
-      router.push('/auth/register?redirect=/create-listing')
-      return
-    }
-  }, [user, router])
-
-  // Show loading state while checking authentication
-  if (!user) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">You need to be logged in to create a listing. Redirecting to sign up...</p>
-        </div>
-      </div>
-    )
-  }
-
-  const [currentStep, setCurrentStep] = useState(1)
-  const [category, setCategory] = useState(searchParams.get('category') || '')
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
-  
+  // Initialize form data first
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     price: '',
     currency: 'RWF',
     priceType: 'fixed' as const,
-    category: category,
+    category: searchParams.get('category') || '',
     transactionType: 'sale' as const,
     status: 'available' as const,
     location: {
@@ -61,6 +37,7 @@ export default function CreateListingPage() {
     },
     images: [] as Array<{ url: string; public_id: string; type: 'image' | 'video'; duration?: number; format?: string }>,
     commissionAgreed: false,
+    commissionType: 'owner' as 'owner' | 'agent',
     visitFeeEnabled: true,
     visitFeeAmount: '15000',
     visitFeePaymentMethods: {
@@ -68,7 +45,7 @@ export default function CreateListingPage() {
       airtel_money: { phone_number: '' },
       equity_bank: { account_name: '', account_number: '' }
     },
-    promotionType: '' as '' | 'featured' | 'urgent' | 'video' | 'social' | 'email' | 'higher_images' | '360_tour',
+    promotionType: '' as '' | 'featured' | 'urgent' | 'video' | 'social' | 'higher_images' | '360_tour',
     selectedPromotion: null as any,
     // Category-specific details
     houseDetails: {
@@ -146,6 +123,32 @@ export default function CreateListingPage() {
       age_of_item: ''
     }
   })
+
+  // Other state hooks
+  const [currentStep, setCurrentStep] = useState(1)
+  const [category, setCategory] = useState(searchParams.get('category') || '')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+
+  // Redirect to login if user is not authenticated
+  useEffect(() => {
+    if (!user) {
+      router.push('/auth/register?redirect=/create-listing')
+      return
+    }
+  }, [user, router])
+
+  // Show loading state while checking authentication
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">You need to be logged in to create a listing. Redirecting to sign up...</p>
+        </div>
+      </div>
+    )
+  }
 
   const categories = [
     { id: 'houses', name: 'Houses & Apartments', icon: Home },
@@ -326,7 +329,8 @@ export default function CreateListingPage() {
         transaction_type: formData.transactionType,
         location: formData.location,
         seller_id: user?.id || '', // Make sure this is correct
-        commission_rate: 0.30,
+        commission_rate: formData.commissionType === 'owner' ? 0.02 : 0.30, // 2% for owners, 30% for agents
+        commission_type: formData.commissionType,
         commission_agreed: formData.commissionAgreed,
         featured: formData.promotionType === 'featured',
         promoted: formData.promotionType !== '',
@@ -432,7 +436,7 @@ export default function CreateListingPage() {
             listing_id: listing.id,
             promotion_type: formData.promotionType,
             price: formData.selectedPromotion.price,
-            duration_days: 30
+            duration_days: formData.selectedPromotion.duration_days || 30
           })
         })
 
@@ -450,6 +454,173 @@ export default function CreateListingPage() {
       setError(error.message || 'Failed to create listing')
     } finally {
       setLoading(false)
+    }
+  }
+
+  const renderCategoryDetails = () => {
+    switch (category) {
+      case 'houses':
+        return (
+          <div className="space-y-3">
+            <h5 className="font-medium text-gray-900">Property Details</h5>
+            <div className="grid grid-cols-2 gap-2 text-sm">
+              <div>
+                <span className="text-gray-600">Property Type:</span>
+                <p className="font-medium capitalize">{formData.houseDetails.property_type || 'Not specified'}</p>
+              </div>
+              <div>
+                <span className="text-gray-600">Condition:</span>
+                <p className="font-medium capitalize">{formData.houseDetails.condition || 'Not specified'}</p>
+              </div>
+              <div>
+                <span className="text-gray-600">Bedrooms:</span>
+                <p className="font-medium">{formData.houseDetails.bedrooms || 'Not specified'}</p>
+              </div>
+              <div>
+                <span className="text-gray-600">Bathrooms:</span>
+                <p className="font-medium">{formData.houseDetails.bathrooms || 'Not specified'}</p>
+              </div>
+              <div>
+                <span className="text-gray-600">Total Area:</span>
+                <p className="font-medium">{formData.houseDetails.total_area || 'Not specified'} m²</p>
+              </div>
+              <div>
+                <span className="text-gray-600">Year Built:</span>
+                <p className="font-medium">{formData.houseDetails.year_built || 'Not specified'}</p>
+              </div>
+              <div>
+                <span className="text-gray-600">Furnished:</span>
+                <p className="font-medium capitalize">{formData.houseDetails.furnished || 'Not specified'}</p>
+              </div>
+              <div>
+                <span className="text-gray-600">Parking:</span>
+                <p className="font-medium capitalize">{formData.houseDetails.parking || 'Not specified'}</p>
+              </div>
+            </div>
+          </div>
+        )
+
+      case 'cars':
+        return (
+          <div className="space-y-3">
+            <h5 className="font-medium text-gray-900">Vehicle Details</h5>
+            <div className="grid grid-cols-2 gap-2 text-sm">
+              <div>
+                <span className="text-gray-600">Vehicle Type:</span>
+                <p className="font-medium capitalize">{formData.carDetails.vehicle_type || 'Not specified'}</p>
+              </div>
+              <div>
+                <span className="text-gray-600">Condition:</span>
+                <p className="font-medium capitalize">{formData.carDetails.condition || 'Not specified'}</p>
+              </div>
+              <div>
+                <span className="text-gray-600">Make:</span>
+                <p className="font-medium">{formData.carDetails.make || 'Not specified'}</p>
+              </div>
+              <div>
+                <span className="text-gray-600">Model:</span>
+                <p className="font-medium">{formData.carDetails.model || 'Not specified'}</p>
+              </div>
+              <div>
+                <span className="text-gray-600">Year:</span>
+                <p className="font-medium">{formData.carDetails.year_manufacture || 'Not specified'}</p>
+              </div>
+              <div>
+                <span className="text-gray-600">Mileage:</span>
+                <p className="font-medium">{formData.carDetails.mileage || 'Not specified'} km</p>
+              </div>
+              <div>
+                <span className="text-gray-600">Fuel Type:</span>
+                <p className="font-medium capitalize">{formData.carDetails.fuel_type || 'Not specified'}</p>
+              </div>
+              <div>
+                <span className="text-gray-600">Transmission:</span>
+                <p className="font-medium capitalize">{formData.carDetails.transmission || 'Not specified'}</p>
+              </div>
+              <div>
+                <span className="text-gray-600">Color:</span>
+                <p className="font-medium capitalize">{formData.carDetails.color || 'Not specified'}</p>
+              </div>
+              <div>
+                <span className="text-gray-600">Doors:</span>
+                <p className="font-medium">{formData.carDetails.doors || 'Not specified'}</p>
+              </div>
+              <div>
+                <span className="text-gray-600">Seats:</span>
+                <p className="font-medium">{formData.carDetails.seats || 'Not specified'}</p>
+              </div>
+            </div>
+          </div>
+        )
+
+      case 'land':
+        return (
+          <div className="space-y-3">
+            <h5 className="font-medium text-gray-900">Land Details</h5>
+            <div className="grid grid-cols-2 gap-2 text-sm">
+              <div>
+                <span className="text-gray-600">Plot Type:</span>
+                <p className="font-medium capitalize">{formData.landDetails.plot_type || 'Not specified'}</p>
+              </div>
+              <div>
+                <span className="text-gray-600">Shape:</span>
+                <p className="font-medium capitalize">{formData.landDetails.shape || 'Not specified'}</p>
+              </div>
+              <div>
+                <span className="text-gray-600">Plot Size:</span>
+                <p className="font-medium">{formData.landDetails.plot_size || 'Not specified'} {formData.landDetails.size_unit}</p>
+              </div>
+              <div>
+                <span className="text-gray-600">Topography:</span>
+                <p className="font-medium capitalize">{formData.landDetails.topography || 'Not specified'}</p>
+              </div>
+              <div>
+                <span className="text-gray-600">Road Access:</span>
+                <p className="font-medium capitalize">{formData.landDetails.road_access || 'Not specified'}</p>
+              </div>
+              <div>
+                <span className="text-gray-600">Land Title:</span>
+                <p className="font-medium capitalize">{formData.landDetails.land_title_type || 'Not specified'}</p>
+              </div>
+              <div>
+                <span className="text-gray-600">Fenced:</span>
+                <p className="font-medium">{formData.landDetails.fenced ? 'Yes' : 'No'}</p>
+              </div>
+              <div>
+                <span className="text-gray-600">Surveyed:</span>
+                <p className="font-medium">{formData.landDetails.surveyed ? 'Yes' : 'No'}</p>
+              </div>
+            </div>
+          </div>
+        )
+
+      case 'other':
+        return (
+          <div className="space-y-3">
+            <h5 className="font-medium text-gray-900">Item Details</h5>
+            <div className="grid grid-cols-2 gap-2 text-sm">
+              <div>
+                <span className="text-gray-600">Subcategory:</span>
+                <p className="font-medium">{formData.otherDetails.subcategory || 'Not specified'}</p>
+              </div>
+              <div>
+                <span className="text-gray-600">Condition:</span>
+                <p className="font-medium capitalize">{formData.otherDetails.condition || 'Not specified'}</p>
+              </div>
+              <div>
+                <span className="text-gray-600">Brand:</span>
+                <p className="font-medium">{formData.otherDetails.brand || 'Not specified'}</p>
+              </div>
+              <div>
+                <span className="text-gray-600">Model:</span>
+                <p className="font-medium">{formData.otherDetails.model || 'Not specified'}</p>
+              </div>
+            </div>
+          </div>
+        )
+
+      default:
+        return null
     }
   }
 
@@ -776,7 +947,7 @@ export default function CreateListingPage() {
       )
     }
 
-    if (currentStep === 5) {
+    if (currentStep === 6) {
       return (
         <div className="max-w-2xl mx-auto">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Commission Agreement</h2>
@@ -787,16 +958,43 @@ export default function CreateListingPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                  <h4 className="font-semibold text-red-800 mb-2">30% Commission Rate</h4>
-                  <p className="text-red-700 text-sm">
-                    IkazeProperty.rw charges a 30% commission on successful transactions. This fee covers:
-                  </p>
-                  <ul className="text-red-700 text-sm mt-2 space-y-1">
-                    <li>• Platform maintenance and hosting</li>
-                    <li>• Admin-mediated secure connections</li>
-                    <li>• Transaction support and dispute resolution</li>
-                    <li>• Marketing and promotion of your listing</li>
-                  </ul>
+                  <h4 className="font-semibold text-red-800 mb-4">Commission Structure</h4>
+                  <div className="space-y-4">
+                    <div className="flex items-center space-x-3">
+                      <input
+                        type="radio"
+                        id="owner"
+                        name="commissionType"
+                        value="owner"
+                        checked={formData.commissionType === 'owner'}
+                        onChange={(e) => setFormData({...formData, commissionType: e.target.value as 'owner' | 'agent'})}
+                        className="h-4 w-4 text-red-600 border-gray-300 focus:ring-red-500"
+                      />
+                      <label htmlFor="owner" className="text-sm font-medium text-red-800">
+                        Property Owner (2% commission)
+                      </label>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <input
+                        type="radio"
+                        id="agent"
+                        name="commissionType"
+                        value="agent"
+                        checked={formData.commissionType === 'agent'}
+                        onChange={(e) => setFormData({...formData, commissionType: e.target.value as 'owner' | 'agent'})}
+                        className="h-4 w-4 text-red-600 border-gray-300 focus:ring-red-500"
+                      />
+                      <label htmlFor="agent" className="text-sm font-medium text-red-800">
+                        Agent Listing (30% commission)
+                      </label>
+                    </div>
+                  </div>
+                  <div className="mt-4 p-3 bg-red-100 rounded border border-red-300">
+                    <p className="text-xs text-red-700">
+                      <strong>Owner:</strong> 2% commission when your property sells (for owner-listed properties)<br/>
+                      <strong>Agent:</strong> 30% commission on successful transactions (for agent-listed properties)
+                    </p>
+                  </div>
                 </div>
 
                 <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
@@ -806,7 +1004,14 @@ export default function CreateListingPage() {
                     <li>2. Interested buyers click "Express Interest"</li>
                     <li>3. Admin team verifies and facilitates connections</li>
                     <li>4. Transaction is completed successfully</li>
-                    <li>5. 30% commission is collected from the final amount</li>
+                    <li>5. Commission is collected based on your listing type:</li>
+                    <ul className="ml-4 mt-2 space-y-1">
+                      <li className="font-medium">• Owner listings: 2% of final sale amount</li>
+                      <li className="font-medium">• Agent listings: 30% of final sale amount</li>
+                      {formData.transactionType === 'rent' && (
+                        <li className="font-medium">• Rentals: 5% of first month payment</li>
+                      )}
+                    </ul>
                   </ol>
                 </div>
 
@@ -1417,7 +1622,7 @@ export default function CreateListingPage() {
       }
     }
 
-    if (currentStep === 6) {
+    if (currentStep === 7) {
       return (
         <div className="max-w-2xl mx-auto">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Visit Fee Settings</h2>
@@ -1546,7 +1751,7 @@ export default function CreateListingPage() {
       )
     }
 
-    if (currentStep === 7) {
+    if (currentStep === 8) {
       return (
         <div className="max-w-2xl mx-auto">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Promotion Options (Optional)</h2>
@@ -1558,34 +1763,35 @@ export default function CreateListingPage() {
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {[
-                    { id: 'featured', label: 'Featured', desc: 'Top placement and featured badge' },
-                    { id: 'urgent', label: 'Urgent', desc: 'Urgent badge and higher ranking' },
-                    { id: 'video', label: 'Video', desc: 'Video showcase for your listing' },
-                    { id: 'social', label: 'Social', desc: 'Social media promotion' }
+                    { id: 'featured', label: 'Featured', desc: 'Top placement and featured badge', price: 5000, duration: '30 days', duration_days: 30 },
+                    { id: 'urgent', label: 'Urgent', desc: 'Urgent badge and higher ranking', price: 3000, duration: '14 days', duration_days: 14 },
+                    { id: 'video', label: 'Video', desc: 'Video showcase for your listing', price: 4000, duration: '7 days', duration_days: 7 },
+                    { id: 'social', label: 'Social', desc: 'Social media promotion', price: 1000, duration: '3 days', duration_days: 3 }
                   ].map((option) => (
                     <button
                       key={option.id}
                       type="button"
-                      onClick={() => setFormData({ ...formData, promotionType: option.id as any })}
+                      onClick={() => setFormData({ ...formData, promotionType: option.id as any, selectedPromotion: option })}
                       className={`text-left p-4 border rounded-lg transition-all ${
                         formData.promotionType === option.id
                           ? 'border-red-500 bg-red-50'
                           : 'border-gray-200 hover:border-gray-300'
                       }`}
                     >
-                      <div className="font-medium text-gray-900">{option.label}</div>
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="font-medium text-gray-900">{option.label}</div>
+                        <div className="text-lg font-bold text-red-600">{option.price.toLocaleString()} RWF</div>
+                      </div>
                       <div className="text-sm text-gray-600">{option.desc}</div>
+                      <div className="text-xs text-gray-500 mt-1">Valid for {option.duration}</div>
                     </button>
                   ))}
                 </div>
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => setFormData({ ...formData, promotionType: '' })}
-                  className="w-full border-gray-300 text-gray-700 hover:bg-gray-50"
-                >
-                  Continue without promotion
-                </Button>
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <p className="text-blue-800 text-sm">
+                    <strong>Promotion Benefits:</strong> Increase your listing visibility by up to 10x and get faster responses from potential buyers.
+                  </p>
+                </div>
               </CardContent>
             </Card>
           </div>
@@ -1593,7 +1799,7 @@ export default function CreateListingPage() {
       )
     }
 
-    if (currentStep === 8) {
+    if (currentStep === 9) {
       return (
         <div className="max-w-2xl mx-auto">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Review & Submit</h2>
@@ -1633,6 +1839,8 @@ export default function CreateListingPage() {
                     {categories.find(c => c.id === category)?.name || category}
                   </p>
                 </div>
+
+                {category && renderCategoryDetails()}
 
                 <div className="bg-green-50 border border-green-200 rounded-lg p-3">
                   <p className="text-green-800 text-sm">
@@ -1746,7 +1954,7 @@ export default function CreateListingPage() {
                 Previous
               </Button>
               
-              {currentStep === 8 ? (
+              {currentStep === 9 ? (
                 <Button 
                   onClick={handleSubmit}
                   disabled={!formData.commissionAgreed || loading}
@@ -1763,6 +1971,50 @@ export default function CreateListingPage() {
                     </>
                   )}
                 </Button>
+              ) : currentStep === 8 ? (
+                // Promotion Options step - show custom buttons
+                <div className="flex space-x-4">
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      setFormData({ ...formData, promotionType: '', selectedPromotion: null })
+                      handleNext()
+                    }}
+                    className="border-gray-300 text-gray-700 hover:bg-gray-50"
+                  >
+                    Continue without promotion
+                  </Button>
+                  {formData.promotionType && formData.selectedPromotion ? (
+                    <Button
+                      onClick={() => {
+                        // Create listing first, then redirect to payment
+                        handleSubmit()
+                      }}
+                      disabled={loading}
+                      className="bg-red-600 hover:bg-red-700"
+                    >
+                      {loading ? (
+                        <>
+                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                          Processing...
+                        </>
+                      ) : (
+                        <>
+                          Pay {formData.selectedPromotion.price.toLocaleString()} RWF
+                        </>
+                      )}
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={handleNext}
+                      disabled={!formData.promotionType}
+                      className="bg-red-600 hover:bg-red-700"
+                    >
+                      Select Promotion
+                      <ArrowRight className="h-4 w-4 ml-2" />
+                    </Button>
+                  )}
+                </div>
               ) : (
                 <Button 
                   onClick={handleNext}
