@@ -118,7 +118,9 @@ export default function ListingsPage() {
         allListings.push(...categoryListings)
       }
       
-      setListings(allListings)
+      // Sort listings: promoted listings first, then by creation date
+      const sortedListings = allListings.sort((a: any, b: any) => {
+        const aHasActivePromotion = a.listing_promotions?.some((promo: any) => 
           promo.status === 'active' && new Date(promo.expires_at) > new Date()
         )
         const bHasActivePromotion = b.listing_promotions?.some((promo: any) => 

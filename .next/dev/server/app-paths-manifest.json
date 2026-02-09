@@ -7,6 +7,7 @@
   "/[locale]/page": "app/[locale]/page.js",
   "/api/ads/analytics/route": "app/api/ads/analytics/route.js",
   "/api/ads/route": "app/api/ads/route.js",
+  "/api/inquiries/[id]/chat/route": "app/api/inquiries/[id]/chat/route.js",
   "/api/listings/route": "app/api/listings/route.js",
   "/api/media/route": "app/api/media/route.js",
   "/api/notifications/route": "app/api/notifications/route.js",

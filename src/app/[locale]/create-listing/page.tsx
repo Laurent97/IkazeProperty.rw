@@ -27,7 +27,7 @@ export default function CreateListingPage() {
     currency: 'RWF',
     priceType: 'fixed' as const,
     category: searchParams.get('category') || '',
-    transactionType: 'sale' as const,
+    transactionType: 'sale',
     status: 'available' as const,
     location: {
       province: '',
@@ -836,7 +836,7 @@ export default function CreateListingPage() {
                 </label>
                 <select
                   value={formData.transactionType}
-                  onChange={(e) => setFormData({...formData, transactionType: e.target.value as 'sale'})}
+                  onChange={(e) => setFormData({...formData, transactionType: e.target.value as 'sale' | 'rent' | 'lease'})}
                   className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
                   aria-label="Transaction type"
                 >

@@ -243,6 +243,14 @@
       "namedRegex": "^/(?<nxtPlocale>[^/]+?)/dashboard/admin/listings/(?<nxtPid>[^/]+?)(?:/)?$"
     },
     {
+      "page": "/[locale]/dashboard/admin/promotions",
+      "regex": "^/([^/]+?)/dashboard/admin/promotions(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/dashboard/admin/promotions(?:/)?$"
+    },
+    {
       "page": "/[locale]/dashboard/admin/settings",
       "regex": "^/([^/]+?)/dashboard/admin/settings(?:/)?$",
       "routeKeys": {
@@ -403,6 +411,14 @@
         "nxtPid": "nxtPid"
       },
       "namedRegex": "^/(?<nxtPlocale>[^/]+?)/listings/(?<nxtPcategory>[^/]+?)/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/[locale]/payment",
+      "regex": "^/([^/]+?)/payment(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/payment(?:/)?$"
     },
     {
       "page": "/[locale]/premium-features",
@@ -579,6 +595,12 @@
       "regex": "^/api/promotions(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/api/promotions(?:/)?$"
+    },
+    {
+      "page": "/api/promotions/admin",
+      "regex": "^/api/promotions/admin(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/promotions/admin(?:/)?$"
     },
     {
       "page": "/api/promotions/packages",
