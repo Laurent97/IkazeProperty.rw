@@ -90,24 +90,24 @@
     "exactAddress": "Tanga aderesi nyacyo cyangwa ahantu hafi"
   },
   "categories": {
-    "housesDescription": "Tanga inzu z'ibikorwa by'ubucuruzi n'iby'ubukungu",
-    "carsDescription": "Ugurisha cyangwa ukwa ibinyabiziga",
-    "landDescription": "Tanga imirima yo gucurangiza",
+    "housesDescription": "Inzu zugurwa nizikodeshwa",
+    "carsDescription": "Ugurisha cyangwa ugura ibinyabiziga",
+    "landDescription": " ubutaka ndestse n'imirima igurishwa",
     "otherDescription": "Ibindi bintu byose"
   },
   "homepage": {
     "hero": {
-      "title": "Gushaka Imipanga Igihugu Mu Rwanda",
+      "title": "Shaka Imitungo Yizewe mu Rwanda",
       "subtitle": "Amashyirahamwe yo mu bwihangano, ubufasha bw'abayobozi, isoko ryizewe",
-      "searchPlaceholder": "Shakisha imipanga, motari, ibiti..."
+      "searchPlaceholder": "Shakisha ibibanza, amazu, ibindi..."
     },
     "categories": {
       "title": "Kureba Itsinda",
       "subtitle": "Gushaka ibyo ushaka kuri itsinda dushyizemoho ibintu byiza",
-      "housesDescription": "Imipanga y'ibidukikije n'iby'ubucuruzi",
-      "carsDescription": "Motari n'ibinyabiziga bishya n'izamukira",
-      "landDescription": "Butaka ku guhanga no mu buhinzi",
-      "otherDescription": "Electronique, imyuka n'ibindi"
+      "housesDescription": "Inzu zikodeshwa ndeste nizigurishwa",
+      "carsDescription": "Imodoka n'ibinyabiziga bishya n'ibyakoze",
+      "landDescription": "UButaka, Ibibanza nibindi",
+      "otherDescription": "Electronique, n'ibindi"
     },
     "listings": {
       "title": "Ibiganiro Byose",
@@ -143,8 +143,8 @@
       "subtitle": "Injira mu isoko ryizewe cyane mu Rwanda",
       "activeListings": "Ibiganiro Bikora",
       "verifiedUsers": "Abakoresha Bemewe",
-      "successfulTransactions": "Amashyirahamwe Yagenwe Neza",
-      "trustScore": "Ugereranyo Gw'Ubwizane"
+      "successfulTransactions": "Kwishyura Byagenze Neza",
+      "trustScore": "Ikigereranyo Cy'Ubwizerane"
     },
     "howItWorks": {
       "title": "Bikora Ikitegererezo",
