@@ -659,3 +659,8 @@ It can also happen if the client has a browser extension installed which messes 
 [00:25:31.163] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
 [00:27:42.476] Server  ERROR   TypeError: fetch failed
 [00:27:43.971] Server  ERROR   TypeError: fetch failed
+[00:29:42.450] Server  ERROR   TypeError: fetch failed
+[00:30:09.733] Server  ERROR   TypeError: fetch failed
+[00:30:19.917] Server  ERROR   TypeError: fetch failed
+[00:31:39.542] Server  ERROR   Error fetching notifications: {}
+[00:31:40.154] Server  ERROR   TypeError: fetch failed
