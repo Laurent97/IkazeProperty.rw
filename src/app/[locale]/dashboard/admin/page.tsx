@@ -18,7 +18,8 @@ import {
   Eye,
   Search,
   Filter,
-  Settings
+  Settings,
+  Star
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -29,6 +30,7 @@ export default function AdminDashboard() {
     totalUsers: 0,
     totalListings: 0,
     pendingInquiries: 0,
+    pendingPromotions: 0,
     completedTransactions: 0,
     totalRevenue: 0
   })
@@ -49,12 +51,14 @@ export default function AdminDashboard() {
         usersCount,
         listingsCount,
         inquiriesCount,
+        promotionsCount,
         transactionsCount,
         revenueData
       ] = await Promise.all([
         supabase.from('users').select('id', { count: 'exact' }),
         supabase.from('listings').select('id', { count: 'exact' }),
         supabase.from('inquiries').select('id', { count: 'exact', head: true }).eq('status', 'pending'),
+        supabase.from('listing_promotions').select('id', { count: 'exact', head: true }).eq('status', 'pending'),
         supabase.from('transactions').select('id', { count: 'exact', head: true }).eq('status', 'completed'),
         supabase.from('transactions').select('commission_amount').eq('status', 'completed')
       ])
@@ -65,6 +69,7 @@ export default function AdminDashboard() {
         totalUsers: usersCount.count || 0,
         totalListings: listingsCount.count || 0,
         pendingInquiries: inquiriesCount.count || 0,
+        pendingPromotions: promotionsCount.count || 0,
         completedTransactions: transactionsCount.count || 0,
         totalRevenue
       })
@@ -220,6 +225,12 @@ export default function AdminDashboard() {
                 Transactions
               </Button>
             </Link>
+            <Link href="/dashboard/admin/promotions">
+              <Button variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-50">
+                <Star className="h-4 w-4 mr-2" />
+                Promotions
+              </Button>
+            </Link>
             <Link href="/dashboard/admin/settings">
               <Button variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-50">
                 <Settings className="h-4 w-4 mr-2" />
@@ -230,7 +241,7 @@ export default function AdminDashboard() {
         </div>
       </div>
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-8">
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center">
@@ -298,6 +309,20 @@ export default function AdminDashboard() {
                   <p className="text-2xl font-bold text-gray-900">
                     RWF {stats.totalRevenue.toLocaleString()}
                   </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="p-6">
+              <div className="flex items-center">
+                <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                  <Star className="h-4 w-4 text-purple-600" />
+                </div>
+                <div className="ml-4">
+                  <p className="text-sm font-medium text-gray-600">Pending Promotions</p>
+                  <p className="text-2xl font-bold text-gray-900">{stats.pendingPromotions}</p>
                 </div>
               </div>
             </CardContent>

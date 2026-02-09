@@ -1,6 +1,4 @@
 {
-  "/[locale]/auth/login/page": "app/[locale]/auth/login/page.js",
-  "/[locale]/auth/register/page": "app/[locale]/auth/register/page.js",
   "/[locale]/create-listing/page": "app/[locale]/create-listing/page.js",
   "/[locale]/dashboard/my-listings/page": "app/[locale]/dashboard/my-listings/page.js",
   "/[locale]/dashboard/page": "app/[locale]/dashboard/page.js",

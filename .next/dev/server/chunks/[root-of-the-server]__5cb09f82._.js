@@ -176,6 +176,10 @@ async function POST(request) {
         console.log('✅ Authenticated user:', user.email);
         const body = await request.json();
         console.log('📝 Received body:', body);
+        console.log('🚗 Car details in API:', body.car_details);
+        console.log('🏠 House details in API:', body.house_details);
+        console.log('🌳 Land details in API:', body.land_details);
+        console.log('📦 Other details in API:', body.other_details);
         const { title, description, price, currency, price_type, category, transaction_type, location, seller_id, visit_fee_enabled, visit_fee_amount, visit_fee_payment_methods, commission_rate = 0.30, commission_agreed, featured = false, promoted = false } = body;
         // Set commission rate based on commission type (if provided)
         let finalCommissionRate = 0.30 // Default for agent
@@ -284,6 +288,89 @@ async function POST(request) {
             }, {
                 status: 500
             });
+        }
+        // Create category-specific details if provided
+        console.log('🔍 Checking category:', body.category);
+        console.log('🔍 Has car details:', !!body.car_details);
+        if (body.category === 'cars' && body.car_details) {
+            console.log('🚗 Creating car details for listing:', listing.id);
+            console.log('🚗 Car details data:', body.car_details);
+            try {
+                const { data: carDetailsData, error: carDetailsError } = await supabase.from('car_details').insert({
+                    listing_id: listing.id,
+                    ...body.car_details
+                }).select().single();
+                if (carDetailsError) {
+                    console.error('Car details creation error:', carDetailsError);
+                } else {
+                    console.log('✅ Car details created:', carDetailsData);
+                }
+            } catch (error) {
+                console.error('Error creating car details:', error);
+            }
+        } else {
+            console.log('🚗 Skipping car details - category:', body.category, 'has data:', !!body.car_details);
+        }
+        // Similar for other categories can be added here
+        console.log('🔍 Checking house details - category:', body.category, 'has data:', !!body.house_details);
+        if (body.category === 'houses' && body.house_details) {
+            console.log('🏠 Creating house details for listing:', listing.id);
+            console.log('🏠 House details data:', body.house_details);
+            try {
+                const { data: houseDetailsData, error: houseDetailsError } = await supabase.from('house_details').insert({
+                    listing_id: listing.id,
+                    ...body.house_details
+                }).select().single();
+                if (houseDetailsError) {
+                    console.error('House details creation error:', houseDetailsError);
+                } else {
+                    console.log('✅ House details created:', houseDetailsData);
+                }
+            } catch (error) {
+                console.error('Error creating house details:', error);
+            }
+        } else {
+            console.log('🏠 Skipping house details - category:', body.category, 'has data:', !!body.house_details);
+        }
+        console.log('🔍 Checking land details - category:', body.category, 'has data:', !!body.land_details);
+        if (body.category === 'land' && body.land_details) {
+            console.log('🌳 Creating land details for listing:', listing.id);
+            console.log('🌳 Land details data:', body.land_details);
+            try {
+                const { data: landDetailsData, error: landDetailsError } = await supabase.from('land_details').insert({
+                    listing_id: listing.id,
+                    ...body.land_details
+                }).select().single();
+                if (landDetailsError) {
+                    console.error('Land details creation error:', landDetailsError);
+                } else {
+                    console.log('✅ Land details created:', landDetailsData);
+                }
+            } catch (error) {
+                console.error('Error creating land details:', error);
+            }
+        } else {
+            console.log('🌳 Skipping land details - category:', body.category, 'has data:', !!body.land_details);
+        }
+        console.log('🔍 Checking other details - category:', body.category, 'has data:', !!body.other_details);
+        if (body.category === 'other' && body.other_details) {
+            console.log('📦 Creating other item details for listing:', listing.id);
+            console.log('📦 Other details data:', body.other_details);
+            try {
+                const { data: otherDetailsData, error: otherDetailsError } = await supabase.from('other_item_details').insert({
+                    listing_id: listing.id,
+                    ...body.other_details
+                }).select().single();
+                if (otherDetailsError) {
+                    console.error('Other details creation error:', otherDetailsError);
+                } else {
+                    console.log('✅ Other details created:', otherDetailsData);
+                }
+            } catch (error) {
+                console.error('Error creating other details:', error);
+            }
+        } else {
+            console.log('📦 Skipping other details - category:', body.category, 'has data:', !!body.other_details);
         }
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             success: true,

@@ -11,6 +11,8 @@ import { Badge } from '@/components/ui/badge'
 import { supabaseClient } from '@/lib/supabase-client'
 import { useAuth } from '@/contexts/AuthContext'
 import type { Database } from '@/types/database'
+import type { PaymentMethod } from '@/types/payment'
+import PromotionPaymentModal from '@/components/payment/promotion-payment-modal'
 
 export default function CreateListingPage() {
   const router = useRouter()
@@ -129,6 +131,10 @@ export default function CreateListingPage() {
   const [category, setCategory] = useState(searchParams.get('category') || '')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  
+  // Promotion payment modal state
+  const [showPromotionPaymentModal, setShowPromotionPaymentModal] = useState(false)
+  const [promotionPaymentLoading, setPromotionPaymentLoading] = useState(false)
 
   // Redirect to login if user is not authenticated
   useEffect(() => {
@@ -271,6 +277,57 @@ export default function CreateListingPage() {
     }
   }
 
+  const handlePromotionPayment = async (paymentData: {
+    method: PaymentMethod
+    proof: File | null
+    phoneNumber?: string
+  }) => {
+    setPromotionPaymentLoading(true)
+    setError('')
+
+    try {
+      // Create listing first without promotion
+      const originalPromotionType = formData.promotionType
+      const originalSelectedPromotion = formData.selectedPromotion
+      
+      // Temporarily remove promotion data to create listing first
+      setFormData(prev => ({
+        ...prev,
+        promotionType: '',
+        selectedPromotion: null
+      }))
+
+      // Create the listing
+      await handleSubmit()
+      
+      // After listing is created, we would handle promotion payment here
+      // For now, we'll close the modal and continue to review step
+      setShowPromotionPaymentModal(false)
+      
+      // Restore promotion data for display purposes
+      setFormData(prev => ({
+        ...prev,
+        promotionType: originalPromotionType,
+        selectedPromotion: originalSelectedPromotion
+      }))
+      
+      // Move to review step
+      setCurrentStep(9)
+      
+      // TODO: In a real implementation, you would:
+      // 1. Upload payment proof to storage
+      // 2. Create promotion record with payment status
+      // 3. Handle payment verification
+      console.log('Promotion payment data:', paymentData)
+      
+    } catch (error: any) {
+      console.error('Promotion payment error:', error)
+      setError(error.message || 'Failed to process promotion payment')
+    } finally {
+      setPromotionPaymentLoading(false)
+    }
+  }
+
   const handleSubmit = async () => {
     // Prevent multiple submissions
     if (loading) {
@@ -305,7 +362,11 @@ export default function CreateListingPage() {
         url: img.url,
         public_id: img.public_id,
         type: img.type
-      }))
+      })),
+      carDetails: formData.carDetails,
+      houseDetails: formData.houseDetails,
+      landDetails: formData.landDetails,
+      otherDetails: formData.otherDetails
     })
 
     try {
@@ -319,7 +380,7 @@ export default function CreateListingPage() {
       console.log('🔑 Using session token for user:', session.user.email)
 
       // Prepare data with proper formatting
-      const requestData = {
+      const requestData: any = {
         title: formData.title.trim(),
         description: formData.description.trim(),
         price: parseFloat(formData.price), // Convert string to number
@@ -341,7 +402,31 @@ export default function CreateListingPage() {
         visit_fee_payment_methods: formData.visitFeePaymentMethods
       }
 
+      // Add car details if category is cars
+      if (formData.category === 'cars' && formData.carDetails) {
+        requestData.car_details = formData.carDetails
+      }
+
+      // Add house details if category is houses
+      if (formData.category === 'houses' && formData.houseDetails) {
+        requestData.house_details = formData.houseDetails
+      }
+
+      // Add land details if category is land
+      if (formData.category === 'land' && formData.landDetails) {
+        requestData.land_details = formData.landDetails
+      }
+
+      // Add other details if category is other
+      if (formData.category === 'other' && formData.otherDetails) {
+        requestData.other_details = formData.otherDetails
+      }
+
       console.log('📤 Sending request body:', requestData)
+      console.log('🚗 Car details in request:', requestData.car_details)
+      console.log('🏠 House details in request:', requestData.house_details)
+      console.log('🌳 Land details in request:', requestData.land_details)
+      console.log('📦 Other details in request:', requestData.other_details)
 
       // Create main listing
       const response = await fetch('/api/listings', {
@@ -1956,12 +2041,21 @@ export default function CreateListingPage() {
               
               {currentStep === 9 ? (
                 <Button 
-                  onClick={handleSubmit}
-                  disabled={!formData.commissionAgreed || loading}
-                  className="bg-red-600 hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                  onClick={() => {
+                    console.log('🔍 Promotion button clicked!', {
+                      promotionType: formData.promotionType,
+                      selectedPromotion: formData.selectedPromotion
+                    })
+                    // Create listing first, then redirect to payment
+                    handleSubmit()
+                  }}
+                  disabled={loading}
+                  className="bg-red-600 hover:bg-red-700"
                 >
                   {loading ? (
                     <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
                       Creating Listing...
                     </>
@@ -1977,9 +2071,12 @@ export default function CreateListingPage() {
                   <Button
                     variant="outline"
                     onClick={() => {
-                      setFormData({ ...formData, promotionType: '', selectedPromotion: null })
-                      handleNext()
-                    }}
+                        console.log('🔍 Continue without promotion button clicked!', {
+                          promotionType: '',
+                          selectedPromotion: null
+                        })
+                        handleNext()
+                      }}
                     className="border-gray-300 text-gray-700 hover:bg-gray-50"
                   >
                     Continue without promotion
@@ -1987,8 +2084,12 @@ export default function CreateListingPage() {
                   {formData.promotionType && formData.selectedPromotion ? (
                     <Button
                       onClick={() => {
-                        // Create listing first, then redirect to payment
-                        handleSubmit()
+                        console.log('🔍 Promotion button clicked!', {
+                          promotionType: formData.promotionType,
+                          selectedPromotion: formData.selectedPromotion
+                        })
+                        // Open promotion payment modal
+                        setShowPromotionPaymentModal(true)
                       }}
                       disabled={loading}
                       className="bg-red-600 hover:bg-red-700"
@@ -2029,6 +2130,16 @@ export default function CreateListingPage() {
           </div>
         </div>
       )}
+
+      {/* Promotion Payment Modal */}
+      <PromotionPaymentModal
+        isOpen={showPromotionPaymentModal}
+        onClose={() => setShowPromotionPaymentModal(false)}
+        promotionType={formData.promotionType}
+        promotionPrice={formData.selectedPromotion?.price || 0}
+        onSubmit={handlePromotionPayment}
+        loading={promotionPaymentLoading}
+      />
     </div>
   )
 }

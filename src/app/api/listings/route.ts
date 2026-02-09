@@ -133,6 +133,10 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json()
     console.log('📝 Received body:', body)
+    console.log('🚗 Car details in API:', body.car_details)
+    console.log('🏠 House details in API:', body.house_details)
+    console.log('🌳 Land details in API:', body.land_details)
+    console.log('📦 Other details in API:', body.other_details)
     
     const { 
       title, 
@@ -266,7 +270,13 @@ export async function POST(request: NextRequest) {
     }
 
     // Create category-specific details if provided
+    console.log('🔍 Checking category:', body.category)
+    console.log('🔍 Has car details:', !!body.car_details)
+    
     if (body.category === 'cars' && body.car_details) {
+      console.log('🚗 Creating car details for listing:', listing.id)
+      console.log('🚗 Car details data:', body.car_details)
+      
       try {
         const { data: carDetailsData, error: carDetailsError } = await supabase
           .from('car_details')
@@ -285,10 +295,17 @@ export async function POST(request: NextRequest) {
       } catch (error) {
         console.error('Error creating car details:', error)
       }
+    } else {
+      console.log('🚗 Skipping car details - category:', body.category, 'has data:', !!body.car_details)
     }
 
     // Similar for other categories can be added here
+    console.log('🔍 Checking house details - category:', body.category, 'has data:', !!body.house_details)
+    
     if (body.category === 'houses' && body.house_details) {
+      console.log('🏠 Creating house details for listing:', listing.id)
+      console.log('🏠 House details data:', body.house_details)
+      
       try {
         const { data: houseDetailsData, error: houseDetailsError } = await supabase
           .from('house_details')
@@ -307,9 +324,16 @@ export async function POST(request: NextRequest) {
       } catch (error) {
         console.error('Error creating house details:', error)
       }
+    } else {
+      console.log('🏠 Skipping house details - category:', body.category, 'has data:', !!body.house_details)
     }
 
+    console.log('🔍 Checking land details - category:', body.category, 'has data:', !!body.land_details)
+    
     if (body.category === 'land' && body.land_details) {
+      console.log('🌳 Creating land details for listing:', listing.id)
+      console.log('🌳 Land details data:', body.land_details)
+      
       try {
         const { data: landDetailsData, error: landDetailsError } = await supabase
           .from('land_details')
@@ -328,9 +352,16 @@ export async function POST(request: NextRequest) {
       } catch (error) {
         console.error('Error creating land details:', error)
       }
+    } else {
+      console.log('🌳 Skipping land details - category:', body.category, 'has data:', !!body.land_details)
     }
 
+    console.log('🔍 Checking other details - category:', body.category, 'has data:', !!body.other_details)
+    
     if (body.category === 'other' && body.other_details) {
+      console.log('📦 Creating other item details for listing:', listing.id)
+      console.log('📦 Other details data:', body.other_details)
+      
       try {
         const { data: otherDetailsData, error: otherDetailsError } = await supabase
           .from('other_item_details')
@@ -349,6 +380,8 @@ export async function POST(request: NextRequest) {
       } catch (error) {
         console.error('Error creating other details:', error)
       }
+    } else {
+      console.log('📦 Skipping other details - category:', body.category, 'has data:', !!body.other_details)
     }
 
     return NextResponse.json({

@@ -5520,16 +5520,37 @@ function CreateListingPage() {
                                 columnNumber: 15
                             }, this),
                             currentStep === 9 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
-                                onClick: handleSubmit,
-                                disabled: !formData.commissionAgreed || loading,
-                                className: "bg-red-600 hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed",
+                                onClick: ()=>{
+                                    console.log('🔍 Promotion button clicked!', {
+                                        promotionType: formData.promotionType,
+                                        selectedPromotion: formData.selectedPromotion
+                                    });
+                                    // Create listing first, then redirect to payment
+                                    handleSubmit();
+                                },
+                                disabled: loading,
+                                className: "bg-red-600 hover:bg-red-700",
                                 children: loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/[locale]/create-listing/page.tsx",
-                                            lineNumber: 1965,
+                                            lineNumber: 1972,
+                                            columnNumber: 23
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/[locale]/create-listing/page.tsx",
+                                            lineNumber: 1973,
+                                            columnNumber: 23
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/[locale]/create-listing/page.tsx",
+                                            lineNumber: 1974,
                                             columnNumber: 23
                                         }, this),
                                         "Creating Listing..."
@@ -5548,8 +5569,7 @@ function CreateListingPage() {
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
                                         variant: "outline",
                                         onClick: ()=>{
-                                            setFormData({
-                                                ...formData,
+                                            console.log('🔍 Continue without promotion button clicked!', {
                                                 promotionType: '',
                                                 selectedPromotion: null
                                             });
@@ -5559,11 +5579,15 @@ function CreateListingPage() {
                                         children: "Continue without promotion"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[locale]/create-listing/page.tsx",
-                                        lineNumber: 1977,
+                                        lineNumber: 1986,
                                         columnNumber: 19
                                     }, this),
                                     formData.promotionType && formData.selectedPromotion ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
                                         onClick: ()=>{
+                                            console.log('🔍 Promotion button clicked!', {
+                                                promotionType: formData.promotionType,
+                                                selectedPromotion: formData.selectedPromotion
+                                            });
                                             // Create listing first, then redirect to payment
                                             handleSubmit();
                                         },
@@ -5575,7 +5599,7 @@ function CreateListingPage() {
                                                     className: "animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/[locale]/create-listing/page.tsx",
-                                                    lineNumber: 1998,
+                                                    lineNumber: 2014,
                                                     columnNumber: 27
                                                 }, this),
                                                 "Processing..."
@@ -5589,7 +5613,7 @@ function CreateListingPage() {
                                         }, void 0, true)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[locale]/create-listing/page.tsx",
-                                        lineNumber: 1988,
+                                        lineNumber: 2000,
                                         columnNumber: 21
                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
                                         onClick: handleNext,
@@ -5601,19 +5625,19 @@ function CreateListingPage() {
                                                 className: "h-4 w-4 ml-2"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/[locale]/create-listing/page.tsx",
-                                                lineNumber: 2014,
+                                                lineNumber: 2030,
                                                 columnNumber: 23
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/[locale]/create-listing/page.tsx",
-                                        lineNumber: 2008,
+                                        lineNumber: 2024,
                                         columnNumber: 21
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/[locale]/create-listing/page.tsx",
-                                lineNumber: 1976,
+                                lineNumber: 1985,
                                 columnNumber: 17
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
                                 onClick: handleNext,
@@ -5625,13 +5649,13 @@ function CreateListingPage() {
                                         className: "h-4 w-4 ml-2"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[locale]/create-listing/page.tsx",
-                                        lineNumber: 2025,
+                                        lineNumber: 2041,
                                         columnNumber: 19
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/[locale]/create-listing/page.tsx",
-                                lineNumber: 2019,
+                                lineNumber: 2035,
                                 columnNumber: 17
                             }, this)
                         ]

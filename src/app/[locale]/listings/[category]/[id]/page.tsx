@@ -137,9 +137,88 @@ export default function ListingDetailPage() {
               order_index,
               is_primary
             ),
-            house_details(*),
-            car_details(*),
-            land_details(*)
+            house_details(
+              id,
+              listing_id,
+              property_type,
+              bedrooms,
+              bathrooms,
+              total_area,
+              year_built,
+              condition,
+              furnished,
+              parking,
+              features,
+              utilities_included,
+              rent_duration,
+              security_deposit,
+              advance_payment,
+              minimum_lease_period,
+              available_from
+            ),
+            car_details(
+              id,
+              listing_id,
+              vehicle_type,
+              make,
+              model,
+              year_manufacture,
+              condition,
+              fuel_type,
+              transmission,
+              engine_capacity,
+              mileage,
+              color,
+              doors,
+              seats,
+              features,
+              ownership_papers,
+              insurance_status,
+              road_worthiness,
+              last_service_date,
+              rental_daily_rate,
+              rental_weekly_rate,
+              rental_monthly_rate,
+              security_deposit,
+              minimum_rental_period,
+              delivery_option,
+              driver_included
+            ),
+            land_details(
+              id,
+              listing_id,
+              plot_type,
+              plot_size,
+              size_unit,
+              shape,
+              topography,
+              soil_type,
+              road_access,
+              fenced,
+              utilities_available,
+              land_title_type,
+              title_deed_number,
+              surveyed,
+              zoning_approval,
+              development_permits,
+              tax_clearance,
+              nearest_main_road_distance,
+              nearest_town_distance,
+              nearby_amenities
+            ),
+            other_item_details(
+              id,
+              listing_id,
+              subcategory,
+              brand,
+              model,
+              condition,
+              warranty_available,
+              warranty_period,
+              reason_for_selling,
+              original_purchase_date,
+              age_of_item
+            )
           `)
           .eq('id', id)
           .single()
@@ -151,6 +230,11 @@ export default function ListingDetailPage() {
           }
           return
         }
+
+        console.log('📋 Full listing data:', data)
+        console.log('🚗 Car details in listing:', (data as any).car_details)
+        console.log('🏠 House details in listing:', (data as any).house_details)
+        console.log('🌳 Land details in listing:', (data as any).land_details)
 
         if ((data as any).category !== category) {
           if (isActive) {
@@ -424,7 +508,16 @@ export default function ListingDetailPage() {
 
     switch (listing.category) {
       case 'houses':
-        if (!listing.house_details) return null
+        console.log('🏠 House details data:', (listing as any).house_details)
+        console.log('🏠 House details keys:', (listing as any).house_details ? Object.keys((listing as any).house_details) : 'null')
+        
+        // Handle case where house_details comes back as array
+        const houseDetails = (listing as any).house_details
+        const houseDetailsObj = Array.isArray(houseDetails) ? houseDetails[0] : houseDetails
+        
+        console.log('🏠 Processed house details:', houseDetailsObj)
+        
+        if (!houseDetailsObj) return null
         return (
           <Card>
             <CardHeader>
@@ -434,35 +527,35 @@ export default function ListingDetailPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <span className="text-sm text-gray-600">Property Type</span>
-                  <p className="font-medium capitalize">{listing.house_details.property_type || 'Not specified'}</p>
+                  <p className="font-medium capitalize">{houseDetailsObj?.property_type || 'Not specified'}</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-600">Condition</span>
-                  <p className="font-medium capitalize">{listing.house_details.condition || 'Not specified'}</p>
+                  <p className="font-medium capitalize">{houseDetailsObj?.condition || 'Not specified'}</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-600">Bedrooms</span>
-                  <p className="font-medium">{listing.house_details.bedrooms || 'Not specified'}</p>
+                  <p className="font-medium">{houseDetailsObj?.bedrooms || 'Not specified'}</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-600">Bathrooms</span>
-                  <p className="font-medium">{listing.house_details.bathrooms || 'Not specified'}</p>
+                  <p className="font-medium">{houseDetailsObj?.bathrooms || 'Not specified'}</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-600">Total Area</span>
-                  <p className="font-medium">{listing.house_details.total_area || 'Not specified'} m²</p>
+                  <p className="font-medium">{houseDetailsObj?.total_area || 'Not specified'} m²</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-600">Year Built</span>
-                  <p className="font-medium">{listing.house_details.year_built || 'Not specified'}</p>
+                  <p className="font-medium">{houseDetailsObj?.year_built || 'Not specified'}</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-600">Furnished</span>
-                  <p className="font-medium capitalize">{listing.house_details.furnished || 'Not specified'}</p>
+                  <p className="font-medium capitalize">{houseDetailsObj?.furnished || 'Not specified'}</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-600">Parking</span>
-                  <p className="font-medium capitalize">{listing.house_details.parking || 'Not specified'}</p>
+                  <p className="font-medium capitalize">{houseDetailsObj?.parking || 'Not specified'}</p>
                 </div>
               </div>
             </CardContent>
@@ -470,7 +563,16 @@ export default function ListingDetailPage() {
         )
 
       case 'cars':
-        if (!listing.car_details) return null
+        console.log('🚗 Car details data:', (listing as any).car_details)
+        console.log('🚗 Car details keys:', (listing as any).car_details ? Object.keys((listing as any).car_details) : 'null')
+        
+        // Handle case where car_details comes back as array
+        const carDetails = (listing as any).car_details
+        const carDetailsObj = Array.isArray(carDetails) ? carDetails[0] : carDetails
+        
+        console.log('🚗 Processed car details:', carDetailsObj)
+        
+        if (!carDetailsObj) return null
         return (
           <Card>
             <CardHeader>
@@ -480,51 +582,51 @@ export default function ListingDetailPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <span className="text-sm text-gray-600">Vehicle Type</span>
-                  <p className="font-medium capitalize">{listing.car_details.vehicle_type || 'Not specified'}</p>
+                  <p className="font-medium capitalize">{carDetailsObj?.vehicle_type || 'Not specified'}</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-600">Condition</span>
-                  <p className="font-medium capitalize">{listing.car_details.condition || 'Not specified'}</p>
+                  <p className="font-medium capitalize">{carDetailsObj?.condition || 'Not specified'}</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-600">Make</span>
-                  <p className="font-medium">{listing.car_details.make || 'Not specified'}</p>
+                  <p className="font-medium">{carDetailsObj?.make || 'Not specified'}</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-600">Model</span>
-                  <p className="font-medium">{listing.car_details.model || 'Not specified'}</p>
+                  <p className="font-medium">{carDetailsObj?.model || 'Not specified'}</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-600">Year Manufacture</span>
-                  <p className="font-medium">{listing.car_details.year_manufacture || 'Not specified'}</p>
+                  <p className="font-medium">{carDetailsObj?.year_manufacture || 'Not specified'}</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-600">Mileage</span>
-                  <p className="font-medium">{listing.car_details.mileage || 'Not specified'} km</p>
+                  <p className="font-medium">{carDetailsObj?.mileage || 'Not specified'} km</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-600">Fuel Type</span>
-                  <p className="font-medium capitalize">{listing.car_details.fuel_type || 'Not specified'}</p>
+                  <p className="font-medium capitalize">{carDetailsObj?.fuel_type || 'Not specified'}</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-600">Transmission</span>
-                  <p className="font-medium capitalize">{listing.car_details.transmission || 'Not specified'}</p>
+                  <p className="font-medium capitalize">{carDetailsObj?.transmission || 'Not specified'}</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-600">Color</span>
-                  <p className="font-medium capitalize">{listing.car_details.color || 'Not specified'}</p>
+                  <p className="font-medium capitalize">{carDetailsObj?.color || 'Not specified'}</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-600">Doors</span>
-                  <p className="font-medium">{listing.car_details.doors || 'Not specified'}</p>
+                  <p className="font-medium">{carDetailsObj?.doors || 'Not specified'}</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-600">Seats</span>
-                  <p className="font-medium">{listing.car_details.seats || 'Not specified'}</p>
+                  <p className="font-medium">{carDetailsObj?.seats || 'Not specified'}</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-600">Engine Capacity</span>
-                  <p className="font-medium">{listing.car_details.engine_capacity || 'Not specified'} cc</p>
+                  <p className="font-medium">{carDetailsObj?.engine_capacity || 'Not specified'} cc</p>
                 </div>
               </div>
             </CardContent>
@@ -532,7 +634,16 @@ export default function ListingDetailPage() {
         )
 
       case 'land':
-        if (!listing.land_details) return null
+        console.log('🌳 Land details data:', (listing as any).land_details)
+        console.log('🌳 Land details keys:', (listing as any).land_details ? Object.keys((listing as any).land_details) : 'null')
+        
+        // Handle case where land_details comes back as array
+        const landDetails = (listing as any).land_details
+        const landDetailsObj = Array.isArray(landDetails) ? landDetails[0] : landDetails
+        
+        console.log('🌳 Processed land details:', landDetailsObj)
+        
+        if (!landDetailsObj) return null
         return (
           <Card>
             <CardHeader>
@@ -542,43 +653,102 @@ export default function ListingDetailPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <span className="text-sm text-gray-600">Plot Type</span>
-                  <p className="font-medium capitalize">{listing.land_details.plot_type || 'Not specified'}</p>
+                  <p className="font-medium capitalize">{landDetailsObj?.plot_type || 'Not specified'}</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-600">Shape</span>
-                  <p className="font-medium capitalize">{listing.land_details.shape || 'Not specified'}</p>
+                  <p className="font-medium capitalize">{landDetailsObj?.shape || 'Not specified'}</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-600">Plot Size</span>
-                  <p className="font-medium">{listing.land_details.plot_size || 'Not specified'} {listing.land_details.size_unit}</p>
+                  <p className="font-medium">{landDetailsObj?.plot_size || 'Not specified'} {landDetailsObj?.size_unit}</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-600">Topography</span>
-                  <p className="font-medium capitalize">{listing.land_details.topography || 'Not specified'}</p>
+                  <p className="font-medium capitalize">{landDetailsObj?.topography || 'Not specified'}</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-600">Road Access</span>
-                  <p className="font-medium capitalize">{listing.land_details.road_access || 'Not specified'}</p>
+                  <p className="font-medium capitalize">{landDetailsObj?.road_access || 'Not specified'}</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-600">Land Title Type</span>
-                  <p className="font-medium capitalize">{listing.land_details.land_title_type || 'Not specified'}</p>
+                  <p className="font-medium capitalize">{landDetailsObj?.land_title_type || 'Not specified'}</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-600">Fenced</span>
-                  <p className="font-medium">{listing.land_details.fenced ? 'Yes' : 'No'}</p>
+                  <p className="font-medium">{landDetailsObj?.fenced ? 'Yes' : 'No'}</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-600">Surveyed</span>
-                  <p className="font-medium">{listing.land_details.surveyed ? 'Yes' : 'No'}</p>
+                  <p className="font-medium">{landDetailsObj?.surveyed ? 'Yes' : 'No'}</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-600">Soil Type</span>
-                  <p className="font-medium capitalize">{listing.land_details.soil_type || 'Not specified'}</p>
+                  <p className="font-medium capitalize">{landDetailsObj?.soil_type || 'Not specified'}</p>
                 </div>
                 <div>
                   <span className="text-sm text-gray-600">Zoning Approval</span>
-                  <p className="font-medium">{listing.land_details.zoning_approval ? 'Yes' : 'No'}</p>
+                  <p className="font-medium">{landDetailsObj?.zoning_approval ? 'Yes' : 'No'}</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )
+
+      case 'other':
+        console.log('📦 Other item details data:', (listing as any).other_item_details)
+        console.log('📦 Other item details keys:', (listing as any).other_item_details ? Object.keys((listing as any).other_item_details) : 'null')
+        
+        // Handle case where other_item_details comes back as array
+        const otherDetails = (listing as any).other_item_details
+        const otherDetailsObj = Array.isArray(otherDetails) ? otherDetails[0] : otherDetails
+        
+        console.log('📦 Processed other item details:', otherDetailsObj)
+        
+        if (!otherDetailsObj) return null
+        return (
+          <Card>
+            <CardHeader>
+              <CardTitle>Item Details</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <span className="text-sm text-gray-600">Subcategory</span>
+                  <p className="font-medium capitalize">{otherDetailsObj?.subcategory || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Brand</span>
+                  <p className="font-medium">{otherDetailsObj?.brand || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Model</span>
+                  <p className="font-medium">{otherDetailsObj?.model || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Condition</span>
+                  <p className="font-medium capitalize">{otherDetailsObj?.condition || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Warranty Available</span>
+                  <p className="font-medium">{otherDetailsObj?.warranty_available ? 'Yes' : 'No'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Warranty Period</span>
+                  <p className="font-medium">{otherDetailsObj?.warranty_period || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Reason for Selling</span>
+                  <p className="font-medium">{otherDetailsObj?.reason_for_selling || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Original Purchase Date</span>
+                  <p className="font-medium">{otherDetailsObj?.original_purchase_date || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-600">Age of Item</span>
+                  <p className="font-medium">{otherDetailsObj?.age_of_item || 'Not specified'}</p>
                 </div>
               </div>
             </CardContent>
