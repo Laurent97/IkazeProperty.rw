@@ -1,16 +1,10 @@
 {
-  "/[locale]/create-listing/page": "app/[locale]/create-listing/page.js",
-  "/[locale]/dashboard/my-listings/page": "app/[locale]/dashboard/my-listings/page.js",
-  "/[locale]/dashboard/page": "app/[locale]/dashboard/page.js",
-  "/[locale]/dashboard/user/page": "app/[locale]/dashboard/user/page.js",
   "/[locale]/listings/[category]/[id]/page": "app/[locale]/listings/[category]/[id]/page.js",
   "/[locale]/page": "app/[locale]/page.js",
   "/api/ads/analytics/route": "app/api/ads/analytics/route.js",
   "/api/ads/route": "app/api/ads/route.js",
-  "/api/inquiries/[id]/chat/route": "app/api/inquiries/[id]/chat/route.js",
-  "/api/listings/route": "app/api/listings/route.js",
-  "/api/media/route": "app/api/media/route.js",
+  "/api/favorites/route": "app/api/favorites/route.js",
   "/api/notifications/route": "app/api/notifications/route.js",
   "/api/site-settings/route": "app/api/site-settings/route.js",
-  "/api/upload/route": "app/api/upload/route.js"
+  "/api/track-view/route": "app/api/track-view/route.js"
 }

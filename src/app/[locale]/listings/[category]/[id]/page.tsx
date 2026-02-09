@@ -12,6 +12,8 @@ import type { PaymentMethod, CryptoType } from '@/types/payment'
 import AdminContactInfo from '@/components/listing/admin-contact'
 import FavoriteButton from '@/components/listing/favorite-button'
 import InquiryButton from '@/components/listing/inquiry-button'
+import LikesDisplay from '@/components/listing/likes-display'
+import ViewsDisplay from '@/components/listing/views-display'
 import { usePaymentContext } from '@/contexts/PaymentContext'
 
 type Listing = Database['public']['Tables']['listings']['Row'] & {
@@ -62,7 +64,21 @@ export default function ListingDetailPage() {
   const [availableMethods, setAvailableMethods] = useState<PaymentMethod[]>([])
   const [visitFeeAmount] = useState(15000)
 
-  const fetchSimilarListings = async (currentListing: Listing) => {
+  const trackView = async (listingId: string) => {
+  try {
+    await fetch('/api/track-view', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ listingId }),
+    })
+  } catch (error) {
+    console.error('Error tracking view:', error)
+  }
+}
+
+const fetchSimilarListings = async (currentListing: Listing) => {
     try {
       const { supabaseClient } = await import('@/lib/supabase-client')
       const { data, error } = await supabaseClient
@@ -266,6 +282,8 @@ export default function ListingDetailPage() {
 
         if (data) {
           fetchSimilarListings(data as Listing)
+          // Track the view
+          trackView(id)
         }
       } catch (err) {
         console.error('Error fetching listing:', err)
@@ -936,7 +954,21 @@ export default function ListingDetailPage() {
           <div className="space-y-4 sm:space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle>{listing.title}</CardTitle>
+                <div className="space-y-2">
+                  <CardTitle>{listing.title}</CardTitle>
+                  <div className="flex items-center gap-4">
+                    <LikesDisplay 
+                      listingId={listing.id} 
+                      likesCount={listing.likes || 0}
+                      className="text-sm"
+                    />
+                    <ViewsDisplay 
+                      listingId={listing.id} 
+                      viewsCount={listing.views || 0}
+                      className="text-sm"
+                    />
+                  </div>
+                </div>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="text-2xl font-bold text-red-600">

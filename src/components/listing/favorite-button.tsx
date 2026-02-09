@@ -56,17 +56,14 @@ export default function FavoriteButton({
         
         setListing(listingData)
 
-        const { data, error } = await supabase
-          .from('favorite_listings')
-          .select('*')
-          .eq('user_id', currentUser.id)
-          .eq('listing_id', listingId)
-          .single()
-
-        if (error && error.code !== 'PGRST116') {
-          console.error('Error checking favorite status:', error)
+        // Check favorite status via API
+        const response = await fetch(`/api/favorites?listingId=${listingId}`)
+        if (response.ok) {
+          const data = await response.json()
+          setIsFavorited(data.isFavorited || false)
         } else {
-          setIsFavorited(!!data)
+          console.error('Error checking favorite status:', response.statusText)
+          setIsFavorited(false) // Default to not favorited on error
         }
       } catch (error) {
         console.error('Error checking favorite status:', error)
@@ -87,32 +84,41 @@ export default function FavoriteButton({
 
     try {
       if (isFavorited) {
-        // Remove from favorites
-        const { error } = await supabase
-          .from('favorite_listings')
-          .delete()
-          .eq('user_id', user.id)
-          .eq('listing_id', listingId)
-
-        if (error) throw error
-        setIsFavorited(false)
+        // Remove from favorites via API
+        const response = await fetch(`/api/favorites?listingId=${listingId}`, {
+          method: 'DELETE'
+        })
         
-        // Update the likes count on the listing using SQL
-        await (supabase as any).rpc('sql', { sql: `SELECT decrement_likes('${listingId}')` })
+        if (response.ok) {
+          setIsFavorited(false)
+        } else {
+          const errorData = await response.json()
+          if (errorData.error === 'Not authenticated') {
+            alert('Please login to manage favorites')
+          } else {
+            throw new Error('Failed to remove favorite')
+          }
+        }
       } else {
-        // Add to favorites
-        const { error } = await supabase
-          .from('favorite_listings')
-          .insert({
-            user_id: user.id,
-            listing_id: listingId
-          } as any)
-
-        if (error) throw error
-        setIsFavorited(true)
-
-        // Update the likes count on the listing using SQL
-        await (supabase as any).rpc('sql', { sql: `SELECT increment_likes('${listingId}')` })
+        // Add to favorites via API
+        const response = await fetch('/api/favorites', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ listingId })
+        })
+        
+        if (response.ok) {
+          setIsFavorited(true)
+        } else {
+          const errorData = await response.json()
+          if (errorData.error === 'Not authenticated') {
+            alert('Please login to add favorites')
+          } else {
+            throw new Error('Failed to add favorite')
+          }
+        }
       }
     } catch (error) {
       console.error('Error toggling favorite:', error)

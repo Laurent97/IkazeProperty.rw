@@ -10,6 +10,9 @@ import AdminContactInfo from '@/components/listing/admin-contact'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { HomepageLeaderboard, HomepageSidebar, FeaturedCarousel } from '@/components/ads/AdServing'
+import LikesDisplay from '@/components/listing/likes-display'
+import ViewsDisplay from '@/components/listing/views-display'
+import ListingDetails from '@/components/listing/listing-details'
 import { supabaseClient as supabase } from '@/lib/supabase-client'
 import type { Database } from '@/types/database'
 
@@ -24,6 +27,10 @@ type Listing = Database['public']['Tables']['listings']['Row'] & {
     is_primary: boolean
     order_index: number
   }[]
+  house_details?: Database['public']['Tables']['house_details']['Row']
+  car_details?: Database['public']['Tables']['car_details']['Row']
+  land_details?: Database['public']['Tables']['land_details']['Row']
+  other_item_details?: Database['public']['Tables']['other_item_details']['Row']
 }
 
 export default function HomePage() {
@@ -74,7 +81,11 @@ export default function HomePage() {
             media_type,
             is_primary,
             order_index
-          ).order('is_primary', { ascending: false }).order('order_index', { ascending: true })
+          ).order('is_primary', { ascending: false }).order('order_index', { ascending: true }),
+          house_details,
+          car_details,
+          land_details,
+          other_item_details
         `, { count: 'exact' })
         .eq('status', 'available')
 
@@ -217,8 +228,21 @@ export default function HomePage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-red-600 to-red-700 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative bg-gradient-to-r from-red-600 to-red-700 text-white py-20 overflow-hidden">
+        {/* Background Logo */}
+        <div className="absolute inset-0 opacity-10">
+          <img 
+            src="/images/ikazeproperty-logo.svg" 
+            alt="Ikaze Property Background" 
+            className="absolute top-10 right-10 w-64 h-64 object-contain transform rotate-12"
+          />
+          <img 
+            src="/images/ikazeproperty-logo.svg" 
+            alt="Ikaze Property Background" 
+            className="absolute bottom-10 left-10 w-48 h-48 object-contain transform -rotate-12"
+          />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
               {t('homepage.hero.title')}
@@ -421,7 +445,7 @@ export default function HomePage() {
                             <img
                               src={listing.media[0].url}
                               alt={listing.title}
-                              className="w-full h-48 object-cover rounded-lg"
+                              className="w-auto h-auto max-w-full object-cover rounded-lg"
                             />
                           )}
                           {listing.media[0].is_primary && (
@@ -453,6 +477,13 @@ export default function HomePage() {
                       {listing.description}
                     </p>
 
+                    {/* Category-specific details */}
+                    <ListingDetails 
+                      category={listing.category}
+                      listing={listing}
+                      className="mb-3"
+                    />
+
                       {/* Location */}
                       {listing.location && typeof listing.location === 'object' && (
                         <div className="flex items-center text-gray-500 text-sm mb-3">
@@ -466,14 +497,16 @@ export default function HomePage() {
                       {/* Stats */}
                     <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
                       <div className="flex items-center gap-3">
-                        <span className="flex items-center gap-1">
-                          <Eye className="h-4 w-4" />
-                          {listing.views}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Heart className="h-4 w-4" />
-                          {listing.likes}
-                        </span>
+                        <ViewsDisplay 
+                          listingId={listing.id} 
+                          viewsCount={listing.views || 0}
+                          className="text-xs"
+                        />
+                        <LikesDisplay 
+                          listingId={listing.id} 
+                          likesCount={listing.likes || 0}
+                          className="text-xs"
+                        />
                       </div>
                       <span className="flex items-center gap-1">
                         <Calendar className="h-4 w-4" />
@@ -489,11 +522,11 @@ export default function HomePage() {
                           {listing.seller?.full_name || t('homepage.listings.anonymous')}
                         </p>
                       </div>
-                      <Button asChild>
-                        <a href={`/listings/${listing.category}/${listing.id}`}>
+                      <Link href={`/listings/${listing.category}/${listing.id}`}>
+                        <Button>
                           {t('homepage.listings.viewDetails')}
-                        </a>
-                      </Button>
+                        </Button>
+                      </Link>
                     </div>
                   </CardContent>
                 </Card>

@@ -108,16 +108,19 @@ export default function UserDashboard() {
       const [
         listingsCount,
         inquiriesCount,
-        favoritesCount,
         transactionsAsBuyer,
         transactionsAsSeller
       ] = await Promise.all([
         supabase.from('listings').select('id', { count: 'exact', head: true }).eq('seller_id', currentUser.id),
         supabase.from('inquiries').select('id', { count: 'exact', head: true }).eq('buyer_id', currentUser.id),
-        supabase.from('favorite_listings').select('id', { count: 'exact', head: true }).eq('user_id', currentUser.id),
         supabase.from('transactions').select('amount').eq('buyer_id', currentUser.id).eq('status', 'completed'),
         supabase.from('transactions').select('amount, commission_amount').eq('seller_id', currentUser.id).eq('status', 'completed')
       ])
+
+      // Get favorites count via API
+      const favoritesResponse = await fetch('/api/favorites')
+      const favoritesData = favoritesResponse.ok ? await favoritesResponse.json() : { favorites: [] }
+      const favoritesCountValue = favoritesData.favorites?.length || 0
 
       const totalSpent = transactionsAsBuyer.data?.reduce((sum: number, t: any) => sum + t.amount, 0) || 0
       const totalEarned = transactionsAsSeller.data?.reduce((sum: number, t: any) => sum + (t.amount - t.commission_amount), 0) || 0
@@ -125,7 +128,7 @@ export default function UserDashboard() {
       setStats({
         myListings: listingsCount.count || 0,
         myInquiries: inquiriesCount.count || 0,
-        myFavorites: favoritesCount.count || 0,
+        myFavorites: favoritesCountValue,
         completedTransactions: (transactionsAsBuyer.count || 0) + (transactionsAsSeller.count || 0),
         totalSpent,
         totalEarned

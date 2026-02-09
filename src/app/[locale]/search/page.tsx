@@ -13,6 +13,9 @@ import { Badge } from '@/components/ui/badge'
 import { HomepageLeaderboard, HomepageSidebar } from '@/components/ads/AdServing'
 import { supabaseClient as supabase } from '@/lib/supabase-client'
 import type { Database } from '@/types/database'
+import LikesDisplay from '@/components/listing/likes-display'
+import ViewsDisplay from '@/components/listing/views-display'
+import ListingDetails from '@/components/listing/listing-details'
 
 type Listing = Database['public']['Tables']['listings']['Row'] & {
   seller: {
@@ -26,6 +29,10 @@ type Listing = Database['public']['Tables']['listings']['Row'] & {
     is_primary: boolean
     order_index: number
   }[]
+  house_details?: Database['public']['Tables']['house_details']['Row']
+  car_details?: Database['public']['Tables']['car_details']['Row']
+  land_details?: Database['public']['Tables']['land_details']['Row']
+  other_item_details?: Database['public']['Tables']['other_item_details']['Row']
 }
 
 export default function SearchPage() {
@@ -74,7 +81,11 @@ export default function SearchPage() {
             media_type,
             is_primary,
             order_index
-          )
+          ),
+          house_details,
+          car_details,
+          land_details,
+          other_item_details
         `, { count: 'exact' })
         .eq('status', 'available')
 
@@ -321,6 +332,13 @@ export default function SearchPage() {
                           {listing.description}
                         </p>
 
+                        {/* Category-specific details */}
+                        <ListingDetails 
+                          category={listing.category}
+                          listing={listing}
+                          className="mb-3"
+                        />
+
                         {/* Location */}
                         {listing.location && typeof listing.location === 'object' && (
                           <div className="flex items-center text-gray-500 text-sm mb-3">
@@ -334,14 +352,16 @@ export default function SearchPage() {
                         {/* Stats */}
                         <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
                           <div className="flex items-center gap-3">
-                            <span className="flex items-center gap-1">
-                              <Eye className="h-4 w-4" />
-                              {listing.views}
-                            </span>
-                            <span className="flex items-center gap-1">
-                              <Heart className="h-4 w-4" />
-                              {listing.likes}
-                            </span>
+                            <ViewsDisplay 
+                              listingId={listing.id} 
+                              viewsCount={listing.views || 0}
+                              className="text-xs"
+                            />
+                            <LikesDisplay 
+                              listingId={listing.id} 
+                              likesCount={listing.likes || 0}
+                              className="text-xs"
+                            />
                           </div>
                           <span className="flex items-center gap-1">
                             <Calendar className="h-4 w-4" />

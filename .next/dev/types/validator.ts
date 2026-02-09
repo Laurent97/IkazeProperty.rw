@@ -479,6 +479,15 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../../src/app/admin/watermark/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/admin/watermark">> = Specific
+  const handler = {} as typeof import("../../../src/app/admin/watermark/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../../src/app/setup-chat/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/setup-chat">> = Specific
@@ -519,6 +528,24 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 {
   type __IsExpected<Specific extends RouteHandlerConfig<"/api/auth/register">> = Specific
   const handler = {} as typeof import("../../../src/app/api/auth/register/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../src/app/api/batch-watermark/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/batch-watermark">> = Specific
+  const handler = {} as typeof import("../../../src/app/api/batch-watermark/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../src/app/api/check-watermarks/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/check-watermarks">> = Specific
+  const handler = {} as typeof import("../../../src/app/api/check-watermarks/route.js")
   type __Check = __IsExpected<typeof handler>
   // @ts-ignore
   type __Unused = __Check
@@ -776,10 +803,28 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../../src/app/api/test-listing-data/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/test-listing-data">> = Specific
+  const handler = {} as typeof import("../../../src/app/api/test-listing-data/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../../src/app/api/test/visit-requests/route.ts
 {
   type __IsExpected<Specific extends RouteHandlerConfig<"/api/test/visit-requests">> = Specific
   const handler = {} as typeof import("../../../src/app/api/test/visit-requests/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../src/app/api/track-view/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/track-view">> = Specific
+  const handler = {} as typeof import("../../../src/app/api/track-view/route.js")
   type __Check = __IsExpected<typeof handler>
   // @ts-ignore
   type __Unused = __Check
@@ -825,6 +870,15 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 {
   type __IsExpected<Specific extends RouteHandlerConfig<"/api/visits">> = Specific
   const handler = {} as typeof import("../../../src/app/api/visits/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../src/app/api/watermark-policy/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/watermark-policy">> = Specific
+  const handler = {} as typeof import("../../../src/app/api/watermark-policy/route.js")
   type __Check = __IsExpected<typeof handler>
   // @ts-ignore
   type __Unused = __Check

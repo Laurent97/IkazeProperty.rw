@@ -15,11 +15,12 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <div className="w-6 h-6 sm:w-8 sm:h-8 bg-red-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm sm:text-lg">I</span>
-              </div>
-              <span className="text-lg sm:text-xl font-bold">IkazeProperty.rw</span>
+            <div className="flex items-center">
+              <img 
+                src="/images/ikazeproperty-logo.svg" 
+                alt="Ikaze Property" 
+                className="h-12 sm:h-14 object-contain"
+              />
             </div>
             <p className="text-gray-400 text-xs sm:text-sm">
               Rwanda's trusted marketplace for properties, vehicles, and more. Secure transactions with admin-mediated connections.

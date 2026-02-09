@@ -15,6 +15,29 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "IkazeProperty.rw - Rwanda's Trusted Marketplace",
   description: "Buy, sell, and rent properties, cars, land, and more in Rwanda. Secure transactions with admin-mediated connections and 30% commission.",
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/images/ikazeproperty-logo.svg',
+  },
+  openGraph: {
+    title: "IkazeProperty.rw - Rwanda's Trusted Marketplace",
+    description: "Buy, sell, and rent properties, cars, land, and more in Rwanda. Secure transactions with admin-mediated connections and 30% commission.",
+    images: [
+      {
+        url: '/images/ikazeproperty-logo.svg',
+        width: 1200,
+        height: 630,
+        alt: 'Ikaze Property - Rwanda Premier Marketplace',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "IkazeProperty.rw - Rwanda's Trusted Marketplace",
+    description: "Buy, sell, and rent properties, cars, land, and more in Rwanda. Secure transactions with admin-mediated connections and 30% commission.",
+    images: ['/images/ikazeproperty-logo.svg'],
+  },
 };
 
 export default function RootLayout({

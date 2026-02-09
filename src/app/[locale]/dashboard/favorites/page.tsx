@@ -40,35 +40,14 @@ export default function FavoritesPage() {
         setUser(currentUser)
         
         // Only fetch favorites if user is authenticated
-        const { data, error } = await supabase
-          .from('favorite_listings')
-          .select(`
-            listings (
-              id,
-              title,
-              price,
-              currency,
-              category,
-              status,
-              location,
-              views,
-              likes,
-              featured,
-              created_at,
-              listing_media (
-                id,
-                url,
-                media_type,
-                is_primary,
-                order_index
-              )
-            )
-          `)
-          .eq('user_id', currentUser.id)
-          .order('created_at', { ascending: false })
-
-        if (error) throw error
-        setFavorites((data as any[])?.map(fav => fav.listings).filter(Boolean) || [])
+        const response = await fetch('/api/favorites')
+        if (response.ok) {
+          const data = await response.json()
+          setFavorites(data.favorites || [])
+        } else {
+          console.error('Error fetching favorites:', response.statusText)
+          setFavorites([])
+        }
       } catch (error) {
         console.error('Error fetching favorites:', error)
         setFavorites([]) // Set empty array on error
@@ -87,35 +66,13 @@ export default function FavoritesPage() {
     }
     
     try {
-      const { data, error } = await supabase
-        .from('favorite_listings')
-        .select(`
-          listings (
-            id,
-            title,
-            price,
-            currency,
-            category,
-            status,
-            location,
-            views,
-            likes,
-            featured,
-            created_at,
-            listing_media (
-              id,
-              url,
-              media_type,
-              is_primary,
-              order_index
-            )
-          )
-        `)
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: false })
-
-      if (error) throw error
-      setFavorites((data as any[])?.map(fav => fav.listings).filter(Boolean) || [])
+      const response = await fetch('/api/favorites')
+      if (response.ok) {
+        const data = await response.json()
+        setFavorites(data.favorites || [])
+      } else {
+        console.error('Error fetching favorites:', response.statusText)
+      }
     } catch (error) {
       console.error('Error fetching favorites:', error)
     } finally {
@@ -125,14 +82,15 @@ export default function FavoritesPage() {
 
   const removeFavorite = async (listingId: string) => {
     try {
-      const { error } = await supabase
-        .from('favorite_listings')
-        .delete()
-        .eq('user_id', user.id)
-        .eq('listing_id', listingId)
+      const response = await fetch(`/api/favorites?listingId=${listingId}`, {
+        method: 'DELETE'
+      })
       
-      if (error) throw error
-      setFavorites(favorites.filter((fav: any) => fav.id !== listingId))
+      if (response.ok) {
+        setFavorites(favorites.filter((fav: any) => fav.id !== listingId))
+      } else {
+        console.error('Error removing favorite:', response.statusText)
+      }
     } catch (error) {
       console.error('Error removing favorite:', error)
     }

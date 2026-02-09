@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { uploadBuffer } from '@/lib/cloudinary'
+import { addImageWatermark, getTextWatermarkTransformation } from '@/lib/watermark'
 
 export async function POST(request: NextRequest) {
   try {
@@ -35,7 +36,27 @@ export async function POST(request: NextRequest) {
 
     // Validate file
     const bytes = await file.arrayBuffer()
-    const buffer = Buffer.from(bytes)
+    let buffer = Buffer.from(bytes)
+
+    // Determine resource type based on file
+    const fileType = file.type.startsWith('video/') ? 'video' : 'image'
+    const detectedResourceType = formData.get('resourceType') as string || 'auto'
+    const finalResourceType = detectedResourceType === 'auto' ? fileType : detectedResourceType
+
+    // Watermarking disabled - only apply to new uploads when ready
+    // TODO: Re-enable watermarking when system is stable
+    if (false && fileType.startsWith('image/')) {
+      console.log('🖼️ Processing image file:', file.name, 'Type:', fileType)
+      try {
+        buffer = await addImageWatermark(bytes)
+        console.log('✅ Watermark successfully added to image:', file.name)
+      } catch (error) {
+        console.warn('⚠️ Failed to add watermark, continuing with original image:', error)
+      }
+    } else if (false && fileType.startsWith('video/')) {
+      console.log('🎥 Processing video file:', file.name, 'Type:', fileType)
+      console.log('📝 Will apply watermark via Cloudinary transformation')
+    }
 
     // Check file size (limit to 100MB)
     const maxSize = 100 * 1024 * 1024 // 100MB in bytes
@@ -47,23 +68,22 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Determine resource type based on file
-    const fileType = file.type.startsWith('video/') ? 'video' : 'image'
-    const detectedResourceType = formData.get('resourceType') as string || 'auto'
-    const finalResourceType = detectedResourceType === 'auto' ? fileType : detectedResourceType
-
     console.log('📤 Starting Cloudinary upload...')
 
     // Upload to Cloudinary with appropriate settings
-    const result = await uploadBuffer(buffer, file.name, {
+    const uploadOptions: any = {
       folder,
       resource_type: finalResourceType as 'image' | 'video' | 'auto',
       // Video-specific settings
       ...(fileType.startsWith('video/') && {
         chunk_size: '600k', // For better streaming
-        eager: 'streaming' // For video optimization
+        eager: 'streaming', // For video optimization
+        // Watermarking disabled for now
+        // ...getTextWatermarkTransformation() // Add watermark to videos
       })
-    })
+    }
+
+    const result = await uploadBuffer(buffer, file.name, uploadOptions)
 
     console.log('✅ Cloudinary upload successful:', {
       url: (result as any).secure_url || (result as any).url,

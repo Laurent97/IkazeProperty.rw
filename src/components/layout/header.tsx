@@ -42,12 +42,12 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
         <div className="flex justify-between items-center h-14 sm:h-16">
           {/* Logo */}
-          <Link href={`/${locale}`} className="flex items-center space-x-2 touch-target">
-            <div className="w-6 h-6 sm:w-8 sm:h-8 bg-red-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm sm:text-lg">I</span>
-            </div>
-            <span className="text-base sm:text-xl font-bold text-gray-900 hidden xs:block">IkazeProperty.rw</span>
-            <span className="text-sm sm:text-base font-bold text-gray-900 xs:hidden">Ikaze</span>
+          <Link href={`/${locale}`} className="flex items-center touch-target">
+            <img 
+              src="/images/ikazeproperty-logo.svg" 
+              alt="Ikaze Property" 
+              className="h-12 sm:h-14 object-contain"
+            />
           </Link>
 
           {/* Notification Dropdown - Desktop */}
