@@ -1,8 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabase } from '@/lib/auth'
+import { getSupabaseAdmin } from '@/lib/auth'
+
+interface TestListing {
+  id: string
+  title: string
+  category: string
+  house_details?: any
+  car_details?: any
+  land_details?: any
+  other_item_details?: any
+  media?: Array<{
+    url: string
+    media_type: string
+    is_primary: boolean
+    order_index: number
+  }>
+}
 
 export async function GET(request: NextRequest) {
   try {
+    const supabase = getSupabaseAdmin()
     // Test query to see what data we have
     const { data: listings, error } = await supabase
       .from('listings')
@@ -32,13 +49,15 @@ export async function GET(request: NextRequest) {
       )
     }
 
+    const typedListings = listings as TestListing[] | null
+
     // Log the structure
-    console.log('Test listings data:', JSON.stringify(listings, null, 2))
+    console.log('Test listings data:', JSON.stringify(typedListings, null, 2))
 
     return NextResponse.json({
       success: true,
-      count: listings?.length || 0,
-      listings: listings?.map(listing => ({
+      count: typedListings?.length || 0,
+      listings: typedListings?.map((listing: TestListing) => ({
         id: listing.id,
         title: listing.title,
         category: listing.category,

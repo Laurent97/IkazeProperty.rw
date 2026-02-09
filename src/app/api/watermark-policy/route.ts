@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabase } from '@/lib/auth'
+import { getSupabaseAdmin } from '@/lib/auth'
 import { getCurrentUser } from '@/lib/auth'
 
 export async function GET(request: NextRequest) {
   try {
     const currentUser = await getCurrentUser()
+    const supabase = getSupabaseAdmin()
     
     if (!currentUser) {
       return NextResponse.json(
@@ -14,7 +15,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Get user's watermark permissions
-    const { data: permissions, error } = await supabase
+    const { data: permissions, error } = await (supabase as any)
       .rpc('get_user_watermark_permissions', {
         p_user_id: currentUser.id
       })
@@ -44,6 +45,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const currentUser = await getCurrentUser()
+    const supabase = getSupabaseAdmin()
     
     if (!currentUser) {
       return NextResponse.json(
@@ -57,7 +59,7 @@ export async function POST(request: NextRequest) {
     switch (action) {
       case 'create_session':
         // Create a watermark viewing session
-        const { data: sessionToken, error: sessionError } = await supabase
+        const { data: sessionToken, error: sessionError } = await (supabase as any)
           .rpc('create_watermark_session', {
             p_user_id: currentUser.id,
             p_listing_id: listingId || null,
@@ -80,7 +82,7 @@ export async function POST(request: NextRequest) {
 
       case 'assign_policy':
         // Assign watermark policy to user (admin only)
-        const { data: userRole } = await supabase
+        const { data: userRole } = await (supabase as any)
           .from('users')
           .select('role')
           .eq('id', currentUser.id)
@@ -100,7 +102,7 @@ export async function POST(request: NextRequest) {
           )
         }
 
-        const { data: assignResult, error: assignError } = await supabase
+        const { data: assignResult, error: assignError } = await (supabase as any)
           .rpc('assign_watermark_policy', {
             p_user_id: currentUser.id,
             p_policy_name: policyName,
@@ -128,7 +130,7 @@ export async function POST(request: NextRequest) {
           )
         }
 
-        const { data: canView, error: permissionError } = await supabase
+        const { data: canView, error: permissionError } = await (supabase as any)
           .rpc('can_view_watermarks', {
             p_user_id: currentUser.id,
             p_listing_id: listingId

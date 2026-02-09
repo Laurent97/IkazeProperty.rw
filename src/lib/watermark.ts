@@ -2,7 +2,7 @@ import sharp from 'sharp'
 
 // Add watermark to images
 export const addImageWatermark = async (
-  imageBuffer: ArrayBuffer,
+  imageBuffer: Buffer | ArrayBuffer,
   watermarkPath: string = '/images/ikazeproperty-logo.png'
 ): Promise<Buffer> => {
   try {
@@ -37,7 +37,10 @@ export const addImageWatermark = async (
 
     const watermarkBuffer = Buffer.from(watermarkSvg)
 
-    const watermarkedImage = await sharp(Buffer.from(imageBuffer))
+    // Convert input to Buffer if it's an ArrayBuffer
+    const inputBuffer = imageBuffer instanceof ArrayBuffer ? Buffer.from(imageBuffer) : imageBuffer
+
+    const watermarkedImage = await sharp(inputBuffer)
       .composite([{
         input: watermarkBuffer,
         gravity: 'southeast',
@@ -51,7 +54,7 @@ export const addImageWatermark = async (
   } catch (error) {
     console.error('Error adding watermark:', error)
     // Return original image if watermarking fails
-    return Buffer.from(imageBuffer)
+    return imageBuffer instanceof ArrayBuffer ? Buffer.from(imageBuffer) : imageBuffer
   }
 }
 

@@ -1,8 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabase } from '@/lib/auth'
+import { getSupabaseAdmin } from '@/lib/auth'
+
+interface CheckMediaItem {
+  id: string
+  listing_id: string
+  url: string
+  media_type: string
+  listings?: {
+    title?: string
+    category?: string
+    status?: string
+  }
+}
 
 export async function GET(request: NextRequest) {
   try {
+    const supabase = getSupabaseAdmin()
     // Check current watermark status
     const { data: media, error } = await supabase
       .from('listing_media')
@@ -28,8 +41,10 @@ export async function GET(request: NextRequest) {
       )
     }
 
+    const typedMedia = media as CheckMediaItem[] | null
+
     // Analyze watermark status
-    const analysis = media?.map(item => ({
+    const analysis = typedMedia?.map(item => ({
       id: item.id,
       listing_id: item.listing_id,
       listing_title: item.listings?.title,

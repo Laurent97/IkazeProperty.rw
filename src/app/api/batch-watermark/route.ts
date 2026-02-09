@@ -1,9 +1,28 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabase } from '@/lib/auth'
+import { getSupabaseAdmin } from '@/lib/auth'
+import { Database } from '@/types/database'
+
+interface ListingMedia {
+  id: string
+  listing_id: string
+  url: string
+  public_id?: string
+  media_type: string
+  listings?: {
+    id: string
+    title?: string
+    status: string
+  }
+}
+
+interface ListingMediaUpdate {
+  url: string
+}
 
 export async function POST(request: NextRequest) {
   try {
     const { batchSize = 50, dryRun = false } = await request.json()
+    const supabase = getSupabaseAdmin()
 
     console.log(`🚀 Starting batch watermark process (batch size: ${batchSize}, dry run: ${dryRun})`)
 
@@ -36,7 +55,9 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    if (!imagesNeedingWatermark || imagesNeedingWatermark.length === 0) {
+    const images = imagesNeedingWatermark as ListingMedia[] | null
+
+    if (!images || images.length === 0) {
       return NextResponse.json({
         success: true,
         message: 'No images need watermarking',
@@ -45,15 +66,15 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    console.log(`📊 Found ${imagesNeedingWatermark.length} images needing watermarks`)
+    console.log(`📊 Found ${images.length} images needing watermarks`)
 
     if (dryRun) {
       return NextResponse.json({
         success: true,
         message: 'Dry run completed',
         processed: 0,
-        total: imagesNeedingWatermark.length,
-        images: imagesNeedingWatermark.map(img => ({
+        total: images.length,
+        images: images.map(img => ({
           id: img.id,
           listing_id: img.listing_id,
           old_url: img.url,
@@ -65,12 +86,13 @@ export async function POST(request: NextRequest) {
 
     // Process each image
     const results = []
-    for (const image of imagesNeedingWatermark) {
+    for (const image of images) {
       try {
         const watermarkedUrl = generateWatermarkedUrl(image.url)
         
-        // Update the database
-        const { error: updateError } = await supabase
+        // Update the database using JavaScript approach
+        const supabaseAdmin = getSupabaseAdmin()
+        const { error: updateError } = await (supabaseAdmin as any)
           .from('listing_media')
           .update({ url: watermarkedUrl })
           .eq('id', image.id)
@@ -109,10 +131,10 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: `Processed ${imagesNeedingWatermark.length} images`,
+      message: `Processed ${images.length} images`,
       processed: successCount,
       failed: failureCount,
-      total: imagesNeedingWatermark.length,
+      total: images.length,
       results: results
     })
 
@@ -138,6 +160,7 @@ function generateWatermarkedUrl(originalUrl: string): string {
 
 export async function GET(request: NextRequest) {
   try {
+    const supabase = getSupabaseAdmin()
     // Get watermark statistics
     const { data: stats } = await supabase
       .from('listing_media')

@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
     if (false && fileType.startsWith('image/')) {
       console.log('🖼️ Processing image file:', file.name, 'Type:', fileType)
       try {
-        buffer = await addImageWatermark(bytes)
+        buffer = (await addImageWatermark(buffer as any)) as any
         console.log('✅ Watermark successfully added to image:', file.name)
       } catch (error) {
         console.warn('⚠️ Failed to add watermark, continuing with original image:', error)

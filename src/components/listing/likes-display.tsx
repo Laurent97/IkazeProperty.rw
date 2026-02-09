@@ -21,6 +21,12 @@ interface User {
   avatar_url: string | null
 }
 
+interface LikeWithUser {
+  user_id: string
+  created_at: string
+  users: User
+}
+
 export default function LikesDisplay({ listingId, likesCount, className = '' }: LikesDisplayProps) {
   const [users, setUsers] = useState<User[]>([])
   const [loading, setLoading] = useState(false)
@@ -49,7 +55,8 @@ export default function LikesDisplay({ listingId, likesCount, className = '' }: 
 
       if (error) throw error
 
-      const uniqueUsers = (data || []).map(item => item.users).filter(Boolean)
+      const typedData = data as LikeWithUser[] | null
+      const uniqueUsers = (typedData || []).map(item => item.users).filter(Boolean)
       setUsers(uniqueUsers as User[])
     } catch (error) {
       console.error('Error fetching liked users:', error)

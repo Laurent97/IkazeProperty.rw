@@ -867,7 +867,8 @@ function LikesDisplay({ listingId, likesCount, className = '' }) {
                 ascending: false
             }).limit(20);
             if (error) throw error;
-            const uniqueUsers = (data || []).map((item)=>item.users).filter(Boolean);
+            const typedData = data;
+            const uniqueUsers = (typedData || []).map((item)=>item.users).filter(Boolean);
             setUsers(uniqueUsers);
         } catch (error) {
             console.error('Error fetching liked users:', error);
@@ -889,7 +890,7 @@ function LikesDisplay({ listingId, likesCount, className = '' }) {
                     className: "h-4 w-4"
                 }, void 0, false, {
                     fileName: "[project]/src/components/listing/likes-display.tsx",
-                    lineNumber: 71,
+                    lineNumber: 78,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -897,13 +898,13 @@ function LikesDisplay({ listingId, likesCount, className = '' }) {
                     children: "No likes yet"
                 }, void 0, false, {
                     fileName: "[project]/src/components/listing/likes-display.tsx",
-                    lineNumber: 72,
+                    lineNumber: 79,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/listing/likes-display.tsx",
-            lineNumber: 70,
+            lineNumber: 77,
             columnNumber: 7
         }, this);
     }
@@ -921,7 +922,7 @@ function LikesDisplay({ listingId, likesCount, className = '' }) {
                             className: "h-4 w-4"
                         }, void 0, false, {
                             fileName: "[project]/src/components/listing/likes-display.tsx",
-                            lineNumber: 81,
+                            lineNumber: 88,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -929,7 +930,7 @@ function LikesDisplay({ listingId, likesCount, className = '' }) {
                             children: likesCount
                         }, void 0, false, {
                             fileName: "[project]/src/components/listing/likes-display.tsx",
-                            lineNumber: 82,
+                            lineNumber: 89,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -937,18 +938,18 @@ function LikesDisplay({ listingId, likesCount, className = '' }) {
                             children: "likes"
                         }, void 0, false, {
                             fileName: "[project]/src/components/listing/likes-display.tsx",
-                            lineNumber: 83,
+                            lineNumber: 90,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/listing/likes-display.tsx",
-                    lineNumber: 80,
+                    lineNumber: 87,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/listing/likes-display.tsx",
-                lineNumber: 79,
+                lineNumber: 86,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DialogContent"], {
@@ -962,19 +963,19 @@ function LikesDisplay({ listingId, likesCount, className = '' }) {
                                     className: "h-5 w-5 text-red-500"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/listing/likes-display.tsx",
-                                    lineNumber: 89,
+                                    lineNumber: 96,
                                     columnNumber: 13
                                 }, this),
                                 "People who liked this listing"
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/listing/likes-display.tsx",
-                            lineNumber: 88,
+                            lineNumber: 95,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/listing/likes-display.tsx",
-                        lineNumber: 87,
+                        lineNumber: 94,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -985,12 +986,12 @@ function LikesDisplay({ listingId, likesCount, className = '' }) {
                                 className: "animate-spin rounded-full h-8 w-8 border-b-2 border-red-600"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/listing/likes-display.tsx",
-                                lineNumber: 96,
+                                lineNumber: 103,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/listing/likes-display.tsx",
-                            lineNumber: 95,
+                            lineNumber: 102,
                             columnNumber: 13
                         }, this) : users.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "text-center py-8 text-gray-500",
@@ -999,20 +1000,20 @@ function LikesDisplay({ listingId, likesCount, className = '' }) {
                                     className: "h-12 w-12 mx-auto mb-2 opacity-50"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/listing/likes-display.tsx",
-                                    lineNumber: 100,
+                                    lineNumber: 107,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                     children: "No one has liked this listing yet"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/listing/likes-display.tsx",
-                                    lineNumber: 101,
+                                    lineNumber: 108,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/listing/likes-display.tsx",
-                            lineNumber: 99,
+                            lineNumber: 106,
                             columnNumber: 13
                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "space-y-2 max-h-96 overflow-y-auto",
@@ -1028,20 +1029,20 @@ function LikesDisplay({ listingId, likesCount, className = '' }) {
                                                         alt: user.full_name || ''
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/listing/likes-display.tsx",
-                                                        lineNumber: 108,
+                                                        lineNumber: 115,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$avatar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AvatarFallback"], {
                                                         children: user.full_name?.charAt(0)?.toUpperCase() || user.email?.charAt(0)?.toUpperCase() || 'U'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/listing/likes-display.tsx",
-                                                        lineNumber: 109,
+                                                        lineNumber: 116,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/listing/likes-display.tsx",
-                                                lineNumber: 107,
+                                                lineNumber: 114,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1052,7 +1053,7 @@ function LikesDisplay({ listingId, likesCount, className = '' }) {
                                                         children: user.full_name || 'Anonymous User'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/listing/likes-display.tsx",
-                                                        lineNumber: 114,
+                                                        lineNumber: 121,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1060,19 +1061,19 @@ function LikesDisplay({ listingId, likesCount, className = '' }) {
                                                         children: user.email || 'No email'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/listing/likes-display.tsx",
-                                                        lineNumber: 117,
+                                                        lineNumber: 124,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/listing/likes-display.tsx",
-                                                lineNumber: 113,
+                                                lineNumber: 120,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, user.id, true, {
                                         fileName: "[project]/src/components/listing/likes-display.tsx",
-                                        lineNumber: 106,
+                                        lineNumber: 113,
                                         columnNumber: 17
                                     }, this)),
                                 users.length < likesCount && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1084,30 +1085,30 @@ function LikesDisplay({ listingId, likesCount, className = '' }) {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/listing/likes-display.tsx",
-                                    lineNumber: 124,
+                                    lineNumber: 131,
                                     columnNumber: 17
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/listing/likes-display.tsx",
-                            lineNumber: 104,
+                            lineNumber: 111,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/listing/likes-display.tsx",
-                        lineNumber: 93,
+                        lineNumber: 100,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/listing/likes-display.tsx",
-                lineNumber: 86,
+                lineNumber: 93,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/listing/likes-display.tsx",
-        lineNumber: 78,
+        lineNumber: 85,
         columnNumber: 5
     }, this);
 }
