@@ -72,7 +72,7 @@ export default function HomePage() {
       }
       
       const pageSize = 20
-      let query = supabase
+      let query = getSupabaseClient()
         .from('listings')
         .select(`
           *,
