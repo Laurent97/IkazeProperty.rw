@@ -7,11 +7,23 @@ export async function POST(request: NextRequest) {
     console.log('🚀 Upload API called')
     
     // Check environment variables
+    const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+    const apiKey = process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY
+    const apiSecret = process.env.CLOUDINARY_API_SECRET
+    
     console.log('🔑 Environment variables check:', {
-      cloudName: !!process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-      apiKey: !!process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
-      apiSecret: !!process.env.CLOUDINARY_API_SECRET
+      cloudName: !!cloudName,
+      apiKey: !!apiKey,
+      apiSecret: !!apiSecret
     })
+    
+    if (!cloudName || !apiKey || !apiSecret) {
+      console.error('❌ Missing Cloudinary configuration')
+      return NextResponse.json(
+        { error: 'Server configuration error: Cloudinary not properly configured' },
+        { status: 500 }
+      )
+    }
     
     const formData = await request.formData()
     const file = formData.get('file') as File
