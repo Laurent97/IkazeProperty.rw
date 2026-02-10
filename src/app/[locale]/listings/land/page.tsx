@@ -171,12 +171,12 @@ export default function LandListingsPage() {
 
       // Combine all data
       const combinedListings = typedListings.map(listing => {
-        const seller = sellersData.data?.find(s => s.id === listing.seller_id) || null
-        const media = mediaData.data?.filter(m => m.listing_id === listing.id) || []
-        const landDetail = landDetailsData.data?.find(d => d.listing_id === listing.id)
+        const seller = (sellersData.data as Seller[] | null)?.find(s => s.id === listing.seller_id) || null
+        const media = (mediaData.data as ListingMedia[] | null)?.filter(m => m.listing_id === listing.id) || []
+        const landDetail = (landDetailsData.data as LandDetails[] | null)?.find(d => d.listing_id === listing.id)
         
         // Check for active promotion
-        const hasActivePromotion = promotionsData.data?.some(p => 
+        const hasActivePromotion = (promotionsData.data as any[] | null)?.some(p => 
           p.listing_id === listing.id
         ) || false
 
