@@ -27,6 +27,12 @@ export async function POST(request: NextRequest) {
       payment_method,
       visit_fee,
       phone_number,
+      buyer_phone_number,
+      buyer_name,
+      buyer_email,
+      visit_date,
+      visit_time,
+      visit_notes,
       account_name,
       merchant_id,
       bank_name,
@@ -39,6 +45,12 @@ export async function POST(request: NextRequest) {
       payment_method: PaymentMethod;
       visit_fee?: number;
       phone_number?: string;
+      buyer_phone_number?: string;
+      buyer_name?: string;
+      buyer_email?: string;
+      visit_date?: string;
+      visit_time?: string;
+      visit_notes?: string;
       account_name?: string;
       merchant_id?: string;
       bank_name?: string;
@@ -108,7 +120,14 @@ export async function POST(request: NextRequest) {
         seller_payout: sellerPayout,
         payment_transaction_id: null,
         payment_reference: reference,
-        status: 'pending_payment'
+        status: 'pending_payment',
+        // Add buyer contact information and visit details
+        buyer_name: buyer_name,
+        buyer_email: buyer_email,
+        buyer_phone: buyer_phone_number,
+        visit_date: visit_date,
+        visit_time: visit_time,
+        visit_notes: visit_notes
       })
       .select()
       .single();

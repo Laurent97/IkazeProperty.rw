@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useRouter, useParams } from 'next/navigation'
 import { 
   Home, 
   Car, 
@@ -20,11 +21,14 @@ import {
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { supabase } from '@/lib/auth'
-import { getCurrentUser } from '@/lib/auth'
+import { getCurrentUser, getUserProfile } from '@/lib/auth'
 import InquiryChat from '@/components/chat/InquiryChat'
 import EmailSettings from '@/components/auth/EmailSettings'
 
-export default function UserDashboard() {
+export default function DashboardUserPage() {
+  const router = useRouter()
+  const params = useParams() as { locale: string }
+  const { locale } = params
   const [user, setUser] = useState<any>(null)
   const [stats, setStats] = useState({
     myListings: 0,
@@ -49,7 +53,7 @@ export default function UserDashboard() {
       const currentUser = await getCurrentUser()
       if (!currentUser) {
         console.log('No user authenticated, redirecting to login')
-        window.location.href = '/auth/login'
+        window.location.href = `/${locale}/auth/login`
         return
       }
 

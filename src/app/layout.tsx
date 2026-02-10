@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import GoogleAnalytics from '@/components/seo/GoogleAnalytics';
 import GoogleSearchConsole from '@/components/seo/GoogleSearchConsole';
+import StructuredData from '@/components/seo/StructuredData';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -91,68 +92,64 @@ export default function RootLayout({
         <link rel="alternate" hrefLang="x-default" href="https://ikazeproperty.rw" />
         
         {/* Structured Data for Local Business */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "LocalBusiness",
-              "@id": "https://ikazeproperty.rw",
-              "name": "IkazeProperty.rw",
-              "description": "Rwanda's trusted marketplace for real estate, vehicles, and land. Buy, sell, and rent properties in Kigali and across Rwanda.",
-              "url": "https://ikazeproperty.rw",
-              "telephone": "+250-788-123-456",
-              "address": {
-                "@type": "PostalAddress",
-                "addressCountry": "RW",
-                "addressLocality": "Kigali",
-                "addressRegion": "Kigali City",
-                "postalCode": "0000"
-              },
-              "geo": {
-                "@type": "GeoCoordinates",
-                "latitude": "-1.9441",
-                "longitude": "30.0619"
-              },
-              "areaServed": {
-                "@type": "Country",
-                "name": "Rwanda"
-              },
-              "openingHours": "Mo-Su 00:00-23:59",
-              "priceRange": "$$",
-              "sameAs": [
-                "https://www.facebook.com/ikazeproperty",
-                "https://www.twitter.com/ikazeproperty",
-                "https://www.instagram.com/ikazeproperty"
-              ],
-              "offers": {
-                "@type": "AggregateOffer",
-                "priceCurrency": "RWF",
-                "lowPrice": "10000",
-                "highPrice": "50000000",
-                "offerCount": "4678"
-              }
-            })
+        <StructuredData 
+          type="LocalBusiness"
+          data={{
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "@id": "https://ikazeproperty.rw",
+            "name": "IkazeProperty.rw",
+            "description": "Rwanda's trusted marketplace for real estate, vehicles, and land. Buy, sell, and rent properties in Kigali and across Rwanda.",
+            "url": "https://ikazeproperty.rw",
+            "telephone": "+250-788-123-456",
+            "address": {
+              "@type": "PostalAddress",
+              "addressCountry": "RW",
+              "addressLocality": "Kigali",
+              "addressRegion": "Kigali City",
+              "postalCode": "0000"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": "-1.9441",
+              "longitude": "30.0619"
+            },
+            "areaServed": {
+              "@type": "Country",
+              "name": "Rwanda"
+            },
+            "openingHours": "Mo-Su 00:00-23:59",
+            "priceRange": "$$",
+            "sameAs": [
+              "https://www.facebook.com/ikazeproperty",
+              "https://www.twitter.com/ikazeproperty",
+              "https://www.instagram.com/ikazeproperty"
+            ],
+            "offers": {
+              "@type": "AggregateOffer",
+              "priceCurrency": "RWF",
+              "lowPrice": "10000",
+              "highPrice": "50000000",
+              "offerCount": "4678"
+            }
           }}
         />
         
         {/* Website Schema */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              "@id": "https://ikazeproperty.rw#website",
-              "url": "https://ikazeproperty.rw",
-              "name": "IkazeProperty.rw",
-              "description": "Rwanda's premier online marketplace for property, vehicles, and land",
-              "potentialAction": {
-                "@type": "SearchAction",
-                "target": "https://ikazeproperty.rw/search?q={search_term_string}",
-                "query-input": "required name=search_term_string"
-              }
-            })
+        <StructuredData 
+          type="WebSite"
+          data={{
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "@id": "https://ikazeproperty.rw#website",
+            "url": "https://ikazeproperty.rw",
+            "name": "IkazeProperty.rw",
+            "description": "Rwanda's premier online marketplace for property, vehicles, and land",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://ikazeproperty.rw/search?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
           }}
         />
       </head>

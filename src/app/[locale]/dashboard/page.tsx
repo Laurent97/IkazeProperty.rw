@@ -1,11 +1,13 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useParams } from 'next/navigation'
 import { getCurrentUser, getUserProfile } from '@/lib/auth'
 
 export default function DashboardPage() {
   const router = useRouter()
+  const params = useParams() as { locale: string }
+  const { locale } = params
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -13,7 +15,7 @@ export default function DashboardPage() {
       try {
         const currentUser = await getCurrentUser()
         if (!currentUser) {
-          router.push('/auth/login')
+          router.push(`/${locale}/auth/login`)
           return
         }
 
@@ -23,23 +25,23 @@ export default function DashboardPage() {
 
           // Redirect to appropriate dashboard based on user role
           if (isAdmin) {
-            router.push('/dashboard/admin')
+            router.push(`/${locale}/dashboard/admin`)
           } else {
-            router.push('/dashboard/user')
+            router.push(`/${locale}/dashboard/user`)
           }
         } catch (profileError) {
           // If profile doesn't exist or any error occurs, treat as regular user
-          router.push('/dashboard/user')
+          router.push(`/${locale}/dashboard/user`)
         }
       } catch (error) {
-        router.push('/auth/login')
+        router.push(`/${locale}/auth/login`)
       } finally {
         setLoading(false)
       }
     }
 
     redirectUser()
-  }, [router])
+  }, [router, locale])
 
   if (loading) {
     return (

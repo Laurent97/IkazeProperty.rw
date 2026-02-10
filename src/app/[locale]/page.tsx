@@ -86,10 +86,10 @@ export default function HomePage() {
             is_primary,
             order_index
           ).order('is_primary', { ascending: false }).order('order_index', { ascending: true }),
-          house_details,
-          car_details,
-          land_details,
-          other_item_details
+          house_details:house_details(*),
+          car_details:car_details(*),
+          land_details:land_details(*),
+          other_item_details:other_item_details(*)
         `, { count: 'exact' })
         .eq('status', 'available')
 

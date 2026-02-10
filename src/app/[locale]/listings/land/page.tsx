@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import { Search, Filter, MapPin, Trees, Ruler, Heart, Eye } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -94,6 +95,8 @@ interface LandListing {
 }
 
 export default function LandListingsPage() {
+  const params = useParams()
+  const locale = (params.locale as string) || 'en'
   const [searchQuery, setSearchQuery] = useState('')
   const [priceRange, setPriceRange] = useState({ min: '', max: '' })
   const [sizeRange, setSizeRange] = useState({ min: '', max: '' })
@@ -601,7 +604,7 @@ export default function LandListingsPage() {
                               size="sm"
                               className="flex-shrink-0"
                             />
-                            <Link href={`/listings/land/${listing.id}`}>
+                            <Link href={`/${locale}/listings/land/${listing.id}`}>
                               <Button size="sm" className="bg-red-600 hover:bg-red-700">
                                 View Details
                               </Button>

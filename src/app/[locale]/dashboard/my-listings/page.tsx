@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useRouter, useParams } from 'next/navigation'
 import { 
   Home, 
   Car, 
@@ -22,6 +23,9 @@ import { supabase } from '@/lib/auth'
 import { getCurrentUser } from '@/lib/auth'
 
 export default function MyListingsPage() {
+  const router = useRouter()
+  const params = useParams() as { locale: string }
+  const { locale } = params
   const [user, setUser] = useState<any>(null)
   const [listings, setListings] = useState([])
   const [loading, setLoading] = useState(true)
@@ -37,7 +41,7 @@ export default function MyListingsPage() {
     try {
       const currentUser = await getCurrentUser()
       if (!currentUser) {
-        window.location.href = '/auth/login'
+        window.location.href = `/${locale}/auth/login`
         return
       }
 

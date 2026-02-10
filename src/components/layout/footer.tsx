@@ -4,10 +4,13 @@ import Link from 'next/link'
 import { Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin } from 'lucide-react'
 import { usePaymentContext } from '@/contexts/PaymentContext'
 import { useState, useEffect } from 'react'
+import { useParams } from 'next/navigation'
 
 export default function Footer() {
   const { getPlatformInfo } = usePaymentContext()
   const platformInfo = getPlatformInfo()
+  const params = useParams()
+  const locale = (params.locale as string) || 'en'
   
   return (
     <footer className="bg-gray-900 text-white safe-area-bottom">
@@ -46,22 +49,22 @@ export default function Footer() {
             <h3 className="text-base sm:text-lg font-semibold">Categories</h3>
             <ul className="space-y-1 sm:space-y-2">
               <li>
-                <Link href="/listings/houses" className="text-gray-400 hover:text-red-500 transition-colors text-sm sm:text-base">
+                <Link href={`/${locale}/listings/houses`} className="text-gray-400 hover:text-red-500 transition-colors text-sm sm:text-base">
                   Houses & Apartments
                 </Link>
               </li>
               <li>
-                <Link href="/listings/cars" className="text-gray-400 hover:text-red-500 transition-colors text-sm sm:text-base">
+                <Link href={`/${locale}/listings/cars`} className="text-gray-400 hover:text-red-500 transition-colors text-sm sm:text-base">
                   Cars & Vehicles
                 </Link>
               </li>
               <li>
-                <Link href="/listings/land" className="text-gray-400 hover:text-red-500 transition-colors text-sm sm:text-base">
+                <Link href={`/${locale}/listings/land`} className="text-gray-400 hover:text-red-500 transition-colors text-sm sm:text-base">
                   Land & Plots
                 </Link>
               </li>
               <li>
-                <Link href="/listings/other" className="text-gray-400 hover:text-red-500 transition-colors text-sm sm:text-base">
+                <Link href={`/${locale}/listings/other`} className="text-gray-400 hover:text-red-500 transition-colors text-sm sm:text-base">
                   Other Items
                 </Link>
               </li>

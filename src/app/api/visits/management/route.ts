@@ -39,7 +39,14 @@ export async function GET(request: NextRequest) {
           email,
           phone,
           avatar_url
-        )
+        ),
+        // Add new buyer and visit detail fields
+        buyer_name,
+        buyer_email,
+        buyer_phone,
+        visit_date,
+        visit_time,
+        visit_notes
       `, { count: 'exact' })
       .order('created_at', { ascending: false });
 

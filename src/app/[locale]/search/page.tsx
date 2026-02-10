@@ -82,10 +82,10 @@ export default function SearchPage() {
             is_primary,
             order_index
           ),
-          house_details,
-          car_details,
-          land_details,
-          other_item_details
+          house_details:house_details(*),
+          car_details:car_details(*),
+          land_details:land_details(*),
+          other_item_details:other_item_details(*)
         `, { count: 'exact' })
         .eq('status', 'available')
 

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams, useParams } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, ArrowRight, Upload, MapPin, Home, Car, Trees, Package, Star, CreditCard, Zap, Shield, Crown, Image } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -17,6 +17,8 @@ import PromotionPaymentModal from '@/components/payment/promotion-payment-modal'
 export default function CreateListingPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const params = useParams() as { locale: string }
+  const { locale } = params
   const { user } = useAuth()
   
   // Initialize form data first
@@ -139,10 +141,10 @@ export default function CreateListingPage() {
   // Redirect to login if user is not authenticated
   useEffect(() => {
     if (!user) {
-      router.push('/auth/register?redirect=/create-listing')
+      router.push(`/${locale}/auth/register?redirect=/${locale}/create-listing`)
       return
     }
-  }, [user, router])
+  }, [user, router, locale])
 
   // Show loading state while checking authentication
   if (!user) {

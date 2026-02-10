@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams, useParams } from 'next/navigation'
 import Link from 'next/link'
 import { Eye, EyeOff, Lock, CheckCircle, AlertCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -11,6 +11,8 @@ import { updatePassword } from '@/lib/auth'
 export default function ResetPasswordPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const params = useParams() as { locale: string }
+  const { locale } = params
   const [formData, setFormData] = useState({
     password: '',
     confirmPassword: ''
@@ -64,7 +66,7 @@ export default function ResetPasswordPage() {
       
       // Redirect to login after successful reset
       setTimeout(() => {
-        router.push('/auth/login')
+        router.push(`/${locale}/auth/login`)
       }, 3000)
     } catch (err: any) {
       setError(err.message || 'Failed to reset password')
@@ -86,7 +88,7 @@ export default function ResetPasswordPage() {
               This password reset link is invalid or has expired.
             </p>
             <Button
-              onClick={() => router.push('/auth/forgot-password')}
+              onClick={() => router.push(`/${locale}/auth/forgot-password`)}
               className="w-full bg-red-600 hover:bg-red-700"
             >
               Request New Reset Link
