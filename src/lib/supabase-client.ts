@@ -40,7 +40,7 @@ export const getSupabaseClient = () => {
 }
 
 // Export as default for backward compatibility
-export default getSupabaseClient()
+export default getSupabaseClient
 
 // Helper function to fetch listings with proper error handling
 export async function fetchListingsWithDetails(filters: {
@@ -63,127 +63,31 @@ export async function fetchListingsWithDetails(filters: {
       limit = 50
     } = filters
 
-    let query = getSupabaseClient()
-      .from('listings')
-      .select(`
-        *,
-        seller:users!listings_seller_id_fkey(
-          id,
-          full_name,
-          email,
-          avatar_url
-        )
-      `)
-      .eq('status', 'available')
-      .eq('category', category)
-
-    // Apply text search
-    if (searchQuery.trim()) {
-      query = query.or(`title.ilike.%${searchQuery}%,description.ilike.%${searchQuery}%`)
-    }
-
-    // Apply price range
-    if (priceRange.min) {
-      const min = parseInt(priceRange.min) || 0
-      query = query.gte('price', min)
-    }
-    if (priceRange.max) {
-      const max = parseInt(priceRange.max) || 1000000000
-      query = query.lte('price', max)
-    }
-
-    // Apply sorting
-    switch (sortBy) {
-      case 'price':
-        query = query.order('price', { ascending: true })
-        break
-      case 'price_desc':
-        query = query.order('price', { ascending: false })
-        break
-      case 'views':
-        query = query.order('views', { ascending: false })
-        break
-      case 'likes':
-        query = query.order('likes', { ascending: false })
-        break
-      default:
-        query = query.order('created_at', { ascending: false })
-    }
-
-    query = query.limit(limit)
-
-    const { data: listings, error: listingsError } = await query
-
-    if (listingsError) {
-      console.error('Error fetching listings:', listingsError)
-      return { listings: [], error: listingsError }
-    }
-
-    if (!listings || listings.length === 0) {
-      return { listings: [] }
-    }
-
-    // Fetch additional data in parallel
-    const listingIds = (listings as any[]).map(l => l.id)
+    // Use the new API routes instead of direct Supabase queries
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+    const apiUrl = new URL(`/api/listings/${category}`, baseUrl)
     
-    const [mediaResult, detailsResult] = await Promise.all([
-      getSupabaseClient()
-        .from('listing_media')
-        .select('*')
-        .in('listing_id', listingIds)
-        .order('order_index', { ascending: true }),
-      getSupabaseClient()
-        .from('other_item_details')
-        .select('*')
-        .in('listing_id', listingIds)
-    ])
-
-    // Process the data
-    const listingsWithDetails = (listings as any[]).map(listing => {
-      const listingMedia = mediaResult.data?.filter((m: any) => m.listing_id === listing.id) || []
-      const listingDetails = detailsResult.data?.find((d: any) => d.listing_id === listing.id)
-
-      return {
-        ...listing,
-        media: listingMedia.map((media: any) => ({
-          url: media.url,
-          public_id: media.public_id,
-          media_type: media.media_type,
-          is_primary: media.is_primary,
-          order_index: media.order_index
-        })),
-        other_details: listingDetails ? {
-          subcategory: (listingDetails as any).subcategory,
-          brand: (listingDetails as any).brand,
-          model: (listingDetails as any).model,
-          condition: (listingDetails as any).condition,
-          warranty_available: (listingDetails as any).warranty_available,
-          warranty_period: (listingDetails as any).warranty_period,
-          reason_for_selling: (listingDetails as any).reason_for_selling,
-          original_purchase_date: (listingDetails as any).original_purchase_date,
-          age_of_item: (listingDetails as any).age_of_item
-        } : undefined
-      }
-    })
-
-    // Apply additional filters after fetching
-    let filteredListings = listingsWithDetails
+    // Add query parameters
+    if (searchQuery) apiUrl.searchParams.set('search', searchQuery)
+    if (priceRange.min) apiUrl.searchParams.set('min', priceRange.min)
+    if (priceRange.max) apiUrl.searchParams.set('max', priceRange.max)
+    if (subcategory) apiUrl.searchParams.set('subcategory', subcategory)
+    if (condition) apiUrl.searchParams.set('condition', condition)
+    if (sortBy) apiUrl.searchParams.set('sort', sortBy)
+    if (limit) apiUrl.searchParams.set('limit', limit.toString())
     
-    if (subcategory) {
-      filteredListings = filteredListings.filter(l => 
-        l.other_details?.subcategory === subcategory
-      )
+    const response = await fetch(apiUrl.toString())
+    
+    if (!response.ok) {
+      const errorText = await response.text()
+      console.error('API Error:', errorText)
+      return { listings: [], error: errorText }
     }
     
-    if (condition) {
-      filteredListings = filteredListings.filter(l => 
-        l.other_details?.condition === condition
-      )
-    }
-
-    return { listings: filteredListings }
+    const data = await response.json()
+    return { listings: data.listings || [], error: null }
   } catch (error) {
     console.error('Error in fetchListingsWithDetails:', error)
-    return { listings: [], error }
+    return { listings: [], error: (error as Error).message }
   }
 }
