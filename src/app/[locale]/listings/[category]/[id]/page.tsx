@@ -43,20 +43,7 @@ export default function ListingDetailPage() {
   // Check for invalid ID (including string "undefined")
   if (!id || id === 'undefined' || id === 'null' || id === '[id]') {
     console.error('❌ Invalid ID provided:', id)
-    // Don't call notFound() immediately, try to handle gracefully first
-    return (
-      <div className="min-h-screen bg-gray-50 no-overflow-x">
-        <div className="max-w-5xl mx-auto px-3 sm:px-4 lg:px-6 lg:px-8 py-4 sm:py-8">
-          <Button variant="outline" onClick={() => router.back()} className="touch-target">
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back
-          </Button>
-          <div className="mt-4 sm:mt-6 text-gray-700 text-sm sm:text-base">
-            Invalid listing ID. Please check the URL and try again.
-          </div>
-        </div>
-      </div>
-    )
+    notFound() // Shows Next.js 404 page
   }
   
   const { paymentSettings } = usePaymentContext()
