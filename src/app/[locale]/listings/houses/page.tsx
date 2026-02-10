@@ -54,7 +54,7 @@ export default function HousesListingsPage() {
       console.log('Starting to fetch house listings...')
       
       // Try a simpler query first - just get listings
-      const { data: listingsData, error: listingsError } = await supabase
+      const { data: listingsData, error: listingsError } = await supabase()
         .from('listings')
         .select('*')
         .eq('category', 'houses')
@@ -84,18 +84,18 @@ export default function HousesListingsPage() {
         { data: mediaData, error: mediaError },
         { data: houseDetailsData, error: houseDetailsError }
       ] = await Promise.all([
-        supabase
+        supabase()
           .from('users')
           .select('id, full_name, email, avatar_url, phone_number, verified')
           .in('id', (listingsData as any[]).map((l: any) => l.seller_id)),
         
-        supabase
+        supabase()
           .from('listing_media')
           .select('id, listing_id, url, public_id, media_type, order_index, is_primary')
           .in('listing_id', listingIds)
           .order('order_index'),
         
-        supabase
+        supabase()
           .from('house_details')
           .select('*')
           .in('listing_id', listingIds)
@@ -107,7 +107,7 @@ export default function HousesListingsPage() {
       if (houseDetailsError) console.error('Error fetching house details:', houseDetailsError)
       
       // Fetch active promotions
-      const { data: promotionsData } = await supabase
+      const { data: promotionsData } = await supabase()
         .from('promoted_listings')
         .select('listing_id, status, end_date')
         .in('listing_id', listingIds)

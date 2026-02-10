@@ -19,6 +19,8 @@ const nextConfig: NextConfig = {
     ],
   },
   async headers() {
+    const isDev = process.env.NODE_ENV === 'development';
+    
     return [
       {
         source: '/:path*',
@@ -26,7 +28,7 @@ const nextConfig: NextConfig = {
           {
             key: 'Content-Security-Policy',
             value: [
-              "script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' 'unsafe-inline' chrome-extension://72a0033f-e71b-4b5d-a0c7-35099a3f03cc/ https://vercel.live https://www.googletagmanager.com https://www.google-analytics.com;",
+              `script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' 'unsafe-inline'${isDev ? ' \'unsafe-eval\'' : ''} chrome-extension://72a0033f-e71b-4b5d-a0c7-35099a3f03cc/ https://vercel.live https://www.googletagmanager.com https://www.google-analytics.com;`,
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;",
               "img-src 'self' data: https: blob:;",
               "font-src 'self' data: https://fonts.gstatic.com;",

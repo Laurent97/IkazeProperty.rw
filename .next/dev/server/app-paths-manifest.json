@@ -1,10 +1,7 @@
 {
   "/[locale]/dashboard/admin/settings/page": "app/[locale]/dashboard/admin/settings/page.js",
-  "/[locale]/dashboard/page": "app/[locale]/dashboard/page.js",
-  "/[locale]/page": "app/[locale]/page.js",
   "/_not-found/page": "app/_not-found/page.js",
   "/api/notifications/route": "app/api/notifications/route.js",
   "/api/settings/route": "app/api/settings/route.js",
-  "/api/site-settings/route": "app/api/site-settings/route.js",
-  "/dashboard/page": "app/dashboard/page.js"
+  "/api/site-settings/route": "app/api/site-settings/route.js"
 }

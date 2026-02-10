@@ -1,31 +1,13 @@
-[00:00:01.821] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:02.067] Server  LOG     ✓ Ready in 1434ms
-[00:00:02.110] Browser ERROR   Error fetching notifications: {}
-[00:00:02.110] Browser ERROR   Error fetching notifications: {}
-[00:00:02.111] Browser ERROR   Error fetching notifications: {}
-[00:00:02.111] Browser ERROR   Error fetching notifications: {}
-[00:00:04.938] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:05.113] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:06.786] Browser LOG     🔍 Checking authentication state...
-[00:00:06.786] Browser LOG     🔍 Checking authentication state...
-[00:00:07.801] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
-[00:00:07.801] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
-[00:00:08.785] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
-[00:00:08.785] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
-[00:00:09.786] Browser ERROR   Error fetching settings: {}
-[00:00:10.785] Browser ERROR   Error fetching settings: {}
-[00:00:26.121] Browser LOG     🔍 Checking authentication state...
-[00:00:27.968] Browser LOG     ✅ User session found: laurentjean535@gmail.com
-[00:00:27.968] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
-[00:03:34.559] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:03:35.821] Browser LOG     🔍 Checking authentication state...
-[00:03:35.821] Browser LOG     🔄 Auth state changed: SIGNED_IN kizzolaurent@gmail.com
-[00:03:36.795] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
-[00:03:36.795] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
-[00:03:37.784] Browser ERROR   Error fetching settings: {}
-[00:03:40.372] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:03:40.786] Browser LOG     🔄 Auth state changed: SIGNED_IN kizzolaurent@gmail.com
-[00:03:40.789] Browser LOG     🔍 Checking authentication state...
-[00:03:41.786] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
-[00:03:41.786] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
-[00:03:42.785] Browser ERROR   Error fetching settings: {}
+[00:00:01.434] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:01.600] Server  LOG     ✓ Ready in 1136ms
+[00:00:01.634] Browser ERROR   Error fetching settings: {}
+[00:00:04.636] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:04.827] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:05.249] Browser LOG     🔍 Checking authentication state...
+[00:00:06.237] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
+[00:00:06.237] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
+[00:00:07.238] Browser LOG     🔍 Checking authentication state...
+[00:00:07.238] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
+[00:00:07.238] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
+[00:00:10.237] Browser ERROR   Error fetching settings: {}
+[00:00:15.237] Browser ERROR   Error fetching settings: {}

@@ -66,10 +66,10 @@ export default function InquiryChat({
       setIsLoading(true)
       
       // Get session token for API call
-      const { supabaseClient } = await import('@/lib/supabase-client')
-      const { data: { session } } = await supabaseClient.auth.getSession()
+      const { getSupabaseClient } = await import('@/lib/supabase-client')
+      const { data, error } = await getSupabaseClient().auth.getSession()
       
-      if (!session?.access_token) {
+      if (!data.session?.access_token) {
         console.error('No session token found')
         return
       }
@@ -77,7 +77,7 @@ export default function InquiryChat({
       // Load chat messages for this inquiry
       const response = await fetch(`/api/inquiries/${inquiryId}/chat`, {
         headers: {
-          'Authorization': `Bearer ${session.access_token}`
+          'Authorization': `Bearer ${data.session.access_token}`
         }
       })
 
@@ -125,10 +125,10 @@ export default function InquiryChat({
       setInputText('')
 
       // Get session token for API call
-      const { supabaseClient } = await import('@/lib/supabase-client')
-      const { data: { session } } = await supabaseClient.auth.getSession()
+      const { getSupabaseClient } = await import('@/lib/supabase-client')
+      const { data, error } = await getSupabaseClient().auth.getSession()
       
-      if (!session?.access_token) {
+      if (!data.session?.access_token) {
         throw new Error('No session token')
       }
 
@@ -137,7 +137,7 @@ export default function InquiryChat({
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${session.access_token}`
+          'Authorization': `Bearer ${data.session.access_token}`
         },
         body: JSON.stringify({
           message: newMessage.text,

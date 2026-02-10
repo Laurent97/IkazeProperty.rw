@@ -135,7 +135,8 @@ const fetchSimilarListings = async (currentListing: Listing) => {
       setError('')
 
       try {
-        const { supabaseClient } = await import('@/lib/supabase-client')
+        const { getSupabaseClient } = await import('@/lib/supabase-client')
+        const supabaseClient = getSupabaseClient()
         console.log('📋 Fetching listing with ID:', id)
         
         const { data, error: listingError } = await supabaseClient
@@ -450,7 +451,8 @@ const fetchSimilarListings = async (currentListing: Listing) => {
     setVisitSuccess('')
     
     try {
-      const { supabaseClient } = await import('@/lib/supabase-client')
+      const { getSupabaseClient } = await import('@/lib/supabase-client')
+        const supabaseClient = getSupabaseClient()
       const { data: { session } } = await supabaseClient.auth.getSession()
       if (!session?.access_token) {
         setVisitError('Please login to request a visit')

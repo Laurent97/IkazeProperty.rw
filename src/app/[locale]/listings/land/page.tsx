@@ -79,7 +79,8 @@ export default function LandListingsPage() {
   const fetchListings = async () => {
     try {
       setLoading(true)
-      const { supabaseClient } = await import('@/lib/supabase-client')
+      const { getSupabaseClient } = await import('@/lib/supabase-client')
+      const supabaseClient = getSupabaseClient()
       
       // First, let's test with a simple query to see what works
       console.log('Starting to fetch land listings...')
