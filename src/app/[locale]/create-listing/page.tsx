@@ -27,7 +27,7 @@ export default function CreateListingPage() {
     currency: 'RWF',
     priceType: 'fixed' as const,
     category: searchParams.get('category') || '',
-    transactionType: 'sale',
+    transactionType: 'sale' as 'sale' | 'rent' | 'lease',
     status: 'available' as const,
     location: {
       province: '',
@@ -209,7 +209,7 @@ export default function CreateListingPage() {
 
   const handleCategorySelect = (selectedCategory: string) => {
     setCategory(selectedCategory)
-    setFormData({...formData, category: selectedCategory})
+    setFormData(prev => ({...prev, category: selectedCategory}))
     setCurrentStep(2)
   }
 
@@ -765,7 +765,7 @@ export default function CreateListingPage() {
               <input
                 type="text"
                 value={formData.title}
-                onChange={(e) => setFormData({...formData, title: e.target.value})}
+                onChange={(e) => setFormData(prev => ({...prev, title: e.target.value}))}
                 placeholder="Enter a descriptive title"
                 className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
               />
@@ -777,7 +777,7 @@ export default function CreateListingPage() {
               </label>
               <textarea
                 value={formData.description}
-                onChange={(e) => setFormData({...formData, description: e.target.value})}
+                onChange={(e) => setFormData(prev => ({...prev, description: e.target.value}))}
                 placeholder="Provide detailed information about your listing"
                 rows={6}
                 className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
@@ -792,7 +792,7 @@ export default function CreateListingPage() {
                 <input
                   type="number"
                   value={formData.price}
-                  onChange={(e) => setFormData({...formData, price: e.target.value})}
+                  onChange={(e) => setFormData(prev => ({...prev, price: e.target.value}))}
                   placeholder="0"
                   className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
                 />
@@ -803,7 +803,7 @@ export default function CreateListingPage() {
                 </label>
                 <select
                   value={formData.currency}
-                  onChange={(e) => setFormData({...formData, currency: e.target.value})}
+                  onChange={(e) => setFormData(prev => ({...prev, currency: e.target.value}))}
                   className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
                   aria-label="Currency"
                 >
@@ -821,7 +821,7 @@ export default function CreateListingPage() {
                 </label>
                 <select
                   value={formData.priceType}
-                  onChange={(e) => setFormData({...formData, priceType: e.target.value as 'fixed'})}
+                  onChange={(e) => setFormData(prev => ({...prev, priceType: e.target.value as 'fixed'}))}
                   className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
                   aria-label="Price type"
                 >
@@ -836,7 +836,7 @@ export default function CreateListingPage() {
                 </label>
                 <select
                   value={formData.transactionType}
-                  onChange={(e) => setFormData({...formData, transactionType: e.target.value as 'sale' | 'rent' | 'lease'})}
+                  onChange={(e) => setFormData(prev => ({...prev, transactionType: e.target.value as 'sale' | 'rent' | 'lease'}))}
                   className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
                   aria-label="Transaction type"
                 >
@@ -863,7 +863,7 @@ export default function CreateListingPage() {
                 </label>
                 <select
                   value={formData.location.province}
-                  onChange={(e) => setFormData({...formData, location: {...formData.location, province: e.target.value}})}
+                  onChange={(e) => setFormData(prev => ({...prev, location: {...prev.location, province: e.target.value}}))}
                   className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
                   aria-label="Province"
                 >
@@ -882,7 +882,7 @@ export default function CreateListingPage() {
                 <input
                   type="text"
                   value={formData.location.district}
-                  onChange={(e) => setFormData({...formData, location: {...formData.location, district: e.target.value}})}
+                  onChange={(e) => setFormData(prev => ({...prev, location: {...prev.location, district: e.target.value}}))}
                   placeholder="Enter district"
                   className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
                 />
@@ -897,7 +897,7 @@ export default function CreateListingPage() {
                 <input
                   type="text"
                   value={formData.location.sector}
-                  onChange={(e) => setFormData({...formData, location: {...formData.location, sector: e.target.value}})}
+                  onChange={(e) => setFormData(prev => ({...prev, location: {...prev.location, sector: e.target.value}}))}
                   placeholder="Enter sector"
                   className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
                 />
@@ -909,7 +909,7 @@ export default function CreateListingPage() {
                 <input
                   type="text"
                   value={formData.location.cell}
-                  onChange={(e) => setFormData({...formData, location: {...formData.location, cell: e.target.value}})}
+                  onChange={(e) => setFormData(prev => ({...prev, location: {...prev.location, cell: e.target.value}}))}
                   placeholder="Enter cell"
                   className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
                 />
@@ -921,7 +921,7 @@ export default function CreateListingPage() {
                 <input
                   type="text"
                   value={formData.location.village}
-                  onChange={(e) => setFormData({...formData, location: {...formData.location, village: e.target.value}})}
+                  onChange={(e) => setFormData(prev => ({...prev, location: {...prev.location, village: e.target.value}}))}
                   placeholder="Enter village"
                   className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
                 />
@@ -934,7 +934,7 @@ export default function CreateListingPage() {
               </label>
               <textarea
                 value={formData.location.address}
-                onChange={(e) => setFormData({...formData, location: {...formData.location, address: e.target.value}})}
+                onChange={(e) => setFormData(prev => ({...prev, location: {...prev.location, address: e.target.value}}))}
                 placeholder="Provide exact address or nearby landmarks"
                 rows={3}
                 className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
@@ -1006,23 +1006,23 @@ export default function CreateListingPage() {
                         }}
                       />
                       <button
-                      onClick={() => {
-                        setFormData(prev => ({
-                          ...prev,
-                          images: prev.images.filter((_, i) => i !== index)
-                        }))
-                      }}
-                      className="absolute top-2 right-2 bg-red-600 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity touch-target"
-                    >
-                      ×
-                    </button>
-                    {(img.type === 'video' || img.type?.includes('video')) && (
-                      <div className="absolute bottom-2 left-2 bg-black bg-opacity-75 text-white text-xs px-2 py-1 rounded">
-                        📹 {img.duration ? `${Math.round(img.duration)}s` : 'Video'}
-                        {img.format && `• ${img.format.toUpperCase()}`}
-                      </div>
-                    )}
-                  </div>
+                        onClick={() => {
+                          setFormData(prev => ({
+                            ...prev,
+                            images: prev.images.filter((_, i) => i !== index)
+                          }))
+                        }}
+                        className="absolute top-2 right-2 bg-red-600 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity touch-target"
+                      >
+                        ×
+                      </button>
+                      {(img.type === 'video' || img.type?.includes('video')) && (
+                        <div className="absolute bottom-2 left-2 bg-black bg-opacity-75 text-white text-xs px-2 py-1 rounded">
+                          📹 {img.duration ? `${Math.round(img.duration)}s` : 'Video'}
+                          {img.format && `• ${img.format.toUpperCase()}`}
+                        </div>
+                      )}
+                    </div>
                   )
                 })}
               </div>
@@ -1052,7 +1052,7 @@ export default function CreateListingPage() {
                         name="commissionType"
                         value="owner"
                         checked={formData.commissionType === 'owner'}
-                        onChange={(e) => setFormData({...formData, commissionType: e.target.value as 'owner' | 'agent'})}
+                        onChange={(e) => setFormData(prev => ({...prev, commissionType: e.target.value as 'owner' | 'agent'}))}
                         className="h-4 w-4 text-red-600 border-gray-300 focus:ring-red-500"
                       />
                       <label htmlFor="owner" className="text-sm font-medium text-red-800">
@@ -1066,7 +1066,7 @@ export default function CreateListingPage() {
                         name="commissionType"
                         value="agent"
                         checked={formData.commissionType === 'agent'}
-                        onChange={(e) => setFormData({...formData, commissionType: e.target.value as 'owner' | 'agent'})}
+                        onChange={(e) => setFormData(prev => ({...prev, commissionType: e.target.value as 'owner' | 'agent'}))}
                         className="h-4 w-4 text-red-600 border-gray-300 focus:ring-red-500"
                       />
                       <label htmlFor="agent" className="text-sm font-medium text-red-800">
@@ -1105,7 +1105,7 @@ export default function CreateListingPage() {
                     type="checkbox"
                     id="commission"
                     checked={formData.commissionAgreed}
-                    onChange={(e) => setFormData({...formData, commissionAgreed: e.target.checked})}
+                    onChange={(e) => setFormData(prev => ({...prev, commissionAgreed: e.target.checked}))}
                     className="mt-1 h-4 w-4 text-red-600 border-gray-300 rounded focus:ring-red-500"
                   />
                   <label htmlFor="commission" className="text-sm text-gray-700">
@@ -1134,7 +1134,7 @@ export default function CreateListingPage() {
                     </label>
                     <select
                       value={formData.houseDetails.property_type}
-                      onChange={(e) => setFormData({...formData, houseDetails: {...formData.houseDetails, property_type: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, houseDetails: {...prev.houseDetails, property_type: e.target.value}}))}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     >
                       <option value="">Select Property Type</option>
@@ -1151,7 +1151,7 @@ export default function CreateListingPage() {
                     </label>
                     <select
                       value={formData.houseDetails.condition}
-                      onChange={(e) => setFormData({...formData, houseDetails: {...formData.houseDetails, condition: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, houseDetails: {...prev.houseDetails, condition: e.target.value}}))}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     >
                       <option value="">Select Condition</option>
@@ -1171,7 +1171,7 @@ export default function CreateListingPage() {
                     <input
                       type="number"
                       value={formData.houseDetails.bedrooms}
-                      onChange={(e) => setFormData({...formData, houseDetails: {...formData.houseDetails, bedrooms: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, houseDetails: {...prev.houseDetails, bedrooms: e.target.value}}))}
                       placeholder="Number of bedrooms"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     />
@@ -1183,7 +1183,7 @@ export default function CreateListingPage() {
                     <input
                       type="number"
                       value={formData.houseDetails.bathrooms}
-                      onChange={(e) => setFormData({...formData, houseDetails: {...formData.houseDetails, bathrooms: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, houseDetails: {...prev.houseDetails, bathrooms: e.target.value}}))}
                       placeholder="Number of bathrooms"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     />
@@ -1195,7 +1195,7 @@ export default function CreateListingPage() {
                     <input
                       type="number"
                       value={formData.houseDetails.total_area}
-                      onChange={(e) => setFormData({...formData, houseDetails: {...formData.houseDetails, total_area: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, houseDetails: {...prev.houseDetails, total_area: e.target.value}}))}
                       placeholder="Area in square meters"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     />
@@ -1210,7 +1210,7 @@ export default function CreateListingPage() {
                     <input
                       type="number"
                       value={formData.houseDetails.year_built}
-                      onChange={(e) => setFormData({...formData, houseDetails: {...formData.houseDetails, year_built: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, houseDetails: {...prev.houseDetails, year_built: e.target.value}}))}
                       placeholder="Year built"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     />
@@ -1221,7 +1221,7 @@ export default function CreateListingPage() {
                     </label>
                     <select
                       value={formData.houseDetails.furnished}
-                      onChange={(e) => setFormData({...formData, houseDetails: {...formData.houseDetails, furnished: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, houseDetails: {...prev.houseDetails, furnished: e.target.value}}))}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     >
                       <option value="">Select Furnishing</option>
@@ -1238,7 +1238,7 @@ export default function CreateListingPage() {
                   </label>
                   <select
                     value={formData.houseDetails.parking}
-                    onChange={(e) => setFormData({...formData, houseDetails: {...formData.houseDetails, parking: e.target.value}})}
+                    onChange={(e) => setFormData(prev => ({...prev, houseDetails: {...prev.houseDetails, parking: e.target.value}}))}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                   >
                     <option value="">Select Parking</option>
@@ -1264,7 +1264,7 @@ export default function CreateListingPage() {
                     </label>
                     <select
                       value={formData.carDetails.vehicle_type}
-                      onChange={(e) => setFormData({...formData, carDetails: {...formData.carDetails, vehicle_type: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, carDetails: {...prev.carDetails, vehicle_type: e.target.value}}))}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     >
                       <option value="">Select Vehicle Type</option>
@@ -1281,7 +1281,7 @@ export default function CreateListingPage() {
                     </label>
                     <select
                       value={formData.carDetails.condition}
-                      onChange={(e) => setFormData({...formData, carDetails: {...formData.carDetails, condition: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, carDetails: {...prev.carDetails, condition: e.target.value}}))}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     >
                       <option value="">Select Condition</option>
@@ -1299,7 +1299,7 @@ export default function CreateListingPage() {
                     <input
                       type="text"
                       value={formData.carDetails.make}
-                      onChange={(e) => setFormData({...formData, carDetails: {...formData.carDetails, make: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, carDetails: {...prev.carDetails, make: e.target.value}}))}
                       placeholder="e.g., Toyota, Honda, BMW"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     />
@@ -1311,7 +1311,7 @@ export default function CreateListingPage() {
                     <input
                       type="text"
                       value={formData.carDetails.model}
-                      onChange={(e) => setFormData({...formData, carDetails: {...formData.carDetails, model: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, carDetails: {...prev.carDetails, model: e.target.value}}))}
                       placeholder="e.g., Camry, Civic, X5"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     />
@@ -1326,7 +1326,7 @@ export default function CreateListingPage() {
                     <input
                       type="number"
                       value={formData.carDetails.year_manufacture}
-                      onChange={(e) => setFormData({...formData, carDetails: {...formData.carDetails, year_manufacture: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, carDetails: {...prev.carDetails, year_manufacture: e.target.value}}))}
                       placeholder="Year manufactured"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     />
@@ -1338,7 +1338,7 @@ export default function CreateListingPage() {
                     <input
                       type="number"
                       value={formData.carDetails.mileage}
-                      onChange={(e) => setFormData({...formData, carDetails: {...formData.carDetails, mileage: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, carDetails: {...prev.carDetails, mileage: e.target.value}}))}
                       placeholder="Mileage in kilometers"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     />
@@ -1352,7 +1352,7 @@ export default function CreateListingPage() {
                     </label>
                     <select
                       value={formData.carDetails.fuel_type}
-                      onChange={(e) => setFormData({...formData, carDetails: {...formData.carDetails, fuel_type: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, carDetails: {...prev.carDetails, fuel_type: e.target.value}}))}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     >
                       <option value="">Select Fuel Type</option>
@@ -1368,7 +1368,7 @@ export default function CreateListingPage() {
                     </label>
                     <select
                       value={formData.carDetails.transmission}
-                      onChange={(e) => setFormData({...formData, carDetails: {...formData.carDetails, transmission: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, carDetails: {...prev.carDetails, transmission: e.target.value}}))}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     >
                       <option value="">Select Transmission</option>
@@ -1383,7 +1383,7 @@ export default function CreateListingPage() {
                     <input
                       type="text"
                       value={formData.carDetails.color}
-                      onChange={(e) => setFormData({...formData, carDetails: {...formData.carDetails, color: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, carDetails: {...prev.carDetails, color: e.target.value}}))}
                       placeholder="Vehicle color"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     />
@@ -1398,7 +1398,7 @@ export default function CreateListingPage() {
                     <input
                       type="number"
                       value={formData.carDetails.doors}
-                      onChange={(e) => setFormData({...formData, carDetails: {...formData.carDetails, doors: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, carDetails: {...prev.carDetails, doors: e.target.value}}))}
                       placeholder="Number of doors"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     />
@@ -1410,7 +1410,7 @@ export default function CreateListingPage() {
                     <input
                       type="number"
                       value={formData.carDetails.seats}
-                      onChange={(e) => setFormData({...formData, carDetails: {...formData.carDetails, seats: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, carDetails: {...prev.carDetails, seats: e.target.value}}))}
                       placeholder="Number of seats"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     />
@@ -1432,7 +1432,7 @@ export default function CreateListingPage() {
                     </label>
                     <select
                       value={formData.landDetails.plot_type}
-                      onChange={(e) => setFormData({...formData, landDetails: {...formData.landDetails, plot_type: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, landDetails: {...prev.landDetails, plot_type: e.target.value}}))}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     >
                       <option value="">Select Plot Type</option>
@@ -1448,7 +1448,7 @@ export default function CreateListingPage() {
                     </label>
                     <select
                       value={formData.landDetails.shape}
-                      onChange={(e) => setFormData({...formData, landDetails: {...formData.landDetails, shape: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, landDetails: {...prev.landDetails, shape: e.target.value}}))}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     >
                       <option value="">Select Shape</option>
@@ -1466,7 +1466,7 @@ export default function CreateListingPage() {
                     <input
                       type="number"
                       value={formData.landDetails.plot_size}
-                      onChange={(e) => setFormData({...formData, landDetails: {...formData.landDetails, plot_size: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, landDetails: {...prev.landDetails, plot_size: e.target.value}}))}
                       placeholder="Plot size"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     />
@@ -1477,7 +1477,7 @@ export default function CreateListingPage() {
                     </label>
                     <select
                       value={formData.landDetails.size_unit}
-                      onChange={(e) => setFormData({...formData, landDetails: {...formData.landDetails, size_unit: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, landDetails: {...prev.landDetails, size_unit: e.target.value}}))}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     >
                       <option value="m²">Square Meters (m²)</option>
@@ -1493,7 +1493,7 @@ export default function CreateListingPage() {
                     </label>
                     <select
                       value={formData.landDetails.topography}
-                      onChange={(e) => setFormData({...formData, landDetails: {...formData.landDetails, topography: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, landDetails: {...prev.landDetails, topography: e.target.value}}))}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     >
                       <option value="">Select Topography</option>
@@ -1508,7 +1508,7 @@ export default function CreateListingPage() {
                     </label>
                     <select
                       value={formData.landDetails.road_access}
-                      onChange={(e) => setFormData({...formData, landDetails: {...formData.landDetails, road_access: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, landDetails: {...prev.landDetails, road_access: e.target.value}}))}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     >
                       <option value="">Select Road Access</option>
@@ -1525,7 +1525,7 @@ export default function CreateListingPage() {
                   </label>
                   <select
                     value={formData.landDetails.land_title_type}
-                    onChange={(e) => setFormData({...formData, landDetails: {...formData.landDetails, land_title_type: e.target.value}})}
+                    onChange={(e) => setFormData(prev => ({...prev, landDetails: {...prev.landDetails, land_title_type: e.target.value}}))}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                   >
                     <option value="">Select Title Type</option>
@@ -1541,7 +1541,7 @@ export default function CreateListingPage() {
                       type="checkbox"
                       id="fenced"
                       checked={formData.landDetails.fenced}
-                      onChange={(e) => setFormData({...formData, landDetails: {...formData.landDetails, fenced: e.target.checked}})}
+                      onChange={(e) => setFormData(prev => ({...prev, landDetails: {...prev.landDetails, fenced: e.target.checked}}))}
                       className="h-4 w-4 text-red-600 border-gray-300 rounded focus:ring-red-500"
                     />
                     <label htmlFor="fenced" className="text-sm text-gray-700">
@@ -1553,7 +1553,7 @@ export default function CreateListingPage() {
                       type="checkbox"
                       id="surveyed"
                       checked={formData.landDetails.surveyed}
-                      onChange={(e) => setFormData({...formData, landDetails: {...formData.landDetails, surveyed: e.target.checked}})}
+                      onChange={(e) => setFormData(prev => ({...prev, landDetails: {...prev.landDetails, surveyed: e.target.checked}}))}
                       className="h-4 w-4 text-red-600 border-gray-300 rounded focus:ring-red-500"
                     />
                     <label htmlFor="surveyed" className="text-sm text-gray-700">
@@ -1578,7 +1578,7 @@ export default function CreateListingPage() {
                     <input
                       type="text"
                       value={formData.otherDetails.subcategory}
-                      onChange={(e) => setFormData({...formData, otherDetails: {...formData.otherDetails, subcategory: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, otherDetails: {...prev.otherDetails, subcategory: e.target.value}}))}
                       placeholder="e.g., Electronics, Furniture, Clothing"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     />
@@ -1589,8 +1589,8 @@ export default function CreateListingPage() {
                     </label>
                     <select
                       value={formData.otherDetails.condition}
-                      onChange={(e) => setFormData({...formData, otherDetails: {...formData.otherDetails, condition: e.target.value}})}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-red-500"
+                      onChange={(e) => setFormData(prev => ({...prev, otherDetails: {...prev.otherDetails, condition: e.target.value}}))}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     >
                       <option value="">Select Condition</option>
                       <option value="new">New</option>
@@ -1608,7 +1608,7 @@ export default function CreateListingPage() {
                     <input
                       type="text"
                       value={formData.otherDetails.brand}
-                      onChange={(e) => setFormData({...formData, otherDetails: {...formData.otherDetails, brand: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, otherDetails: {...prev.otherDetails, brand: e.target.value}}))}
                       placeholder="Brand name"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     />
@@ -1620,7 +1620,7 @@ export default function CreateListingPage() {
                     <input
                       type="text"
                       value={formData.otherDetails.model}
-                      onChange={(e) => setFormData({...formData, otherDetails: {...formData.otherDetails, model: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, otherDetails: {...prev.otherDetails, model: e.target.value}}))}
                       placeholder="Model number/name"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     />
@@ -1633,7 +1633,7 @@ export default function CreateListingPage() {
                   </label>
                   <textarea
                     value={formData.otherDetails.reason_for_selling}
-                    onChange={(e) => setFormData({...formData, otherDetails: {...formData.otherDetails, reason_for_selling: e.target.value}})}
+                    onChange={(e) => setFormData(prev => ({...prev, otherDetails: {...prev.otherDetails, reason_for_selling: e.target.value}}))}
                     placeholder="Why are you selling this item?"
                     rows={3}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
@@ -1648,7 +1648,7 @@ export default function CreateListingPage() {
                     <input
                       type="date"
                       value={formData.otherDetails.original_purchase_date}
-                      onChange={(e) => setFormData({...formData, otherDetails: {...formData.otherDetails, original_purchase_date: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, otherDetails: {...prev.otherDetails, original_purchase_date: e.target.value}}))}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     />
                   </div>
@@ -1659,7 +1659,7 @@ export default function CreateListingPage() {
                     <input
                       type="text"
                       value={formData.otherDetails.age_of_item}
-                      onChange={(e) => setFormData({...formData, otherDetails: {...formData.otherDetails, age_of_item: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, otherDetails: {...prev.otherDetails, age_of_item: e.target.value}}))}
                       placeholder="e.g., 2 years old"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     />
@@ -1671,7 +1671,7 @@ export default function CreateListingPage() {
                     type="checkbox"
                     id="warranty_available"
                     checked={formData.otherDetails.warranty_available}
-                    onChange={(e) => setFormData({...formData, otherDetails: {...formData.otherDetails, warranty_available: e.target.checked}})}
+                    onChange={(e) => setFormData(prev => ({...prev, otherDetails: {...prev.otherDetails, warranty_available: e.target.checked}}))}
                     className="h-4 w-4 text-red-600 border-gray-300 rounded focus:ring-red-500"
                   />
                   <label htmlFor="warranty_available" className="text-sm text-gray-700">
@@ -1687,7 +1687,7 @@ export default function CreateListingPage() {
                     <input
                       type="text"
                       value={formData.otherDetails.warranty_period}
-                      onChange={(e) => setFormData({...formData, otherDetails: {...formData.otherDetails, warranty_period: e.target.value}})}
+                      onChange={(e) => setFormData(prev => ({...prev, otherDetails: {...prev.otherDetails, warranty_period: e.target.value}}))}
                       placeholder="e.g., 1 year manufacturer warranty"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     />
@@ -1719,7 +1719,7 @@ export default function CreateListingPage() {
                   <input
                     type="checkbox"
                     checked={formData.visitFeeEnabled}
-                    onChange={(e) => setFormData({ ...formData, visitFeeEnabled: e.target.checked })}
+                    onChange={(e) => setFormData(prev => ({ ...prev, visitFeeEnabled: e.target.checked }))}
                     className="h-4 w-4 text-red-600 border-gray-300 rounded focus:ring-red-500"
                   />
                 </CardTitle>
@@ -1732,7 +1732,7 @@ export default function CreateListingPage() {
                   <input
                     type="number"
                     value={formData.visitFeeAmount}
-                    onChange={(e) => setFormData({ ...formData, visitFeeAmount: e.target.value })}
+                    onChange={(e) => setFormData(prev => ({ ...prev, visitFeeAmount: e.target.value }))}
                     placeholder="15000"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                   />
@@ -1751,13 +1751,13 @@ export default function CreateListingPage() {
                       <input
                         type="tel"
                         value={formData.visitFeePaymentMethods.mtn_momo.phone_number}
-                        onChange={(e) => setFormData({
-                          ...formData,
+                        onChange={(e) => setFormData(prev => ({
+                          ...prev,
                           visitFeePaymentMethods: {
-                            ...formData.visitFeePaymentMethods,
+                            ...prev.visitFeePaymentMethods,
                             mtn_momo: { phone_number: e.target.value }
                           }
-                        })}
+                        }))}
                         placeholder="078X XXX XXX"
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                       />
@@ -1769,13 +1769,13 @@ export default function CreateListingPage() {
                       <input
                         type="tel"
                         value={formData.visitFeePaymentMethods.airtel_money.phone_number}
-                        onChange={(e) => setFormData({
-                          ...formData,
+                        onChange={(e) => setFormData(prev => ({
+                          ...prev,
                           visitFeePaymentMethods: {
-                            ...formData.visitFeePaymentMethods,
+                            ...prev.visitFeePaymentMethods,
                             airtel_money: { phone_number: e.target.value }
                           }
-                        })}
+                        }))}
                         placeholder="073X XXX XXX"
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                       />
@@ -1788,16 +1788,16 @@ export default function CreateListingPage() {
                         <input
                           type="text"
                           value={formData.visitFeePaymentMethods.equity_bank.account_name}
-                          onChange={(e) => setFormData({
-                            ...formData,
+                          onChange={(e) => setFormData(prev => ({
+                            ...prev,
                             visitFeePaymentMethods: {
-                              ...formData.visitFeePaymentMethods,
+                              ...prev.visitFeePaymentMethods,
                               equity_bank: {
-                                ...formData.visitFeePaymentMethods.equity_bank,
+                                ...prev.visitFeePaymentMethods.equity_bank,
                                 account_name: e.target.value
                               }
                             }
-                          })}
+                          }))}
                           placeholder="IkazeProperty Ltd"
                           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                         />
@@ -1809,16 +1809,16 @@ export default function CreateListingPage() {
                         <input
                           type="text"
                           value={formData.visitFeePaymentMethods.equity_bank.account_number}
-                          onChange={(e) => setFormData({
-                            ...formData,
+                          onChange={(e) => setFormData(prev => ({
+                            ...prev,
                             visitFeePaymentMethods: {
-                              ...formData.visitFeePaymentMethods,
+                              ...prev.visitFeePaymentMethods,
                               equity_bank: {
-                                ...formData.visitFeePaymentMethods.equity_bank,
+                                ...prev.visitFeePaymentMethods.equity_bank,
                                 account_number: e.target.value
                               }
                             }
-                          })}
+                          }))}
                           placeholder="1234567890"
                           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                         />
@@ -1856,7 +1856,7 @@ export default function CreateListingPage() {
                     <button
                       key={option.id}
                       type="button"
-                      onClick={() => setFormData({ ...formData, promotionType: option.id as any, selectedPromotion: option })}
+                      onClick={() => setFormData(prev => ({ ...prev, promotionType: option.id as any, selectedPromotion: option }))}
                       className={`text-left p-4 border rounded-lg transition-all ${
                         formData.promotionType === option.id
                           ? 'border-red-500 bg-red-50'

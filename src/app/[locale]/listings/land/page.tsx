@@ -8,6 +8,62 @@ import { Card, CardContent } from '@/components/ui/card'
 import AdminContactInfo from '@/components/listing/admin-contact'
 import FavoriteButton from '@/components/listing/favorite-button'
 
+// Type definitions
+type MediaType = 'image' | 'video'
+
+interface ListingMedia {
+  id: string
+  listing_id: string
+  url: string
+  public_id: string
+  media_type: MediaType
+  order_index: number
+  is_primary: boolean
+}
+
+interface LandDetails {
+  id: string
+  listing_id: string
+  plot_type: string
+  plot_size: number
+  size_unit: string
+  shape: string
+  topography: string
+  soil_type: string | null
+  road_access: string
+  fenced: boolean
+  utilities_available: string[] | null
+  land_title_type: string
+  title_deed_number: string | null
+  surveyed: boolean
+  zoning_approval: boolean | null
+  development_permits: boolean | null
+  tax_clearance: boolean | null
+  nearest_main_road_distance: number | null
+  nearest_town_distance: number | null
+  nearby_amenities: string[] | null
+}
+
+interface Seller {
+  id: string
+  full_name: string
+  email: string
+  avatar_url: string | null
+  phone_number: string | null
+  verified: boolean
+}
+
+interface Location {
+  district?: string
+  sector?: string
+  cell?: string
+  village?: string
+  city?: string
+  province?: string
+  address?: string
+  [key: string]: any
+}
+
 interface LandListing {
   id: string
   title: string
@@ -18,7 +74,7 @@ interface LandListing {
   category: string
   transaction_type: string
   status: string
-  location: any
+  location: string | Location | null
   seller_id: string
   commission_rate: number
   commission_agreed: boolean
@@ -31,39 +87,10 @@ interface LandListing {
   expires_at: string | null
   visit_fee_enabled: boolean
   visit_fee_amount: number
-  visit_fee_payment_methods: any
-  media: {
-    id: string
-    listing_id: string
-    url: string
-    public_id: string
-    media_type: 'image' | 'video'
-    order_index: number
-    is_primary: boolean
-  }[]
-  seller: any
-  land_details?: {
-    id: string
-    listing_id: string
-    plot_type: string
-    plot_size: number
-    size_unit: string
-    shape: string
-    topography: string
-    soil_type: string | null
-    road_access: string
-    fenced: boolean
-    utilities_available: any | null
-    land_title_type: string
-    title_deed_number: string | null
-    surveyed: boolean
-    zoning_approval: boolean | null
-    development_permits: boolean | null
-    tax_clearance: boolean | null
-    nearest_main_road_distance: number | null
-    nearest_town_distance: number | null
-    nearby_amenities: any | null
-  }
+  visit_fee_payment_methods: string[] | null
+  media: ListingMedia[]
+  seller: Seller | null
+  land_details?: LandDetails
 }
 
 export default function LandListingsPage() {
@@ -79,13 +106,12 @@ export default function LandListingsPage() {
   const fetchListings = async () => {
     try {
       setLoading(true)
+      setError('')
+      
       const { getSupabaseClient } = await import('@/lib/supabase-client')
       const supabaseClient = getSupabaseClient()
       
-      // First, let's test with a simple query to see what works
-      console.log('Starting to fetch land listings...')
-      
-      // Try a simpler query first - just get listings
+      // Fetch listings
       const { data: listingsData, error: listingsError } = await supabaseClient
         .from('listings')
         .select('*')
@@ -95,31 +121,28 @@ export default function LandListingsPage() {
         .limit(50)
 
       if (listingsError) {
-        console.error('Error fetching basic listings:', listingsError)
-        setError(`Failed to load listings: ${listingsError.message}`)
-        return
+        console.error('Error fetching listings:', listingsError)
+        throw new Error(`Failed to load listings: ${listingsError.message}`)
       }
-
-      console.log(`Found ${listingsData?.length || 0} listings`)
 
       if (!listingsData || listingsData.length === 0) {
         setListings([])
+        setLoading(false)
         return
       }
 
-      // Get listing IDs for fetching related data
-      const listingIds = (listingsData as any[]).map(listing => listing.id)
+      // Cast to proper type
+      const typedListings = listingsData as LandListing[]
+      
+      // Get listing IDs for related data
+      const listingIds = typedListings.map(listing => listing.id)
       
       // Fetch related data in parallel
-      const [
-        { data: sellersData, error: sellersError },
-        { data: mediaData, error: mediaError },
-        { data: landDetailsData, error: landDetailsError }
-      ] = await Promise.all([
+      const [sellersData, mediaData, landDetailsData, promotionsData] = await Promise.all([
         supabaseClient
           .from('users')
           .select('id, full_name, email, avatar_url, phone_number, verified')
-          .in('id', (listingsData as any[]).map(l => l.seller_id)),
+          .in('id', typedListings.map(l => l.seller_id)),
         
         supabaseClient
           .from('listing_media')
@@ -130,51 +153,47 @@ export default function LandListingsPage() {
         supabaseClient
           .from('land_details')
           .select('*')
+          .in('listing_id', listingIds),
+        
+        supabaseClient
+          .from('listing_promotions')
+          .select('listing_id, status, expires_at')
           .in('listing_id', listingIds)
-      ]) as any
+          .eq('status', 'active')
+          .gt('expires_at', new Date().toISOString())
+      ])
 
-      // Log any errors but continue processing
-      if (sellersError) console.error('Error fetching sellers:', sellersError)
-      if (mediaError) console.error('Error fetching media:', mediaError)
-      if (landDetailsError) console.error('Error fetching land details:', landDetailsError)
-
-      // Fetch active promotions
-      const { data: promotionsData } = await supabaseClient
-        .from('listing_promotions')
-        .select('listing_id, status, expires_at')
-        .in('listing_id', listingIds)
-        .eq('status', 'active')
-        .gt('expires_at', new Date().toISOString())
+      // Log errors but continue
+      if (sellersData.error) console.error('Error fetching sellers:', sellersData.error)
+      if (mediaData.error) console.error('Error fetching media:', mediaData.error)
+      if (landDetailsData.error) console.error('Error fetching land details:', landDetailsData.error)
+      if (promotionsData.error) console.error('Error fetching promotions:', promotionsData.error)
 
       // Combine all data
-      const combinedListings = listingsData.map(listing => {
-        // Find seller
-        const seller = (sellersData as any[])?.find(s => s.id === (listing as any).seller_id)
+      const combinedListings = typedListings.map(listing => {
+        const seller = sellersData.data?.find(s => s.id === listing.seller_id) || null
+        const media = mediaData.data?.filter(m => m.listing_id === listing.id) || []
+        const landDetail = landDetailsData.data?.find(d => d.listing_id === listing.id)
         
-        // Find media for this listing
-        const media = (mediaData as any[])?.filter(m => m.listing_id === (listing as any).id) || []
-        
-        // Find land details for this listing
-        const landDetail = (landDetailsData as any[])?.find(d => d.listing_id === (listing as any).id)
-        
-        // Check if listing has active promotion
-        const hasActivePromotion = (promotionsData as any[])?.some(p => p.listing_id === (listing as any).id)
-        
-        return {
-          ...(listing as any),
-          seller: seller || null,
-          media: media || [],
-          land_details: landDetail || undefined,
-          promoted: hasActivePromotion || (listing as any).promoted
-        }
-      }) as LandListing[]
+        // Check for active promotion
+        const hasActivePromotion = promotionsData.data?.some(p => 
+          p.listing_id === listing.id
+        ) || false
 
-      console.log('Successfully combined data for', combinedListings.length, 'listings')
+        return {
+          ...listing,
+          seller,
+          media,
+          land_details: landDetail,
+          promoted: hasActivePromotion || listing.promoted
+        }
+      })
+
       setListings(combinedListings)
       
     } catch (err: any) {
       console.error('Error in fetchListings:', err)
-      setError(`Failed to load listings: ${err?.message || 'Unknown error'}`)
+      setError(err.message || 'Failed to load land listings')
     } finally {
       setLoading(false)
     }
@@ -190,43 +209,31 @@ export default function LandListingsPage() {
     if (unit === 'm²' && size >= 10000) {
       return `${(size / 10000).toFixed(1)} hectares`
     }
+    
     return `${size.toLocaleString()} ${unit || 'm²'}`
   }
 
-  const formatLocation = (location: any) => {
+  const formatLocation = (location: string | Location | null): string => {
     if (!location) return 'Location not specified'
     
     if (typeof location === 'string') {
       return location
     }
     
-    if (typeof location === 'object') {
-      // Try to parse the JSONB location
-      try {
-        // If it's a stringified JSON, parse it
-        if (typeof location === 'string') {
-          location = JSON.parse(location)
-        }
-        
-        const locationObj = location as Record<string, any>
-        return locationObj?.district || 
-               locationObj?.sector || 
-               locationObj?.cell || 
-               locationObj?.village ||
-               locationObj?.city || 
-               locationObj?.province || 
-               locationObj?.address ||
-               'Location not specified'
-      } catch (e) {
-        console.log('Error parsing location:', e)
-        return 'Location not specified'
-      }
-    }
+    // Handle Location object
+    const locationObj = location as Location
     
-    return 'Location not specified'
+    return locationObj.district || 
+           locationObj.sector || 
+           locationObj.cell || 
+           locationObj.village ||
+           locationObj.city || 
+           locationObj.province || 
+           locationObj.address ||
+           'Location not specified'
   }
 
-  const getPrimaryImage = (media: any[]) => {
+  const getPrimaryImage = (media: ListingMedia[]) => {
     if (!media || media.length === 0) return null
     const primary = media.find(m => m.is_primary)
     return primary || media[0]
