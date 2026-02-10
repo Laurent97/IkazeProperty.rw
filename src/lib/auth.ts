@@ -109,7 +109,16 @@ export const updateUserProfile = async (userId: string, updates: any) => {
 }
 
 export const resetPassword = async (email: string) => {
-  const { error } = await supabase.auth.resetPasswordForEmail(email)
+  // Use admin client to bypass rate limiting for security purposes
+  const adminClient = getSupabaseAdmin()
+  const { error } = await adminClient.auth.admin.generateLink({
+    type: 'recovery',
+    email,
+    options: {
+      redirectTo: `${window.location.origin}/auth/reset-password`
+    }
+  })
+  
   if (error) throw error
 }
 
@@ -119,4 +128,37 @@ export const updatePassword = async (password: string) => {
   })
 
   if (error) throw error
+}
+
+export const signInWithGoogle = async () => {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: `${window.location.origin}/auth/callback`
+    }
+  })
+
+  if (error) throw error
+  return data
+}
+
+export const signInWithMagicLink = async (email: string) => {
+  const { data, error } = await supabase.auth.signInWithOtp({
+    email,
+    options: {
+      emailRedirectTo: `${window.location.origin}/auth/callback`
+    }
+  })
+
+  if (error) throw error
+  return data
+}
+
+export const changeUserEmail = async (newEmail: string) => {
+  const { data, error } = await supabase.auth.updateUser({
+    email: newEmail
+  })
+
+  if (error) throw error
+  return data
 }

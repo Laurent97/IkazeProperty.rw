@@ -14,6 +14,7 @@ import FavoriteButton from '@/components/listing/favorite-button'
 import InquiryButton from '@/components/listing/inquiry-button'
 import LikesDisplay from '@/components/listing/likes-display'
 import ViewsDisplay from '@/components/listing/views-display'
+import ImageViewer from '@/components/listing/ImageViewer'
 import { usePaymentContext } from '@/contexts/PaymentContext'
 
 type Listing = Database['public']['Tables']['listings']['Row'] & {
@@ -51,6 +52,7 @@ export default function ListingDetailPage() {
   const [media, setMedia] = useState<ListingMedia[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
+  const [isImageViewerOpen, setIsImageViewerOpen] = useState(false)
   const [similarListings, setSimilarListings] = useState<Listing[]>([])
   const [error, setError] = useState('')
   const [showVisitModal, setShowVisitModal] = useState(false)
@@ -797,7 +799,10 @@ const fetchSimilarListings = async (currentListing: Listing) => {
                       {/* Main Image Display with Navigation */}
                       <div className="relative group">
                         {media[selectedImageIndex]?.media_type === 'video' ? (
-                          <div className="relative aspect-video bg-gray-100 rounded-lg overflow-hidden">
+                          <div 
+                            className="relative aspect-video bg-gray-100 rounded-lg overflow-hidden cursor-pointer"
+                            onClick={() => setIsImageViewerOpen(true)}
+                          >
                             <video
                               src={media[selectedImageIndex].url}
                               className="w-full h-48 sm:h-64 md:h-80 lg:h-96 object-cover"
@@ -816,7 +821,8 @@ const fetchSimilarListings = async (currentListing: Listing) => {
                           <img
                             src={media[selectedImageIndex]?.url}
                             alt={listing.title}
-                            className="w-full h-48 sm:h-64 md:h-80 lg:h-96 object-cover rounded-lg"
+                            className="w-full h-48 sm:h-64 md:h-80 lg:h-96 object-cover rounded-lg cursor-pointer"
+                            onClick={() => setIsImageViewerOpen(true)}
                           />
                         )}
                         
@@ -1280,6 +1286,14 @@ const fetchSimilarListings = async (currentListing: Listing) => {
           </Card>
         </div>
       )}
+      
+      {/* Image Viewer */}
+      <ImageViewer
+        images={media.map(m => m.url)}
+        initialIndex={selectedImageIndex}
+        isOpen={isImageViewerOpen}
+        onClose={() => setIsImageViewerOpen(false)}
+      />
     </div>
   )
 }

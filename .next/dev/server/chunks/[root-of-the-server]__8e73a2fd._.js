@@ -208,6 +208,8 @@ __turbopack_context__.s([
     ()=>resetPassword,
     "signIn",
     ()=>signIn,
+    "signInWithGoogle",
+    ()=>signInWithGoogle,
     "signOut",
     ()=>signOut,
     "signUp",
@@ -311,6 +313,16 @@ const updatePassword = async (password)=>{
         password
     });
     if (error) throw error;
+};
+const signInWithGoogle = async ()=>{
+    const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+            redirectTo: `${window.location.origin}/auth/callback`
+        }
+    });
+    if (error) throw error;
+    return data;
 };
 }),
 "[project]/src/app/api/favorites/route.ts [app-route] (ecmascript)", ((__turbopack_context__) => {

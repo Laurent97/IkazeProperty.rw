@@ -22,6 +22,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { supabase } from '@/lib/auth'
 import { getCurrentUser } from '@/lib/auth'
 import InquiryChat from '@/components/chat/InquiryChat'
+import EmailSettings from '@/components/auth/EmailSettings'
 
 export default function UserDashboard() {
   const [user, setUser] = useState<any>(null)
@@ -290,6 +291,10 @@ export default function UserDashboard() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Email Settings */}
+          <div className="mb-8">
+            <EmailSettings user={user} />
+          </div>
           {/* My Listings */}
           <Card>
             <CardHeader>

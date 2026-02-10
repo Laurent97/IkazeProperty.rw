@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { signIn } from '@/lib/auth'
 import { useAuth } from '@/contexts/AuthContext'
+import GoogleSignInButton from '@/components/auth/GoogleSignInButton'
+import MagicLinkButton from '@/components/auth/MagicLinkButton'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -162,30 +164,30 @@ export default function LoginPage() {
               </Button>
             </form>
 
-            {/* Demo Account */}
-            <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-              <p className="text-sm text-gray-600 mb-2">
-                <strong>Demo Account:</strong> Use these credentials to explore the platform
-              </p>
-              <div className="text-xs space-y-1">
-                <p><strong>Email:</strong> admin@ikazeproperty.rw</p>
-                <p><strong>Password:</strong> admin123</p>
+            {/* Divider */}
+            <div className="relative my-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300" />
               </div>
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  setFormData({
-                    email: 'admin@ikazeproperty.rw',
-                    password: 'admin123'
-                  })
-                }}
-                className="mt-2 w-full border-red-600 text-red-600 hover:bg-red-50"
-              >
-                Fill Demo Credentials
-              </Button>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-white text-gray-500">Or continue with</span>
+              </div>
             </div>
+
+            {/* Google Sign-In */}
+            <GoogleSignInButton />
+
+            {/* Magic Link Sign-In */}
+            <div className="relative my-4">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300" />
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-white text-gray-500">Or</span>
+              </div>
+            </div>
+
+            <MagicLinkButton />
           </CardContent>
         </Card>
 

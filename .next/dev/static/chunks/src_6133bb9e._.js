@@ -823,6 +823,8 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 "use strict";
 
 __turbopack_context__.s([
+    "changeUserEmail",
+    ()=>changeUserEmail,
     "getCurrentUser",
     ()=>getCurrentUser,
     "getSupabaseAdmin",
@@ -835,6 +837,10 @@ __turbopack_context__.s([
     ()=>resetPassword,
     "signIn",
     ()=>signIn,
+    "signInWithGoogle",
+    ()=>signInWithGoogle,
+    "signInWithMagicLink",
+    ()=>signInWithMagicLink,
     "signOut",
     ()=>signOut,
     "signUp",
@@ -931,7 +937,15 @@ const updateUserProfile = async (userId, updates)=>{
     return data;
 };
 const resetPassword = async (email)=>{
-    const { error } = await supabase.auth.resetPasswordForEmail(email);
+    // Use admin client to bypass rate limiting for security purposes
+    const adminClient = getSupabaseAdmin();
+    const { error } = await adminClient.auth.admin.generateLink({
+        type: 'recovery',
+        email,
+        options: {
+            redirectTo: `${window.location.origin}/auth/reset-password`
+        }
+    });
     if (error) throw error;
 };
 const updatePassword = async (password)=>{
@@ -939,6 +953,33 @@ const updatePassword = async (password)=>{
         password
     });
     if (error) throw error;
+};
+const signInWithGoogle = async ()=>{
+    const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+            redirectTo: `${window.location.origin}/auth/callback`
+        }
+    });
+    if (error) throw error;
+    return data;
+};
+const signInWithMagicLink = async (email)=>{
+    const { data, error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+            emailRedirectTo: `${window.location.origin}/auth/callback`
+        }
+    });
+    if (error) throw error;
+    return data;
+};
+const changeUserEmail = async (newEmail)=>{
+    const { data, error } = await supabase.auth.updateUser({
+        email: newEmail
+    });
+    if (error) throw error;
+    return data;
 };
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
@@ -1000,10 +1041,10 @@ const defaultPaymentSettings = {
         }
     },
     platform_name: 'IkazeProperty',
-    platform_email: 'support@ikazeproperty.org',
+    platform_email: 'ikazeproperty@gmail.com',
     platform_phone: '+250737060025',
     platform_whatsapp: '+250737060025',
-    platform_address: 'Kigali, Rwanda'
+    platform_address: 'KG 644 St, Kigali, Rwanda'
 };
 const PaymentContext = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createContext"])(undefined);
 function PaymentProvider({ children }) {
@@ -1058,7 +1099,7 @@ function PaymentProvider({ children }) {
                         }
                     },
                     platform_name: settingsData.platform_name || 'IkazeProperty',
-                    platform_email: settingsData.platform_email || 'support@ikazeproperty.org',
+                    platform_email: settingsData.platform_email || 'ikazeproperty@gmail.com',
                     platform_phone: settingsData.platform_phone || '+250737060025',
                     platform_address: settingsData.platform_address || 'Kigali, Rwanda',
                     platform_whatsapp: settingsData.platform_phone || '+250737060025' // Use phone for WhatsApp
@@ -1139,9 +1180,10 @@ function usePaymentMethods() {
         isProviderAvailable: (provider)=>paymentSettings?.mobile_money_providers?.includes(provider) || false,
         getPlatformInfo: ()=>({
                 name: paymentSettings?.platform_name || 'IkazeProperty',
-                email: paymentSettings?.platform_email || __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_PLATFORM_EMAIL || 'support@ikazeproperty.org',
+                email: paymentSettings?.platform_email || 'ikazeproperty@gmail.com',
                 phone: paymentSettings?.platform_phone || __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_PLATFORM_PHONE || '+250737060025',
-                address: paymentSettings?.platform_address || __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_PLATFORM_ADDRESS || 'Kigali, Rwanda'
+                whatsapp: paymentSettings?.platform_whatsapp || '+250737060025',
+                address: paymentSettings?.platform_address || __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_PLATFORM_ADDRESS || 'KG 644 St, Kigali, Rwanda'
             })
     };
 }

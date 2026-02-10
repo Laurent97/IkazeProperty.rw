@@ -13,6 +13,7 @@ import { HomepageLeaderboard, HomepageSidebar, FeaturedCarousel } from '@/compon
 import LikesDisplay from '@/components/listing/likes-display'
 import ViewsDisplay from '@/components/listing/views-display'
 import ListingDetails from '@/components/listing/listing-details'
+import ImageViewer from '@/components/listing/ImageViewer'
 import { supabaseClient as supabase } from '@/lib/supabase-client'
 import type { Database } from '@/types/database'
 
@@ -44,20 +45,23 @@ export default function HomePage() {
   const [categoryFilter, setCategoryFilter] = useState<string>('all')
   const [sortBy, setSortBy] = useState<string>('created_at')
   const [totalCount, setTotalCount] = useState(0)
+  const [selectedImages, setSelectedImages] = useState<string[]>([])
+  const [isImageViewerOpen, setIsImageViewerOpen] = useState(false)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
   
   const observer = useRef<IntersectionObserver | null>(null)
-  const lastListingRef = useCallback((node: HTMLDivElement) => {
-    if (loadingMore) return
-    if (observer.current) observer.current.disconnect()
-    observer.current = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting && hasMore) {
-        loadMoreListings()
-      }
-    }, {
-      threshold: 0.1
-    })
-    if (node) observer.current.observe(node)
-  }, [loadingMore, hasMore])
+  const lastListingRef = useRef<HTMLDivElement>(null)
+  const openImageViewer = (images: string[], startIndex: number) => {
+    setSelectedImages(images)
+    setCurrentImageIndex(startIndex)
+    setIsImageViewerOpen(true)
+  }
+
+  const closeImageViewer = () => {
+    setIsImageViewerOpen(false)
+    setSelectedImages([])
+    setCurrentImageIndex(0)
+  }
 
   const fetchListings = async (pageNum: number, append: boolean = false) => {
     try {
@@ -323,6 +327,16 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Image Viewer */}
+      {isImageViewerOpen && (
+        <ImageViewer
+          images={selectedImages}
+          initialIndex={currentImageIndex}
+          isOpen={isImageViewerOpen}
+          onClose={closeImageViewer}
+        />
+      )}
+      
       {/* All Listings with Infinite Scroll */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -396,30 +410,40 @@ export default function HomePage() {
                 <Card 
                   key={listing.id} 
                   ref={index === listings.length - 3 ? lastListingRef : undefined}
-                  className="hover:shadow-lg transition-shadow group"
+                  className="hover:shadow-xl transition-all duration-300 hover:scale-105 group cursor-pointer border border-gray-200 hover:border-red-300"
+                  onClick={() => window.open(`/listings/${listing.category}/${listing.id}`, '_blank')}
                 >
-                  <CardHeader className="pb-3">
+                  <CardHeader className="pb-4">
                     <div className="flex items-start justify-between">
-                      <Badge className={`${getCategoryColor(listing.category)} border-0`}>
-                        {getCategoryIcon(listing.category)} {listing.category}
-                      </Badge>
-                      <div className="flex gap-1">
-                        {listing.featured && (
-                          <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
-                            ⭐ {t('homepage.listings.featured')}
-                          </Badge>
-                        )}
-                        {listing.promoted && (
-                          <Badge variant="secondary" className="bg-red-100 text-red-800">
-                            🚀 {t('homepage.listings.promoted')}
-                          </Badge>
+                      <div className="flex items-center gap-2">
+                        <Badge className={`${getCategoryColor(listing.category)} border-0`}>
+                          {getCategoryIcon(listing.category)} {listing.category}
+                        </Badge>
+                        <div className="flex-1">
+                          {listing.featured && (
+                            <Badge variant="secondary" className="bg-yellow-100 text-yellow-800 ml-2">
+                              ⭐ {t('homepage.listings.featured')}
+                            </Badge>
+                          )}
+                          {listing.promoted && (
+                            <Badge variant="secondary" className="bg-red-100 text-red-800 ml-2">
+                              🚀 {t('homepage.listings.promoted')}
+                            </Badge>
+                          )}
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-2xl font-bold text-red-600 mb-1">
+                          {formatPrice(listing.price, listing.currency)}
+                        </span>
+                        {listing.price_type === 'negotiable' && (
+                          <span className="text-sm text-gray-500">({t('listing.negotiable')})</span>
                         )}
                       </div>
                     </div>
-                    <CardTitle className="text-lg line-clamp-2">{listing.title}</CardTitle>
                   </CardHeader>
                   
-                  <CardContent>
+                  <CardContent className="p-6">
                     {/* Image */}
                     <div className="mb-4">
                       {listing.media && listing.media.length > 0 ? (
@@ -428,15 +452,15 @@ export default function HomePage() {
                             <div className="relative">
                               <video
                                 src={listing.media[0].url}
-                                className="w-full h-48 object-cover rounded-lg"
+                                className="w-full h-56 object-cover rounded-lg"
                                 muted
                                 playsInline
                                 poster={listing.media[0].url}
                               />
                               <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 rounded-lg">
                                 <div className="w-12 h-12 bg-white bg-opacity-90 rounded-full flex items-center justify-center">
-                                  <svg className="w-6 h-6 text-gray-800 ml-1" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+                                  <svg className="w-6 h-6 text-gray-800" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 004 4.11L6.3 2.841A1.5 1.5 0 004 4.11z" />
                                   </svg>
                                 </div>
                               </div>
@@ -445,7 +469,11 @@ export default function HomePage() {
                             <img
                               src={listing.media[0].url}
                               alt={listing.title}
-                              className="w-auto h-auto max-w-full object-cover rounded-lg"
+                              className="w-full h-56 object-cover rounded-lg cursor-pointer"
+                              onClick={() => openImageViewer(
+                                listing.media.filter(m => m.media_type === 'image').map(m => m.url),
+                                0
+                              )}
                             />
                           )}
                           {listing.media[0].is_primary && (
@@ -455,7 +483,7 @@ export default function HomePage() {
                           )}
                         </div>
                       ) : (
-                        <div className="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center">
+                        <div className="w-full h-56 bg-gray-200 rounded-lg flex items-center justify-center">
                           <div className="text-center">
                             <div className="text-gray-400 text-4xl mb-2">📷</div>
                             <p className="text-gray-500 text-sm">{t('homepage.listings.noMedia')}</p>
@@ -473,9 +501,11 @@ export default function HomePage() {
                     </div>
 
                     {/* Description */}
-                    <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                      {listing.description}
-                    </p>
+                    <div className="mb-4">
+                      <p className="text-gray-600 text-sm mb-3 line-clamp-3">
+                        {listing.description}
+                      </p>
+                    </div>
 
                     {/* Category-specific details */}
                     <ListingDetails 
@@ -505,13 +535,13 @@ export default function HomePage() {
                         <LikesDisplay 
                           listingId={listing.id} 
                           likesCount={listing.likes || 0}
-                          className="text-xs"
+                          className="text-xs ml-3"
                         />
                       </div>
-                      <span className="flex items-center gap-1">
+                      <div className="flex items-center gap-1">
                         <Calendar className="h-4 w-4" />
                         {new Date(listing.created_at).toLocaleDateString()}
-                      </span>
+                      </div>
                     </div>
 
                     {/* Seller Info */}

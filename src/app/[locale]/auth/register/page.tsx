@@ -7,6 +7,7 @@ import { Eye, EyeOff, Mail, Lock, User, AlertCircle, CheckCircle } from 'lucide-
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { signUp } from '@/lib/auth'
+import GoogleSignInButton from '@/components/auth/GoogleSignInButton'
 
 export default function RegisterPage() {
   const router = useRouter()
@@ -246,6 +247,19 @@ export default function RegisterPage() {
                 {loading ? 'Creating Account...' : 'Create Account'}
               </Button>
             </form>
+
+            {/* Divider */}
+            <div className="relative my-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300" />
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-white text-gray-500">Or sign up with</span>
+              </div>
+            </div>
+
+            {/* Google Sign-Up */}
+            <GoogleSignInButton />
           </CardContent>
         </Card>
 

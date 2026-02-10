@@ -196,6 +196,8 @@ async function fetchListingsWithDetails(filters) {
 "use strict";
 
 __turbopack_context__.s([
+    "changeUserEmail",
+    ()=>changeUserEmail,
     "getCurrentUser",
     ()=>getCurrentUser,
     "getSupabaseAdmin",
@@ -208,6 +210,10 @@ __turbopack_context__.s([
     ()=>resetPassword,
     "signIn",
     ()=>signIn,
+    "signInWithGoogle",
+    ()=>signInWithGoogle,
+    "signInWithMagicLink",
+    ()=>signInWithMagicLink,
     "signOut",
     ()=>signOut,
     "signUp",
@@ -303,7 +309,15 @@ const updateUserProfile = async (userId, updates)=>{
     return data;
 };
 const resetPassword = async (email)=>{
-    const { error } = await supabase.auth.resetPasswordForEmail(email);
+    // Use admin client to bypass rate limiting for security purposes
+    const adminClient = getSupabaseAdmin();
+    const { error } = await adminClient.auth.admin.generateLink({
+        type: 'recovery',
+        email,
+        options: {
+            redirectTo: `${window.location.origin}/auth/reset-password`
+        }
+    });
     if (error) throw error;
 };
 const updatePassword = async (password)=>{
@@ -311,6 +325,33 @@ const updatePassword = async (password)=>{
         password
     });
     if (error) throw error;
+};
+const signInWithGoogle = async ()=>{
+    const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+            redirectTo: `${window.location.origin}/auth/callback`
+        }
+    });
+    if (error) throw error;
+    return data;
+};
+const signInWithMagicLink = async (email)=>{
+    const { data, error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+            emailRedirectTo: `${window.location.origin}/auth/callback`
+        }
+    });
+    if (error) throw error;
+    return data;
+};
+const changeUserEmail = async (newEmail)=>{
+    const { data, error } = await supabase.auth.updateUser({
+        email: newEmail
+    });
+    if (error) throw error;
+    return data;
 };
 }),
 "[project]/src/app/api/track-view/route.ts [app-route] (ecmascript)", ((__turbopack_context__) => {

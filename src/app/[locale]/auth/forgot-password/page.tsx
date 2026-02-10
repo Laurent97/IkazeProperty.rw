@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Mail, ArrowLeft, CheckCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { resetPassword } from '@/lib/auth'
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('')
@@ -18,15 +19,10 @@ export default function ForgotPasswordPage() {
     setError('')
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      
-      // In a real app, you would call your password reset API
-      // await resetPassword(email)
-      
+      await resetPassword(email)
       setIsSubmitted(true)
-    } catch (err) {
-      setError('Failed to send reset email. Please try again.')
+    } catch (err: any) {
+      setError(err.message || 'Failed to send reset email. Please try again.')
     } finally {
       setIsLoading(false)
     }

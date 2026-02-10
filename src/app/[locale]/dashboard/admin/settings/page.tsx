@@ -97,18 +97,36 @@ export default function AdminSettingsPage() {
     try {
       setLoading(true)
       
-      // Fetch settings from settings table or use defaults
-      const { data, error } = await supabase
-        .from('settings')
-        .select('*')
-        .single()
-
-      if (error && error.code !== 'PGRST116') {
-        throw error
+      // Get auth session
+      const { data: { session } } = await supabase.auth.getSession()
+      if (!session?.access_token) {
+        throw new Error('No authenticated session')
       }
-
-      if (data) {
-        setSettings(data)
+      
+      // Fetch settings from API
+      const response = await fetch('/api/settings', {
+        headers: {
+          'Authorization': `Bearer ${session.access_token}`,
+          'Content-Type': 'application/json'
+        }
+      })
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch settings: ${response.status}`)
+      }
+      
+      const { data } = await response.json()
+      
+      if (data.settings) {
+        setSettings(data.settings)
+      } else if (data.error) {
+        throw new Error(data.error)
+      } else {
+        console.warn('Unexpected response structure:', data)
+        // If no settings property, try using the data directly
+        if (data.id || data.commission_rate !== undefined) {
+          setSettings(data)
+        }
       }
     } catch (error) {
       console.error('Error fetching settings:', error)
@@ -121,15 +139,30 @@ export default function AdminSettingsPage() {
     try {
       setSaving(true)
       
-      const { error } = await (supabase as any)
-        .from('settings')
-        .upsert({
-          id: 1,
-          ...settings,
-          updated_at: new Date().toISOString()
-        })
-
-      if (error) throw error
+      // Get auth session
+      const { data: { session } } = await supabase.auth.getSession()
+      if (!session?.access_token) {
+        throw new Error('No authenticated session')
+      }
+      
+      // Save settings via API
+      const response = await fetch('/api/settings', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${session.access_token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(settings)
+      })
+      
+      if (!response.ok) {
+        const errorData = await response.json()
+        if (errorData.needsMigration) {
+          alert('Settings table needs to be created. Please contact the administrator to run the migration script.')
+          return
+        }
+        throw new Error(errorData.error || `Failed to save settings: ${response.status}`)
+      }
 
       // Refresh payment context to update frontend
       await refreshSettings()
@@ -140,9 +173,9 @@ export default function AdminSettingsPage() {
       }
       
       alert(`Settings saved successfully! Frontend updated automatically.`)
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving settings:', error)
-      alert('Error saving settings. Please try again.')
+      alert(`Error saving settings: ${error.message}. Please try again.`)
     } finally {
       setSaving(false)
     }

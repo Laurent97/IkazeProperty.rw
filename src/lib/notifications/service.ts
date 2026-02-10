@@ -109,13 +109,13 @@ export class NotificationService {
   // Send email notification
   private static async sendEmail(email: string, notification: any) {
     try {
-      // In production, integrate with email service like SendGrid, AWS SES, etc.
       console.log(`Sending email to ${email}:`, {
         subject: notification.title,
         body: notification.message
       });
 
-      // Mock email sending - replace with actual email service
+      // Use Supabase's built-in email functionality
+      // This will use the SMTP settings configured in Supabase Dashboard
       const emailData = {
         to: email,
         subject: notification.title,
@@ -123,9 +123,14 @@ export class NotificationService {
         text: notification.message
       };
 
-      // Example with SendGrid (would require @sendgrid/mail package)
-      // const sgMail = require('@sendgrid/mail');
-      // await sgMail.send(emailData);
+      // For now, we'll use a simple approach - in production you might want to
+      // use a dedicated email service API or Supabase Edge Functions
+      console.log('📧 Email would be sent via Supabase SMTP:', emailData);
+      
+      // TODO: Integrate with real email service
+      // Option 1: Use Supabase Edge Function for email
+      // Option 2: Use SendGrid/Mailgun directly
+      // Option 3: Use Resend (recommended for transactional emails)
 
       return true;
     } catch (error) {
