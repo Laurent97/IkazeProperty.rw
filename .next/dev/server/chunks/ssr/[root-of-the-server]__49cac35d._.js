@@ -657,13 +657,18 @@ const getSupabaseClient = ()=>{
             auth: {
                 persistSession: true,
                 autoRefreshToken: true,
-                detectSessionInUrl: true
+                detectSessionInUrl: true,
+                storage: ("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : undefined,
+                flowType: 'pkce'
             },
             global: {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 }
+            },
+            db: {
+                schema: 'public'
             }
         });
     }
@@ -2984,17 +2989,29 @@ const AuthContext = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project
 function AuthProvider({ children }) {
     const [user, setUser] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [isLoading, setIsLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(true);
+    const [sessionError, setSessionError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        // Get initial session
+        let retryCount = 0;
+        const maxRetries = 3;
+        // Get initial session with retry logic
         const getInitialSession = async ()=>{
             try {
                 console.log('🔍 Checking authentication state...');
                 const { data: { session }, error } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$auth$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["supabase"].auth.getSession();
                 if (error) {
                     console.error('❌ Session error:', error);
+                    // Retry logic for transient errors
+                    if (retryCount < maxRetries && (error.message?.includes('fetch') || error.message?.includes('network'))) {
+                        retryCount++;
+                        console.log(`🔄 Retrying session check (${retryCount}/${maxRetries})...`);
+                        setTimeout(getInitialSession, 1000 * retryCount);
+                        return;
+                    }
+                    setSessionError(error.message);
                     setUser(null);
                 } else if (session?.user) {
                     console.log('✅ User session found:', session.user.email);
+                    setSessionError(null);
                     setUser({
                         id: session.user.id,
                         email: session.user.email || '',
@@ -3003,11 +3020,20 @@ function AuthProvider({ children }) {
                     });
                 } else {
                     console.log('🔴 No session found');
+                    setSessionError(null);
                     setUser(null);
                 }
             } catch (error) {
                 console.error('❌ Auth check error:', error);
+                setSessionError(error instanceof Error ? error.message : 'Unknown auth error');
                 setUser(null);
+                // Retry on network errors
+                if (retryCount < maxRetries) {
+                    retryCount++;
+                    console.log(`🔄 Retrying auth check (${retryCount}/${maxRetries})...`);
+                    setTimeout(getInitialSession, 1000 * retryCount);
+                    return;
+                }
             } finally{
                 setIsLoading(false);
             }
@@ -3016,6 +3042,7 @@ function AuthProvider({ children }) {
         // Listen for auth changes
         const { data: { subscription } } = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$auth$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["supabase"].auth.onAuthStateChange(async (event, session)=>{
             console.log('🔄 Auth state changed:', event, session?.user?.email);
+            setSessionError(null);
             if (session?.user) {
                 setUser({
                     id: session.user.id,
@@ -3028,18 +3055,21 @@ function AuthProvider({ children }) {
             }
             setIsLoading(false);
         });
-        return ()=>subscription.unsubscribe();
+        return ()=>{
+            subscription.unsubscribe();
+        };
     }, []);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(AuthContext.Provider, {
         value: {
             user,
             setUser,
-            isLoading
+            isLoading,
+            sessionError
         },
         children: children
     }, void 0, false, {
         fileName: "[project]/src/contexts/AuthContext.tsx",
-        lineNumber: 80,
+        lineNumber: 111,
         columnNumber: 5
     }, this);
 }

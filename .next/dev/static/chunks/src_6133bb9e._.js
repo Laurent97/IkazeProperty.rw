@@ -690,13 +690,18 @@ const getSupabaseClient = ()=>{
             auth: {
                 persistSession: true,
                 autoRefreshToken: true,
-                detectSessionInUrl: true
+                detectSessionInUrl: true,
+                storage: ("TURBOPACK compile-time truthy", 1) ? window.localStorage : "TURBOPACK unreachable",
+                flowType: 'pkce'
             },
             global: {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 }
+            },
+            db: {
+                schema: 'public'
             }
         });
     }
@@ -3109,9 +3114,12 @@ function AuthProvider({ children }) {
     _s();
     const [user, setUser] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [isLoading, setIsLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
+    const [sessionError, setSessionError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "AuthProvider.useEffect": ()=>{
-            // Get initial session
+            let retryCount = 0;
+            const maxRetries = 3;
+            // Get initial session with retry logic
             const getInitialSession = {
                 "AuthProvider.useEffect.getInitialSession": async ()=>{
                     try {
@@ -3119,9 +3127,18 @@ function AuthProvider({ children }) {
                         const { data: { session }, error } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$auth$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabase"].auth.getSession();
                         if (error) {
                             console.error('❌ Session error:', error);
+                            // Retry logic for transient errors
+                            if (retryCount < maxRetries && (error.message?.includes('fetch') || error.message?.includes('network'))) {
+                                retryCount++;
+                                console.log(`🔄 Retrying session check (${retryCount}/${maxRetries})...`);
+                                setTimeout(getInitialSession, 1000 * retryCount);
+                                return;
+                            }
+                            setSessionError(error.message);
                             setUser(null);
                         } else if (session?.user) {
                             console.log('✅ User session found:', session.user.email);
+                            setSessionError(null);
                             setUser({
                                 id: session.user.id,
                                 email: session.user.email || '',
@@ -3130,11 +3147,20 @@ function AuthProvider({ children }) {
                             });
                         } else {
                             console.log('🔴 No session found');
+                            setSessionError(null);
                             setUser(null);
                         }
                     } catch (error) {
                         console.error('❌ Auth check error:', error);
+                        setSessionError(error instanceof Error ? error.message : 'Unknown auth error');
                         setUser(null);
+                        // Retry on network errors
+                        if (retryCount < maxRetries) {
+                            retryCount++;
+                            console.log(`🔄 Retrying auth check (${retryCount}/${maxRetries})...`);
+                            setTimeout(getInitialSession, 1000 * retryCount);
+                            return;
+                        }
                     } finally{
                         setIsLoading(false);
                     }
@@ -3145,6 +3171,7 @@ function AuthProvider({ children }) {
             const { data: { subscription } } = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$auth$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabase"].auth.onAuthStateChange({
                 "AuthProvider.useEffect": async (event, session)=>{
                     console.log('🔄 Auth state changed:', event, session?.user?.email);
+                    setSessionError(null);
                     if (session?.user) {
                         setUser({
                             id: session.user.id,
@@ -3159,7 +3186,9 @@ function AuthProvider({ children }) {
                 }
             }["AuthProvider.useEffect"]);
             return ({
-                "AuthProvider.useEffect": ()=>subscription.unsubscribe()
+                "AuthProvider.useEffect": ()=>{
+                    subscription.unsubscribe();
+                }
             })["AuthProvider.useEffect"];
         }
     }["AuthProvider.useEffect"], []);
@@ -3167,16 +3196,17 @@ function AuthProvider({ children }) {
         value: {
             user,
             setUser,
-            isLoading
+            isLoading,
+            sessionError
         },
         children: children
     }, void 0, false, {
         fileName: "[project]/src/contexts/AuthContext.tsx",
-        lineNumber: 80,
+        lineNumber: 111,
         columnNumber: 5
     }, this);
 }
-_s(AuthProvider, "YajQB7LURzRD+QP5gw0+K2TZIWA=");
+_s(AuthProvider, "xTFr+BNzFJqAJxDMGWm3+0gHaTU=");
 _c = AuthProvider;
 function useAuth() {
     _s1();

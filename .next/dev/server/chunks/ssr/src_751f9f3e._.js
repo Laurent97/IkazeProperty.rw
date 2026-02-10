@@ -2651,9 +2651,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$listing
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$listing$2f$views$2d$display$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/listing/views-display.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$listing$2f$listing$2d$details$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/listing/listing-details.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$listing$2f$ImageViewer$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/listing/ImageViewer.tsx [app-ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/supabase-client.ts [app-ssr] (ecmascript)");
 'use client';
-;
 ;
 ;
 ;
@@ -2702,7 +2700,7 @@ function HomePage() {
                 setLoadingMore(true);
             }
             const pageSize = 20;
-            let query = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["supabaseClient"].from('listings').select(`
+            let query = getSupabaseClient().from('listings').select(`
           *,
           seller:users!listings_seller_id_fkey(
             full_name,

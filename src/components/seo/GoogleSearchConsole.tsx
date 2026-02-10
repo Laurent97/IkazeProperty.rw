@@ -5,7 +5,8 @@ interface GoogleSearchConsoleProps {
 }
 
 export default function GoogleSearchConsole({ verificationCode }: GoogleSearchConsoleProps) {
-  if (!verificationCode) {
+  // Only render if we have a real verification code (not the placeholder)
+  if (!verificationCode || verificationCode === 'your-google-verification-code') {
     return null
   }
 

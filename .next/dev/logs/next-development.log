@@ -1,56 +1,31 @@
-[00:00:01.634] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:01.879] Server  LOG     ✓ Ready in 1452ms
-[00:00:03.017] Server  WARN    ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
-[00:00:03.737] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:03.798] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:04.226] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
-
-- A server/client branch `if (typeof window !== 'undefined')`.
-- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
-- Date formatting in a user's locale which doesn't match the server.
-- External changing data without sending a snapshot of it along with the HTML.
-- Invalid HTML tag nesting.
-
-It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
-
-%s%s https://react.dev/link/hydration-mismatch 
-
-  ...
-    <MenuProvider scope={{Menu:[...], ...}} open={false} onOpenChange={function useCallbackRef.useMemo} content={null} ...>
-      <MenuProvider scope={{Menu:[...], ...}} onClose={function Menu.useCallback} isUsingKeyboardRef={{current:false}} ...>
-        <DropdownMenuTrigger asChild={true}>
-          <MenuAnchor asChild={true} __scopeMenu={{Menu:[...], ...}}>
-            <PopperAnchor __scopePopper={{Menu:[...], ...}} asChild={true} ref={null}>
-              <Primitive.div asChild={true} ref={function}>
-                <Primitive.div.Slot ref={function}>
-                  <Primitive.div.SlotClone ref={function}>
-                    <Primitive.button type="button" id="radix-_R_3..." aria-haspopup="menu" aria-expanded={false} ...>
-                      <Primitive.button.Slot type="button" id="radix-_R_3..." aria-haspopup="menu" aria-expanded={false} ...>
-                        <Primitive.button.SlotClone type="button" id="radix-_R_3..." aria-haspopup="menu" ...>
-                          <_c variant="outline" size="sm" disabled={false} className="px-4 py-2" type="button" ...>
-                            <button
-                              className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium..."
-                              ref={function}
-                              disabled={false}
-                              type="button"
-+                             id="radix-_R_32b5rlb_"
--                             id="radix-_R_c9d5rlb_"
-                              aria-haspopup="menu"
-                              aria-expanded={false}
-                              aria-controls={undefined}
-                              data-state="closed"
-                              data-disabled={undefined}
-                              onPointerDown={function handleEvent}
-                              onKeyDown={function handleEvent}
-                            >
-        ...
-
-[00:00:04.226] Browser LOG     🔍 Checking authentication state...
-[00:00:04.226] Browser LOG     🔄 Auth state changed: SIGNED_IN kizzolaurent@gmail.com
-[00:00:05.205] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
-[00:00:05.205] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
-[00:00:06.205] Browser ERROR   Error fetching settings: {}
-[00:00:06.205] Browser LOG     🔍 Checking authentication state...
-[00:00:06.205] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
-[00:00:06.205] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
-[00:00:08.206] Browser ERROR   Error fetching settings: {}
+[00:00:01.821] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:02.067] Server  LOG     ✓ Ready in 1434ms
+[00:00:02.110] Browser ERROR   Error fetching notifications: {}
+[00:00:02.110] Browser ERROR   Error fetching notifications: {}
+[00:00:02.111] Browser ERROR   Error fetching notifications: {}
+[00:00:02.111] Browser ERROR   Error fetching notifications: {}
+[00:00:04.938] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:05.113] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:06.786] Browser LOG     🔍 Checking authentication state...
+[00:00:06.786] Browser LOG     🔍 Checking authentication state...
+[00:00:07.801] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
+[00:00:07.801] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
+[00:00:08.785] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
+[00:00:08.785] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
+[00:00:09.786] Browser ERROR   Error fetching settings: {}
+[00:00:10.785] Browser ERROR   Error fetching settings: {}
+[00:00:26.121] Browser LOG     🔍 Checking authentication state...
+[00:00:27.968] Browser LOG     ✅ User session found: laurentjean535@gmail.com
+[00:00:27.968] Browser LOG     🔄 Auth state changed: INITIAL_SESSION laurentjean535@gmail.com
+[00:03:34.559] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:03:35.821] Browser LOG     🔍 Checking authentication state...
+[00:03:35.821] Browser LOG     🔄 Auth state changed: SIGNED_IN kizzolaurent@gmail.com
+[00:03:36.795] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
+[00:03:36.795] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
+[00:03:37.784] Browser ERROR   Error fetching settings: {}
+[00:03:40.372] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:03:40.786] Browser LOG     🔄 Auth state changed: SIGNED_IN kizzolaurent@gmail.com
+[00:03:40.789] Browser LOG     🔍 Checking authentication state...
+[00:03:41.786] Browser LOG     ✅ User session found: kizzolaurent@gmail.com
+[00:03:41.786] Browser LOG     🔄 Auth state changed: INITIAL_SESSION kizzolaurent@gmail.com
+[00:03:42.785] Browser ERROR   Error fetching settings: {}

@@ -82,7 +82,8 @@ export default function ListingDetailPage() {
 
 const fetchSimilarListings = async (currentListing: Listing) => {
     try {
-      const { supabaseClient } = await import('@/lib/supabase-client')
+      const { getSupabaseClient } = await import('@/lib/supabase-client')
+      const supabaseClient = getSupabaseClient()
       const { data, error } = await supabaseClient
         .from('listings')
         .select(`

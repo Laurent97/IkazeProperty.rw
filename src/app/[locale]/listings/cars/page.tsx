@@ -94,8 +94,8 @@ export default function CarsListingsPage() {
   const fetchListings = async () => {
     try {
       setLoading(true)
-      const { supabaseClient } = await import('@/lib/supabase-client')
-      
+      const { getSupabaseClient } = await import('@/lib/supabase-client')
+      const supabaseClient = getSupabaseClient()
       console.log('Starting to fetch car listings...')
       
       // Try a simpler query first - just get listings

@@ -54,8 +54,8 @@ export default function InquiryDetailPage() {
       }
 
       // Get session token for API call
-      const { supabaseClient } = await import('@/lib/supabase-client')
-      const { data: { session } } = await supabaseClient.auth.getSession()
+      const { getSupabaseClient } = await import('@/lib/supabase-client')
+      const { data: { session } } = await getSupabaseClient().auth.getSession()
       
       if (!session?.access_token) {
         return
@@ -94,8 +94,8 @@ export default function InquiryDetailPage() {
       setUpdating(true)
 
       // Get session token for API call
-      const { supabaseClient } = await import('@/lib/supabase-client')
-      const { data: { session } } = await supabaseClient.auth.getSession()
+      const { getSupabaseClient } = await import('@/lib/supabase-client')
+      const { data: { session } } = await getSupabaseClient().auth.getSession()
       
       if (!session?.access_token) {
         throw new Error('No session token')
@@ -135,8 +135,8 @@ export default function InquiryDetailPage() {
       setUpdating(true)
 
       // Get session token for API call
-      const { supabaseClient } = await import('@/lib/supabase-client')
-      const { data: { session } } = await supabaseClient.auth.getSession()
+      const { getSupabaseClient } = await import('@/lib/supabase-client')
+      const { data: { session } } = await getSupabaseClient().auth.getSession()
       
       if (!session?.access_token) {
         throw new Error('No session token')

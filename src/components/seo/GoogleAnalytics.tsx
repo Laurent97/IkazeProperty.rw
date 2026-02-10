@@ -7,7 +7,8 @@ interface GoogleAnalyticsProps {
 }
 
 export default function GoogleAnalytics({ measurementId }: GoogleAnalyticsProps) {
-  if (!measurementId) {
+  // Only render if we have a real measurement ID (not the placeholder)
+  if (!measurementId || measurementId === 'G-XXXXXXXXXX') {
     return null
   }
 

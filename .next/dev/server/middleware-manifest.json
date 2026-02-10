@@ -3,16 +3,16 @@
   "middleware": {
     "/": {
       "files": [
-        "server/edge/chunks/node_modules_91e365d9._.js",
-        "server/edge/chunks/[root-of-the-server]__8978dbac._.js",
-        "server/edge/chunks/turbopack-node_modules_next_dist_esm_build_templates_edge-wrapper_3d4c3e65.js"
+        "server/edge/chunks/node_modules_15afa336._.js",
+        "server/edge/chunks/[root-of-the-server]__f2b15f93._.js",
+        "server/edge/chunks/turbopack-node_modules_next_dist_esm_build_templates_edge-wrapper_c250671c.js"
       ],
       "name": "middleware",
       "page": "/",
       "matchers": [
         {
-          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?(?:\\/((?!api|_next|_vercel|.*\\..*).*))(\\\\.json)?[\\/#\\?]?$",
-          "originalSource": "/((?!api|_next|_vercel|.*\\..*).*)"
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?(?:\\/((?!_next\\/static|_next\\/image|favicon.ico|public|api\\/auth).*))(\\\\.json)?[\\/#\\?]?$",
+          "originalSource": "/((?!_next/static|_next/image|favicon.ico|public|api/auth).*)"
         }
       ],
       "wasm": [],
@@ -20,9 +20,9 @@
       "env": {
         "__NEXT_BUILD_ID": "development",
         "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "b0cSEElcAVAZKje+aI+fV49BC2YdAfuc0QFxL7lqwFs=",
-        "__NEXT_PREVIEW_MODE_ID": "28a98ca9418696eebe3d81a70b184e71",
-        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "721f4a1321c52bcd4dd78b8a2ca0e5ca312969ae0eab50bb27be050b73a9586a",
-        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "b32da1b41542cff39383b23e2694e9e8e12abf950b55d66acd96b2de78c24266"
+        "__NEXT_PREVIEW_MODE_ID": "e2adfc2b31f37816481cea31d1203939",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "b4aa7d8540430f61cdf5db9293cb696159bcd137bc5c33f1423089ede8639334",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "22cb6a164e971375e9dc27c62a22e1ae4d2eb3a92536cd2b51636866eddbdfc5"
       }
     }
   },

@@ -50,8 +50,8 @@ export default function AdminInquiriesPage() {
       }
 
       // Get session token for API call
-      const { supabaseClient } = await import('@/lib/supabase-client')
-      const { data: { session } } = await supabaseClient.auth.getSession()
+      const { getSupabaseClient } = await import('@/lib/supabase-client')
+      const { data: { session } } = await getSupabaseClient().auth.getSession()
       
       if (!session?.access_token) {
         console.error('No session token')
@@ -139,8 +139,8 @@ export default function AdminInquiriesPage() {
   const handleUpdateStatus = async (inquiryId: string, newStatus: string) => {
     try {
       // Get session token for API call
-      const { supabaseClient } = await import('@/lib/supabase-client')
-      const { data: { session } } = await supabaseClient.auth.getSession()
+      const { getSupabaseClient } = await import('@/lib/supabase-client')
+      const { data: { session } } = await getSupabaseClient().auth.getSession()
       
       if (!session?.access_token) {
         throw new Error('No session token')

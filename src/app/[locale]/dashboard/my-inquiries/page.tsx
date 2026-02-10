@@ -46,8 +46,8 @@ export default function MyInquiriesPage() {
       }
 
       // Get session token for API call
-      const { supabaseClient } = await import('@/lib/supabase-client')
-      const { data: { session } } = await supabaseClient.auth.getSession()
+      const { getSupabaseClient } = await import('@/lib/supabase-client')
+      const { data: { session } } = await getSupabaseClient().auth.getSession()
       
       if (!session?.access_token) {
         console.log('❌ No session token found')
