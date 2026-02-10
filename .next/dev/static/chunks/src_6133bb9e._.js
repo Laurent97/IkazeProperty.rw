@@ -672,34 +672,41 @@ __turbopack_context__.s([
     ()=>__TURBOPACK__default__export__,
     "fetchListingsWithDetails",
     ()=>fetchListingsWithDetails,
-    "supabaseClient",
-    ()=>supabaseClient
+    "getSupabaseClient",
+    ()=>getSupabaseClient
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$supabase$2f$supabase$2d$js$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/@supabase/supabase-js/dist/index.mjs [app-client] (ecmascript) <locals>");
 ;
-const supabaseUrl = ("TURBOPACK compile-time value", "https://swshkufpktnacbotddpb.supabase.co");
-const supabaseAnonKey = ("TURBOPACK compile-time value", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3c2hrdWZwa3RuYWNib3RkZHBiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA0NTE4MzksImV4cCI6MjA4NjAyNzgzOX0.XjlJZscCno-_czhwXqwdSlKgUUpDZty6i37mtwqcnA8");
-if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
-;
-const supabaseClient = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$supabase$2f$supabase$2d$js$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createClient"])(supabaseUrl, supabaseAnonKey, {
-    auth: {
-        persistSession: true,
-        autoRefreshToken: true,
-        detectSessionInUrl: true
-    },
-    global: {
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
+let supabaseClient = null;
+const getSupabaseClient = ()=>{
+    if (!supabaseClient) {
+        const supabaseUrl = ("TURBOPACK compile-time value", "https://swshkufpktnacbotddpb.supabase.co");
+        const supabaseAnonKey = ("TURBOPACK compile-time value", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3c2hrdWZwa3RuYWNib3RkZHBiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA0NTE4MzksImV4cCI6MjA4NjAyNzgzOX0.XjlJZscCno-_czhwXqwdSlKgUUpDZty6i37mtwqcnA8");
+        if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+        ;
+        // Create a single Supabase client for the entire app
+        supabaseClient = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$supabase$2f$supabase$2d$js$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createClient"])(supabaseUrl, supabaseAnonKey, {
+            auth: {
+                persistSession: true,
+                autoRefreshToken: true,
+                detectSessionInUrl: true
+            },
+            global: {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }
+        });
     }
-});
-const __TURBOPACK__default__export__ = supabaseClient;
+    return supabaseClient;
+};
+const __TURBOPACK__default__export__ = getSupabaseClient();
 async function fetchListingsWithDetails(filters) {
     try {
         const { category = 'other', searchQuery = '', priceRange = {}, subcategory = '', condition = '', sortBy = 'created_at', limit = 50 } = filters;
-        let query = supabaseClient.from('listings').select(`
+        let query = getSupabaseClient().from('listings').select(`
         *,
         seller:users!listings_seller_id_fkey(
           id,
@@ -765,10 +772,10 @@ async function fetchListingsWithDetails(filters) {
         // Fetch additional data in parallel
         const listingIds = listings.map((l)=>l.id);
         const [mediaResult, detailsResult] = await Promise.all([
-            supabaseClient.from('listing_media').select('*').in('listing_id', listingIds).order('order_index', {
+            getSupabaseClient().from('listing_media').select('*').in('listing_id', listingIds).order('order_index', {
                 ascending: true
             }),
-            supabaseClient.from('other_item_details').select('*').in('listing_id', listingIds)
+            getSupabaseClient().from('other_item_details').select('*').in('listing_id', listingIds)
         ]);
         // Process the data
         const listingsWithDetails = listings.map((listing)=>{
@@ -885,7 +892,7 @@ const getSupabaseAuth = ()=>{
     }
     return _supabaseAuth;
 };
-const supabase = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2d$client$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabaseClient"];
+const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2d$client$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getSupabaseClient"])();
 const supabaseAdmin = getSupabaseAdmin;
 const supabaseAuth = getSupabaseAuth;
 const signUp = async (email, password, fullName)=>{
@@ -937,22 +944,42 @@ const updateUserProfile = async (userId, updates)=>{
     return data;
 };
 const resetPassword = async (email)=>{
-    // Use admin client to bypass rate limiting for security purposes
-    const adminClient = getSupabaseAdmin();
-    const { error } = await adminClient.auth.admin.generateLink({
-        type: 'recovery',
-        email,
-        options: {
-            redirectTo: `${window.location.origin}/auth/reset-password`
-        }
+    const response = await fetch('/api/auth/reset-password', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email
+        })
     });
-    if (error) throw error;
+    const data = await response.json();
+    if (!response.ok) {
+        throw new Error(data.error || 'Failed to send reset email');
+    }
+    return data;
 };
 const updatePassword = async (password)=>{
-    const { error } = await supabase.auth.updateUser({
-        password
+    // Get current session to get the access token
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session?.access_token) {
+        throw new Error('No active session found. Please log in again.');
+    }
+    const response = await fetch('/api/auth/update-password', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${session.access_token}`
+        },
+        body: JSON.stringify({
+            password
+        })
     });
-    if (error) throw error;
+    const data = await response.json();
+    if (!response.ok) {
+        throw new Error(data.error || 'Failed to update password');
+    }
+    return data;
 };
 const signInWithGoogle = async ()=>{
     const { data, error } = await supabase.auth.signInWithOAuth({

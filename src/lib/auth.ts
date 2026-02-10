@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 import { Database } from '@/types/database'
-import { supabaseClient } from '@/lib/supabase-client'
+import { getSupabaseClient } from '@/lib/supabase-client'
 
 let _supabaseAdmin: ReturnType<typeof createClient<Database>> | null = null
 let _supabaseAuth: ReturnType<typeof createClient<Database>> | null = null
@@ -33,7 +33,7 @@ export const getSupabaseAuth = () => {
   return _supabaseAuth
 }
 
-export const supabase = supabaseClient
+export const supabase = getSupabaseClient()
 
 // For backward compatibility, export the getter functions with the same names
 export const supabaseAdmin = getSupabaseAdmin
@@ -109,25 +109,47 @@ export const updateUserProfile = async (userId: string, updates: any) => {
 }
 
 export const resetPassword = async (email: string) => {
-  // Use admin client to bypass rate limiting for security purposes
-  const adminClient = getSupabaseAdmin()
-  const { error } = await adminClient.auth.admin.generateLink({
-    type: 'recovery',
-    email,
-    options: {
-      redirectTo: `${window.location.origin}/auth/reset-password`
-    }
+  const response = await fetch('/api/auth/reset-password', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email })
   })
-  
-  if (error) throw error
+
+  const data = await response.json()
+
+  if (!response.ok) {
+    throw new Error(data.error || 'Failed to send reset email')
+  }
+
+  return data
 }
 
 export const updatePassword = async (password: string) => {
-  const { error } = await supabase.auth.updateUser({
-    password
+  // Get current session to get the access token
+  const { data: { session } } = await supabase.auth.getSession()
+  
+  if (!session?.access_token) {
+    throw new Error('No active session found. Please log in again.')
+  }
+
+  const response = await fetch('/api/auth/update-password', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${session.access_token}`
+    },
+    body: JSON.stringify({ password })
   })
 
-  if (error) throw error
+  const data = await response.json()
+
+  if (!response.ok) {
+    throw new Error(data.error || 'Failed to update password')
+  }
+
+  return data
 }
 
 export const signInWithGoogle = async () => {

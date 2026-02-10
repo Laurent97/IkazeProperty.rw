@@ -1,30 +1,37 @@
 import { createClient } from '@supabase/supabase-js'
 import { Database } from '@/types/database'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+let supabaseClient: ReturnType<typeof createClient<Database>> | null = null
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables. Please check your .env.local file.')
+export const getSupabaseClient = () => {
+  if (!supabaseClient) {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+    if (!supabaseUrl || !supabaseAnonKey) {
+      throw new Error('Missing Supabase environment variables. Please check your .env.local file.')
+    }
+
+    // Create a single Supabase client for the entire app
+    supabaseClient = createClient<Database>(supabaseUrl, supabaseAnonKey, {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true,
+      },
+      global: {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }
+      }
+    })
+  }
+  return supabaseClient
 }
 
-// Create a single Supabase client for the entire app
-export const supabaseClient = createClient<Database>(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    persistSession: true,
-    autoRefreshToken: true,
-    detectSessionInUrl: true,
-  },
-  global: {
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    }
-  }
-})
-
 // Export as default for backward compatibility
-export default supabaseClient
+export default getSupabaseClient()
 
 // Helper function to fetch listings with proper error handling
 export async function fetchListingsWithDetails(filters: {
@@ -47,7 +54,7 @@ export async function fetchListingsWithDetails(filters: {
       limit = 50
     } = filters
 
-    let query = supabaseClient
+    let query = getSupabaseClient()
       .from('listings')
       .select(`
         *,
@@ -111,12 +118,12 @@ export async function fetchListingsWithDetails(filters: {
     const listingIds = (listings as any[]).map(l => l.id)
     
     const [mediaResult, detailsResult] = await Promise.all([
-      supabaseClient
+      getSupabaseClient()
         .from('listing_media')
         .select('*')
         .in('listing_id', listingIds)
         .order('order_index', { ascending: true }),
-      supabaseClient
+      getSupabaseClient()
         .from('other_item_details')
         .select('*')
         .in('listing_id', listingIds)

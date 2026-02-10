@@ -1,22 +1,6 @@
 {
-  "/[locale]/admin/ads/page": "app/[locale]/admin/ads/page.js",
-  "/[locale]/auth/callback/page": "app/[locale]/auth/callback/page.js",
-  "/[locale]/auth/forgot-password/page": "app/[locale]/auth/forgot-password/page.js",
-  "/[locale]/auth/login/page": "app/[locale]/auth/login/page.js",
-  "/[locale]/dashboard/admin/page": "app/[locale]/dashboard/admin/page.js",
   "/[locale]/dashboard/admin/settings/page": "app/[locale]/dashboard/admin/settings/page.js",
-  "/[locale]/dashboard/page": "app/[locale]/dashboard/page.js",
-  "/[locale]/dashboard/user/page": "app/[locale]/dashboard/user/page.js",
-  "/[locale]/listings/[category]/[id]/page": "app/[locale]/listings/[category]/[id]/page.js",
-  "/[locale]/page": "app/[locale]/page.js",
-  "/_not-found/page": "app/_not-found/page.js",
-  "/api/ads/analytics/route": "app/api/ads/analytics/route.js",
-  "/api/ads/route": "app/api/ads/route.js",
-  "/api/favorites/route": "app/api/favorites/route.js",
   "/api/notifications/route": "app/api/notifications/route.js",
-  "/api/payments/methods/route": "app/api/payments/methods/route.js",
   "/api/settings/route": "app/api/settings/route.js",
-  "/api/site-settings/route": "app/api/site-settings/route.js",
-  "/api/track-view/route": "app/api/track-view/route.js",
-  "/api/visits/admin/route": "app/api/visits/admin/route.js"
+  "/api/site-settings/route": "app/api/site-settings/route.js"
 }
