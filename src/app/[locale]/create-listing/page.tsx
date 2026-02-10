@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
-import { supabaseClient } from '@/lib/supabase-client'
+import { getSupabaseClient as supabaseClient } from '@/lib/supabase-client'
 import { useAuth } from '@/contexts/AuthContext'
 import type { Database } from '@/types/database'
 import type { PaymentMethod } from '@/types/payment'
@@ -371,7 +371,7 @@ export default function CreateListingPage() {
 
     try {
       // Get the user's session token
-      const { data: { session } } = await supabaseClient.auth.getSession()
+      const { data: { session } } = await supabaseClient().auth.getSession()
       
       if (!session?.access_token) {
         throw new Error('Authentication token not found')

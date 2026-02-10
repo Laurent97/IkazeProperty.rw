@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Badge } from '@/components/ui/badge'
 import { HomepageLeaderboard, HomepageSidebar } from '@/components/ads/AdServing'
-import { supabaseClient as supabase } from '@/lib/supabase-client'
+import { getSupabaseClient as supabase } from '@/lib/supabase-client'
 import type { Database } from '@/types/database'
 import LikesDisplay from '@/components/listing/likes-display'
 import ViewsDisplay from '@/components/listing/views-display'
@@ -67,7 +67,7 @@ export default function SearchPage() {
       setLoading(true)
       setHasSearched(true)
       
-      let query = supabase
+      let query = supabase()
         .from('listings')
         .select(`
           *,

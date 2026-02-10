@@ -14,7 +14,7 @@ import LikesDisplay from '@/components/listing/likes-display'
 import ViewsDisplay from '@/components/listing/views-display'
 import ListingDetails from '@/components/listing/listing-details'
 import ImageViewer from '@/components/listing/ImageViewer'
-import { supabaseClient as supabase } from '@/lib/supabase-client'
+import { getSupabaseClient as supabase } from '@/lib/supabase-client'
 import type { Database } from '@/types/database'
 
 type Listing = Database['public']['Tables']['listings']['Row'] & {

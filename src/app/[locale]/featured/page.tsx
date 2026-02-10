@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Search, Filter, Heart, Eye, MapPin, Star, Calendar } from 'lucide-react'
-import { supabaseClient as supabase } from '@/lib/supabase-client'
+import { getSupabaseClient as supabase } from '@/lib/supabase-client'
 import type { Database } from '@/types/database'
 
 type Listing = Database['public']['Tables']['listings']['Row'] & {
@@ -40,7 +40,7 @@ export default function FeaturedPage() {
     try {
       setLoading(true)
       
-      let query = supabase
+      let query = supabase()
         .from('listings')
         .select(`
           *,

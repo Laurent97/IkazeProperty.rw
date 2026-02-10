@@ -9,7 +9,7 @@ import AdminContactInfo from '@/components/listing/admin-contact'
 import FavoriteButton from '@/components/listing/favorite-button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
-import { supabaseClient as supabase } from '@/lib/supabase-client'
+import { getSupabaseClient as supabase } from '@/lib/supabase-client'
 import type { Database } from '@/types/database'
 
 type Listing = Database['public']['Tables']['listings']['Row'] & {

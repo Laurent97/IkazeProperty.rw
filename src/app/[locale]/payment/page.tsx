@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import PaymentSelection from '@/components/payment/payment-selection'
-import { supabaseClient } from '@/lib/supabase-client'
+import { getSupabaseClient as supabaseClient } from '@/lib/supabase-client'
 import { useAuth } from '@/contexts/AuthContext'
 import type { PromotionPackage } from '@/types/payment'
 
@@ -93,7 +93,7 @@ export default function PaymentPage() {
 
   const fetchListingDetails = async (id: string) => {
     try {
-      const { data: { session } } = await supabaseClient.auth.getSession()
+      const { data: { session } } = await supabaseClient().auth.getSession()
       if (!session?.access_token) {
         throw new Error('Not authenticated')
       }
@@ -122,7 +122,7 @@ export default function PaymentPage() {
     setLoading(true)
     try {
       // Create promotion record
-      const { data: { session } } = await supabaseClient.auth.getSession()
+      const { data: { session } } = await supabaseClient().auth.getSession()
       if (!session?.access_token) {
         throw new Error('Not authenticated')
       }
