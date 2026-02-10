@@ -534,11 +534,11 @@ export default function HousesListingsPage() {
                               size="sm"
                               className="flex-shrink-0"
                             />
-                            <Button asChild size="sm" className="touch-target">
-                              <Link href={`/listings/houses/${listing.id}`}>
+                            <Link href={`/listings/houses/${listing.id}`}>
+                              <Button size="sm" className="touch-target">
                                 View Details
-                              </Link>
-                            </Button>
+                              </Button>
+                            </Link>
                           </div>
                         </div>
                       </div>
