@@ -33,6 +33,7 @@ const nextConfig: NextConfig = {
               "img-src 'self' data: https: blob:;",
               "font-src 'self' data: https://fonts.gstatic.com;",
               "connect-src 'self' https://api.supabase.co https://supabase.com https://swshkufpktnacbotddpb.supabase.co https://*.supabase.co https://*.supabase.in https://vercel.live https://www.google-analytics.com;",
+              "frame-src 'self' https://vercel.live;",
               "default-src 'self';"
             ].join(' ')
           },
