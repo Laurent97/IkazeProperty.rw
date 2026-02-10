@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 18, "column": 0}, "map": {"version":3,"sources":["file:///D:/Apps/IkazeProperty.rw/src/app/dashboard/page.tsx"],"sourcesContent":["import { redirect } from 'next/navigation'\n\nexport default function DashboardPage() {\n  // Redirect to the English dashboard by default\n  redirect('/en/dashboard')\n}\n"],"names":[],"mappings":";;;;AAAA;AAAA;;AAEe,SAAS;IACtB,+CAA+C;IAC/C,IAAA,iMAAQ,EAAC;AACX"}}]
-}
