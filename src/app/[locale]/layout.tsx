@@ -6,6 +6,7 @@ import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { PaymentProvider } from "@/contexts/PaymentContext";
+import AuthDebugger from "@/components/debug/AuthDebugger";
 import "../globals.css";
 
 const geistSans = Geist({
@@ -45,6 +46,7 @@ export default async function LocaleLayout({
             {children}
           </main>
           <Footer />
+          <AuthDebugger />
         </NextIntlClientProvider>
       </PaymentProvider>
     </AuthProvider>

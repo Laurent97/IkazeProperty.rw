@@ -9,6 +9,10 @@ export const getSupabaseClient = () => {
     const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
     if (!supabaseUrl || !supabaseAnonKey) {
+      console.error('Missing Supabase environment variables:', {
+        url: !!supabaseUrl,
+        key: !!supabaseAnonKey
+      })
       throw new Error('Missing Supabase environment variables. Please check your .env.local file.')
     }
 
@@ -18,12 +22,17 @@ export const getSupabaseClient = () => {
         persistSession: true,
         autoRefreshToken: true,
         detectSessionInUrl: true,
+        storage: typeof window !== 'undefined' ? window.localStorage : undefined,
+        flowType: 'pkce',
       },
       global: {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         }
+      },
+      db: {
+        schema: 'public'
       }
     })
   }
