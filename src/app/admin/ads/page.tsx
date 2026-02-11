@@ -319,7 +319,7 @@ export default function AdminAdsPage() {
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => window.open(`/[locale]/listings/${promotion.listing_id}`, '_blank')}
+                      onClick={() => window.open(`\/[locale]\/listings\/${promotion.listing_id}`, '_blank')}
                     >
                       <Eye className="h-4 w-4 mr-1" />
                       View Listing

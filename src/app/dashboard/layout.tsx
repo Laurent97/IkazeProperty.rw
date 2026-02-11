@@ -21,9 +21,9 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { getCurrentUser, signOut, getUserProfile } from '@/lib/auth'
 import { supabase } from '@/lib/auth'
-import { useAuth } from '@/contexts/AuthContext'
+import { AuthProvider } from '@/contexts/AuthContext'
 
-export default function DashboardLayout({
+function DashboardLayoutContent({
   children,
 }: {
   children: React.ReactNode
@@ -32,7 +32,6 @@ export default function DashboardLayout({
   const [userProfile, setUserProfile] = useState<any>(null)
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const pathname = usePathname()
-  const { setUser: setAuthUser } = useAuth()
 
   useEffect(() => {
     fetchUserData()
@@ -72,7 +71,6 @@ export default function DashboardLayout({
   const handleSignOut = async () => {
     try {
       await signOut()
-      setAuthUser(null) // Clear auth context
       window.location.href = '/'
     } catch (error) {
       console.error('Error signing out:', error)
@@ -302,5 +300,19 @@ export default function DashboardLayout({
         </main>
       </div>
     </div>
+  )
+}
+
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <AuthProvider>
+      <DashboardLayoutContent>
+        {children}
+      </DashboardLayoutContent>
+    </AuthProvider>
   )
 }
