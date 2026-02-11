@@ -120,11 +120,11 @@ export default function AdminInquiriesPage() {
 
   const updateInquiryStatus = async (inquiryId: string, newStatus: 'pending' | 'approved' | 'rejected' | 'connected') => {
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('inquiries')
         .update({ 
           status: newStatus
-        } as Database['public']['Tables']['inquiries']['Update'])
+        })
         .eq('id', inquiryId)
       
       if (error) throw error

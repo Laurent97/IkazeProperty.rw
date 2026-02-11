@@ -196,8 +196,18 @@ export default function AdminSettingsPage() {
     }
 
     const method: PaymentMethod = {
-      ...newPaymentMethod,
       id: Date.now().toString(),
+      name: newPaymentMethod.name || '',
+      type: newPaymentMethod.type || 'mobile',
+      provider: newPaymentMethod.provider || '',
+      accountInfo: newPaymentMethod.accountInfo || '',
+      isActive: newPaymentMethod.isActive ?? true,
+      fees: newPaymentMethod.fees || { deposit: 0, withdrawal: 0, transaction: 0 },
+      supportedCurrencies: newPaymentMethod.supportedCurrencies || ['RWF'],
+      processingTime: newPaymentMethod.processingTime || 'Instant',
+      minAmount: newPaymentMethod.minAmount || 100,
+      maxAmount: newPaymentMethod.maxAmount || 1000000,
+      instructions: newPaymentMethod.instructions || '',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     }
@@ -228,7 +238,22 @@ export default function AdminSettingsPage() {
 
     setPaymentMethods(paymentMethods.map(method => 
       method.id === editingPaymentMethod 
-        ? { ...newPaymentMethod, id: method.id, updatedAt: new Date().toISOString() }
+        ? { 
+            id: method.id, 
+            name: newPaymentMethod.name || method.name,
+            type: newPaymentMethod.type || method.type,
+            provider: newPaymentMethod.provider || method.provider,
+            accountInfo: newPaymentMethod.accountInfo || method.accountInfo,
+            isActive: newPaymentMethod.isActive ?? method.isActive,
+            fees: newPaymentMethod.fees || method.fees,
+            supportedCurrencies: newPaymentMethod.supportedCurrencies || method.supportedCurrencies,
+            processingTime: newPaymentMethod.processingTime || method.processingTime,
+            minAmount: newPaymentMethod.minAmount || method.minAmount,
+            maxAmount: newPaymentMethod.maxAmount || method.maxAmount,
+            instructions: newPaymentMethod.instructions || method.instructions,
+            createdAt: method.createdAt,
+            updatedAt: new Date().toISOString() 
+          }
         : method
     ))
     setEditingPaymentMethod(null)

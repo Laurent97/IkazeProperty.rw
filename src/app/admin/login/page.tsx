@@ -32,7 +32,7 @@ export default function AdminLoginPage() {
       }
 
       // Check if user has admin role
-      const profile = await getUserProfile(currentUser.id)
+      const profile = await getUserProfile(currentUser.id) as any
       if (profile && profile.role === 'admin') {
         // Auto-authenticate admin system
         document.cookie = 'admin-token=authenticated; path=/admin; max-age=86400'

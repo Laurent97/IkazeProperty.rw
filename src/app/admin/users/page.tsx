@@ -82,11 +82,11 @@ export default function AdminUsersPage() {
 
   const updateUserStatus = async (userId: string, verified: boolean) => {
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('users')
         .update({ 
           verified: verified
-        } as Database['public']['Tables']['users']['Update'])
+        })
         .eq('id', userId)
       
       if (error) throw error
@@ -301,7 +301,7 @@ export default function AdminUsersPage() {
                       <td className="py-4 px-4">
                         <div className="text-sm">
                           <div className="font-medium text-gray-900">
-                            {Array.isArray(user.listings) ? user.listings[0]?.count || 0 : 0}
+                            {(user as any).listings && Array.isArray((user as any).listings) ? (user as any).listings[0]?.count || 0 : 0}
                           </div>
                           <div className="text-gray-600">properties</div>
                         </div>

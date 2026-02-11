@@ -30,7 +30,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { supabase } from '@/lib/auth'
+import { supabaseAdmin } from '@/lib/auth'
 import { Database } from '@/types/database'
 
 type Promotion = Database['public']['Tables']['promoted_listings']['Row'] & {
@@ -55,7 +55,7 @@ export default function AdminAdsPage() {
 
   const fetchPromotions = async () => {
     try {
-      let query = supabase
+      let query = supabaseAdmin()
         .from('promoted_listings')
         .select(`
           *,
@@ -142,11 +142,12 @@ export default function AdminAdsPage() {
 
   const updatePromotionStatus = async (promotionId: string, paid: boolean) => {
     try {
-      const { error } = await supabase
+      const client = supabaseAdmin()
+      const { error } = await (client as any)
         .from('promoted_listings')
         .update({ 
           paid: paid
-        } as Database['public']['Tables']['promoted_listings']['Update'])
+        })
         .eq('id', promotionId)
       
       if (error) throw error

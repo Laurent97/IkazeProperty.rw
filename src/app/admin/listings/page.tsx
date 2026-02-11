@@ -102,11 +102,11 @@ export default function AdminListingsPage() {
 
   const updateListingStatus = async (listingId: string, newStatus: string) => {
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('listings')
         .update({ 
           status: newStatus
-        } as Database['public']['Tables']['listings']['Update'])
+        })
         .eq('id', listingId)
       
       if (error) throw error
