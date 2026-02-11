@@ -183,10 +183,18 @@ export default function ListingsManagementPage() {
                     </Badge>
                   </div>
                   <div className="flex space-x-1">
-                    <Button size="sm" variant="outline">
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={() => window.location.href = `/admin/listings/${listing.id}`}
+                    >
                       <Eye className="h-4 w-4" />
                     </Button>
-                    <Button size="sm" variant="outline">
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={() => window.location.href = `/admin/listings/${listing.id}/edit`}
+                    >
                       <Edit className="h-4 w-4" />
                     </Button>
                     <Button size="sm" variant="destructive">
