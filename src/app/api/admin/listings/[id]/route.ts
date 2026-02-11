@@ -24,7 +24,6 @@ export async function GET(
         land_details:land_details(*),
         house_details:house_details(*),
         car_details:car_details(*),
-        other_item_details:other_item_details(*),
         media:listing_media(
           url,
           media_type,
