@@ -127,6 +127,35 @@ export interface Database {
             listing_id: string
             buyer_id: string
             seller_id: string
+            buyer_name?: string
+            buyer_email?: string
+            buyer_phone?: string
+            visit_date?: string
+            visit_time?: string
+            visit_notes?: string
+            visit_fee_amount?: number
+            platform_fee?: number
+            seller_payout?: number
+            payment_transaction_id?: string | null
+            payment_reference?: string | null
+            status?: 'pending_payment' | 'paid' | 'released' | 'cancelled'
+            payout_status?: string
+            released_by?: string | null
+            released_at?: string | null
+            created_at?: string
+            updated_at?: string
+          }
+          Insert: {
+            id?: string
+            listing_id: string
+            buyer_id: string
+            seller_id: string
+            buyer_name?: string
+            buyer_email?: string
+            buyer_phone?: string
+            visit_date?: string
+            visit_time?: string
+            visit_notes?: string
             visit_fee_amount?: number
             platform_fee?: number
             seller_payout?: number
@@ -144,6 +173,12 @@ export interface Database {
             listing_id?: string
             buyer_id?: string
             seller_id?: string
+            buyer_name?: string
+            buyer_email?: string
+            buyer_phone?: string
+            visit_date?: string
+            visit_time?: string
+            visit_notes?: string
             visit_fee_amount?: number
             platform_fee?: number
             seller_payout?: number
