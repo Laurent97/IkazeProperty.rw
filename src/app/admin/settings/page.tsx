@@ -85,7 +85,7 @@ export default function AdminSettingsPage() {
         withdrawal: 300,
         transaction: 100
       },
-      logo: '/api/placeholder/mtn-logo.png',
+      logo: '\/api\/placeholder\/mtn-logo.png',
       supportedCurrencies: ['RWF'],
       processingTime: 'Instant',
       minAmount: 100,
@@ -106,7 +106,7 @@ export default function AdminSettingsPage() {
         withdrawal: 250,
         transaction: 100
       },
-      logo: '/api/placeholder/airtel-logo.png',
+      logo: '\/api\/placeholder\/airtel-logo.png',
       supportedCurrencies: ['RWF'],
       processingTime: 'Instant',
       minAmount: 100,
@@ -127,7 +127,7 @@ export default function AdminSettingsPage() {
         withdrawal: 1000,
         transaction: 2000
       },
-      logo: '/api/placeholder/bank-logo.png',
+      logo: '\/api\/placeholder\/bank-logo.png',
       supportedCurrencies: ['RWF', 'USD', 'EUR'],
       processingTime: '1-3 business days',
       minAmount: 5000,
@@ -148,7 +148,7 @@ export default function AdminSettingsPage() {
         withdrawal: 500,
         transaction: 299
       },
-      logo: '/api/placeholder/visa-logo.png',
+      logo: '\/api\/placeholder\/visa-logo.png',
       supportedCurrencies: ['RWF', 'USD', 'EUR'],
       processingTime: 'Instant',
       minAmount: 1000,
@@ -696,7 +696,7 @@ export default function AdminSettingsPage() {
                 </div>
                 <div>
                   <Label htmlFor="webhookUrl">Webhook URL</Label>
-                  <Input id="webhookUrl" defaultValue="/api/payments/webhook" />
+                  <Input id="webhookUrl" defaultValue="\/api\/payments\/webhook" />
                 </div>
               </CardContent>
             </Card>
