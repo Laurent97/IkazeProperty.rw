@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { supabase } from '@/lib/auth'
-import { Search, Filter, Users, Calendar, Clock, ArrowLeft } from 'lucide-react'
+import { Search, Filter, Users, Calendar, Clock, ArrowLeft, CheckCircle, XCircle } from 'lucide-react'
 
 interface VisitRequest {
   id: string
@@ -206,64 +206,64 @@ export default function VisitRequestsPage() {
                         </div>
                       </div>
 
-                    {/* Visit Details */}
-                    {request.visit_date && (
-                      <div className="mt-4 p-4 bg-purple-50 rounded-lg">
-                        <h5 className="font-medium text-purple-900 mb-3 flex items-center">
-                          <Calendar className="h-4 w-4 mr-2" />
-                          Visit Details
-                        </h5>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-                          <div>
-                            <div className="text-purple-700">Preferred Date:</div>
-                            <div className="font-medium text-purple-900">
-                              {new Date(request.visit_date).toLocaleDateString()}
+                      {/* Visit Details */}
+                      {request.visit_date && (
+                        <div className="mt-4 p-4 bg-purple-50 rounded-lg">
+                          <h5 className="font-medium text-purple-900 mb-3 flex items-center">
+                            <Calendar className="h-4 w-4 mr-2" />
+                            Visit Details
+                          </h5>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                            <div>
+                              <div className="text-purple-700">Preferred Date:</div>
+                              <div className="font-medium text-purple-900">
+                                {new Date(request.visit_date).toLocaleDateString()}
+                              </div>
+                            </div>
+                            <div>
+                              <div className="text-purple-700">Preferred Time:</div>
+                              <div className="font-medium text-purple-900">{request.visit_time}</div>
                             </div>
                           </div>
-                          <div>
-                            <div className="text-purple-700">Preferred Time:</div>
-                            <div className="font-medium text-purple-900">{request.visit_time}</div>
-                          </div>
+                          {request.visit_notes && (
+                            <div className="col-span-full mt-4">
+                              <div className="text-purple-700">Notes:</div>
+                              <div className="text-purple-900 bg-white p-3 rounded border border-purple-200">
+                                {request.visit_notes}
+                              </div>
+                            </div>
+                          )}
                         </div>
-                        {request.visit_notes && (
-                          <div className="col-span-full mt-4">
-                            <div className="text-purple-700">Notes:</div>
-                            <div className="text-purple-900 bg-white p-3 rounded border border-purple-200">
-                              {request.visit_notes}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    )}
+                      )}
 
-                    {/* Seller Info */}
-                    <div className="bg-green-50 rounded-lg p-4">
-                      <h5 className="font-medium text-green-900 mb-3 flex items-center">
-                        <Users className="h-4 w-4 mr-2" />
-                        Seller Information
-                      </h5>
-                      <div className="flex items-center space-x-3">
-                        <div className="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center">
-                          {request.seller?.avatar_url ? (
-                            <img src={request.seller.avatar_url} alt="" className="w-full h-full rounded-full object-cover" />
-                          ) : (
-                            <Users className="h-6 w-6 text-green-600" />
-                          )}
-                        </div>
-                        <div className="flex-1">
-                          <div className="font-medium text-green-900">{request.seller?.full_name || 'N/A'}</div>
-                          <div className="text-sm text-green-700">{request.seller?.email || 'N/A'}</div>
-                          {request.seller?.phone && (
-                            <div className="flex items-center text-sm text-green-600">
-                              <span className="mr-2">📱</span>
-                              {request.seller.phone}
-                            </div>
-                          )}
+                      {/* Seller Info */}
+                      <div className="bg-green-50 rounded-lg p-4">
+                        <h5 className="font-medium text-green-900 mb-3 flex items-center">
+                          <Users className="h-4 w-4 mr-2" />
+                          Seller Information
+                        </h5>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center">
+                            {request.seller?.avatar_url ? (
+                              <img src={request.seller.avatar_url} alt="" className="w-full h-full rounded-full object-cover" />
+                            ) : (
+                              <Users className="h-6 w-6 text-green-600" />
+                            )}
+                          </div>
+                          <div className="flex-1">
+                            <div className="font-medium text-green-900">{request.seller?.full_name || 'N/A'}</div>
+                            <div className="text-sm text-green-700">{request.seller?.email || 'N/A'}</div>
+                            {request.seller?.phone && (
+                              <div className="flex items-center text-sm text-green-600">
+                                <span className="mr-2">📱</span>
+                                {request.seller.phone}
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
                 </CardContent>
               </Card>
             ))}

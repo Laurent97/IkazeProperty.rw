@@ -5,10 +5,10 @@ import { usePathname } from 'next/navigation'
 import { 
   LayoutDashboard, 
   Users, 
-  Listings, 
-  Ads, 
-  Inquiries, 
-  Transactions,
+  List, 
+  Megaphone, 
+  MessageCircle, 
+  CreditCard,
   Settings,
   HelpCircle,
   LogOut
@@ -16,7 +16,7 @@ import {
 
 interface NavItem {
   href: string
-  icon: React.ComponentType<any, any, any>
+  icon: React.ComponentType<any>
   label: string
   badge?: string
 }
@@ -42,25 +42,25 @@ export default function AdminNavigation({ className = '' }: AdminNavigationProps
     },
     {
       href: '/admin/listings',
-      icon: Listings,
+      icon: List,
       label: 'Listings',
       badge: '12'
     },
     {
       href: '/admin/ads',
-      icon: Ads,
+      icon: Megaphone,
       label: 'Ads',
       badge: '3'
     },
     {
       href: '/admin/inquiries',
-      icon: Inquiries,
+      icon: MessageCircle,
       label: 'Inquiries',
       badge: '5'
     },
     {
       href: '/admin/transactions',
-      icon: Transactions,
+      icon: CreditCard,
       label: 'Transactions',
       badge: '2'
     },

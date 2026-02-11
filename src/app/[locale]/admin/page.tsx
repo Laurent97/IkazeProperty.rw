@@ -22,7 +22,7 @@ export default function AdminDashboard() {
     totalListings: 0,
     totalUsers: 0,
     totalVisitRequests: 0,
-    pendingPayments: 0
+    pendingPayments: 0,
     activeAds: 0
   })
 
