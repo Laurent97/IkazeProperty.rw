@@ -157,7 +157,7 @@ const fetchSimilarListings = async (currentListing: Listing) => {
               order_index,
               is_primary
             ),
-            house_details(
+            house_details!inner(
               id,
               listing_id,
               property_type,
@@ -176,7 +176,7 @@ const fetchSimilarListings = async (currentListing: Listing) => {
               minimum_lease_period,
               available_from
             ),
-            car_details(
+            car_details!inner(
               id,
               listing_id,
               vehicle_type,
@@ -204,7 +204,7 @@ const fetchSimilarListings = async (currentListing: Listing) => {
               delivery_option,
               driver_included
             ),
-            land_details(
+            land_details!inner(
               id,
               listing_id,
               plot_type,
@@ -226,7 +226,7 @@ const fetchSimilarListings = async (currentListing: Listing) => {
               nearest_town_distance,
               nearby_amenities
             ),
-            other_item_details(
+            other_item_details!inner(
               id,
               listing_id,
               subcategory,
