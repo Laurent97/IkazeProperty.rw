@@ -66,7 +66,7 @@ export default function AdminNavigation({ className = '' }: AdminNavigationProps
       badge: '2'
     },
     {
-      href: '/admin/visit-requests',
+      href: '/admin/visit-requests-simple',
       icon: Calendar,
       label: 'Visit Requests',
       badge: '8'
@@ -101,7 +101,7 @@ export default function AdminNavigation({ className = '' }: AdminNavigationProps
 
           <div className="hidden md:flex md:items-center md:justify-between md:gap-4">
             <div className="flex items-center space-x-1">
-              {navigationItems.slice(0, 4).map((item, index) => (
+              {navigationItems.slice(0, 7).map((item, index) => (
                 <Link
                   key={index}
                   href={item.href}
