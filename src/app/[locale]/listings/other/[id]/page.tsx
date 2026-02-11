@@ -14,6 +14,8 @@ import InquiryButton from '@/components/listing/inquiry-button'
 import LikesDisplay from '@/components/listing/likes-display'
 import ViewsDisplay from '@/components/listing/views-display'
 import ImageViewer from '@/components/listing/ImageViewer'
+import { usePaymentContext } from '@/contexts/PaymentContext'
+import type { PaymentMethod } from '@/types/payment'
 
 type OtherListing = Database['public']['Tables']['listings']['Row'] & {
   seller?: {
@@ -30,6 +32,8 @@ export default function OtherListingDetailPage() {
   const router = useRouter()
   const params = useParams() as { locale: string; id: string }
   const { id } = params
+  const { getPlatformInfo } = usePaymentContext()
+  const platformInfo = getPlatformInfo()
   
   const [listing, setListing] = useState<OtherListing | null>(null)
   const [loading, setLoading] = useState(true)
@@ -37,6 +41,24 @@ export default function OtherListingDetailPage() {
   const [selectedImages, setSelectedImages] = useState<string[]>([])
   const [isImageViewerOpen, setIsImageViewerOpen] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
+  // Visit fee states
+  const [showVisitPayment, setShowVisitPayment] = useState(false)
+  const [visitMethod, setVisitMethod] = useState('')
+  const [visitSubmitting, setVisitSubmitting] = useState(false)
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [paymentProof, setPaymentProof] = useState<File | null>(null)
+  const [paymentStep, setPaymentStep] = useState<'details' | 'proof' | 'confirmation'>('details')
+  const [availableMethods, setAvailableMethods] = useState<PaymentMethod[]>([])
+  const [visitFeeAmount] = useState(15000)
+  
+  // New states for buyer contact info and visit details
+  const [buyerName, setBuyerName] = useState('')
+  const [buyerEmail, setBuyerEmail] = useState('')
+  const [buyerPhone, setBuyerPhone] = useState('')
+  const [visitDate, setVisitDate] = useState('')
+  const [visitTime, setVisitTime] = useState('')
+  const [visitNotes, setVisitNotes] = useState('')
 
   useEffect(() => {
     if (!id || id === 'undefined' || id === 'null') {
@@ -66,7 +88,7 @@ export default function OtherListingDetailPage() {
             email,
             avatar_url
           ),
-          other_details,
+          other_details:other_item_details(*),
           media:listing_media(*)
         `)
         .eq('id', id)
@@ -169,7 +191,14 @@ export default function OtherListingDetailPage() {
           <div className="flex items-center">
             <Button
               variant="ghost"
-              onClick={() => router.back()}
+              onClick={() => {
+                // Try to go back, if no history then navigate to listings page
+                if (window.history.length > 1) {
+                  router.back()
+                } else {
+                  router.push(`/${params.locale}/listings/other`)
+                }
+              }}
               className="mr-4"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
@@ -288,34 +317,34 @@ export default function OtherListingDetailPage() {
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                       <div className="flex items-center space-x-2">
                         <Tag className="h-4 w-4 text-gray-500" />
-                        <span className="text-sm">{listing.other_details.subcategory}</span>
+                        <span className="text-sm">{listing.other_details?.subcategory || 'N/A'}</span>
                       </div>
                       <div className="flex items-center space-x-2">
                         <span className="text-sm">Brand:</span>
-                        <span className="text-sm">{listing.other_details.brand}</span>
+                        <span className="text-sm">{listing.other_details?.brand || 'N/A'}</span>
                       </div>
                       <div className="flex items-center space-x-2">
                         <span className="text-sm">Model:</span>
-                        <span className="text-sm">{listing.other_details.model}</span>
+                        <span className="text-sm">{listing.other_details?.model || 'N/A'}</span>
                       </div>
                       <div className="flex items-center space-x-2">
                         <span className="text-sm">Condition:</span>
-                        <span className="text-sm">{listing.other_details.condition}</span>
+                        <span className="text-sm">{listing.other_details?.condition || 'N/A'}</span>
                       </div>
                       <div className="flex items-center space-x-2">
                         <span className="text-sm">Age:</span>
-                        <span className="text-sm">{listing.other_details.age_of_item}</span>
+                        <span className="text-sm">{listing.other_details?.age_of_item || 'N/A'}</span>
                       </div>
                       {listing.other_details.warranty_available && (
                         <div className="flex items-center space-x-2">
                           <span className="text-sm">Warranty:</span>
-                          <span className="text-sm">{listing.other_details.warranty_period}</span>
+                          <span className="text-sm">{listing.other_details?.warranty_period || 'N/A'}</span>
                         </div>
                       )}
                       {listing.other_details.reason_for_selling && (
                         <div className="col-span-full">
                           <span className="text-sm">Reason for selling:</span>
-                          <p className="text-sm mt-1">{listing.other_details.reason_for_selling}</p>
+                          <p className="text-sm mt-1">{listing.other_details?.reason_for_selling || 'N/A'}</p>
                         </div>
                       )}
                     </div>
@@ -374,11 +403,18 @@ export default function OtherListingDetailPage() {
                 <CardTitle className="text-lg">Actions</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                <Button className="w-full bg-red-600 hover:bg-red-700">
-                  Contact Seller
-                </Button>
-                <Button variant="outline" className="w-full">
-                  Make Offer
+                <InquiryButton 
+                  listingId={listing.id} 
+                  sellerId={listing.seller_id} 
+                  title={listing.title} 
+                  className="w-full bg-red-600 hover:bg-red-700"
+                />
+                <Button 
+                  variant="outline" 
+                  className="w-full"
+                  onClick={() => setShowVisitPayment(true)}
+                >
+                  Schedule Visit
                 </Button>
               </CardContent>
             </Card>

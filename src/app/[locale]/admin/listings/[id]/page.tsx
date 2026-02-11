@@ -88,7 +88,14 @@ export default function AdminLandListingDetailPage() {
         <div className="text-center">
           <div className="text-red-600 text-lg mb-4">⚠️ Error</div>
           <p className="text-gray-600">{error}</p>
-          <Button onClick={() => router.back()} className="mt-4">
+          <Button onClick={() => {
+            // Try to go back, if no history then navigate to admin listings page
+            if (window.history.length > 1) {
+              router.back()
+            } else {
+              router.push(`/${params.locale}/admin/listings`)
+            }
+          }} className="mt-4">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Go Back
           </Button>
@@ -103,7 +110,14 @@ export default function AdminLandListingDetailPage() {
         <div className="text-center">
           <div className="text-red-600 text-lg mb-4">⚠️ Not Found</div>
           <p className="text-gray-600">Listing not found</p>
-          <Button onClick={() => router.back()} className="mt-4">
+          <Button onClick={() => {
+            // Try to go back, if no history then navigate to admin listings page
+            if (window.history.length > 1) {
+              router.back()
+            } else {
+              router.push(`/${params.locale}/admin/listings`)
+            }
+          }} className="mt-4">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Go Back
           </Button>
@@ -123,7 +137,14 @@ export default function AdminLandListingDetailPage() {
             <div className="flex items-center">
               <Button 
                 variant="ghost" 
-                onClick={() => router.back()}
+                onClick={() => {
+                  // Try to go back, if no history then navigate to admin listings page
+                  if (window.history.length > 1) {
+                    router.back()
+                  } else {
+                    router.push(`/${params.locale}/admin/listings`)
+                  }
+                }}
                 className="text-gray-600 hover:text-gray-900"
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />

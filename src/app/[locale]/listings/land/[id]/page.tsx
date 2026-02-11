@@ -328,7 +328,14 @@ export default function LandListingDetailPage() {
           <div className="flex items-center">
             <Button
               variant="ghost"
-              onClick={() => router.back()}
+              onClick={() => {
+                // Try to go back, if no history then navigate to listings page
+                if (window.history.length > 1) {
+                  router.back()
+                } else {
+                  router.push(`/${params.locale}/listings/land`)
+                }
+              }}
               className="mr-4"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
@@ -446,37 +453,37 @@ export default function LandListingDetailPage() {
                     <div>
                       <label className="text-sm font-medium text-gray-500">Plot Size</label>
                       <p className="text-lg font-semibold">
-                        {formatSize(listing.land_details.plot_size, listing.land_details.size_unit)}
+                        {formatSize(listing.land_details?.plot_size, listing.land_details?.size_unit)}
                       </p>
                     </div>
                     <div>
                       <label className="text-sm font-medium text-gray-500">Plot Type</label>
                       <p className="text-lg font-semibold capitalize">
-                        {listing.land_details.plot_type}
+                        {listing.land_details?.plot_type || 'N/A'}
                       </p>
                     </div>
                     <div>
                       <label className="text-sm font-medium text-gray-500">Shape</label>
                       <p className="text-lg font-semibold capitalize">
-                        {listing.land_details.shape}
+                        {listing.land_details?.shape || 'N/A'}
                       </p>
                     </div>
                     <div>
                       <label className="text-sm font-medium text-gray-500">Topography</label>
                       <p className="text-lg font-semibold capitalize">
-                        {listing.land_details.topography}
+                        {listing.land_details?.topography || 'N/A'}
                       </p>
                     </div>
                     <div>
                       <label className="text-sm font-medium text-gray-500">Road Access</label>
                       <p className="text-lg font-semibold capitalize">
-                        {listing.land_details.road_access}
+                        {listing.land_details?.road_access || 'N/A'}
                       </p>
                     </div>
                     <div>
                       <label className="text-sm font-medium text-gray-500">Land Title Type</label>
                       <p className="text-lg font-semibold capitalize">
-                        {listing.land_details.land_title_type}
+                        {listing.land_details?.land_title_type || 'N/A'}
                       </p>
                     </div>
                   </div>
@@ -485,30 +492,30 @@ export default function LandListingDetailPage() {
                   <div className="mt-6">
                     <h4 className="font-semibold mb-3">Features</h4>
                     <div className="flex flex-wrap gap-2">
-                      {listing.land_details.fenced && (
+                      {listing.land_details?.fenced && (
                         <Badge variant="secondary">Fenced</Badge>
                       )}
-                      {listing.land_details.surveyed && (
+                      {listing.land_details?.surveyed && (
                         <Badge variant="secondary">Surveyed</Badge>
                       )}
-                      {listing.land_details.zoning_approval && (
+                      {listing.land_details?.zoning_approval && (
                         <Badge variant="secondary">Zoning Approved</Badge>
                       )}
-                      {listing.land_details.development_permits && (
+                      {listing.land_details?.development_permits && (
                         <Badge variant="secondary">Development Permits</Badge>
                       )}
-                      {listing.land_details.tax_clearance && (
+                      {listing.land_details?.tax_clearance && (
                         <Badge variant="secondary">Tax Cleared</Badge>
                       )}
                     </div>
                   </div>
 
                   {/* Utilities */}
-                  {listing.land_details.utilities_available && Array.isArray(listing.land_details.utilities_available) && listing.land_details.utilities_available.length > 0 && (
+                  {listing.land_details?.utilities_available && Array.isArray(listing.land_details.utilities_available) && listing.land_details.utilities_available.length > 0 && (
                     <div className="mt-6">
                       <h4 className="font-semibold mb-3">Available Utilities</h4>
                       <div className="flex flex-wrap gap-2">
-                        {(listing.land_details.utilities_available as string[]).map((utility: string, index: number) => (
+                        {(listing.land_details?.utilities_available as string[]).map((utility: string, index: number) => (
                           <Badge key={index} variant="outline">
                             {utility}
                           </Badge>

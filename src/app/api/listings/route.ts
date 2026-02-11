@@ -44,13 +44,6 @@ export async function GET(request: NextRequest) {
           media_type,
           order_index,
           is_primary
-        ),
-        listing_promotions(
-          id,
-          promotion_type,
-          status,
-          starts_at,
-          expires_at
         )
       `)
       .eq('status', 'available')

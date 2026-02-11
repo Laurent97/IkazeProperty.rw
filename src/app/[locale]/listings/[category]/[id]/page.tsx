@@ -320,7 +320,14 @@ const fetchSimilarListings = async (currentListing: Listing) => {
     return (
       <div className="min-h-screen bg-gray-50 no-overflow-x">
         <div className="max-w-5xl mx-auto px-3 sm:px-4 lg:px-6 lg:px-8 py-4 sm:py-8">
-          <Button variant="outline" onClick={() => router.back()} className="touch-target">
+          <Button variant="outline" onClick={() => {
+            // Try to go back, if no history then navigate to listings page
+            if (window.history.length > 1) {
+              router.back()
+            } else {
+              router.push(`/${params.locale}/listings`)
+            }
+          }} className="touch-target">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back
           </Button>
@@ -787,7 +794,14 @@ const fetchSimilarListings = async (currentListing: Listing) => {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-5xl mx-auto px-3 sm:px-4 lg:px-6 lg:px-8 py-4 sm:py-8">
-        <Button variant="outline" onClick={() => router.back()} className="touch-target">
+        <Button variant="outline" onClick={() => {
+          // Try to go back, if no history then navigate to listings page
+          if (window.history.length > 1) {
+            router.back()
+          } else {
+            router.push(`/${params.locale}/listings`)
+          }
+        }} className="touch-target">
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back
         </Button>
