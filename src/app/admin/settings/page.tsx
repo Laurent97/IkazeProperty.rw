@@ -317,16 +317,16 @@ export default function AdminSettingsPage() {
                   <Input id="platformDescription" defaultValue="Rwanda's Premier Property Platform" />
                 </div>
                 <div>
-                  <Label htmlFor={`contactEmail-${method.id}`}>Contact Email</Label>
-                  <Input id={`contactEmail-${method.id}`} defaultValue="info@ikazeproperty.rw" />
+                  <Label htmlFor={`contactEmail-general`}>Contact Email</Label>
+                  <Input id={`contactEmail-general`} defaultValue="info@ikazeproperty.rw" />
                 </div>
                 <div>
-                  <Label htmlFor={`contactPhone-${method.id}`}>Contact Phone</Label>
-                  <Input id={`contactPhone-${method.id}`} defaultValue="+250 788 123 456" />
+                  <Label htmlFor={`contactPhone-general`}>Contact Phone</Label>
+                  <Input id={`contactPhone-general`} defaultValue="+250 788 123 456" />
                 </div>
                 <div>
-                  <Label htmlFor={`officeAddress-${method.id}`}>Office Address</Label>
-                  <Input id={`officeAddress-${method.id}`} defaultValue="Kigali, Rwanda" />
+                  <Label htmlFor={`officeAddress-general`}>Office Address</Label>
+                  <Input id={`officeAddress-general`} defaultValue="Kigali, Rwanda" />
                 </div>
               </CardContent>
             </Card>
@@ -337,24 +337,24 @@ export default function AdminSettingsPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label htmlFor={`maxListings-${method.id}`}>Max Listings per User</Label>
-                  <Input id={`maxListings-${method.id}`} type="number" defaultValue="10" />
+                  <Label htmlFor="maxListings-general">Max Listings per User</Label>
+                  <Input id="maxListings-general" type="number" defaultValue="10" />
                 </div>
                 <div>
-                  <Label htmlFor={`visitFee-${method.id}`}>Default Visit Fee (RWF)</Label>
-                  <Input id={`visitFee-${method.id}`} type="number" defaultValue="10000" />
+                  <Label htmlFor="visitFee-general">Default Visit Fee (RWF)</Label>
+                  <Input id="visitFee-general" type="number" defaultValue="10000" />
                 </div>
                 <div>
-                  <Label htmlFor={`platformFeePercent-${method.id}`}>Platform Fee (%)</Label>
-                  <Input id={`platformFeePercent-${method.id}`} type="number" defaultValue="10" />
+                  <Label htmlFor="platformFeePercent-general">Platform Fee (%)</Label>
+                  <Input id="platformFeePercent-general" type="number" defaultValue="10" />
                 </div>
                 <div>
-                  <Label htmlFor={`featuredPrice-${method.id}`}>Featured Listing Price (RWF)</Label>
-                  <Input id={`featuredPrice-${method.id}`} type="number" defaultValue="50000" />
+                  <Label htmlFor="featuredPrice-general">Featured Listing Price (RWF)</Label>
+                  <Input id="featuredPrice-general" type="number" defaultValue="50000" />
                 </div>
                 <div>
-                  <Label htmlFor={`listingDuration-${method.id}`}>Listing Duration (days)</Label>
-                  <Input id={`listingDuration-${method.id}`} type="number" defaultValue="30" />
+                  <Label htmlFor="listingDuration-general">Listing Duration (days)</Label>
+                  <Input id="listingDuration-general" type="number" defaultValue="30" />
                 </div>
               </CardContent>
             </Card>
@@ -405,20 +405,20 @@ export default function AdminSettingsPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label htmlFor={`smtpHost-${method.id}`}>SMTP Host</Label>
-                  <Input id={`smtpHost-${method.id}`} placeholder="smtp.gmail.com" />
+                  <Label htmlFor="smtpHost-general">SMTP Host</Label>
+                  <Input id="smtpHost-general" placeholder="smtp.gmail.com" />
                 </div>
                 <div>
-                  <Label htmlFor={`smtpPort-${method.id}`}>SMTP Port</Label>
-                  <Input id={`smtpPort-${method.id}`} type="number" defaultValue="587" />
+                  <Label htmlFor="smtpPort-general">SMTP Port</Label>
+                  <Input id="smtpPort-general" type="number" defaultValue="587" />
                 </div>
                 <div>
-                  <Label htmlFor={`smtpUser-${method.id}`}>SMTP Username</Label>
-                  <Input id={`smtpUser-${method.id}`} placeholder="noreply@ikazeproperty.rw" />
+                  <Label htmlFor="smtpUser-general">SMTP Username</Label>
+                  <Input id="smtpUser-general" placeholder="noreply@ikazeproperty.rw" />
                 </div>
                 <div>
-                  <Label htmlFor={`smtpPassword-${method.id}`}>SMTP Password</Label>
-                  <Input id={`smtpPassword-${method.id}`} type="password" />
+                  <Label htmlFor="smtpPassword-general">SMTP Password</Label>
+                  <Input id="smtpPassword-general" type="password" />
                 </div>
               </CardContent>
             </Card>
@@ -482,16 +482,16 @@ export default function AdminSettingsPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label htmlFor={`apiKey-${method.id}`}>API Key</Label>
+                  <Label htmlFor="apiKey-general">API Key</Label>
                   <div className="flex gap-2">
-                    <Input id={`apiKey-${method.id}`} defaultValue="sk_test_..." readOnly />
+                    <Input id="apiKey-general" defaultValue="sk_test_..." readOnly />
                     <Button variant="outline" size="sm">Regenerate</Button>
                   </div>
                 </div>
                 <div>
-                  <Label htmlFor={`webhookSecret-${method.id}`}>Webhook Secret</Label>
+                  <Label htmlFor="webhookSecret-general">Webhook Secret</Label>
                   <div className="flex gap-2">
-                    <Input id={`webhookSecret-${method.id}`} defaultValue="whsec_..." readOnly />
+                    <Input id="webhookSecret-general" defaultValue="whsec_..." readOnly />
                     <Button variant="outline" size="sm">Regenerate</Button>
                   </div>
                 </div>
@@ -525,16 +525,16 @@ export default function AdminSettingsPage() {
                   <h3 className="font-semibold mb-4">Connection Settings</h3>
                   <div className="space-y-4">
                     <div>
-                      <Label htmlFor={`dbHost-${method.id}`}>Database Host</Label>
-                      <Input id={`dbHost-${method.id}`} defaultValue="localhost" />
+                      <Label htmlFor="dbHost-general">Database Host</Label>
+                      <Input id="dbHost-general" defaultValue="localhost" />
                     </div>
                     <div>
-                      <Label htmlFor={`dbPort-${method.id}`}>Database Port</Label>
-                      <Input id={`dbPort-${method.id}`} type="number" defaultValue="5432" />
+                      <Label htmlFor="dbPort-general">Database Port</Label>
+                      <Input id="dbPort-general" type="number" defaultValue="5432" />
                     </div>
                     <div>
-                      <Label htmlFor={`dbName-${method.id}`}>Database Name</Label>
-                      <Input id={`dbName-${method.id}`} defaultValue="ikazeproperty" />
+                      <Label htmlFor="dbName-general">Database Name</Label>
+                      <Input id="dbName-general" defaultValue="ikazeproperty" />
                     </div>
                   </div>
                 </div>
@@ -550,7 +550,7 @@ export default function AdminSettingsPage() {
                       <input type="checkbox" defaultChecked className="h-4 w-4" />
                     </div>
                     <div>
-                      <Label htmlFor={`backupFrequency-${method.id}`}>Backup Frequency</Label>
+                      <Label htmlFor="backupFrequency-general">Backup Frequency</Label>
                       <select className="w-full px-3 py-2 border rounded-lg">
                         <option>Daily</option>
                         <option>Weekly</option>
@@ -558,7 +558,7 @@ export default function AdminSettingsPage() {
                       </select>
                     </div>
                     <div>
-                      <Label htmlFor={`backupRetention-${method.id}`}>Retention Period</Label>
+                      <Label htmlFor="backupRetention-general">Retention Period</Label>
                       <select className="w-full px-3 py-2 border rounded-lg">
                         <option>7 days</option>
                         <option>30 days</option>
@@ -598,7 +598,7 @@ export default function AdminSettingsPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label htmlFor={`defaultLanguage-${method.id}`}>Default Language</Label>
+                  <Label htmlFor="defaultLanguage-general">Default Language</Label>
                   <select className="w-full px-3 py-2 border rounded-lg">
                     <option>English</option>
                     <option>French</option>
@@ -606,7 +606,7 @@ export default function AdminSettingsPage() {
                   </select>
                 </div>
                 <div>
-                  <Label htmlFor={`supportedLanguages-${method.id}`}>Supported Languages</Label>
+                  <Label htmlFor="supportedLanguages-general">Supported Languages</Label>
                   <div className="space-y-2">
                     <label className="flex items-center">
                       <input type="checkbox" defaultChecked className="mr-2" />
@@ -623,7 +623,7 @@ export default function AdminSettingsPage() {
                   </div>
                 </div>
                 <div>
-                  <Label htmlFor={`currency-${method.id}`}>Default Currency</Label>
+                  <Label htmlFor="defaultCurrency-general">Default Currency</Label>
                   <select className="w-full px-3 py-2 border rounded-lg">
                     <option>RWF (Rwandan Franc)</option>
                     <option>USD (US Dollar)</option>
@@ -639,7 +639,7 @@ export default function AdminSettingsPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label htmlFor={`timezone-${method.id}`}>Timezone</Label>
+                  <Label htmlFor="timezone-general">Timezone</Label>
                   <select className="w-full px-3 py-2 border rounded-lg">
                     <option>Africa/Kigali</option>
                     <option>Africa/Nairobi</option>
@@ -647,7 +647,7 @@ export default function AdminSettingsPage() {
                   </select>
                 </div>
                 <div>
-                  <Label htmlFor={`dateFormat-${method.id}`}>Date Format</Label>
+                  <Label htmlFor="dateFormat-general">Date Format</Label>
                   <select className="w-full px-3 py-2 border rounded-lg">
                     <option>MM/DD/YYYY</option>
                     <option>DD/MM/YYYY</option>
@@ -655,14 +655,14 @@ export default function AdminSettingsPage() {
                   </select>
                 </div>
                 <div>
-                  <Label htmlFor={`timeFormat-${method.id}`}>Time Format</Label>
+                  <Label htmlFor="timeFormat-general">Time Format</Label>
                   <select className="w-full px-3 py-2 border rounded-lg">
                     <option>12-hour</option>
                     <option>24-hour</option>
                   </select>
                 </div>
                 <div>
-                  <Label htmlFor={`numberFormat-${method.id}`}>Number Format</Label>
+                  <Label htmlFor="numberFormat-general">Number Format</Label>
                   <select className="w-full px-3 py-2 border rounded-lg">
                     <option>1,234,567.89</option>
                     <option>1.234.567,89</option>
@@ -672,34 +672,60 @@ export default function AdminSettingsPage() {
               </CardContent>
             </Card>
           </div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <Label htmlFor="provider">Provider/Company *</Label>
-            <Input
-              id={`provider-${method.id}`}
-              value={newPaymentMethod.provider}
-              onChange={(e) => setNewPaymentMethod({...newPaymentMethod, provider: e.target.value})}
-              placeholder="e.g., MTN Rwanda, Bank of Kigali"
-            />
-                    <option>Stripe</option>
-                    <option>PayPal</option>
-                  </select>
-                </div>
-                <div>
-                  <Label htmlFor="gatewayKey">Gateway API Key</Label>
-                  <Input id="gatewayKey" type="password" />
-                </div>
-                <div>
-                  <Label htmlFor="gatewaySecret">Gateway Secret</Label>
-                  <Input id="gatewaySecret" type="password" />
-                </div>
-                <div>
-                  <Label htmlFor="webhookUrl">Webhook URL</Label>
-                  <Input id="webhookUrl" defaultValue="\/api\/payments\/webhook" />
-                </div>
-              </CardContent>
-            </Card>
+        )}
+        {activeTab === 'payment' && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="provider">Provider/Company *</Label>
+              <Input
+                id="provider"
+                value={newPaymentMethod.provider}
+                onChange={(e) => setNewPaymentMethod({...newPaymentMethod, provider: e.target.value})}
+                placeholder="e.g., MTN Rwanda, Bank of Kigali"
+              />
+            </div>
+            </div>
+            <div>
+              <Label htmlFor="type">Type *</Label>
+              <select
+                id="type"
+                value={newPaymentMethod.type}
+                onChange={(e) => setNewPaymentMethod({...newPaymentMethod, type: e.target.value})}
+                className="w-full px-3 py-2 border rounded-lg"
+              >
+                <option>Mobile</option>
+                <option>Bank Transfer</option>
+                <option>Card</option>
+              </select>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="gateway">Gateway *</Label>
+              <select
+                id="gateway"
+                value={newPaymentMethod.gateway}
+                onChange={(e) => setNewPaymentMethod({...newPaymentMethod, gateway: e.target.value})}
+              >
+                <option>Stripe</option>
+                <option>PayPal</option>
+              </select>
+            </div>
+            <div>
+              <Label htmlFor="gatewayKey-general">Gateway API Key</Label>
+              <Input id="gatewayKey-general" type="password" />
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="gatewaySecret-general">Gateway Secret</Label>
+              <Input id="gatewaySecret-general" type="password" />
+            </div>
+            </div>
+            <div>
+              <Label htmlFor="webhookUrl-general">Webhook URL</Label>
+              <Input id="webhookUrl-general" defaultValue="/api/payments/webhook" />
+            </div>
           </div>
         )}
       </div>
