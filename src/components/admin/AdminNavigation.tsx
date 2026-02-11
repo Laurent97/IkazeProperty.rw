@@ -79,7 +79,7 @@ export default function AdminNavigation({ className = '' }: AdminNavigationProps
       group: 'management'
     },
     {
-      href: '/admin/visit-requests-simple',
+      href: '/admin/visit-requests/new',
       icon: Calendar,
       label: 'Visit Requests',
       badge: '8',
