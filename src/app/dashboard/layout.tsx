@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { usePathname, useParams } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { 
   Home, 
   User, 
@@ -32,8 +32,6 @@ export default function DashboardLayout({
   const [userProfile, setUserProfile] = useState<any>(null)
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const pathname = usePathname()
-  const params = useParams() as { locale: string }
-  const { locale } = params
   const { setUser: setAuthUser } = useAuth()
 
   useEffect(() => {
@@ -45,7 +43,7 @@ export default function DashboardLayout({
       const currentUser = await getCurrentUser()
       if (!currentUser) {
         console.log('No user authenticated, redirecting to login')
-        window.location.href = `/${locale}/auth/login`
+        window.location.href = '/auth/login'
         return
       }
 
@@ -67,14 +65,14 @@ export default function DashboardLayout({
     } catch (error) {
       console.error('Error fetching user data:', error)
       // Don't fail completely, just redirect to login
-      window.location.href = `/${locale}/auth/login`
+      window.location.href = '/auth/login'
     }
   }
 
   const handleSignOut = async () => {
     try {
       await signOut()
-      setAuthUser(null) // Clear the auth context
+      setAuthUser(null) // Clear auth context
       window.location.href = '/'
     } catch (error) {
       console.error('Error signing out:', error)

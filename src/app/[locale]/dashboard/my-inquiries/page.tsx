@@ -15,11 +15,13 @@ import {
   Clock,
   CheckCircle,
   XCircle,
-  AlertCircle
+  AlertCircle,
+  MessageCircle
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useAuth } from '@/contexts/AuthContext'
+import InquiryChat from '@/components/chat/InquiryChat'
 
 export default function MyInquiriesPage() {
   const params = useParams()
@@ -28,6 +30,7 @@ export default function MyInquiriesPage() {
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [filterStatus, setFilterStatus] = useState('all')
+  const [activeChatInquiry, setActiveChatInquiry] = useState<string | null>(null)
 
   useEffect(() => {
     if (user && !authLoading) {
@@ -325,6 +328,17 @@ export default function MyInquiriesPage() {
                       </div>
                     )}
                     
+                    {/* Chat button for customer */}
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => setActiveChatInquiry(inquiry.id)}
+                      className="bg-green-50 hover:bg-green-100 text-green-600 border-green-200"
+                    >
+                      <MessageCircle className="h-4 w-4 mr-1" />
+                      Chat with Admin
+                    </Button>
+                    
                     {inquiry.status === 'approved' && (
                       <Button 
                         size="sm" 
@@ -366,6 +380,19 @@ export default function MyInquiriesPage() {
           </div>
         )}
       </div>
+
+      {/* Chat Modal */}
+      {activeChatInquiry && (
+        <InquiryChat
+          inquiryId={activeChatInquiry}
+          customerId={user?.id || ''}
+          customerName={user?.full_name || user?.email || 'Unknown'}
+          customerEmail={user?.email || 'unknown@example.com'}
+          isOpen={!!activeChatInquiry}
+          onToggle={() => setActiveChatInquiry(null)}
+          userType="customer"
+        />
+      )}
     </div>
   )
 }

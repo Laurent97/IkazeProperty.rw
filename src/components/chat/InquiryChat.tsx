@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { useAuth } from '@/contexts/AuthContext'
 
 interface Message {
   id: string
@@ -35,13 +34,37 @@ export default function InquiryChat({
   onToggle,
   userType = 'customer'
 }: InquiryChatProps) {
-  const { user } = useAuth()
+  const [user, setUser] = useState<any>(null)
   const [isInternalOpen, setIsInternalOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([])
   const [inputText, setInputText] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isTyping, setIsTyping] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+
+  // Try to use AuthContext, but handle case where it's not available
+  useEffect(() => {
+    try {
+      const { useAuth } = require('@/contexts/AuthContext')
+      const authUser = useAuth().user
+      setUser(authUser)
+    } catch (error) {
+      // AuthContext not available, we'll handle authentication differently
+      console.log('AuthContext not available, using alternative auth method')
+      // For admin side, we'll get user info from session directly
+      getCurrentUser().then(setUser).catch(console.error)
+    }
+  }, [])
+
+  const getCurrentUser = async () => {
+    try {
+      const { getCurrentUser } = await import('@/lib/auth')
+      return await getCurrentUser()
+    } catch (error) {
+      console.error('Error getting current user:', error)
+      return null
+    }
+  }
 
   const isControlled = controlledIsOpen !== undefined
   const isOpen = isControlled ? controlledIsOpen : isInternalOpen

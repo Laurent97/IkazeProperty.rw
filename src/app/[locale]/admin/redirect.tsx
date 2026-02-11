@@ -3,12 +3,12 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
-export default function AdminIndexRedirect() {
+export default function AdminRedirect() {
   const router = useRouter()
   
   useEffect(() => {
-    // Redirect to the new admin login page
-    router.replace('/admin/login')
+    // Redirect to the new admin panel
+    router.replace('/admin')
   }, [router])
 
   return (
