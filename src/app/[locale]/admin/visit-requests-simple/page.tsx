@@ -263,6 +263,7 @@ export default function VisitRequestsPage() {
                       </div>
                     </div>
                   </div>
+                </div>
                 </CardContent>
               </Card>
             ))}
