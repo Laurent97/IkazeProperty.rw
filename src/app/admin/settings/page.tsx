@@ -674,63 +674,251 @@ export default function AdminSettingsPage() {
           </div>
         )}
         {activeTab === 'payment' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="provider">Provider/Company *</Label>
-              <Input
-                id="provider"
-                value={newPaymentMethod.provider}
-                onChange={(e) => setNewPaymentMethod({...newPaymentMethod, provider: e.target.value})}
-                placeholder="e.g., MTN Rwanda, Bank of Kigali"
-              />
-            </div>
-            </div>
-            <div>
-              <Label htmlFor="type">Type *</Label>
-              <select
-                id="type"
-                value={newPaymentMethod.type}
-                onChange={(e) => setNewPaymentMethod({...newPaymentMethod, type: e.target.value})}
-                className="w-full px-3 py-2 border rounded-lg"
-              >
-                <option>Mobile</option>
-                <option>Bank Transfer</option>
-                <option>Card</option>
-              </select>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="gateway">Gateway *</Label>
-              <select
-                id="gateway"
-                value={newPaymentMethod.gateway}
-                onChange={(e) => setNewPaymentMethod({...newPaymentMethod, gateway: e.target.value})}
-              >
-                <option>Stripe</option>
-                <option>PayPal</option>
-              </select>
-            </div>
-            <div>
-              <Label htmlFor="gatewayKey-general">Gateway API Key</Label>
-              <Input id="gatewayKey-general" type="password" />
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="gatewaySecret-general">Gateway Secret</Label>
-              <Input id="gatewaySecret-general" type="password" />
-            </div>
-            </div>
-            <div>
-              <Label htmlFor="webhookUrl-general">Webhook URL</Label>
-              <Input id="webhookUrl-general" defaultValue="/api/payments/webhook" />
-            </div>
+          <div className="space-y-6">
+            {/* Payment Methods List */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Payment Methods</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {paymentMethods.map((method) => (
+                    <div key={method.id} className="flex items-center justify-between p-4 border rounded-lg">
+                      <div className="flex items-start space-x-4">
+                        <CreditCard className="h-5 w-5 text-gray-400 mt-0.5" />
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <p className="font-medium">{method.name}</p>
+                            <Badge variant={method.isActive ? 'default' : 'secondary'}>
+                              {method.isActive ? 'Active' : 'Inactive'}
+                            </Badge>
+                          </div>
+                          <p className="text-sm text-gray-600">{method.provider}</p>
+                          <p className="text-xs text-gray-500 mt-1">{method.type}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => {
+                            setEditingPaymentMethod(method.id)
+                            setNewPaymentMethod(method)
+                          }}
+                        >
+                          <Edit2 className="h-4 w-4" />
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => handleTogglePaymentMethod(method.id)}
+                        >
+                          {method.isActive ? 'Deactivate' : 'Activate'}
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="text-red-600 border-red-600 hover:bg-red-50"
+                          onClick={() => handleDeletePaymentMethod(method.id)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Add/Edit Payment Method Form */}
+            <Card>
+              <CardHeader>
+                <CardTitle>{editingPaymentMethod ? 'Edit Payment Method' : 'Add New Payment Method'}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {/* Basic Information */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="method-name">Method Name *</Label>
+                      <Input
+                        id="method-name"
+                        value={newPaymentMethod.name || ''}
+                        onChange={(e) => setNewPaymentMethod({...newPaymentMethod, name: e.target.value})}
+                        placeholder="e.g., MTN Mobile Money"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="provider">Provider/Company *</Label>
+                      <Input
+                        id="provider"
+                        value={newPaymentMethod.provider || ''}
+                        onChange={(e) => setNewPaymentMethod({...newPaymentMethod, provider: e.target.value})}
+                        placeholder="e.g., MTN Rwanda"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Payment Type */}
+                  <div>
+                    <Label htmlFor="type">Payment Type *</Label>
+                    <select
+                      id="type"
+                      value={newPaymentMethod.type || 'mobile'}
+                      onChange={(e) => setNewPaymentMethod({...newPaymentMethod, type: e.target.value as PaymentMethod['type']})}
+                      className="w-full px-3 py-2 border rounded-lg"
+                    >
+                      <option value="mobile">Mobile Money</option>
+                      <option value="bank">Bank Transfer</option>
+                      <option value="card">Card Payment</option>
+                      <option value="digital">Digital Wallet</option>
+                    </select>
+                  </div>
+
+                  {/* Fees Section */}
+                  <div>
+                    <Label>Transaction Fees</Label>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+                      <div>
+                        <Label htmlFor="fee-deposit">Deposit Fee</Label>
+                        <Input
+                          id="fee-deposit"
+                          type="number"
+                          value={newPaymentMethod.fees?.deposit || 0}
+                          onChange={(e) => setNewPaymentMethod({
+                            ...newPaymentMethod, 
+                            fees: {...newPaymentMethod.fees, deposit: parseInt(e.target.value)}
+                          })}
+                          placeholder="0"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="fee-withdrawal">Withdrawal Fee</Label>
+                        <Input
+                          id="fee-withdrawal"
+                          type="number"
+                          value={newPaymentMethod.fees?.withdrawal || 0}
+                          onChange={(e) => setNewPaymentMethod({
+                            ...newPaymentMethod, 
+                            fees: {...newPaymentMethod.fees, withdrawal: parseInt(e.target.value)}
+                          })}
+                          placeholder="0"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="fee-transaction">Transaction Fee</Label>
+                        <Input
+                          id="fee-transaction"
+                          type="number"
+                          value={newPaymentMethod.fees?.transaction || 0}
+                          onChange={(e) => setNewPaymentMethod({
+                            ...newPaymentMethod, 
+                            fees: {...newPaymentMethod.fees, transaction: parseInt(e.target.value)}
+                          })}
+                          placeholder="0"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Amount Limits */}
+                  <div>
+                    <Label>Transaction Limits (RWF)</Label>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+                      <div>
+                        <Label htmlFor="min-amount">Minimum Amount</Label>
+                        <Input
+                          id="min-amount"
+                          type="number"
+                          value={newPaymentMethod.minAmount || 100}
+                          onChange={(e) => setNewPaymentMethod({...newPaymentMethod, minAmount: parseInt(e.target.value)})}
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="max-amount">Maximum Amount</Label>
+                        <Input
+                          id="max-amount"
+                          type="number"
+                          value={newPaymentMethod.maxAmount || 1000000}
+                          onChange={(e) => setNewPaymentMethod({...newPaymentMethod, maxAmount: parseInt(e.target.value)})}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Processing Time */}
+                  <div>
+                    <Label htmlFor="processing-time">Processing Time</Label>
+                    <Input
+                      id="processing-time"
+                      value={newPaymentMethod.processingTime || 'Instant'}
+                      onChange={(e) => setNewPaymentMethod({...newPaymentMethod, processingTime: e.target.value})}
+                      placeholder="e.g., Instant, 1-3 business days"
+                    />
+                  </div>
+
+                  {/* Instructions */}
+                  <div>
+                    <Label htmlFor="instructions">Payment Instructions</Label>
+                    <textarea
+                      id="instructions"
+                      value={newPaymentMethod.instructions || ''}
+                      onChange={(e) => setNewPaymentMethod({...newPaymentMethod, instructions: e.target.value})}
+                      className="w-full px-3 py-2 border rounded-lg min-h-[100px]"
+                      placeholder="Step-by-step instructions for this payment method..."
+                    />
+                  </div>
+
+                  {/* Status */}
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      id="is-active"
+                      checked={newPaymentMethod.isActive || false}
+                      onChange={(e) => setNewPaymentMethod({...newPaymentMethod, isActive: e.target.checked})}
+                      className="h-4 w-4"
+                    />
+                    <Label htmlFor="is-active">Active (available for users)</Label>
+                  </div>
+
+                  {/* Form Actions */}
+                  <div className="flex gap-2 pt-4">
+                    <Button
+                      onClick={editingPaymentMethod ? handleUpdatePaymentMethod : handleAddPaymentMethod}
+                      className="bg-red-600 hover:bg-red-700"
+                    >
+                      <CreditCard className="h-4 w-4 mr-2" />
+                      {editingPaymentMethod ? 'Update Payment Method' : 'Add Payment Method'}
+                    </Button>
+                    {editingPaymentMethod && (
+                      <Button
+                        variant="outline"
+                        onClick={() => {
+                          setEditingPaymentMethod(null)
+                          setNewPaymentMethod({
+                            name: '',
+                            type: 'mobile',
+                            provider: '',
+                            isActive: true,
+                            fees: { deposit: 0, withdrawal: 0, transaction: 0 },
+                            supportedCurrencies: ['RWF'],
+                            processingTime: 'Instant',
+                            minAmount: 100,
+                            maxAmount: 1000000
+                          })
+                        }}
+                      >
+                        Cancel
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         )}
       </div>
 
-      {/* Save Button */}
       <div className="flex justify-end">
         <Button 
           onClick={handleSave}
