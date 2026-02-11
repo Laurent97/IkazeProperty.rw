@@ -9,6 +9,7 @@ import {
   Megaphone, 
   MessageCircle, 
   CreditCard,
+  Calendar,
   Settings,
   HelpCircle,
   LogOut
@@ -66,7 +67,7 @@ export default function AdminNavigation({ className = '' }: AdminNavigationProps
     },
     {
       href: '/admin/visit-requests',
-      icon: Users,
+      icon: Calendar,
       label: 'Visit Requests',
       badge: '8'
     },
@@ -74,12 +75,6 @@ export default function AdminNavigation({ className = '' }: AdminNavigationProps
       href: '/admin/site-settings',
       icon: Settings,
       label: 'Settings'
-    },
-    {
-      href: '/admin/visit-requests',
-      icon: Users,
-      label: 'Visit Requests',
-      badge: '8'
     },
     {
       href: '/admin/help',
