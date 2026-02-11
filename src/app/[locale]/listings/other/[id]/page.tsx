@@ -22,7 +22,7 @@ type OtherListing = Database['public']['Tables']['listings']['Row'] & {
     email: string | null
     avatar_url: string | null
   }
-  other_details?: Database['public']['Tables']['other_details']['Row']
+  other_details?: any
   media: Database['public']['Tables']['listing_media']['Row'][]
 }
 

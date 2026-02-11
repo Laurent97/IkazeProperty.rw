@@ -321,7 +321,7 @@ export default function HouseListingDetailPage() {
                     </div>
                     
                     {/* Features */}
-                    {listing.house_details.features && listing.house_details.features.length > 0 && (
+                    {listing.house_details.features && Array.isArray(listing.house_details.features) && listing.house_details.features.length > 0 && (
                       <div className="mt-4">
                         <h4 className="font-medium mb-2">Features</h4>
                         <div className="flex flex-wrap gap-2">

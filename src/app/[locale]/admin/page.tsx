@@ -7,10 +7,10 @@ import { Badge } from '@/components/ui/badge'
 import { 
   Users, 
   LayoutDashboard, 
-  Listings, 
-  Ads, 
-  Inquiries, 
-  Transactions,
+  List, 
+  Megaphone, 
+  MessageCircle, 
+  CreditCard,
   Settings,
   HelpCircle,
   LogOut
@@ -58,7 +58,7 @@ export default function AdminDashboard() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center">
-                <LayoutDashboard className="h-5 w-5 mr-2" />
+                <List className="h-5 w-5 mr-2" />
                 Listings
               </CardTitle>
             </CardHeader>
@@ -97,7 +97,7 @@ export default function AdminDashboard() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center">
-                <Inquiries className="h-5 w-5 mr-2" />
+                <MessageCircle className="h-5 w-5 mr-2" />
                 Inquiries
               </CardTitle>
             </CardHeader>
@@ -110,7 +110,7 @@ export default function AdminDashboard() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center">
-                <Ads className="h-5 w-5 mr-2" />
+                <Megaphone className="h-5 w-5 mr-2" />
                 Ads
               </CardTitle>
             </CardHeader>
@@ -126,7 +126,7 @@ export default function AdminDashboard() {
           <h2 className="text-xl font-semibold text-gray-900 mb-4">Quick Actions</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <Button className="w-full" onClick={() => window.location.href = '/admin/listings'}>
-              <Listings className="h-4 w-4 mr-2" />
+              <List className="h-4 w-4 mr-2" />
               Manage Listings
             </Button>
             <Button className="w-full" onClick={() => window.location.href = '/admin/users'}>
@@ -138,15 +138,15 @@ export default function AdminDashboard() {
               Visit Requests
             </Button>
             <Button className="w-full" onClick={() => window.location.href = '/admin/ads'}>
-              <Ads className="h-4 w-4 mr-2" />
+              <Megaphone className="h-4 w-4 mr-2" />
               Manage Ads
             </Button>
             <Button className="w-full" onClick={() => window.location.href = '/admin/inquiries'}>
-              <Inquiries className="h-4 w-4 mr-2" />
+              <MessageCircle className="h-4 w-4 mr-2" />
               Manage Inquiries
             </Button>
             <Button className="w-full" onClick={() => window.location.href = '/admin/transactions'}>
-              <Transactions className="h-4 w-4 mr-2" />
+              <CreditCard className="h-4 w-4 mr-2" />
               Manage Transactions
             </Button>
             <Button className="w-full" onClick={() => window.location.href = '/admin/site-settings'}>
