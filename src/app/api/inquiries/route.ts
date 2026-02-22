@@ -146,7 +146,7 @@ export async function GET(request: NextRequest) {
       query = query.eq('seller_id', currentUser.id)
     } else {
       // Admin can see all inquiries
-      const { data: userProfile } = await supabase
+      const { data: userProfile } = await (supabase as any)
         .from('users')
         .select('role')
         .eq('id', currentUser.id)
@@ -209,7 +209,7 @@ export async function GET(request: NextRequest) {
           }
           
           // Fetch buyer data
-          const { data: buyer, error: buyerError } = await supabase
+          const { data: buyer, error: buyerError } = await (supabase as any)
             .from('users')
             .select('id, full_name, email')
             .eq('id', inquiry.buyer_id)
@@ -223,7 +223,7 @@ export async function GET(request: NextRequest) {
           }
           
           // Fetch seller data
-          const { data: seller, error: sellerError } = await supabase
+          const { data: seller, error: sellerError } = await (supabase as any)
             .from('users')
             .select('id, full_name, email')
             .eq('id', inquiry.seller_id)
@@ -285,7 +285,7 @@ export async function PUT(request: NextRequest) {
     }
 
     // Check if user is admin
-    const { data: userProfile } = await supabase
+    const { data: userProfile } = await (supabase as any)
       .from('users')
       .select('role')
       .eq('id', currentUser.id)

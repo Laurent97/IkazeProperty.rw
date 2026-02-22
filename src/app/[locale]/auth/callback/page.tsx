@@ -37,20 +37,34 @@ export default function AuthCallback() {
             .single()
 
           if (profileError && profileError.code === 'PGRST116') {
-            // Profile doesn't exist, create one
-            const { error: insertError } = await (supabase
-              .from('users') as any)
-              .insert({
-                email: data.session.user.email || '',
-                full_name: data.session.user.user_metadata?.full_name || data.session.user.user_metadata?.name || null,
-                avatar_url: data.session.user.user_metadata?.avatar_url || null,
-                role: 'user',
-                verified: true
+            // Profile doesn't exist, create one using admin API
+            try {
+              const response = await fetch('/api/auth/create-profile', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  id: data.session.user.id,
+                  email: data.session.user.email || '',
+                  full_name: data.session.user.user_metadata?.full_name || data.session.user.user_metadata?.name || null,
+                  role: 'user'
+                })
               })
 
-            if (insertError) {
-              console.error('Error creating profile:', insertError)
+              if (!response.ok) {
+                const errorData = await response.json()
+                console.error('Error creating profile via API:', errorData)
+              } else {
+                console.log('✅ Profile created successfully via API')
+              }
+            } catch (apiError) {
+              console.error('API call error:', apiError)
             }
+          } else if (profileError) {
+            console.error('Error checking profile:', profileError)
+          } else {
+            console.log('✅ User profile already exists:', profile)
           }
 
           // Redirect to dashboard or home with locale
