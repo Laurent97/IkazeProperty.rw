@@ -19,7 +19,8 @@ export default function AuthCallback() {
           console.error('Auth callback error:', error)
           setError('Authentication failed. Please try again.')
           setTimeout(() => {
-            router.push('/login')
+            const currentLocale = window.location.pathname.split('/')[1] || 'en'
+            router.push(`/${currentLocale}/login`)
           }, 3000)
           return
         }
@@ -52,17 +53,20 @@ export default function AuthCallback() {
             }
           }
 
-          // Redirect to dashboard or home
-          router.push('/dashboard')
+          // Redirect to dashboard or home with locale
+          const currentLocale = window.location.pathname.split('/')[1] || 'en'
+          router.push(`/${currentLocale}/dashboard`)
         } else {
-          // No session found, redirect to login
-          router.push('/login')
+          // No session found, redirect to login with locale
+          const currentLocale = window.location.pathname.split('/')[1] || 'en'
+          router.push(`/${currentLocale}/login`)
         }
       } catch (err) {
         console.error('Callback error:', err)
         setError('An error occurred during authentication.')
         setTimeout(() => {
-          router.push('/login')
+          const currentLocale = window.location.pathname.split('/')[1] || 'en'
+          router.push(`/${currentLocale}/login`)
         }, 3000)
       } finally {
         setLoading(false)

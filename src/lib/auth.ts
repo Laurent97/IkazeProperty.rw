@@ -156,7 +156,12 @@ export const signInWithGoogle = async () => {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: `${window.location.origin}/auth/callback`
+      redirectTo: `${process.env.NEXT_PUBLIC_APP_URL || 'https://www.ikazeproperty.rw'}/en/auth/callback`,
+      queryParams: {
+        access_type: 'offline',
+        prompt: 'consent',
+      },
+      skipBrowserRedirect: false
     }
   })
 
@@ -168,7 +173,7 @@ export const signInWithMagicLink = async (email: string) => {
   const { data, error } = await supabase.auth.signInWithOtp({
     email,
     options: {
-      emailRedirectTo: `${window.location.origin}/auth/callback`
+      emailRedirectTo: `${process.env.NEXT_PUBLIC_APP_URL || 'https://www.ikazeproperty.rw'}/en/auth/callback`
     }
   })
 
